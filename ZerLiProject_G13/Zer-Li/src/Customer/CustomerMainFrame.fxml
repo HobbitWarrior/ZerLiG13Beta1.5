@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="923.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Customer.CustomerMainWindow">
+   <children>
+      <ImageView fx:id="background" fitHeight="923.0" fitWidth="850.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/empty_background.jpg" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnLogout" layoutX="456.0" layoutY="14.0" mnemonicParsing="false" onAction="#logoutEvent" opacity="0.01" prefHeight="38.0" prefWidth="97.0" text="btnLogout" />
+      <Button fx:id="btnAccount" layoutX="565.0" layoutY="14.0" mnemonicParsing="false" onAction="#seeAccount" opacity="0.0" prefHeight="38.0" prefWidth="87.0" text="btnAccount" />
+      <Button fx:id="btnCart" layoutX="656.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnCartPressedEvenet" opacity="0.0" prefHeight="38.0" prefWidth="75.0" text="btnCart" />
+      <Button fx:id="btnHome" layoutX="747.0" layoutY="14.0" mnemonicParsing="false" opacity="0.0" prefHeight="38.0" prefWidth="82.0" text="btnHome" />
+      <Label layoutX="433.0" layoutY="182.0" text="Customise" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnCustomise" layoutX="426.0" layoutY="177.0" mnemonicParsing="false" opacity="0.0" prefHeight="38.0" prefWidth="103.0" text="btnCustomise" />
+      <Label layoutX="575.0" layoutY="181.0" text="Catalog" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnCatalog" layoutX="557.0" layoutY="176.0" mnemonicParsing="false" onAction="#showCatalog" opacity="0.0" prefHeight="38.0" prefWidth="103.0" text="btnCatalog" />
+      <Label layoutX="540.0" layoutY="183.0" text="|" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="698.0" layoutY="182.0" text="Cancel Order" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnCancelOrder" layoutX="694.0" layoutY="177.0" mnemonicParsing="false" opacity="0.0" prefHeight="38.0" prefWidth="122.0" text="btnCancelOrder" />
+      <Label layoutX="674.0" layoutY="181.0" text="|" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="223.0" layoutY="313.0" text="FEATURED PRODUCTS">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="91.0" layoutY="347.0" prefHeight="247.0" prefWidth="178.0">
+         <children>
+            <ImageView fx:id="geaturedProduct1" fitHeight="247.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/1.JPG" />
+               </image>
+            </ImageView>
+            <Button fx:id="btnAddToCart1" layoutX="8.0" layoutY="209.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" style="-fx-background-color: #9a4140;" text="Add To Cart" textFill="WHITE" />
+            <Button fx:id="btnView1" layoutX="112.0" layoutY="209.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: #ada2a2;" text="View" textFill="WHITE" />
+            <Label fx:id="labelPrice1" layoutY="1.0" text="\$34.95">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="325.0" layoutY="354.0" prefHeight="247.0" prefWidth="178.0">
+         <children>
+            <ImageView fx:id="geaturedProduct2" fitHeight="247.0" fitWidth="200.0" layoutX="8.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/2.JPG" />
+               </image>
+            </ImageView>
+            <Button fx:id="btnAddToCart2" layoutX="14.0" layoutY="208.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" style="-fx-background-color: #9a4140;" text="Add To Cart" textFill="WHITE" />
+            <Button fx:id="btnView2" layoutX="127.0" layoutY="208.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: #ada2a2;" text="View" textFill="WHITE" />
+            <Label fx:id="labelPrice2" layoutX="14.0" layoutY="1.0" text="\$40">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="83.0" layoutY="624.0" prefHeight="247.0" prefWidth="178.0">
+         <children>
+            <ImageView fx:id="geaturedProduct3" fitHeight="247.0" fitWidth="200.0" layoutX="7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/3.JPG" />
+               </image>
+            </ImageView>
+            <Button fx:id="btnAddToCart3" layoutX="7.0" layoutY="214.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" style="-fx-background-color: #9a4140;" text="Add To Cart" textFill="WHITE" />
+            <Button fx:id="btnView3" layoutX="125.0" layoutY="214.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: #ada2a2;" text="View" textFill="WHITE" />
+            <Label fx:id="labelPrice3" layoutX="14.0" layoutY="8.0" text="\$58">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="330.0" layoutY="624.0" prefHeight="247.0" prefWidth="178.0">
+         <children>
+            <ImageView fx:id="geaturedProduct4" fitHeight="247.0" fitWidth="200.0" layoutX="7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/4.JPG" />
+               </image>
+            </ImageView>
+            <Button fx:id="btnView4" layoutX="121.0" layoutY="208.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: #ada2a2;" text="View" textFill="WHITE" />
+            <Button fx:id="btnAddToCart4" layoutX="14.0" layoutY="208.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" style="-fx-background-color: #9a4140;" text="Add To Cart" textFill="WHITE" />
+            <Label fx:id="labelPrice4" layoutX="16.0" layoutY="4.0" text="\$15">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="234.0" fitWidth="268.0" layoutX="554.0" layoutY="333.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../Desktop/deals.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="27.0" fitWidth="268.0" layoutX="554.0" layoutY="308.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../Desktop/pas.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="660.0" layoutY="307.0" text="DEALS">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnDeals" layoutX="553.0" layoutY="335.0" mnemonicParsing="false" opacity="0.0" prefHeight="171.0" prefWidth="268.0" text="btnDeals" />
+   </children>
+</AnchorPane>

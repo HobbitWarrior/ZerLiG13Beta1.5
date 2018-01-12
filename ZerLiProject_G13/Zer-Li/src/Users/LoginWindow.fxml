@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="Window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="358.0" prefWidth="641.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Users.LoginContol">
+   <children>
+      <ImageView fx:id="ImageZerli" fitHeight="358.0" fitWidth="641.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/login.jpg" />
+         </image>
+      </ImageView>
+      <Label fx:id="UserNameLabel" layoutX="169.0" layoutY="188.0" text="UserName:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="Password" layoutX="170.0" layoutY="241.0" text="Password:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtUserName" layoutX="295.0" layoutY="191.0" prefHeight="30.0" prefWidth="177.0" promptText="Enter your username" />
+      <PasswordField fx:id="txtPassword" layoutX="294.0" layoutY="241.0" prefHeight="30.0" prefWidth="177.0" promptText="Enter Your Password" />
+      <Button fx:id="LoginBtn" layoutX="126.0" layoutY="292.0" mnemonicParsing="false" onAction="#ConnectToSystemEvent" prefHeight="36.0" prefWidth="167.0" text="Login" />
+      <Button fx:id="btnExit" layoutX="305.0" layoutY="292.0" mnemonicParsing="false" onAction="#Exit" prefHeight="36.0" prefWidth="167.0" text="Exit" />
+   </children>
+</AnchorPane>
