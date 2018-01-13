@@ -72,9 +72,9 @@ public class OwnReportBrowseControl  extends LoginContol
 
 	public static ObservableList<Reports> ReportList= FXCollections.observableArrayList();
 
-     
+	 @FXML 
     void BrowseBranchReport(ActionEvent event) {
-    	 int port=5555,i;
+    	 int port=5555 ;
   	   String ip="localhost";
   	   try 
   	   {
@@ -91,22 +91,20 @@ public class OwnReportBrowseControl  extends LoginContol
     	
     	
     	System.out.println("[list]");
-   
-    	
-  /*  	
+     	
      Reports rp=new Reports();
       Reports rp1=new Reports();
       
       ReportList.add(rp);
       ReportList.add(rp1);
       
-      ReportTypeCol.setCellValueFactory(new PropertyValueFactory<Reports, Integer>("ReportType"));
+  /*    ReportTypeCol.setCellValueFactory(new PropertyValueFactory<Reports, Integer>("ReportType"));
       ReportYearCol.setCellValueFactory(new PropertyValueFactory<Reports, Year>("ReportYear"));
       ReportQuarterCol.setCellValueFactory(new PropertyValueFactory<Reports, Integer>("ReportQuarter"));
       ImageCol.setCellValueFactory(new PropertyValueFactory<Reports, Image>("Image"));
       BranchIDCol.setCellValueFactory(new PropertyValueFactory<Reports, String>("BranchID"));
-   	tableV.setItems(ReportList);
-    */ 	  
+   	tableV.setItems(ReportList);*/
+   	  
     }
 
     @FXML
@@ -167,13 +165,12 @@ public class OwnReportBrowseControl  extends LoginContol
 	    	ReportList.add(Rep);
 	   	   }
     	System.out.println(ReportList);
- 
-	 /*    ReportTypeCol.setCellValueFactory(new PropertyValueFactory<Reports, Integer>("ReportType"));
+  /*    ReportTypeCol.setCellValueFactory(new PropertyValueFactory<Reports, Integer>("ReportType"));
 	      ReportYearCol.setCellValueFactory(new PropertyValueFactory<Reports, Year>("ReportYear"));
 	      ReportQuarterCol.setCellValueFactory(new PropertyValueFactory<Reports, Integer>("ReportQuarter"));
 	      ImageCol.setCellValueFactory(new PropertyValueFactory<Reports, Image>("Image"));
 	      BranchIDCol.setCellValueFactory(new PropertyValueFactory<Reports, String>("BranchID")); 
-	   	tableV.setItems(ReportList);*/
+	   	tableV.setItems(ReportList); */
 	    
 	}
 }
