@@ -8,6 +8,9 @@ import javafx.scene.control.Button;
 <<<<<<< HEAD
 =======
 import javafx.stage.Stage;
+<<<<<<< HEAD
+>>>>>>> parent of 2bccff0... just trying to commit my changes :P
+=======
 >>>>>>> parent of 2bccff0... just trying to commit my changes :P
 
 public class complaintRow {
@@ -64,6 +67,7 @@ public class complaintRow {
 
 } 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	
 	
@@ -75,5 +79,7 @@ public class complaintRow {
 	}
 }
 >>>>>>> parent of 89bba59... Customer service menu updates so far
+=======
+>>>>>>> parent of 2bccff0... just trying to commit my changes :P
 =======
 >>>>>>> parent of 2bccff0... just trying to commit my changes :P
