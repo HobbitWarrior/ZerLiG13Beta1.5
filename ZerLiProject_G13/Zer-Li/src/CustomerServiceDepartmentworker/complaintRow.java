@@ -5,6 +5,10 @@ import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+<<<<<<< HEAD
+=======
+import javafx.stage.Stage;
+>>>>>>> parent of 2bccff0... just trying to commit my changes :P
 
 public class complaintRow {
 	public Button editButton;
@@ -59,6 +63,7 @@ public class complaintRow {
 	}
 
 } 
+<<<<<<< HEAD
 =======
 	
 	
@@ -70,3 +75,5 @@ public class complaintRow {
 	}
 }
 >>>>>>> parent of 89bba59... Customer service menu updates so far
+=======
+>>>>>>> parent of 2bccff0... just trying to commit my changes :P
