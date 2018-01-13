@@ -180,6 +180,17 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    @FXML
 	    void EditItemEvent(ActionEvent event) 
 	    {
+	    	ObservableList<CatalogItemGUI> itemsInRow = CatalogTable.getSelectionModel().getSelectedItems();
+	    	if(!itemsInRow.isEmpty())
+	    	{
+	    		ItemIDTextField.setText(""+itemsInRow.get(0).getItemID());
+	    		itemNameTextField.setText(""+itemsInRow.get(0).getItemName());
+	    		descriptionTextField.setText(""+itemsInRow.get(0).getItemDescription());
+	    		typeTextField.setText(""+itemsInRow.get(0).getItemType());
+	    		priceTextField.setText(""+itemsInRow.get(0).getItemPrice());
+	    		imageTextField.setText(""+itemsInRow.get(0).getImg());
+	    		
+	    		
 	    	pressedBtn=2; //we pressed on add item
 	    	loadPressed=0;
 	    	CatalogTable.setVisible(false);
@@ -195,8 +206,16 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    	
 	    	
 	    	
-	    	
-	   // 	showImage(event);                          //computer "press" automatic on load image. show image to costumer
+	    	showImage(event);                          //computer "press" automatic on load image. show image to costumer
+	    	}
+	    	else
+	    	{
+	    		Alert incorrectImageAlert = new Alert(AlertType.WARNING);
+	    		incorrectImageAlert.setTitle("No selected Items");
+	    		incorrectImageAlert.setHeaderText("You didn't select row in the table");
+	    		incorrectImageAlert.setContentText("Please select row in the table");
+	    		incorrectImageAlert.showAndWait();
+	    	}
 	    	
 	    	
 	    	
@@ -213,10 +232,17 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    		itemID= itemsInRow.get(0).getItemID();
 	    		System.out.println("we choose: "+itemID); //for me to check ******** can delete this
 	    		askToDeleteItem(itemID);
+	    		
+	    		CatalogTable.getItems().removeAll(itemsInRow);
 	    	}
-	   
-	    	
-	    	CatalogTable.getItems().removeAll(itemsInRow);
+	    	else
+	    	{
+	    		Alert incorrectImageAlert = new Alert(AlertType.WARNING);
+	    		incorrectImageAlert.setTitle("No selected Items");
+	    		incorrectImageAlert.setHeaderText("You didn't select row in the table");
+	    		incorrectImageAlert.setContentText("Please select row in the table");
+	    		incorrectImageAlert.showAndWait();
+	    	}
 	    }
 	    
 	    
