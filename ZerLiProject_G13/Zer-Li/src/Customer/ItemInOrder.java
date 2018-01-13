@@ -1,11 +1,12 @@
 package Customer;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.Comparator;
 
 import javafx.collections.ObservableList;
 
-public class ItemInOrder implements Comparable 
+public class ItemInOrder implements Comparable,Serializable
 {
 	private Integer orderID= null;
 	private int itemID;

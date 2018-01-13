@@ -6,7 +6,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
 
 import Users.LoginContol;
@@ -45,7 +46,9 @@ public class OrdersControl extends LoginContol implements Initializable
 	private static double totalPrice=0;
 	private static boolean checkboxFilled=false;
 	private static String textGreeting="";
-	private static Date supplyTimeDateAndHour;
+	private static Date  supplyTimeDate ;
+	private static Date  completedTransactionTime ;
+
 	
 	private LocalDateTime now;
 
@@ -143,8 +146,13 @@ public class OrdersControl extends LoginContol implements Initializable
     void comboBoxDatePressed(ActionEvent event) 
     {
     	//DatePicker ComboDate;
-    	System.out.println("FFFFF");
-    	Date supplyTimeDate = new Date();
+    	
+    	
+    //	System.out.println("" + supplyTimeDate.YEAR);
+
+    //	System.out.println("" + supplyTimeDate.MONTH );
+    	
+
     	
     }
     
@@ -410,7 +418,6 @@ public class OrdersControl extends LoginContol implements Initializable
     	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
         LocalDateTime now = LocalDateTime.now(); 
        
-    	System.out.println("" + now.getYear() + " " + now.getMonth() + " " + now.getDayOfMonth());
     	LocalDate minDate = LocalDate.of(now.getYear(), now.getMonth(), now.getDayOfMonth());
         LocalDate maxDate = LocalDate.of(2100, Month.DECEMBER, 31);
         ComboDate.setDayCellFactory((p) -> new DateCell() {
