@@ -381,7 +381,7 @@ public class OrdersControl extends LoginContol implements Initializable
 	
 	public void start(Stage primaryStage) throws IOException 
 	{
-		Pane root = FXMLLoader.load(getClass().getResource("/Customer/ordersCatalogCustomWindow.fxml"));
+		Pane root = FXMLLoader.load(getClass().getResource("/Customer/OrdersFrameCatalogCustom.fxml"));
 		Scene scene = new Scene(root);
 		primaryStage.setTitle("Create an order"); // name of the title of the window
 		primaryStage.setScene(scene);
