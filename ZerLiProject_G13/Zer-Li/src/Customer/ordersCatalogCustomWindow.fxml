@@ -75,10 +75,10 @@
       </Label>
       <Label fx:id="dateLabel" layoutX="154.0" layoutY="338.0" text="Date:" />
       <Label fx:id="HourLabel" layoutX="154.0" layoutY="373.0" text="Hour:" />
-      <DatePicker fx:id="ComboDate" layoutX="199.0" layoutY="334.0" onAction="#ComboDatePressed" />
-      <ComboBox fx:id="comboBoxHour" layoutX="198.0" layoutY="369.0" onAction="#comboBoxHourPressed" prefHeight="25.0" prefWidth="53.0" />
-      <ComboBox fx:id="ComboBoxMinutes" layoutX="198.0" layoutY="412.0" onAction="#ComboBoxMinutesPressed" prefWidth="150.0" />
       <Label text="Label" />
       <Label fx:id="minutesLabel" layoutX="138.0" layoutY="416.0" text="Minutes:" />
+      <DatePicker fx:id="ComboDate" layoutX="199.0" layoutY="334.0" onAction="#comboBoxDatePressed" />
+      <ComboBox fx:id="comboBoxHour" layoutX="199.0" layoutY="369.0" onAction="#comboBoxHourPressed" prefWidth="150.0" />
+      <ComboBox fx:id="ComboBoxMinutes" layoutX="199.0" layoutY="412.0" onAction="#ComboBoxMinutesPressed" prefWidth="150.0" />
    </children>
 </AnchorPane>
