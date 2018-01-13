@@ -63,12 +63,12 @@
       <Button fx:id="BackToCartBtn" layoutX="399.0" layoutY="217.0" mnemonicParsing="false" onAction="#BackToCartBtnPressed" text="&lt;- Back to you cart" />
       <Label layoutX="399.0" layoutY="193.0" text="Buying Process:" />
       <Button fx:id="goToCheckoutBtn" layoutX="536.0" layoutY="217.0" mnemonicParsing="false" onAction="#goToCheckoutBtnPressed" text="Proceed to checkout -&gt;" />
-      <Label fx:id="SupplyTimeLabel" layoutX="154.0" layoutY="274.0" prefHeight="39.0" prefWidth="237.0" text="Supply Time:">
+      <Label fx:id="SupplyTimeLabel" layoutX="122.0" layoutY="273.0" prefHeight="39.0" prefWidth="237.0" text="Supply Time:">
          <font>
             <Font name="System Bold Italic" size="27.0" />
          </font>
       </Label>
-      <Label fx:id="ShipmentLabel" layoutX="155.0" layoutY="466.0" prefHeight="39.0" prefWidth="237.0" text="Shipment:">
+      <Label fx:id="ShipmentLabel" layoutX="121.0" layoutY="463.0" prefHeight="39.0" prefWidth="237.0" text="Shipment:">
          <font>
             <Font name="System Bold Italic" size="27.0" />
          </font>
@@ -76,9 +76,13 @@
       <Label fx:id="dateLabel" layoutX="154.0" layoutY="338.0" text="Date:" />
       <Label fx:id="HourLabel" layoutX="154.0" layoutY="373.0" text="Hour:" />
       <Label text="Label" />
-      <Label fx:id="minutesLabel" layoutX="138.0" layoutY="416.0" text="Minutes:" />
       <DatePicker fx:id="ComboDate" editable="false" layoutX="199.0" layoutY="334.0" onAction="#comboBoxDatePressed" />
       <ComboBox fx:id="comboBoxHour" layoutX="199.0" layoutY="369.0" onAction="#comboBoxHourPressed" prefHeight="25.0" prefWidth="83.0" />
-      <ComboBox fx:id="ComboBoxMinutes" layoutX="199.0" layoutY="412.0" onAction="#ComboBoxMinutesPressed" prefHeight="25.0" prefWidth="83.0" />
+      <RadioButton layoutX="125.0" layoutY="523.0" mnemonicParsing="false" text="Branch" />
+      <RadioButton layoutX="125.0" layoutY="556.0" mnemonicParsing="false" text="Private adress" />
+      <ComboBox layoutX="212.0" layoutY="519.0" prefWidth="150.0" />
+      <Label layoutX="187.0" layoutY="594.0" text="Adress:" />
+      <Label layoutX="183.0" layoutY="633.0" text="Addressee:" />
+      <Label layoutX="183.0" layoutY="667.0" text="Sender Name:" />
    </children>
 </AnchorPane>

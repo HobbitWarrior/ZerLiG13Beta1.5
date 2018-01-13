@@ -134,14 +134,10 @@ public class OrdersControl extends LoginContol implements Initializable
     @FXML
     private DatePicker ComboDate;
     
-    @FXML
-    private Label minutesLabel;
     
     @FXML
     private ComboBox<String> comboBoxHour;
     
-    @FXML
-    private ComboBox<String> ComboBoxMinutes;
     
     
     
@@ -191,28 +187,14 @@ public class OrdersControl extends LoginContol implements Initializable
     @FXML
     void comboBoxHourPressed(ActionEvent event) 
     {
-    	ComboBoxMinutes.setDisable(false);
-		for (int i = 0 ; i<10;i++)
-		{
-			MinutesList.add("0"+i);
-		}
-		
-		for (int i = 10 ; i<60;i++)
-		{
-			MinutesList.add(""+i);
-		}
-		ComboBoxMinutes.setItems(MinutesList);
-    }
-    
-    @FXML
-    void ComboBoxMinutesPressed(ActionEvent event) 
-    {
     	supplyTime=null;
-    	supplyTime = new Time(comboBoxHour.getValue(), ComboBoxMinutes.getValue(), "00");
+    	supplyTime = new Time(comboBoxHour.getValue(), "00", "00");
     	System.out.println(""+supplyTimeDate);
     	System.out.println(""+supplyTime);
-
+		
     }
+    
+    
     
     @FXML
     void goToCheckoutBtnPressed(ActionEvent event) 
@@ -476,7 +458,6 @@ public class OrdersControl extends LoginContol implements Initializable
         });
         ComboDate.setDisable(false);
           comboBoxHour.setDisable(true);
-         ComboBoxMinutes.setDisable(true);
 	}
 
 	
