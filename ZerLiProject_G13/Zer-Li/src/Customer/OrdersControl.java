@@ -33,9 +33,11 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class OrdersControl extends LoginContol implements Initializable
@@ -138,7 +140,47 @@ public class OrdersControl extends LoginContol implements Initializable
     @FXML
     private ComboBox<String> comboBoxHour;
     
+    @FXML
+    private RadioButton branchRadio;
     
+    @FXML
+    private RadioButton privateAdressRadio;
+    
+    @FXML
+    private Label adiitionalCostLabel;
+    
+    @FXML
+    private Label adressShipmentLabel;
+    
+    @FXML
+    private Label adresseeShipmentLabel;
+    
+    @FXML
+    private Label phoneNumberShipmentLabel;
+    
+    @FXML
+    private TextField phoneNumberTxt;
+
+    @FXML
+    private TextField adressShipmentTxt;
+    
+    @FXML
+    private TextField adresseeShipmentTxt;
+    
+    
+    
+
+    @FXML
+    void branchRadioChosen(ActionEvent event) 
+    {
+
+    }
+
+    @FXML
+    void privateAdressRadioChosen(ActionEvent event) 
+    {
+
+    }
     
     
     @FXML
