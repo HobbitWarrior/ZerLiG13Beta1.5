@@ -85,7 +85,7 @@ public class Date implements Serializable, Comparable
 			{
 			 str= ""+this.year+ "-"+this.mounth+ "-0"+ this.day; 
 			}
-			
+			//s
 			else if(this.mounth >=10 && this.day>=10)
 			{
 			 str= ""+this.year+ "-"+this.mounth+ "-"+ this.day; 
