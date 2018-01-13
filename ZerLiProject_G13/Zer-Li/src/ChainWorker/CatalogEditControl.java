@@ -293,7 +293,7 @@ public class CatalogEditControl extends LoginContol implements Initializable
 			    			System.out.println("correct image");
 			    			
 			    			
-			    			//******* Task to do:  check price is string (using convert string to int)
+			    			//******* Task to do:  check price is double (using convert string to double) and item id is int
 			    			
 			    	    	if(pressedBtn==1) //add item
 			    	    	{
