@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+
 public class complaintRow {
 
 	public Stage mainstage;
@@ -66,5 +67,7 @@ public class complaintRow {
 				mainstage.toBack();
 		}
 	}
-
+	
+	
+	
 } 

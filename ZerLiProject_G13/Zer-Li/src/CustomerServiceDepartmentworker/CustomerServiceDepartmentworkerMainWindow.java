@@ -3,7 +3,7 @@ package CustomerServiceDepartmentworker;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.lang.*;
-
+import javafx.concurrent.Task;
 import Customer.CatalogItemGUI;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -164,6 +164,34 @@ public class CustomerServiceDepartmentworkerMainWindow implements Initializable 
 				return new XCell();
 			}
 		});
+
+
+		Task<Integer> task = new Task<Integer>() {
+		    @Override protected Integer call() throws Exception {
+		        int iterations;
+		        for (iterations = 0; iterations < 1000; iterations++) {
+		            if (isCancelled()) {
+		                updateMessage("Cancelled");
+		                break;
+		            }
+		            updateMessage("Iteration " + iterations);
+		            updateProgress(iterations, 1000);
+		 
+		            //Block the thread for a short time, but be sure
+		            //to check the InterruptedException for cancellation
+		            try {
+		                Thread.sleep(100);
+		            } catch (InterruptedException interrupted) {
+		                if (isCancelled()) {
+		                    updateMessage("Cancelled");
+		                    break;
+		                }
+		            }
+		        }
+		        return iterations;
+		    }
+		};
+		upgradedList.get(0).timerTextSetter(task.getMessage());
 
 	}
 }
