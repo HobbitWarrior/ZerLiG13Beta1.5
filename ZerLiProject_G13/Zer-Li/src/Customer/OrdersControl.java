@@ -46,7 +46,7 @@ public class OrdersControl extends LoginContol implements Initializable
 	private static double totalPrice=0;
 	private static boolean checkboxFilled=false;
 	private static String textGreeting="";
-	private static Date  supplyTimeDate ;
+	private static Date  supplyTimeDate  ;
 	private static Date  completedTransactionTime ;
 
 	
@@ -146,9 +146,9 @@ public class OrdersControl extends LoginContol implements Initializable
     void comboBoxDatePressed(ActionEvent event) 
     {
     	//DatePicker ComboDate;
+    	supplyTimeDate= new Date(ComboDate.getValue().getYear(), ComboDate.getValue().getMonthValue(), ComboDate.getValue().getDayOfMonth());
     	
-    	
-    //	System.out.println("" + supplyTimeDate.YEAR);
+    	System.out.println("" + supplyTimeDate);
 
     //	System.out.println("" + supplyTimeDate.MONTH );
     	
