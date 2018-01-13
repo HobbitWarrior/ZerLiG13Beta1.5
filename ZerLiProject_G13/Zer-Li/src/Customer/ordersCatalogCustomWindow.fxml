@@ -77,8 +77,8 @@
       <Label fx:id="HourLabel" layoutX="154.0" layoutY="373.0" text="Hour:" />
       <Label text="Label" />
       <Label fx:id="minutesLabel" layoutX="138.0" layoutY="416.0" text="Minutes:" />
-      <DatePicker fx:id="ComboDate" layoutX="199.0" layoutY="334.0" onAction="#comboBoxDatePressed" />
-      <ComboBox fx:id="comboBoxHour" layoutX="199.0" layoutY="369.0" onAction="#comboBoxHourPressed" prefWidth="150.0" />
-      <ComboBox fx:id="ComboBoxMinutes" layoutX="199.0" layoutY="412.0" onAction="#ComboBoxMinutesPressed" prefWidth="150.0" />
+      <DatePicker fx:id="ComboDate" editable="false" layoutX="199.0" layoutY="334.0" onAction="#comboBoxDatePressed" />
+      <ComboBox fx:id="comboBoxHour" layoutX="199.0" layoutY="369.0" onAction="#comboBoxHourPressed" prefHeight="25.0" prefWidth="83.0" />
+      <ComboBox fx:id="ComboBoxMinutes" layoutX="199.0" layoutY="412.0" onAction="#ComboBoxMinutesPressed" prefHeight="25.0" prefWidth="83.0" />
    </children>
 </AnchorPane>

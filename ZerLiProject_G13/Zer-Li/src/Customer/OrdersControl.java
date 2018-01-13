@@ -47,9 +47,12 @@ public class OrdersControl extends LoginContol implements Initializable
 	private static boolean checkboxFilled=false;
 	private static String textGreeting="";
 	private static Date  supplyTimeDate  ;
-	private static Date  completedTransactionTime ;
+	private static Date  completedTransactionDate ;
+	private static Time supplyTime;
+	private static Time completedTransactionDateTime;
 
-	
+	private ObservableList<String> hourList = FXCollections.observableArrayList();
+	private ObservableList<String> MinutesList = FXCollections.observableArrayList();
 	private LocalDateTime now;
 
 	@FXML
@@ -135,25 +138,52 @@ public class OrdersControl extends LoginContol implements Initializable
     private Label minutesLabel;
     
     @FXML
-    private ComboBox<Date> comboBoxHour;
+    private ComboBox<String> comboBoxHour;
     
     @FXML
-    private ComboBox<Date> ComboBoxMinutes;
+    private ComboBox<String> ComboBoxMinutes;
     
     
     
     @FXML
     void comboBoxDatePressed(ActionEvent event) 
     {
-    	//DatePicker ComboDate;
+    	supplyTimeDate=null;
+    	supplyTime=null;
+    	hourList.clear();
+    	 MinutesList.clear();
     	supplyTimeDate= new Date(ComboDate.getValue().getYear(), ComboDate.getValue().getMonthValue(), ComboDate.getValue().getDayOfMonth());
-    	
-    	System.out.println("" + supplyTimeDate);
+    	comboBoxHour.setDisable(false);
+    	comboBoxHour.setDisable(false);
+    	LocalDateTime now = LocalDateTime.now(); 
 
-    //	System.out.println("" + supplyTimeDate.MONTH );
-    	
+    	if(supplyTimeDate.getYear()==now.getYear() && supplyTimeDate.getMounth() == now.getMonthValue() && supplyTimeDate.getDay() == now.getDayOfMonth())	//in case customer chose curretn day
+    	{
+    		int hourTime= now.getHour();	
+    		for (int i = hourTime+1 ; i<24;i++)	//it will show him the next hour up to 23 Oclock
+    		{
+    			if(i<10)
+    				hourList.add("0"+i);
+    			else
+    				hourList.add(""+i);
 
+    		}
+    	}
     	
+    	else	//if user chose the future, it will show him all hour per day
+    	{
+    		for (int i = 0 ; i<10;i++)
+    		{
+    			hourList.add("0"+i);
+    		}
+    		
+    		for (int i = 10 ; i<24;i++)
+    		{
+    			hourList.add(""+i);
+    		}
+    	}
+    	comboBoxHour.setItems(hourList); 
+
     }
     
     
@@ -161,12 +191,26 @@ public class OrdersControl extends LoginContol implements Initializable
     @FXML
     void comboBoxHourPressed(ActionEvent event) 
     {
-
+    	ComboBoxMinutes.setDisable(false);
+		for (int i = 0 ; i<10;i++)
+		{
+			MinutesList.add("0"+i);
+		}
+		
+		for (int i = 10 ; i<60;i++)
+		{
+			MinutesList.add(""+i);
+		}
+		ComboBoxMinutes.setItems(MinutesList);
     }
     
     @FXML
     void ComboBoxMinutesPressed(ActionEvent event) 
     {
+    	supplyTime=null;
+    	supplyTime = new Time(comboBoxHour.getValue(), ComboBoxMinutes.getValue(), "00");
+    	System.out.println(""+supplyTimeDate);
+    	System.out.println(""+supplyTime);
 
     }
     
