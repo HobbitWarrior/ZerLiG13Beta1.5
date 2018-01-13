@@ -52,7 +52,7 @@ public class complaintRow {
 			timerText.set(str);
 		}
 	}
-
+ 
 	// event handler for the button
 	public void buttonEventHandler() {
 		// open a new edit complaint, opens the "ManageComplaintFrame"
