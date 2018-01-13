@@ -514,7 +514,8 @@ public class EchoServer extends AbstractServer implements Initializable {
 	
 	public synchronized void editItemInDB(CatalogItem givenItem)
 	{
-		
+		deleteItemInDB(givenItem.getItemID());
+		addItemInDB(givenItem);		
 	}
 	
 	
