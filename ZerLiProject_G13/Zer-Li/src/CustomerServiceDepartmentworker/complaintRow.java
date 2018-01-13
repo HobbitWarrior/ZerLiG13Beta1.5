@@ -10,7 +10,6 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 >>>>>>> parent of 2bccff0... just trying to commit my changes :P
 
-
 public class complaintRow {
 	public Button editButton;
 
@@ -62,9 +61,7 @@ public class complaintRow {
 				mainstage.toBack();
 		}
 	}
-	
-	
-	
+
 } 
 <<<<<<< HEAD
 =======
