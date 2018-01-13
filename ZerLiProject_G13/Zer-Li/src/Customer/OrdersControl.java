@@ -58,21 +58,21 @@ public class OrdersControl extends LoginContol implements Initializable
 	private LocalDateTime now;
 
 	@FXML
-    private TableView<ItemInOrder> ItemInOrderTable;
+    private TableView<ItemInOrder> ItemInOrderTable;		//screen1
 	
     @FXML
-    private TableColumn<ItemInOrder, Integer> itemInOrderIDcolmun;
+    private TableColumn<ItemInOrder, Integer> itemInOrderIDcolmun;  //screen1
     
     @FXML
-    private TableColumn<ItemInOrder, String> itemInOrderNameColmuns;
+    private TableColumn<ItemInOrder, String> itemInOrderNameColmuns;	//screen1
     
     @FXML
-    private TableColumn<ItemInOrder, Integer> itemInOrderQtyColmun;
+    private TableColumn<ItemInOrder, Integer> itemInOrderQtyColmun;		//screen1
     
     @FXML
-    private TableColumn<ItemInOrder, String> itemInOrderPriceColumns;
+    private TableColumn<ItemInOrder, String> itemInOrderPriceColumns;	//screen1
     @FXML
-    private  TextArea txtGreeting;
+    private  TextArea txtGreeting;	//screen1
 
     @FXML
     private Button logoutBtn;
@@ -84,96 +84,112 @@ public class OrdersControl extends LoginContol implements Initializable
     private Button btnCatalog;
 
     @FXML
-    private CheckBox AddGreetingChkBox;
+    private CheckBox AddGreetingChkBox; 	//screen1
    
     @FXML
-    private Button goToDelivery;
+    private Button goToDelivery;	//screen1
 
 
     @FXML
     private Button btnHome;
 
     @FXML
-    private Label totalPriceLabel;
+    private Label totalPriceLabel;	//screen1
     
     @FXML
-    private Label totalProductsAmountLabel;
+    private Label totalProductsAmountLabel; //screen1
     
     @FXML
-    private Label yourinvoiceLabel;
+    private Label yourinvoiceLabel; //screen1
     
     @FXML
-    private Label YourcartLabel;
+    private Label YourcartLabel; //screen1
     
     @FXML
-    private Label DeliverLabel;
+    private Label DeliverLabel; 
 
     @FXML
     private Label CheckoutLabel;
     
     @FXML
-    private Label messageAfterGreeting;
+    private Label messageAfterGreeting; //screen1
 
     @FXML
-    private Button BackToCartBtn;
+    private Button BackToCartBtn; //screen2
     
     @FXML
-    private Button goToCheckoutBtn;
+    private Button goToCheckoutBtn; //screen2
     
 
     @FXML
-    private Label dateLabel;
+    private Label dateLabel; //screen2
     
     @FXML
-    private Label SupplyTimeLabel;
+    private Label SupplyTimeLabel; //screen2
     
     @FXML
-    private Label ShipmentLabel;
+    private Label ShipmentLabel; //screen2
     
     @FXML
-    private Label HourLabel;
+    private Label HourLabel; //screen2
 
     @FXML
-    private DatePicker ComboDate;
+    private DatePicker ComboDate;  //screen2
     
     
     @FXML
-    private ComboBox<String> comboBoxHour;
+    private ComboBox<String> comboBoxHour;  //screen2
     
     @FXML
-    private RadioButton branchRadio;
+    private RadioButton branchRadio;  //screen2
     
     @FXML
-    private RadioButton privateAdressRadio;
+    private RadioButton privateAdressRadio;  //screen2
     
     @FXML
-    private Label adiitionalCostLabel;
+    private Label aditionalCostLabel;	//screen2
     
     @FXML
-    private Label adressShipmentLabel;
+    private Label adressShipmentLabel;	//screen2
     
     @FXML
-    private Label adresseeShipmentLabel;
+    private Label adresseeShipmentLabel;	//screen2
     
     @FXML
-    private Label phoneNumberShipmentLabel;
+    private Label phoneNumberShipmentLabel;	//screen2
     
     @FXML
-    private TextField phoneNumberTxt;
+    private TextField phoneNumberTxt;	//screen2
 
     @FXML
-    private TextField adressShipmentTxt;
+    private TextField adressShipmentTxt;	//screen2
     
     @FXML
-    private TextField adresseeShipmentTxt;
+    private TextField adresseeShipmentTxt;	//screen2
     
+    @FXML
+    private ComboBox<String> KidometPhone;	//screen2
     
+    @FXML
+    private ComboBox<String> comboBranch;	//screen2
+    
+    @FXML
+    private Label makafKidometNumPhone; 	//screen2
     
 
+    
+    @FXML
+    void KidometChosen(ActionEvent event) 
+    {
+
+    }
+    
     @FXML
     void branchRadioChosen(ActionEvent event) 
     {
-
+    	//branchRadio 
+        
+       // privateAdressRadio;
     }
 
     @FXML
@@ -247,7 +263,7 @@ public class OrdersControl extends LoginContol implements Initializable
     @FXML
     void BackToCartBtnPressed(ActionEvent event) 
     {
-    	yourinvoiceLabel.setVisible(true);
+    	/*yourinvoiceLabel.setVisible(true);
     	ItemInOrderTable.setVisible(true);
     	totalProductsAmountLabel.setVisible(true);
     	totalPriceLabel.setVisible(true);
@@ -257,23 +273,15 @@ public class OrdersControl extends LoginContol implements Initializable
     	DeliverLabel.setTextFill(Color.WHITE);
     	BackToCartBtn.setVisible(false);
     	goToDelivery.setVisible(true);
-
+		*/
+    	ShowScreenONE();
     }
     
     @FXML
     void goToDeliveryPressed(ActionEvent event) 
     {
-    	yourinvoiceLabel.setVisible(false);
-    	ItemInOrderTable.setVisible(false);
-    	totalProductsAmountLabel.setVisible(false);
-    	totalPriceLabel.setVisible(false);
-    	AddGreetingChkBox.setVisible(false);
-    	txtGreeting.setVisible(false);
-    	YourcartLabel.setTextFill(Color.WHITE);
-    	DeliverLabel.setTextFill(Color.web("#34fffc"));
-    	BackToCartBtn.setVisible(true);
-    	goToDelivery.setVisible(false);
-    	messageAfterGreeting.setVisible(false);
+    	ShowScreenTWO();
+    	
     }
     
     
@@ -441,6 +449,7 @@ public class OrdersControl extends LoginContol implements Initializable
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
+		ShowScreenONE();
 		itemInOrderIDcolmun.setCellValueFactory(new PropertyValueFactory<ItemInOrder, Integer>("itemID"));
 		itemInOrderNameColmuns.setCellValueFactory(new PropertyValueFactory<ItemInOrder, String>("itemName"));
 		itemInOrderQtyColmun.setCellValueFactory(new PropertyValueFactory<ItemInOrder, Integer>("itemQty"));
@@ -522,5 +531,79 @@ public class OrdersControl extends LoginContol implements Initializable
 	public static void setTotalPrice(double totalPrice) 
 	{
 		OrdersControl.totalPrice = totalPrice;
+	}
+	
+	private void ShowScreenONE()
+	{
+		goToDelivery.setVisible(true);
+		BackToCartBtn.setVisible(false);
+		yourinvoiceLabel.setVisible(true);
+    	ItemInOrderTable.setVisible(true);
+    	totalProductsAmountLabel.setVisible(true);
+    	totalPriceLabel.setVisible(true);
+    	AddGreetingChkBox.setVisible(true);
+    	txtGreeting.setVisible(true);
+    	YourcartLabel.setTextFill(Color.web("#34fffc"));
+       	DeliverLabel.setTextFill(Color.WHITE);
+    	BackToCartBtn.setVisible(false);
+    	goToDelivery.setVisible(true);
+    	messageAfterGreeting.setVisible(false);
+    	SupplyTimeLabel.setVisible(false);	//from here it is the second part of window = delivery
+    	dateLabel.setVisible(false);
+    	ComboDate.setVisible(false);
+    	HourLabel.setVisible(false);
+    	comboBoxHour.setVisible(false);
+    	ShipmentLabel.setVisible(false);
+    	branchRadio.setVisible(false);
+    	comboBranch.setVisible(false);
+    	privateAdressRadio.setVisible(false);
+    	aditionalCostLabel.setVisible(false);
+    	adressShipmentLabel.setVisible(false);
+    	adressShipmentTxt.setVisible(false);
+    	adresseeShipmentLabel.setVisible(false);
+    	adresseeShipmentTxt.setVisible(false);
+    	phoneNumberShipmentLabel.setVisible(false);
+    	KidometPhone.setVisible(false);
+    	phoneNumberTxt.setVisible(false);
+    	phoneNumberTxt.setDisable(true);
+    	goToCheckoutBtn.setVisible(false);
+    	//end of screen 2 = delivery
+	}
+	
+	private void ShowScreenTWO()
+	{
+		goToDelivery.setVisible(false);
+		goToCheckoutBtn.setVisible(true);
+		yourinvoiceLabel.setVisible(false);
+    	ItemInOrderTable.setVisible(false);
+    	totalProductsAmountLabel.setVisible(false);
+    	totalPriceLabel.setVisible(false);
+    	AddGreetingChkBox.setVisible(false);
+    	txtGreeting.setVisible(false);
+    	YourcartLabel.setTextFill(Color.WHITE);
+    	DeliverLabel.setTextFill(Color.web("#34fffc"));
+    	BackToCartBtn.setVisible(true);
+    	goToDelivery.setVisible(false);
+    	messageAfterGreeting.setVisible(false);
+    	SupplyTimeLabel.setVisible(true);	//from here it is the second part of window = delivery
+    	dateLabel.setVisible(true);
+    	ComboDate.setVisible(true);
+    	HourLabel.setVisible(true);
+    	comboBoxHour.setVisible(true);
+    	ShipmentLabel.setVisible(true);
+    	branchRadio.setVisible(true);
+    	comboBranch.setVisible(true);
+    	privateAdressRadio.setVisible(true);
+    	aditionalCostLabel.setVisible(true);
+    	adressShipmentLabel.setVisible(true);
+    	adressShipmentTxt.setVisible(true);
+    	adresseeShipmentLabel.setVisible(true);
+    	adresseeShipmentTxt.setVisible(true);
+    	phoneNumberShipmentLabel.setVisible(true);
+    	KidometPhone.setVisible(true);
+    	phoneNumberTxt.setVisible(true);
+    	phoneNumberTxt.setDisable(true);
+    	//end of screen 2 = delivery
+    	
 	}
 }
