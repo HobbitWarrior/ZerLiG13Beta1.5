@@ -105,6 +105,7 @@ public class OwnReportBrowseControl  extends LoginContol
       BranchIDCol.setCellValueFactory(new PropertyValueFactory<Reports, String>("BranchID"));
    	tableV.setItems(ReportList);*/
    	  
+      
     }
 
     @FXML
