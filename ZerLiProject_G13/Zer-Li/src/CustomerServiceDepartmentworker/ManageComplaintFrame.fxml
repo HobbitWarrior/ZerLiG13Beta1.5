@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
+<<<<<<< HEAD
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CustomerServiceDepartmentworker.ManageComplaintController">
    <children>
       <AnchorPane layoutX="-136.0" layoutY="-179.0" prefHeight="548.0" prefWidth="570.0">
@@ -55,4 +52,9 @@
          </children>
       </AnchorPane>
    </children>
+=======
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
+	<!-- TODO Add Nodes -->
+>>>>>>> parent of 89bba59... Customer service menu updates so far
 </AnchorPane>
+

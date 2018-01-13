@@ -4,33 +4,23 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
 
 public class complaintRow {
+	public Button editButton;
 
-	public Stage mainstage;
 	private StringProperty labelText;
 	private StringProperty timerText;
 
 	public complaintRow() {
-		// default Values
+		// defualt Values
 		labelText = new SimpleStringProperty("Guess what? this is a complaint");
 		timerText = new SimpleStringProperty("00:20");
 	}
 
-	public complaintRow(String complaintText, Stage stg) {
-		this(stg);
-		complaintLabelSetter(complaintText);
-	}
-
-	public complaintRow(Stage stg) {
+	public complaintRow(String complaintText) {
 		this();
-		mainstage = stg;
-
+		complaintLabelSetter(complaintText);
 	}
 
 	// List row elements binding
@@ -52,6 +42,7 @@ public class complaintRow {
 			timerText.set(str);
 		}
 	}
+<<<<<<< HEAD
  
 	// event handler for the button
 	public void buttonEventHandler() {
@@ -68,3 +59,14 @@ public class complaintRow {
 	}
 
 } 
+=======
+	
+	
+	
+	//event handler for the button
+	public void buttonEvent()
+	{
+		System.out.print("\ni was just called from the complaintRow class, pretty cool huh?\n"); 
+	}
+}
+>>>>>>> parent of 89bba59... Customer service menu updates so far
