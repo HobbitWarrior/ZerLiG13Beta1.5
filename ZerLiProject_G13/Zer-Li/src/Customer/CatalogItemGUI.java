@@ -22,24 +22,13 @@ import javafx.scene.image.ImageView;
 
 public class CatalogItemGUI extends CatalogItem
 {
-	//extended  vvvvvvvvvvvvvvv
-	/*
-	private int itemID;
-	private String itemName;
-	private String itemType;
-	private String itemDescription;
-	private MyFile itemPhoto;
-	private double itemPrice;
-	*/
-	//extended  ^^^^^^^^^^^^^^^
 	private Button plusBtn;
 	private Button minusBtn;
 	private ImageView  img;
 	private CatalogOrderControl CatalogWindow;
 	private CatalogEditControl CatalogEditWindow;
 	private String ItemPriceWithCoin;
-	private Button editBtn;
-	private Button deleteBtn;
+
 	
 	
 	public CatalogItemGUI(int itemID, String itemName, String itemType, String itemDescription, MyFile itemPhoto, double Price, CatalogOrderControl window) 
@@ -61,11 +50,7 @@ public class CatalogItemGUI extends CatalogItem
 			img.setFitHeight(150);
 			img.setFitWidth(120);
 		}
-		
-		editBtn=new Button("Edit");
-		editBtn.setOnAction(e->EditButtonClicked());
-		deleteBtn=new Button("Delete");
-		deleteBtn.setOnAction(e->DeleteButtonClicked());
+
 		plusBtn = new Button( " + ");
 		minusBtn = new Button( " - ");
 		this.ItemPriceWithCoin = ""+this.getItemPrice()+"$";
@@ -90,10 +75,7 @@ public class CatalogItemGUI extends CatalogItem
 			img.setFitWidth(120);
 		}
 		
-		editBtn=new Button("Edit");
-		editBtn.setOnAction(e->EditButtonClicked());
-		deleteBtn=new Button("Delete");
-		editBtn.setOnAction(e->DeleteButtonClicked());
+
 		plusBtn = new Button( " + ");
 		minusBtn = new Button( " - ");
 		this.ItemPriceWithCoin = ""+this.getItemPrice()+"$";
@@ -103,19 +85,6 @@ public class CatalogItemGUI extends CatalogItem
 	}
 
 
-	private void EditButtonClicked() 
-	{
-		System.out.println("entered event !!!!!!!!!!");
-//		CatalogEditControl editControl = new CatalogEditControl();
-//		editControl.edit(this.getItemName(),this.getItemDescription(),this.getItemType(),this.getItemPrice(),this.getImg());
-		CatalogEditWindow.edit(this.getItemName(),this.getItemDescription(),this.getItemType(),this.getItemPrice(),this.getImg());
-	}
-	
-
-	private void DeleteButtonClicked() 
-	{
-		
-	}
 	
 	private void AddButtonClicked() 
 	{
@@ -208,33 +177,6 @@ public class CatalogItemGUI extends CatalogItem
 	public String getItemPriceWithCoin() 
 	{
 		return ItemPriceWithCoin;
-	}
-	
-	
-
-	
-	//*************************************i added
-	public void setEditBtn(Button editBtn)
-	{
-		this.editBtn = editBtn;
-	}
-
-
-	public Button getEditBtn() 
-	{
-		return editBtn;
-	}
-	
-	
-	public void setDeleteBtn(Button deleteBtn)
-	{
-		this.deleteBtn = deleteBtn;
-	}
-
-
-	public Button getDeleteBtn() 
-	{
-		return deleteBtn;
 	}
 	
 	

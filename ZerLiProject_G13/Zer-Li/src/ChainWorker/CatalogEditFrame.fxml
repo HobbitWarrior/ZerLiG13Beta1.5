@@ -35,21 +35,6 @@
             <Font name="System Bold Italic" size="20.0" />
          </font>
       </Label>
-      <TableView fx:id="CatalogTable" layoutX="7.0" layoutY="344.0" prefHeight="496.0" prefWidth="837.0">
-         <columns>
-            <TableColumn fx:id="CatalogImageColumn" prefWidth="155.0" resizable="false" text="Image" />
-            <TableColumn fx:id="CatalogItemNameColumn" prefWidth="153.0" text="Name" />
-            <TableColumn fx:id="CatalogItemDescriptionColumn" prefWidth="238.0" text="Description" />
-            <TableColumn fx:id="CatalogItemTypeColumn" prefWidth="128.0" resizable="false" text="Type" />
-            <TableColumn fx:id="CatalogPriceColumn" minWidth="0.0" prefWidth="57.0" resizable="false" text="Price" />
-            <TableColumn prefWidth="99.0" resizable="false" text="Action On Item">
-               <columns>
-                  <TableColumn fx:id="EditColumn" prefWidth="44.0" resizable="false" text="Edit" />
-                  <TableColumn fx:id="DeleteColumn" prefWidth="60.0" text="Delete" />
-               </columns>
-            </TableColumn>
-         </columns>
-      </TableView>
       <AnchorPane fx:id="anchorPaneAddItem" layoutX="42.0" layoutY="343.0" prefHeight="530.0" prefWidth="770.0" visible="false">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b2b2b2" height="538.0" stroke="TRANSPARENT" strokeType="INSIDE" width="770.0">
@@ -116,5 +101,15 @@
             <Font name="System Bold Italic" size="14.0" />
          </font>
       </Button>
+      <TableView fx:id="CatalogTable" layoutX="7.0" layoutY="330.0" prefHeight="496.0" prefWidth="837.0">
+         <columns>
+            <TableColumn fx:id="CatalogImageColumn" prefWidth="155.0" resizable="false" text="Image" />
+            <TableColumn fx:id="CatalogItemIDColumn" prefWidth="99.0" resizable="false" text="Item ID" />
+            <TableColumn fx:id="CatalogItemNameColumn" prefWidth="153.0" text="Name" />
+            <TableColumn fx:id="CatalogItemDescriptionColumn" prefWidth="238.0" text="Description" />
+            <TableColumn fx:id="CatalogItemTypeColumn" prefWidth="128.0" resizable="false" text="Type" />
+            <TableColumn fx:id="CatalogPriceColumn" minWidth="0.0" prefWidth="57.0" resizable="false" text="Price" />
+         </columns>
+      </TableView>
    </children>
 </AnchorPane>

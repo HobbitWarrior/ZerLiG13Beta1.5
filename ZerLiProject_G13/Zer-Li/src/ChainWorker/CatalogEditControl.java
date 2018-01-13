@@ -62,6 +62,8 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	   @FXML
 	    private Button btnEditCatalog;
 	    @FXML
+	    private TableView<CatalogItemGUI> CatalogTable;
+	    @FXML
 	    private TableColumn<CatalogItemGUI, String> CatalogItemDescriptionColumn;
 	    @FXML
 	    private TableColumn<CatalogItemGUI, String> CatalogItemTypeColumn;
@@ -70,13 +72,16 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    @FXML
 	    private TableColumn<CatalogItemGUI, String> CatalogPriceColumn;
 	    @FXML
-	    private TableView<CatalogItemGUI> CatalogTable;
-	    @FXML
 	    private TableColumn<CatalogItemGUI, String> CatalogItemNameColumn;
+	    @FXML
+	    private TableColumn<CatalogItemGUI, Integer> CatalogItemIDColumn;
+	    
+	    /*
 	    @FXML
 	    private TableColumn<CatalogItemGUI, Button> EditColumn;
 	    @FXML
 	    private TableColumn<CatalogItemGUI, Button> DeleteColumn;
+	    */
 
 
 	    //change contact - add new item
@@ -340,7 +345,7 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    }
 
 	    
-	    
+	/*    
 		public void edit(String itemName, String itemDescription, String itemType, double itemPrice, ImageView img) 
 		{
 			loadPressed=0;
@@ -353,25 +358,8 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    //	anchorPaneAddItem.
 			
 			
-			
-			
-			/*
-	    	
-	    	anchorPaneAddItem.setOpacity(0);
-	    	titleLabel.setText("EDIT CATALOG");
-	    	CatalogTable.setOpacity(1);
-	    	btnAddItem.setOpacity(1);
-	    	
-	    	itemNameTextField.clear();
-	    	descriptionTextField.clear();
-	    	typeTextField.clear();
-	    	priceTextField.clear();
-	    	imageTextField.clear();
-	    	newImage.setImage(null);
-	    	*/
-			
 		}
-	    
+	  */  
 	    
 	    
 
@@ -379,12 +367,17 @@ public class CatalogEditControl extends LoginContol implements Initializable
 		public void initialize(URL location, ResourceBundle resources) 
 		{
 			CatalogItemNameColumn.setCellValueFactory(new PropertyValueFactory<CatalogItemGUI, String>("itemName"));
+			CatalogItemIDColumn.setCellValueFactory(new PropertyValueFactory<CatalogItemGUI, Integer>("itemID"));
 			CatalogItemDescriptionColumn.setCellValueFactory(new PropertyValueFactory<CatalogItemGUI, String>("itemDescription"));
 			CatalogItemTypeColumn.setCellValueFactory(new PropertyValueFactory<CatalogItemGUI, String>("itemType"));
-			 CatalogImageColumn.setCellValueFactory(new PropertyValueFactory<CatalogItemGUI,  ImageView>("img"));
+			CatalogImageColumn.setCellValueFactory(new PropertyValueFactory<CatalogItemGUI,  ImageView>("img"));
 			CatalogPriceColumn.setCellValueFactory(new PropertyValueFactory<CatalogItemGUI, String>("ItemPriceWithCoin"));
+			
+			
+			/*
 			EditColumn.setCellValueFactory(new PropertyValueFactory<CatalogItemGUI, Button>("editBtn"));
 			DeleteColumn.setCellValueFactory(new PropertyValueFactory<CatalogItemGUI, Button>("deleteBtn"));
+			*/
 
 			CatalogTable.setItems(catalogList);
 			
