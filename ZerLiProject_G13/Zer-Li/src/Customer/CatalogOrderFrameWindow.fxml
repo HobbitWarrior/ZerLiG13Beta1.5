@@ -67,7 +67,7 @@
       <Button fx:id="CustomiseBtn" layoutX="428.0" layoutY="174.0" mnemonicParsing="false" onAction="#CustomiseBtnPressed" opacity="0.0" prefHeight="38.0" prefWidth="97.0" text="Customise" />
       <Button fx:id="CancelOrderBtn" layoutX="688.0" layoutY="174.0" mnemonicParsing="false" onAction="#CancelOrderBtnPressed" opacity="0.0" prefHeight="38.0" prefWidth="129.0" text="Cancel Order" />
       <ImageView fx:id="imgController" fitHeight="103.0" fitWidth="117.0" layoutX="195.0" layoutY="474.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="addToCartLabel" layoutX="147.0" layoutY="319.0" text="Label" visible="false" />
+      <Label fx:id="addToCartLabel" layoutX="147.0" layoutY="319.0" prefHeight="17.0" prefWidth="231.0" text="Number of Items: 0, Total price: 0.0 $" />
       <Button fx:id="orderDetials" layoutX="20.0" layoutY="315.0" mnemonicParsing="false" onAction="#orderDetailsBtnPressed" text="Your Order Details:" />
    </children>
 </AnchorPane>

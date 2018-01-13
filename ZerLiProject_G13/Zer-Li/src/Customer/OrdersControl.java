@@ -2,6 +2,11 @@ package Customer;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import Users.LoginContol;
@@ -24,6 +29,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -39,7 +45,9 @@ public class OrdersControl extends LoginContol implements Initializable
 	private static double totalPrice=0;
 	private static boolean checkboxFilled=false;
 	private static String textGreeting="";
-
+	private static Date supplyTimeDateAndHour;
+	
+	private LocalDateTime now;
 
 	@FXML
     private TableView<ItemInOrder> ItemInOrderTable;
@@ -124,17 +132,20 @@ public class OrdersControl extends LoginContol implements Initializable
     private Label minutesLabel;
     
     @FXML
-    private ComboBox<?> comboBoxHour;
+    private ComboBox<Date> comboBoxHour;
     
     @FXML
-    private ComboBox<?> ComboBoxMinutes;
+    private ComboBox<Date> ComboBoxMinutes;
     
     
     
     @FXML
     void comboBoxDatePressed(ActionEvent event) 
     {
-
+    	//DatePicker ComboDate;
+    	System.out.println("FFFFF");
+    	Date supplyTimeDate = new Date();
+    	
     }
     
     
@@ -394,8 +405,27 @@ public class OrdersControl extends LoginContol implements Initializable
 	    		txtGreeting.setDisable(true);
 	    	}
 	    }
+	    
     	BackToCartBtn.setVisible(false);
-
+    	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+        LocalDateTime now = LocalDateTime.now(); 
+       
+    	System.out.println("" + now.getYear() + " " + now.getMonth() + " " + now.getDayOfMonth());
+    	LocalDate minDate = LocalDate.of(now.getYear(), now.getMonth(), now.getDayOfMonth());
+        LocalDate maxDate = LocalDate.of(2100, Month.DECEMBER, 31);
+        ComboDate.setDayCellFactory((p) -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate ld, boolean bln) {
+                super.updateItem(ld, bln);
+                setDisable(ld.isBefore(minDate) || ld.isAfter(maxDate));
+            }
+        });
+        Platform.runLater(() -> {
+        	ComboDate.getEditor().clear();
+        });
+        ComboDate.setDisable(false);
+          comboBoxHour.setDisable(true);
+         ComboBoxMinutes.setDisable(true);
 	}
 
 	

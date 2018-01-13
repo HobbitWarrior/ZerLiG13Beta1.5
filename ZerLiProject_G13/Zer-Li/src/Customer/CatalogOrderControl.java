@@ -99,7 +99,6 @@ public class CatalogOrderControl extends LoginContol implements Initializable
     @FXML
     private ImageView imgController;
     
-    private String msgToPutOnLabel="";
     
     
   
@@ -214,7 +213,7 @@ public class CatalogOrderControl extends LoginContol implements Initializable
 		{	//(int itemID, String itemName,	String itemType , String itemDescription , MyFile itemPhoto ,double Price )
 			
 
-			
+
 			CatalogItemNameColumn.setCellValueFactory(new PropertyValueFactory<CatalogItemGUI, String>("itemName"));
 			CatalogItemDescriptionColumn.setCellValueFactory(new PropertyValueFactory<CatalogItemGUI, String>("itemDescription"));
 			CatalogItemTypeColumn.setCellValueFactory(new PropertyValueFactory<CatalogItemGUI, String>("itemType"));
@@ -225,7 +224,7 @@ public class CatalogOrderControl extends LoginContol implements Initializable
 
 			CatalogTable.setItems(catalogList);
 
-
+		
 		}
 	 
 		public void start(Stage primaryStage) throws IOException {
