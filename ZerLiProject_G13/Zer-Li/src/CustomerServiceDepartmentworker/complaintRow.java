@@ -60,7 +60,6 @@ public class complaintRow {
 		try {
 			editFrame.start(new Stage());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			System.out.print("Could not open an edit window\n");
 			e.printStackTrace();
 			if (mainstage != null)
@@ -68,4 +67,4 @@ public class complaintRow {
 		}
 	}
 
-}
+} 
