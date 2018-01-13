@@ -66,7 +66,30 @@ public class Date implements Serializable, Comparable
 	//tostring method:
 		public String toString()
 		{
-			String str= ""+this.year+ "-"+this.mounth+ "-"+ this.day; 
+			String str= "";
+			if(this.mounth <10 && this.day<10)
+			{
+			 str= ""+this.year+ "-0"+this.mounth+ "-0"+ this.day; 
+			}
+			else if(this.mounth <10 && this.day>=10)
+			{
+			 str= ""+this.year+ "-0"+this.mounth+ "-"+ this.day; 
+			}
+			
+			else if(this.mounth <10 && this.day>=10)
+			{
+			 str= ""+this.year+ "-0"+this.mounth+ "-0"+ this.day; 
+			}
+			
+			else if(this.mounth >=10 && this.day<10)
+			{
+			 str= ""+this.year+ "-"+this.mounth+ "-0"+ this.day; 
+			}
+			
+			else if(this.mounth >=10 && this.day>=10)
+			{
+			 str= ""+this.year+ "-"+this.mounth+ "-"+ this.day; 
+			}
 			return str;
 		}
 }
