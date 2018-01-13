@@ -55,7 +55,7 @@ public class complaintRow {
 
 	// event handler for the button
 	public void buttonEventHandler() {
-		// open a new edit complaint--->opens the "ManageComplaintFrame"
+		// open a new edit complaint, opens the "ManageComplaintFrame"
 		ManageComplaintController editFrame = new ManageComplaintController();
 		try {
 			editFrame.start(new Stage());

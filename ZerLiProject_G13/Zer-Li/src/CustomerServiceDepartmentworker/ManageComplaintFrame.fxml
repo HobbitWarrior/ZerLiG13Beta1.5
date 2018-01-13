@@ -49,7 +49,7 @@
                         <Insets right="15.0" />
                      </GridPane.margin></TextField>
                   <Button fx:id="save" mnemonicParsing="false" prefHeight="25.0" prefWidth="218.0" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <Label fx:id="title" prefHeight="17.0" prefWidth="322.0" text="Edit A Complaint" GridPane.columnSpan="2"/>
+                  <Label fx:id="title" prefHeight="17.0" prefWidth="322.0" text="Edit A Complaint" GridPane.columnSpan="2" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
                </children>
             </GridPane>
          </children>
