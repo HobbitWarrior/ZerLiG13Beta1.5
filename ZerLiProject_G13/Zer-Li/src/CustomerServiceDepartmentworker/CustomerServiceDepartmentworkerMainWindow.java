@@ -32,10 +32,10 @@ import javafx.beans.binding.*;
 
 public class CustomerServiceDepartmentworkerMainWindow implements Initializable {
 
+	
+	public Stage mainStageReference;
 	public static // a version with a complaintRow class instead of a String
-	ObservableList<complaintRow> upgradedList = FXCollections.observableArrayList(new complaintRow("this is a sad"),
-			new complaintRow("about a list "), new complaintRow("that its only purpose is"),
-			new complaintRow("to store angry customers complaints :("), new complaintRow());
+	ObservableList<complaintRow> upgradedList = FXCollections.observableArrayList();
 
 	@FXML
 	public Button newComplaint;
@@ -48,6 +48,9 @@ public class CustomerServiceDepartmentworkerMainWindow implements Initializable 
 
 	public void start(Stage primaryStage) throws Exception {
 
+		mainStageReference=primaryStage;
+		
+		
 		Parent root = FXMLLoader.load(getClass()
 				.getResource("/CustomerServiceDepartmentworker/CustomerServiceDepartmentworkerMainWindow.fxml"));
 		Scene scene = new Scene(root);
@@ -67,7 +70,7 @@ public class CustomerServiceDepartmentworkerMainWindow implements Initializable 
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				upgradedList.add(new complaintRow("added by run later"));
+				upgradedList.add(new complaintRow("added by run later",mainStageReference));
 				upgradedList.get(2).timerTextSetter("23:59");
 			}
 
@@ -102,12 +105,6 @@ public class CustomerServiceDepartmentworkerMainWindow implements Initializable 
 			time.paddingProperty().setValue(new Insets(0, 10, 0, 0));
 			hbox.getChildren().addAll(label, pane, time, button);
 			HBox.setHgrow(pane, Priority.ALWAYS);
-			button.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent event) {
-					System.out.println(lastItem + " : " + event);
-				}
-			});
 		}
 
 		@Override
@@ -125,10 +122,12 @@ public class CustomerServiceDepartmentworkerMainWindow implements Initializable 
 					@Override
 					public void handle(ActionEvent event) {
 						System.out.println(lastItem + " : " + event);
-						/*call the edit button click from the complaintRow instance
-						 * it will open a new window or generate a new stage 
+						/*
+						 * call the edit button click from the complaintRow instance it will open a new
+						 * window or generate a new stage
 						 */
-						item.buttonEvent();
+						item.buttonEventHandler();
+						
 					}
 				});
 				setGraphic(hbox);
@@ -146,7 +145,16 @@ public class CustomerServiceDepartmentworkerMainWindow implements Initializable 
 	public void initialize(URL location, ResourceBundle resources) {
 		newComplaint.setText("Dunno");
 
-		upgradedList.add(new complaintRow("just adding an item to a static list"));
+		upgradedList.add(new complaintRow("just adding an item to a static list",mainStageReference));
+		
+		/*new complaintRow("this is a sad"),
+			new complaintRow("about a list "), new complaintRow("that its only purpose is"),
+			new complaintRow("to store angry customers complaints :("), new complaintRow()*/
+		upgradedList.add(new complaintRow("this is a sad",mainStageReference));
+		upgradedList.add(new complaintRow("that its only purpose is",mainStageReference));
+		upgradedList.add(new complaintRow("to store angry customers complaints :(",mainStageReference));
+		upgradedList.add(new complaintRow(mainStageReference));
+		
 		// point the complaintlist to the observable upgradedList
 		complaintsList.setItems(upgradedList);
 		// define the cell style
