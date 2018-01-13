@@ -42,6 +42,7 @@ public class CatalogOrderControl extends LoginContol implements Initializable
 	private ZerLiCatalog theCatalog;
 
 	public static ObservableList<CatalogItemGUI> catalogList= FXCollections.observableArrayList();
+	public static ArrayList<Branch> allBranches = new ArrayList<Branch>();
 
 
 	@FXML
@@ -239,7 +240,7 @@ public class CatalogOrderControl extends LoginContol implements Initializable
 			myClient.setCatalogOrderControl(this);
 			myClient.setchooseControl("CatalogOrderControl");
 			myClient.sendRequestToGetAllCatalogItems();
-
+			//myClient.sendRequestToGetAllBranches();
 			// Can't close the window without logout
 			primaryStage.setOnCloseRequest(event -> {
 				event.consume();
