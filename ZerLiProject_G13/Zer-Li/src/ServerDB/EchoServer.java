@@ -149,6 +149,22 @@ public class EchoServer extends AbstractServer implements Initializable {
 						return;
 				}
 				
+				if (checkSubString.equals("Please Check if Unique ID:  "))
+				{
+						String cutItemIDFromStringMessage=DiscoverMessage.substring(28, ( DiscoverMessage.length() ) );
+						// need to change entry
+						System.out.println("Check if Unique item ID: "+cutItemIDFromStringMessage);
+						
+						int id = Integer.parseInt(cutItemIDFromStringMessage);
+						Boolean ans;
+						
+						ans=checkUniqueIDInDB(id);
+						Message Msg = new Message(ans, "Answer if Unique item ID");
+						
+						this.sendToAllClients(Msg);
+						
+						return;
+				}
 				
 			}
    	
@@ -393,6 +409,15 @@ public class EchoServer extends AbstractServer implements Initializable {
 			System.out.println("Cannot DELETE item");
 		};
 	}
+	
+	
+	public synchronized boolean checkUniqueIDInDB(int ItemID)
+	{
+		// task to do : need to complete this func!
+		return true;
+	}
+	
+	
 
 	  // Add New Payment Account to the data base 
 	  public synchronized void AddNewPaymentAccount(Object PA1) throws SQLException

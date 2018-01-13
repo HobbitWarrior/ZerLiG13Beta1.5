@@ -86,7 +86,16 @@ public class ChatClient extends AbstractClient {
 				return;
 			}
 			
-			else if(ServerMsg.getMsgType().equals("CatalogItem"))
+			if (ServerMsg.getMsgType().equals("Answer if Unique item ID")) 
+			{
+				Boolean ans = (Boolean)  ServerMsg.getMsgObject();
+				CatalogEditControl.ansUniqueID =ans;
+				quit();
+
+				return;
+			}
+			
+			if(ServerMsg.getMsgType().equals("CatalogItem"))
 			{
 				System.out.println("ServerMsg.getMsgType().equals catalogItem");
 
@@ -261,6 +270,32 @@ public class ChatClient extends AbstractClient {
 		}
 		quit();
 	}
+	
+	
+	public void sendRequestToCheckUniqueID(int itemID)
+	{
+		try 
+		{
+			this.openConnection();
+		}
+
+		catch (IOException e1) {
+			System.out.println("Cannot open connection");
+		}
+
+		try 
+		{
+			String requestToCheckUniqueID="Please Check if Unique ID:  "+itemID;
+			sendToServer(requestToCheckUniqueID);
+		} 
+		catch (IOException e) 
+		{
+			System.out.println("Cannot connect to server");
+		}
+	}
+	
+	
+	
 	public void sendRequestToGetAllReports(String msg) 
 	{
 		try 

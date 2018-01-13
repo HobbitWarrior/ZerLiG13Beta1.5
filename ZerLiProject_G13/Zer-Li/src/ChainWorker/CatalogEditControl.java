@@ -40,6 +40,7 @@ public class CatalogEditControl extends LoginContol implements Initializable
 
 	private int loadPressed = 0; // Check if user pressed load already
 	private int pressedBtn = 0;  // flag - check on which button we pressed recently : pressedBtn=1 add item ,  pressedBtn=2 edit item
+	public static Boolean ansUniqueID=false;  //the server return the answer true to ansUniqueID if the given item id is Unique else it return false. 
 	
 		//on top of the screen:
     	@FXML
@@ -188,25 +189,26 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    		descriptionTextField.setText(""+itemsInRow.get(0).getItemDescription());
 	    		typeTextField.setText(""+itemsInRow.get(0).getItemType());
 	    		priceTextField.setText(""+itemsInRow.get(0).getItemPrice());
-	    		imageTextField.setText(""+itemsInRow.get(0).getImg());
+	 //   		imageTextField.setText(""+itemsInRow.get(0).getImg());
+
+	    		imageTextField.setText(""+itemsInRow.get(0).getItemPhoto().getFileName());
 	    		
-	    		
-	    	pressedBtn=2; //we pressed on add item
-	    	loadPressed=0;
-	    	CatalogTable.setVisible(false);
-	    	titleLabel.setText("EDIT ITEM");
-	    	btnAddItem.setVisible(false);
-	    	btnEditItem.setVisible(false);
-	    	btnDeleteItem.setVisible(false);
-	    	
-	    	
-	    	ItemIDTextField.setDisable(true); //can't edit ID
-	    	
-	    	anchorPaneAddItem.setVisible(true);
-	    	
-	    	
-	    	
-	    	showImage(event);                          //computer "press" automatic on load image. show image to costumer
+		    	pressedBtn=2; //we pressed on add item
+		    	loadPressed=0;
+		    	CatalogTable.setVisible(false);
+		    	titleLabel.setText("EDIT ITEM");
+		    	btnAddItem.setVisible(false);
+		    	btnEditItem.setVisible(false);
+		    	btnDeleteItem.setVisible(false);
+		    	
+		    	
+		    	ItemIDTextField.setDisable(true); //can't edit ID
+		    	
+		    	anchorPaneAddItem.setVisible(true);
+		    	
+		    	
+		    	
+		    	showImage(event);                          //computer "press" automatic on load image. show image to costumer
 	    	}
 	    	else
 	    	{
@@ -263,12 +265,47 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	 	   	myClient.sendRequestToDeleteItem(itemID); //send request to change entry in db (server)
 	    }
 	    
+	    public void checkUniqueID(int itemID)
+	    {
+	 	   int port=5555;
+	 	   String ip="localhost";
+	 	   try 
+	 	   {
+	 		 myClient = new ChatClient(ip,port);	//create new client
+	// 		 myClient.setLoginControl(this);
+	 	   } 
+	 	   catch (IOException e) 
+	 	   {
+	 		   System.out.println("Cannot create client");	  
+	 	   }
+	 	   
+	 	   	myClient.sendRequestToCheckUniqueID(itemID); //send request to change entry in db (server)
+	    }
+/*	    
+	    public void addItemInCatalog(int itemID)
+	    {
+	 	   int port=5555;
+	 	   String ip="localhost";
+	 	   try 
+	 	   {
+	 		 myClient = new ChatClient(ip,port);	//create new client
+	// 		 myClient.setLoginControl(this);
+	 	   } 
+	 	   catch (IOException e) 
+	 	   {
+	 		   System.out.println("Cannot create client");	  
+	 	   }
+	 	   
+	 	   	myClient.sendRequestToAddItem(itemID); //send request to change entry in db (server)
+	    }
+*/
+	    
 
 	    @FXML
 	    void saveEvent(ActionEvent event)
 	    {    		
 	    	
-			if(! (itemNameTextField.getText().equals("") || descriptionTextField.getText().equals("") || typeTextField.getText().equals("") || priceTextField.getText().equals("")) )
+			if(! (ItemIDTextField.getText().equals("") || itemNameTextField.getText().equals("") || descriptionTextField.getText().equals("") || typeTextField.getText().equals("") || priceTextField.getText().equals("")) )
 			{
 		    	if(!(imageTextField.getText().equals(null) || imageTextField.getText().equals("")) ) //if we load correct image
 		    	{
@@ -281,11 +318,26 @@ public class CatalogEditControl extends LoginContol implements Initializable
 			    			System.out.println("correct image");
 			    			
 			    			
-			    			//******* Task to do:  check price is string (using convert string to int) , check if there is no id like this.
+			    			//******* Task to do:  check price is string (using convert string to int)
 			    			
 			    	    	if(pressedBtn==1) //add item
 			    	    	{
 			    	    		
+			    	    		int id = Integer.parseInt(ItemIDTextField.getText()); //convert string to int
+			    	    		checkUniqueID(id); //check if there is no id like this.
+			    	    		if(ansUniqueID==true)
+			    	    		{
+			    	    			System.out.println("unique item ID"); //for me i can delete this
+//			    	    			addItemInCatalog();
+			    	    		}
+			    	    		else //ID already exists 
+			    	    		{
+			    	    			Alert incorrectImageAlert = new Alert(AlertType.WARNING);
+						    		incorrectImageAlert.setTitle("ID already exists");
+						    		incorrectImageAlert.setHeaderText("You entered Item ID that already exists");
+						    		incorrectImageAlert.setContentText("Please try again with different item ID!");
+						    		incorrectImageAlert.showAndWait();
+			    	    		}
 			    	    	}
 			    	    	
 			    	    	if(pressedBtn==2) //edit item
@@ -350,6 +402,7 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    	
 	    	ItemIDTextField.setDisable(false); //can edit ID              //*******************************
 	    	
+	    	ItemIDTextField.clear();
 	    	itemNameTextField.clear();
 	    	descriptionTextField.clear();
 	    	typeTextField.clear();
