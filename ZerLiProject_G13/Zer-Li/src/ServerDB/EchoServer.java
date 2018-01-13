@@ -159,7 +159,13 @@ public class EchoServer extends AbstractServer implements Initializable {
 						Boolean ans;
 						
 						ans=checkUniqueIDInDB(id);
-						Message Msg = new Message(ans, "Answer if Unique item ID");
+						
+						if(ans)
+							System.out.println("true");
+						else
+							System.out.println("false");
+						
+						Message Msg = new Message(ans, "Answer if Unique item ID: "+id);
 						
 						this.sendToAllClients(Msg);
 						
@@ -171,23 +177,23 @@ public class EchoServer extends AbstractServer implements Initializable {
 		}
 		if(msg instanceof PaymentAccount)
 		 {
-		System.out.println("100");
-		System.out.println("Set Payment Account on DB");
+			System.out.println("100");
+			System.out.println("Set Payment Account on DB");
+			 
+			
+			try {
+				AddNewPaymentAccount(msg);
+	
+				return;
+			} 
+			catch (SQLException e) 
+			{
+				System.out.println("error-can't Set Payment Account on DB");
+				this.sendToAllClients("GetFail");
+			}
+			
 		 
-		{
-		try {
-			AddNewPaymentAccount(msg);
-
-			return;
-		} 
-		catch (SQLException e) 
-		{
-			System.out.println("error-can't Set Payment Account on DB");
-			this.sendToAllClients("GetFail");
 		}
-		}
-		 
-	}
 		if(msg instanceof Survey)
 		 {
 		System.out.println("yes");
@@ -205,6 +211,38 @@ public class EchoServer extends AbstractServer implements Initializable {
 			this.sendToAllClients("GetFail");
 		}
 		}
+		
+		
+		if(msg instanceof CatalogItem)
+		 {
+			
+			System.out.println("im in msg instanceof catalog !!!!!!!!! ****************");
+			
+			
+			CatalogItem givenItem = (CatalogItem)msg;
+			//first we check if we need to add new item or to edit exist item:
+			int tempID = givenItem.getItemID();
+			Boolean ans;
+			ans=checkUniqueIDInDB(tempID);
+			
+			if(ans) //ans true = this is unique id , means we need to add item to catalog
+			{
+				System.out.println("Adding item with id: "+tempID);
+				addItemInDB(givenItem);
+				
+				return;
+			}
+				
+			else //ans false = this is Not unique id , means we need to edit item in catalog
+			{
+				System.out.println("Editing item with id: "+tempID);
+				editItemInDB(givenItem);
+				
+				return;
+			}
+
+		 }
+		
 		 
 	}
 		/*
@@ -411,10 +449,104 @@ public class EchoServer extends AbstractServer implements Initializable {
 	}
 	
 	
+	public synchronized void addItemInDB(CatalogItem givenItem)
+	{
+		try {
+
+				System.out.println("check if im in additem func***************************************");                       // need to delete !!!!!!!*****************
+			
+				/*
+				Statement statementquery = (Statement) ServerDataBase.createStatement(); // query to check if table filled
+				ResultSet rs = statementquery.executeQuery("select * from catalogitems ");
+				
+				
+				while (rs.next()) // here we check if the table already filled
+				{
+					statementquery.close();
+					rs.close();
+			//		return "You already inserted the items to the catalog!\n"; //// message to put in the gui
+				}
+				*/
+	
+				PreparedStatement ps1 = ServerDataBase.prepareStatement(
+						"insert into catalogitems (ItemID,ItemName,ItemType,Description,Photo,Price) values (?,?,?,?,?,?)");
+
+			
+				// put new row in catalogitems table!!
+
+				ps1.setInt(1, givenItem.getItemID());
+				ps1.setString(2, givenItem.getItemName());
+				ps1.setString(3, givenItem.getItemType());
+				ps1.setString(4, givenItem.getItemDescription());
+				InputStream inputStream = null;
+				String filePath = givenItem.getItemPhoto().getFileName();
+				try {
+					inputStream = new FileInputStream(new File(filePath));
+					ps1.setBlob(5, inputStream);
+					ps1.setDouble(6, givenItem.getItemPrice());
+
+				}
+				catch (FileNotFoundException e) 
+				{
+					System.out.println("Can't create inputStream");
+				}
+
+				ps1.executeUpdate();
+			
+				
+				ps1.close();
+	//			statementquery.close();
+	//			rs.close();
+		}
+
+		catch (SQLException e) // if the adressing to the table failed
+		{
+			System.out.println("fail to add item!!!");
+
+	//		return "catalog's item insertion failed!!\n"; // message
+		}
+
+//		return "catalog's item inserted to the catalogItems table successfully!!\n"; //// message
+
+	}
+	
+	
+	
+	public synchronized void editItemInDB(CatalogItem givenItem)
+	{
+		
+	}
+	
+	
+	
 	public synchronized boolean checkUniqueIDInDB(int ItemID)
 	{
-		// task to do : need to complete this func!
-		return true;
+		Statement st=null;
+
+		try 
+		{
+			st = (Statement) ServerDataBase.createStatement();
+			String sqlSelectID = "SELECT ItemID FROM catalogitems WHERE ItemID =" + ItemID + ";";
+			ResultSet rs=null;
+			rs = st.executeQuery(sqlSelectID);
+			
+			while (rs.next())  //there is the same id in DB
+			{
+//				int IDinDB = rs.getInt(1);                           // *******i can delete this 
+//				System.out.println(""+IDinDB);                        // *******i can delete this 
+				return false;
+			}
+			rs.close();
+			st.close();
+			
+		}
+		catch (SQLException e1) 
+		{
+			e1.printStackTrace();
+			System.out.println("failed to find answer");
+		};
+		
+		return true; //unique id
 	}
 	
 	

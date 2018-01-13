@@ -5,13 +5,9 @@ import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-<<<<<<< HEAD
-=======
+
 import javafx.stage.Stage;
-<<<<<<< HEAD
->>>>>>> parent of 2bccff0... just trying to commit my changes :P
-=======
->>>>>>> parent of 2bccff0... just trying to commit my changes :P
+
 
 public class complaintRow {
 	public Button editButton;
@@ -49,8 +45,9 @@ public class complaintRow {
 			timerText.set(str);
 		}
 	}
-<<<<<<< HEAD
+
  
+	/*
 	// event handler for the button
 	public void buttonEventHandler() {
 		// open a new edit complaint, opens the "ManageComplaintFrame"
@@ -65,11 +62,10 @@ public class complaintRow {
 		}
 	}
 
-} 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	
+
+
+*/
+
 	
 	
 	//event handler for the button
@@ -78,8 +74,3 @@ public class complaintRow {
 		System.out.print("\ni was just called from the complaintRow class, pretty cool huh?\n"); 
 	}
 }
->>>>>>> parent of 89bba59... Customer service menu updates so far
-=======
->>>>>>> parent of 2bccff0... just trying to commit my changes :P
-=======
->>>>>>> parent of 2bccff0... just trying to commit my changes :P

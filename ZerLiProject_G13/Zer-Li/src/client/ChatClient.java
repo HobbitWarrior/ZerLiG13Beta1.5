@@ -86,11 +86,27 @@ public class ChatClient extends AbstractClient {
 				return;
 			}
 			
-			if (ServerMsg.getMsgType().equals("Answer if Unique item ID")) 
+			if (ServerMsg.getMsgType().contains("Answer if Unique item ID: ")) 
 			{
 				Boolean ans = (Boolean)  ServerMsg.getMsgObject();
 				CatalogEditControl.ansUniqueID =ans;
+				
+				String cutItemIDFromStringMessage=ServerMsg.getMsgType().substring(26, (ServerMsg.getMsgType().length() ) );
+				int id = Integer.parseInt(cutItemIDFromStringMessage);
+		//		CatalogEditControl.currentID=id;
 				quit();
+				
+				Platform.runLater(new Runnable() 
+				{
+
+					@Override
+					public void run() 
+					{
+						
+						editCatalog.checkUniqueIDResult(id);
+					}
+
+				});
 
 				return;
 			}
@@ -294,7 +310,55 @@ public class ChatClient extends AbstractClient {
 		}
 	}
 	
+	// ****************************************check!!!!!! giboi
+	/*
+	public void sendRequestToAddItem(CatalogItem newItem)
+	{
+		try 
+		{
+			this.openConnection();
+		}
+
+		catch (IOException e1) {
+			System.out.println("Cannot open connection");
+		}
+
+		try 
+		{
+			sendToServer(newItem);
+		} 
+		catch (IOException e) 
+		{
+			System.out.println("Cannot connect to server");
+		}
+		quit();
+	}
+	*/
 	
+	
+	public void sendRequestToAddOrEditItem(CatalogItem newItem)
+	{
+		try 
+		{
+			this.openConnection();
+		}
+
+		catch (IOException e1) {
+			System.out.println("Cannot open connection");
+		}
+
+		try 
+		{
+			sendToServer(newItem);
+		} 
+		catch (IOException e) 
+		{
+			System.out.println("Cannot connect to server");
+		}
+		quit();
+	}
+	
+	// **************************************** end check
 	
 	public void sendRequestToGetAllReports(String msg) 
 	{

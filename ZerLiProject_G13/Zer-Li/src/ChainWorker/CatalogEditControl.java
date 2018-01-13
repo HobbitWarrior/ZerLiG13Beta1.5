@@ -7,15 +7,20 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import Catalog.CatalogItem;
 import Customer.CatalogItemGUI;
 import Customer.CustomerMainWindow;
 import Customer.OrdersControl;
 import Users.LoginContol;
 import client.ChatClient;
+import common.MyFile;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -40,7 +45,8 @@ public class CatalogEditControl extends LoginContol implements Initializable
 
 	private int loadPressed = 0; // Check if user pressed load already
 	private int pressedBtn = 0;  // flag - check on which button we pressed recently : pressedBtn=1 add item ,  pressedBtn=2 edit item
-	public static Boolean ansUniqueID=false;  //the server return the answer true to ansUniqueID if the given item id is Unique else it return false. 
+	public static Boolean ansUniqueID= false;  //the server return the answer true to ansUniqueID if the given item id is Unique else it return false. 
+
 	
 		//on top of the screen:
     	@FXML
@@ -77,13 +83,6 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    @FXML
 	    private TableColumn<CatalogItemGUI, Integer> CatalogItemIDColumn;
 	    
-	    /*
-	    @FXML
-	    private TableColumn<CatalogItemGUI, Button> EditColumn;
-	    @FXML
-	    private TableColumn<CatalogItemGUI, Button> DeleteColumn;
-	    */
-
 
 	    //change contact - add new item
 
@@ -123,7 +122,7 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    private Button loadBtn;
 
 	    
-	    
+	    //****************************************************************
 	    @FXML
 	    void logoutEvent(ActionEvent event) throws IOException
 	    {
@@ -135,16 +134,20 @@ public class CatalogEditControl extends LoginContol implements Initializable
 			LoginContol aFrame = new LoginContol(); // create Login Frame
 			Stage arg0 = new Stage();
 			OrdersControl.ItemsInOrderList.clear();
-			this.catalogList.clear();
+			this.catalogList.clear();            // *************************need to check if i can delete only the "this." so it look like: catalogList.clear();
 			aFrame.start(arg0);
 			
 	    }
+	    
+	    //****************************************************************
 
 		@FXML
 		void goHome(ActionEvent event) 
 		{
 
 		}
+		
+		 //****************************************************************
 		
 	    @FXML
 	    void AddItemEvent(ActionEvent event) 
@@ -159,24 +162,9 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    	
 	    	anchorPaneAddItem.setVisible(true);
 	    	
-	    	
-	    	
-	    	/*         //    ************************************* i don't need this shit
-	    	itemNameLabel.setOpacity(1);
-	    	descriptionLabel.setOpacity(1);
-	    	priceLabel.setOpacity(1);
-	    	typeLabel.setOpacity(1);
-	    	pictureLabel.setOpacity(1);
-	    	saveBtn.setOpacity(1);
-	    	backBtn.setOpacity(1);
-	    	itemNameTextField.setOpacity(1);
-	    	descriptionTextField.setOpacity(1);
-	    	typeTextField.setOpacity(1);
-	    	priceTextField.setOpacity(1);
-	    	imageTextField.setOpacity(1);
-	    	*/
-	    	
 	    }
+	    
+	    //****************************************************************
 	    
 	    @FXML
 	    void EditItemEvent(ActionEvent event) 
@@ -224,6 +212,8 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    }
 	    
 	    
+	    //****************************************************************
+	    
 	    @FXML
 	    void DeleteItemEvent(ActionEvent event) 
 	    {
@@ -247,6 +237,7 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    	}
 	    }
 	    
+	    //****************************************************************
 	    
 	    public void askToDeleteItem(int itemID)
 	    {
@@ -265,6 +256,8 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	 	   	myClient.sendRequestToDeleteItem(itemID); //send request to change entry in db (server)
 	    }
 	    
+	    //****************************************************************
+	    
 	    public void checkUniqueID(int itemID)
 	    {
 	 	   int port=5555;
@@ -272,7 +265,7 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	 	   try 
 	 	   {
 	 		 myClient = new ChatClient(ip,port);	//create new client
-	// 		 myClient.setLoginControl(this);
+	 		 myClient.setCatalogEditControl(this);
 	 	   } 
 	 	   catch (IOException e) 
 	 	   {
@@ -281,26 +274,8 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	 	   
 	 	   	myClient.sendRequestToCheckUniqueID(itemID); //send request to change entry in db (server)
 	    }
-/*	    
-	    public void addItemInCatalog(int itemID)
-	    {
-	 	   int port=5555;
-	 	   String ip="localhost";
-	 	   try 
-	 	   {
-	 		 myClient = new ChatClient(ip,port);	//create new client
-	// 		 myClient.setLoginControl(this);
-	 	   } 
-	 	   catch (IOException e) 
-	 	   {
-	 		   System.out.println("Cannot create client");	  
-	 	   }
-	 	   
-	 	   	myClient.sendRequestToAddItem(itemID); //send request to change entry in db (server)
-	    }
-*/
 	    
-
+	    //****************************************************************
 	    @FXML
 	    void saveEvent(ActionEvent event)
 	    {    		
@@ -323,26 +298,18 @@ public class CatalogEditControl extends LoginContol implements Initializable
 			    	    	if(pressedBtn==1) //add item
 			    	    	{
 			    	    		
-			    	    		int id = Integer.parseInt(ItemIDTextField.getText()); //convert string to int
-			    	    		checkUniqueID(id); //check if there is no id like this.
-			    	    		if(ansUniqueID==true)
-			    	    		{
-			    	    			System.out.println("unique item ID"); //for me i can delete this
-//			    	    			addItemInCatalog();
-			    	    		}
-			    	    		else //ID already exists 
-			    	    		{
-			    	    			Alert incorrectImageAlert = new Alert(AlertType.WARNING);
-						    		incorrectImageAlert.setTitle("ID already exists");
-						    		incorrectImageAlert.setHeaderText("You entered Item ID that already exists");
-						    		incorrectImageAlert.setContentText("Please try again with different item ID!");
-						    		incorrectImageAlert.showAndWait();
-			    	    		}
+			    	    		int IDfromTextField = Integer.parseInt(ItemIDTextField.getText()); //convert string to int
+
+			    	    		checkUniqueID(IDfromTextField); //check if there is no id like this.
+			    	    		
+			    	    		
+
 			    	    	}
 			    	    	
 			    	    	if(pressedBtn==2) //edit item
 			    	    	{
-			    	    		
+			    	    		int IDfromTextField = Integer.parseInt(ItemIDTextField.getText()); //convert string to int
+			    	    		AddorEditItems(IDfromTextField);
 			    	    	}
 			    			
 			    		}
@@ -385,6 +352,179 @@ public class CatalogEditControl extends LoginContol implements Initializable
 			
 			
 	    }
+	    
+	    //****************************************************************
+
+	    public void checkUniqueIDResult(int itemID)
+	    {
+			if(ansUniqueID==true)
+			{
+				System.out.println("unique item ID"); //for me i can delete this
+				AddorEditItems(itemID);
+			}
+			else if(ansUniqueID==false) //ID already exists 
+			{
+				Alert incorrectImageAlert = new Alert(AlertType.WARNING);
+	    		incorrectImageAlert.setTitle("ID already exists");
+	    		incorrectImageAlert.setHeaderText("You entered Item ID that already exists");
+	    		incorrectImageAlert.setContentText("Please try again with different item ID!");
+	    		incorrectImageAlert.showAndWait();
+			}
+	    }
+	    
+	    
+	    //****************************************************************
+/*	        
+	    public void addItemToCatalog(int itemID)
+	    {
+	 	   int port=5555;
+	 	   String ip="localhost";
+	 	   try 
+	 	   {
+	 		 myClient = new ChatClient(ip,port);	//create new client
+	// 		 myClient.setLoginControl(this);
+	 	   } 
+	 	   catch (IOException e) 
+	 	   {
+	 		   System.out.println("Cannot create client");	  
+	 	   }
+	 	   
+	 	   String tempID=ItemIDTextField.getText();
+	 	  int newID = Integer.parseInt(tempID); //convert string id to int id
+	 	   
+	 	   String newName=itemNameTextField.getText();
+	 	   String newpDescription=descriptionTextField.getText();
+	 	   String newType=typeTextField.getText();
+	 	   
+	 	   String tempImageAdress=imageTextField.getText();
+	 	   MyFile newImageFile = createFile(tempImageAdress);
+	 	   
+	 	   
+	 	   String tempPrice=priceTextField.getText();
+	 	   Double newPrice = Double.parseDouble(tempPrice);  //convert string Price to double Price
+	 	   
+	 	   
+	 	   CatalogItem newItem=new CatalogItem(newID,newName,newpDescription,newType,newImageFile ,newPrice);
+	 	  
+	 	   	myClient.sendRequestToAddItem(newItem); //send request to change entry in db (server)
+	    }
+	    */
+	    
+	    
+	    public void AddorEditItems(int itemID)
+	    {
+	 	   int port=5555;
+	 	   String ip="localhost";
+	 	   try 
+	 	   {
+	 		 myClient = new ChatClient(ip,port);	//create new client
+	 	   } 
+	 	   catch (IOException e) 
+	 	   {
+	 		   System.out.println("Cannot create client");	  
+	 	   }
+	 	   
+	 	   String tempID=ItemIDTextField.getText();
+	 	   int newID = Integer.parseInt(tempID); //convert string id to int id
+	 	   
+	 	   String newName=itemNameTextField.getText();
+	 	   String newpDescription=descriptionTextField.getText();
+	 	   String newType=typeTextField.getText();
+	 	   
+	 	   String tempImageAdress=imageTextField.getText();
+	 	   
+	 	   
+	 	   
+	 	  
+/*	 	   
+	 	   //move the file to diff location (the project folder)
+	 	   
+	 	   
+	 	  String PhotoNewPath="";
+	    	try{
+
+	     	   File afile =new File(""+tempImageAdress);
+
+	     	   	String userDir = System.getProperty("user.dir");
+				userDir = userDir + "" + "\\ZerLiProject_G13\\Zer-Li\\src\\client\\image";
+				PhotoNewPath = userDir + "\\"+ newID;
+	     	   if(afile.renameTo(new File(""+PhotoNewPath+".jpg")))
+	     	   {
+	     		System.out.println("File is moved successful!");
+	     	   }
+	     	   else{
+	     		System.out.println("File is failed to move!");
+	     	   }
+
+	     	}catch(Exception e){
+	     		e.printStackTrace();
+	     	}
+	 	   
+	 	   
+	 	   
+	    	MyFile newImageFile = createFile(""+PhotoNewPath+".jpg");
+	    	System.out.println(PhotoNewPath); //for check !!!!!!!!!!!!!!!!!!!!!! *****
+	    	
+	    	
+	    	
+	    	
+	*/
+	 	   
+	 	   
+	 	   MyFile newImageFile = createFile(tempImageAdress);
+	 	   
+	    	
+	    	
+	 	   
+	 	   String tempPrice=priceTextField.getText();
+	 	   Double newPrice = Double.parseDouble(tempPrice);  //convert string Price to double Price
+	 	   
+	 	 
+	 	   CatalogItem newItem=new CatalogItem(newID,newName,newpDescription,newType,newImageFile ,newPrice);
+	 	  /* *****************************for me to check..             need to delete this !!!!!!!!!!!!!!!!!!
+	 	  System.out.println();
+	 	 System.out.println();
+	 	  System.out.println("the item: "+newID+", "+newName+", "+newpDescription+", "+newType+", "+newImageFile+", "+newPrice);
+	 	   System.out.println(newItem);
+	 	   */
+	 	  
+	 	   	myClient.sendRequestToAddOrEditItem(newItem); //send request to change entry in db (server)
+	    }
+	    
+	    
+	  //****************************************************************
+	    
+		private MyFile createFile(String path) 
+		{
+			MyFile fileToCreate = new MyFile(path);
+
+			String LocalfilePath = path;
+
+			try {
+
+				File newFile = new File(LocalfilePath);
+
+				byte[] mybytearray = new byte[(int) newFile.length()];
+				FileInputStream fis = new FileInputStream(newFile);
+				BufferedInputStream bis = new BufferedInputStream(fis);
+				fileToCreate.initArray(mybytearray.length);
+				fileToCreate.setSize(mybytearray.length);
+				bis.read(fileToCreate.getMybytearray(), 0, mybytearray.length);
+				return fileToCreate;
+
+			} 
+			catch (Exception e) 
+			{
+				System.out.println("Can't create file");
+			}
+			return null;
+
+		}
+	    
+	    
+
+	    //****************************************************************
+	    
 
 	    @FXML
 	    void backEvent(ActionEvent event) 
@@ -411,7 +551,7 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    	newImage.setImage(null);
 	    }
 	   
-	    
+	    //****************************************************************
 
 	    @FXML
 	    void showImage(ActionEvent event) 
@@ -423,23 +563,8 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    	newImage.setImage(image);
 	    }
 
-	    
-	/*    
-		public void edit(String itemName, String itemDescription, String itemType, double itemPrice, ImageView img) 
-		{
-			loadPressed=0;
-	    	CatalogTable.setVisible(false);
-	    	titleLabel.setText("EDIT ITEM");
-	    	btnAddItem.setVisible(false);
-	    	
-	    	anchorPaneAddItem.setVisible(true);
-			
-	    //	anchorPaneAddItem.
-			
-			
-		}
-	  */  
-	    
+	 
+	    //****************************************************************
 	    
 
 		@Override
@@ -451,18 +576,13 @@ public class CatalogEditControl extends LoginContol implements Initializable
 			CatalogItemTypeColumn.setCellValueFactory(new PropertyValueFactory<CatalogItemGUI, String>("itemType"));
 			CatalogImageColumn.setCellValueFactory(new PropertyValueFactory<CatalogItemGUI,  ImageView>("img"));
 			CatalogPriceColumn.setCellValueFactory(new PropertyValueFactory<CatalogItemGUI, String>("ItemPriceWithCoin"));
-			
-			
-			/*
-			EditColumn.setCellValueFactory(new PropertyValueFactory<CatalogItemGUI, Button>("editBtn"));
-			DeleteColumn.setCellValueFactory(new PropertyValueFactory<CatalogItemGUI, Button>("deleteBtn"));
-			*/
+
 
 			CatalogTable.setItems(catalogList);
 			
 		}
 
-	
+		 //****************************************************************
 	
 	public void start(Stage primaryStage) throws IOException 
 	{		
