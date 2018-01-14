@@ -415,6 +415,7 @@ public class ChatClient extends AbstractClient {
 		
 	}
 
+
 	
 	
 	
@@ -441,6 +442,32 @@ public class ChatClient extends AbstractClient {
 			e.printStackTrace();
 		}
 	}
+
+
+	public void sendRequestToGetAllBranches() 
+	{
+		try 
+		{
+			this.openConnection();
+		}
+
+		catch (IOException e1) 
+		{
+			System.out.println("Cannot open connection");
+		}
+
+		try 
+		{
+			System.out.println("Send Message to get all catalogItems");
+
+			sendToServer("Give Me All Branches");
+		} catch (IOException e) 
+		{
+			System.out.println("Cannot connect to server to get CatalogItems");
+
+		}
+	}
+ 
 
 
 }
