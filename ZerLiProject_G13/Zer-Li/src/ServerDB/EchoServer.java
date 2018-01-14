@@ -53,11 +53,12 @@ public class EchoServer extends AbstractServer implements Initializable
 
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) 
 	{
-
+		//------------------------------------instanceof String-------------------------------------------------------
 		if (msg instanceof String) 
 		{
 			String DiscoverMessage=(String) msg;
-
+			
+			//-----------------------------------------------------------//
 			if (DiscoverMessage.equals("Give Me All Users")) 
 			{
 				System.out.println("Get all Users from DB");
@@ -79,6 +80,7 @@ public class EchoServer extends AbstractServer implements Initializable
 				return;
 			}
 			
+			//-----------------------------------------------------------//
 			if (DiscoverMessage.equals("Give Me All CatalogItems")) 
 			{
 				System.out.println("Get all CatalogItems from DB");
@@ -102,6 +104,7 @@ public class EchoServer extends AbstractServer implements Initializable
 				return;
 			}
 			
+			//-----------------------------------------------------------//
 			 if (DiscoverMessage.equals("Give Me All Reports")) 
 			{
 				System.out.println("Get all Reports from DB");
@@ -123,13 +126,15 @@ public class EchoServer extends AbstractServer implements Initializable
 				}
 				return;
 			}
+			//-----------------------------------------------------------//
+			 
 			// "Please change Entry of user: "  "Please change Entry of user: "+UserName;
 			if ( (DiscoverMessage.length()) >= 28 )	//from here there is a process that check if client asking to change entry status of userName 
 			{
 
 				String checkSubString = DiscoverMessage.substring(0, 28); // cut msg string to "Please change Entry of user:" in case login control sent request	
 				System.out.println(checkSubString);                        // or cut msg string to ""Please delete item with ID: " in case chain worker sent request
-
+				
 				if (checkSubString.equals("Please change Entry of user:"))
 				{
 					String cutUserNameFromStringMessage=DiscoverMessage.substring(29, ( DiscoverMessage.length() ) );
@@ -138,6 +143,8 @@ public class EchoServer extends AbstractServer implements Initializable
 						changeEntryInDB(cutUserNameFromStringMessage);
 						return;
 				}
+				
+				//-----------------------------------------------------------//
 				
 				if (checkSubString.equals("Please delete item with ID: "))
 				{
@@ -150,6 +157,8 @@ public class EchoServer extends AbstractServer implements Initializable
 						deleteItemInDB(id);
 						return;
 				}
+				
+				//-----------------------------------------------------------//
 				
 				if (checkSubString.equals("Please Check if Unique ID:  "))
 				{
@@ -174,9 +183,12 @@ public class EchoServer extends AbstractServer implements Initializable
 						return;
 				}
 				
-			}
+			}//end of if ( (DiscoverMessage.length()) >= 28 )
    	
-		}
+		}//end of if (msg instanceof String)
+		
+		
+		//--------------------------------------------------------------------------------------------------------------
 		if(msg instanceof PaymentAccount)
 		 {
 			System.out.println("100");
@@ -194,6 +206,7 @@ public class EchoServer extends AbstractServer implements Initializable
 			return;	
 		}
 		
+		//--------------------------------------------------------------------------------------------------------------
 		if(msg instanceof Survey)
 		 {
 			System.out.println("yes");
@@ -212,7 +225,7 @@ public class EchoServer extends AbstractServer implements Initializable
 			return;
 		 }
 		
-		
+		//--------------------------------------------------------------------------------------------------------------
 		if(msg instanceof CatalogItem)
 		 {
 			
