@@ -605,6 +605,8 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    	loadPressed=0;
 
 	    	
+	    	this.catalogList.clear();
+	    	
 			int port = 5555;
 			String ip = "localhost";
 			myClient = new ChatClient(ip, port); // create new client

@@ -63,7 +63,8 @@ public class EchoServer extends AbstractServer implements Initializable {
 				System.out.println("Get all Users from DB");
 
 				ArrayList<User> UsersFromDB = new ArrayList<User>();
-				try {
+				try 
+				{
 					UsersFromDB = PutOutAllUsers(UsersFromDB);
 
 					Message Msg = new Message(UsersFromDB, "User");
@@ -100,6 +101,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 				}
 				return;
 			}
+			
 			 if (DiscoverMessage.equals("Give Me All Reports")) 
 			{
 				System.out.println("Get all Reports from DB");
@@ -113,13 +115,13 @@ public class EchoServer extends AbstractServer implements Initializable {
 					
 					
 					this.sendToAllClients(Msg);
-					return;
 				} 
 				catch (SQLException e) 
 				{
 					System.out.println("error-can't get Reports data from db");
 					this.sendToAllClients("GetFail");
 				}
+				return;
 			}
 			// "Please change Entry of user: "  "Please change Entry of user: "+UserName;
 			if ( (DiscoverMessage.length()) >= 28 )	//from here there is a process that check if client asking to change entry status of userName 
@@ -183,16 +185,13 @@ public class EchoServer extends AbstractServer implements Initializable {
 			
 			try {
 				AddNewPaymentAccount(msg);
-	
-				return;
 			} 
 			catch (SQLException e) 
 			{
 				System.out.println("error-can't Set Payment Account on DB");
 				this.sendToAllClients("GetFail");
 			}
-			
-		 
+			return;	
 		}
 		
 		if(msg instanceof Survey)
@@ -201,25 +200,21 @@ public class EchoServer extends AbstractServer implements Initializable {
 			System.out.println("Set Survey Info on DB");
 			 
 			
-			try {
+			try 
+			{
 				SaveSurveyInfo(msg);
-	
-				return;
 			} 
 			catch (SQLException e) 
 			{
 				System.out.println("error-can't Set Survey Info on DB");
 				this.sendToAllClients("GetFail");
 			}
-			
+			return;
 		 }
 		
 		
 		if(msg instanceof CatalogItem)
 		 {
-			
-			System.out.println("im in msg instanceof catalog !!!!!!!!! ****************");
-			
 			
 			CatalogItem givenItem = (CatalogItem)msg;
 			//first we check if we need to add new item or to edit exist item:
@@ -245,19 +240,9 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 		 }
 		
-		 
+	} //end of handleMessageFromClient
 	
-		/*
-		 * PreparedStatement ps = null; System.out.println("Message received: " + msg +
-		 * " from " + client);
-		 * 
-		 * try { ps= parsingTheData( ServerDataBase,(ArrayList<String>) msg) ;
-		 * saveUserToDB(ps); } catch (Exception e) { e.printStackTrace(); }
-		 * 
-		 * this.sendToAllClients("SUCSESS");
-		 * 
-		 */
-	}
+	//***********************************************************************************************************************************************************************************
 
 	// this method get all information from the DB and sent it to the comboBox of
 	// the clientGUI
@@ -285,6 +270,8 @@ public class EchoServer extends AbstractServer implements Initializable {
 		return UsersFromDB;
 
 	}
+	
+	//***********************************************************************************************************************************************************************************
 	private ArrayList<Reports> PutOutAllReports(ArrayList<Reports> ReportsFromDB) throws SQLException {
 
 		Statement st = (Statement) ServerDataBase.createStatement();
@@ -311,7 +298,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 		return ReportsFromDB;
 
 	}
-
+	//***********************************************************************************************************************************************************************************
 	
 	private ArrayList<CatalogItem> PutOutAllCatalogItems(ArrayList<CatalogItem> CatalogItemsFromDB) throws SQLException 
 	{
@@ -384,7 +371,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 	
 	
 	
-	
+	//***********************************************************************************************************************************************************************************
 	
 	
 	public synchronized void changeEntryInDB(String userName)  
@@ -429,7 +416,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 		};
 	}
 	
-	
+	//***********************************************************************************************************************************************************************************
 	public synchronized void deleteItemInDB(int ItemID)
 	{
 		Statement st=null;
@@ -450,12 +437,11 @@ public class EchoServer extends AbstractServer implements Initializable {
 		};
 	}
 	
-	
+	//***********************************************************************************************************************************************************************************
 	public synchronized void addItemInDB(CatalogItem givenItem)
 	{
 		try {
-
-				System.out.println("check if im in additem func***************************************");                       // need to delete !!!!!!!*****************
+                 // need to delete !!!!!!!*****************
 			
 				/*
 				Statement statementquery = (Statement) ServerDataBase.createStatement(); // query to check if table filled
@@ -512,7 +498,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 	}
 	
-	
+	//***********************************************************************************************************************************************************************************
 	
 	public synchronized void editItemInDB(CatalogItem givenItem)
 	{
@@ -521,7 +507,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 		addItemInDB(givenItem);		
 	}
 	
-	
+	//***********************************************************************************************************************************************************************************
 	
 	public synchronized boolean checkUniqueIDInDB(int ItemID)
 	{
@@ -553,7 +539,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 		return true; //unique id
 	}
 	
-	
+	//***********************************************************************************************************************************************************************************
 
 	  // Add New Payment Account to the data base 
 	  public synchronized void AddNewPaymentAccount(Object PA1) throws SQLException
@@ -589,6 +575,8 @@ public class EchoServer extends AbstractServer implements Initializable {
 			System.out.println("Cannot create st");
 		};
 	  }
+	  
+	//***********************************************************************************************************************************************************************************
 	  // Add Survey Information to the data base 
 	  public synchronized void SaveSurveyInfo(Object OB) throws SQLException
 	  { 
@@ -625,15 +613,24 @@ public class EchoServer extends AbstractServer implements Initializable {
 		};
 	  }
 	  
-	protected void serverStarted() {
+	  
+	  
+	  // ***************************************************
+	  protected void serverStarted() {
 		System.out.println("Server listening for connections on port " + getPort());
-	}
+	  }
 
-	protected void serverStopped() {
+	  // ***************************************************
+	  protected void serverStopped() {
 		System.out.println("Server has stopped listening for connections.");
-	}
+	  }
 
-	public synchronized PreparedStatement parsingTheData(Connection dbh, ArrayList<String> List) {
+	//***********************************************************************************************************************************************************************************
+	
+	
+	/*
+	public synchronized PreparedStatement parsingTheData(Connection dbh, ArrayList<String> List) 
+	{
 		PreparedStatement ps = null;
 		try {
 			ps = dbh.prepareStatement(" UPDATE Product SET ProductID=? WHERE ProductName=?;");
@@ -664,25 +661,12 @@ public class EchoServer extends AbstractServer implements Initializable {
 		this.sendToAllClients("UpdateSuccess");
 		return ps;
 	}
-
-	protected Connection connectToDB(String UserName, String Password, String DataBaseName) {
-		Connection ServerDataBase = null;
-		try {
-			String DataBaseAdress = "jdbc:mysql://localhost:3306/" + DataBaseName;
-			ServerDataBase = DriverManager.getConnection(DataBaseAdress, UserName, Password);
-			System.out.print("Server connected to Database sucessfully!\n");
-			this.DB_ACCOUNT = true;
-
-		} catch (SQLException ex) {
-			System.out.print("Sorry we had a problem, could not connect to DB server\n");
-			this.sendToAllClients("DBConnectFail");
-			this.DB_ACCOUNT = false;
-		}
-		return ServerDataBase;
-
-	}
-
-	protected void saveUserToDB(PreparedStatement ps) {
+	
+	
+	
+	
+	protected void saveUserToDB(PreparedStatement ps) 
+	{
 		try {
 			ps.executeUpdate();
 		} catch (SQLException ex) {
@@ -691,6 +675,15 @@ public class EchoServer extends AbstractServer implements Initializable {
 		}
 		this.sendToAllClients("UpdateSucces");
 	}
+	
+	
+	
+	
+	
+	*/
+
+
+	
 
 	// Class methods ***************************************************
 
@@ -704,6 +697,10 @@ public class EchoServer extends AbstractServer implements Initializable {
 		return this.DB_ACCOUNT;
 	}
 
+	
+	
+	
+	//***********************************************************************************************************************************************************************************
 	public String prepareCatlog() {
 		// here we prepare to take the images from their directory, it is not important
 		// where the project located, the code will find the images anyway
@@ -783,6 +780,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 	}
 
+	
 	private MyFile createFile(String path) 
 	{
 		MyFile fileToCreate = new MyFile(path);
@@ -807,6 +805,24 @@ public class EchoServer extends AbstractServer implements Initializable {
 			System.out.println("Can't create file");
 		}
 		return null;
+
+	}
+	
+	
+	protected Connection connectToDB(String UserName, String Password, String DataBaseName) {
+		Connection ServerDataBase = null;
+		try {
+			String DataBaseAdress = "jdbc:mysql://localhost:3306/" + DataBaseName;
+			ServerDataBase = DriverManager.getConnection(DataBaseAdress, UserName, Password);
+			System.out.print("Server connected to Database sucessfully!\n");
+			this.DB_ACCOUNT = true;
+
+		} catch (SQLException ex) {
+			System.out.print("Sorry we had a problem, could not connect to DB server\n");
+			this.sendToAllClients("DBConnectFail");
+			this.DB_ACCOUNT = false;
+		}
+		return ServerDataBase;
 
 	}
 }
