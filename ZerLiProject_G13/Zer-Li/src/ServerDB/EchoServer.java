@@ -188,7 +188,7 @@ public class EchoServer extends AbstractServer implements Initializable
 		}//end of if (msg instanceof String)
 		
 		
-		//--------------------------------------------------------------------------------------------------------------
+		//-----------------------------------instanceof PaymentAccount-------------------------------------------------------
 		if(msg instanceof PaymentAccount)
 		 {
 			System.out.println("100");
@@ -206,7 +206,7 @@ public class EchoServer extends AbstractServer implements Initializable
 			return;	
 		}
 		
-		//--------------------------------------------------------------------------------------------------------------
+		//---------------------------------------instanceof Survey---------------------------------------------------------
 		if(msg instanceof Survey)
 		 {
 			System.out.println("yes");
@@ -225,7 +225,7 @@ public class EchoServer extends AbstractServer implements Initializable
 			return;
 		 }
 		
-		//--------------------------------------------------------------------------------------------------------------
+		//---------------------------------------instanceof CatalogItem----------------------------------------------------
 		if(msg instanceof CatalogItem)
 		 {
 			
