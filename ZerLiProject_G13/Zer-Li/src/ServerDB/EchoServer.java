@@ -175,6 +175,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 			}
    	
 		}
+		
 		if(msg instanceof PaymentAccount)
 		 {
 			System.out.println("100");
@@ -194,23 +195,25 @@ public class EchoServer extends AbstractServer implements Initializable {
 			
 		 
 		}
+		
 		if(msg instanceof Survey)
 		 {
-		System.out.println("yes");
-		System.out.println("Set Survey Info on DB");
-		 
-		{
-		try {
-			SaveSurveyInfo(msg);
-
-			return;
-		} 
-		catch (SQLException e) 
-		{
-			System.out.println("error-can't Set Survey Info on DB");
-			this.sendToAllClients("GetFail");
-		}
-		}
+			System.out.println("yes");
+			System.out.println("Set Survey Info on DB");
+			 
+			
+			try {
+				SaveSurveyInfo(msg);
+	
+				return;
+			} 
+			catch (SQLException e) 
+			{
+				System.out.println("error-can't Set Survey Info on DB");
+				this.sendToAllClients("GetFail");
+			}
+			
+		 }
 		
 		
 		if(msg instanceof CatalogItem)
@@ -244,7 +247,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 		 }
 		
 		 
-	}
+	
 		/*
 		 * PreparedStatement ps = null; System.out.println("Message received: " + msg +
 		 * " from " + client);
