@@ -175,7 +175,6 @@ public class EchoServer extends AbstractServer implements Initializable {
 			}
    	
 		}
-		
 		if(msg instanceof PaymentAccount)
 		 {
 			System.out.println("100");
@@ -193,7 +192,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 				this.sendToAllClients("GetFail");
 			}
 			
-		
+		 
 		}
 		
 		if(msg instanceof Survey)
@@ -214,7 +213,6 @@ public class EchoServer extends AbstractServer implements Initializable {
 			}
 			
 		 }
-		
 		
 		
 		if(msg instanceof CatalogItem)
@@ -519,6 +517,8 @@ public class EchoServer extends AbstractServer implements Initializable {
 	public synchronized void editItemInDB(CatalogItem givenItem)
 	{
 		
+		deleteItemInDB(givenItem.getItemID());
+		addItemInDB(givenItem);		
 	}
 	
 	
