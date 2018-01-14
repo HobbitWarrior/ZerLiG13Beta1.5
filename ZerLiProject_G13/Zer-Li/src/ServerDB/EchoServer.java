@@ -31,7 +31,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import ocsf.server.*;
 
-public class EchoServer extends AbstractServer implements Initializable {
+public class EchoServer extends AbstractServer implements Initializable 
+{
 	// Class attributes *************************************************
 
 	private String UserName;
@@ -40,7 +41,6 @@ public class EchoServer extends AbstractServer implements Initializable {
 	private Connection ServerDataBase;
 	private boolean DB_ACCOUNT;
 
-	// Class attributes *************************************************
 
 	// Constructors ****************************************************
 
@@ -49,7 +49,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 		ServerDataBase = connectToDB(UserName, Password, DataBaseName);
 	}
 
-	// Constructors ****************************************************
+	// handle Messages From Client *****************************************************************************************************************************************************
 
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) 
 	{
@@ -241,6 +241,13 @@ public class EchoServer extends AbstractServer implements Initializable {
 		 }
 		
 	} //end of handleMessageFromClient
+	
+	
+	
+	
+	
+	
+	// Class methods ***************************************************
 	
 	//***********************************************************************************************************************************************************************************
 
@@ -628,7 +635,10 @@ public class EchoServer extends AbstractServer implements Initializable {
 	//***********************************************************************************************************************************************************************************
 	
 	
-	/*
+	/*  !!!!!!!    this are methoods from the prototype         !!!!!!!!
+	 
+	 
+	 
 	public synchronized PreparedStatement parsingTheData(Connection dbh, ArrayList<String> List) 
 	{
 		PreparedStatement ps = null;
@@ -685,7 +695,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 	
 
-	// Class methods ***************************************************
+	//***********************************************************************************************************************************************************************************
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -779,7 +789,8 @@ public class EchoServer extends AbstractServer implements Initializable {
 																								//// gui
 
 	}
-
+	
+	//***********************************************************************************************************************************************************************************
 	
 	private MyFile createFile(String path) 
 	{
@@ -808,7 +819,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 	}
 	
-	
+	//***********************************************************************************************************************************************************************************
 	protected Connection connectToDB(String UserName, String Password, String DataBaseName) {
 		Connection ServerDataBase = null;
 		try {
