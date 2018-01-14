@@ -96,7 +96,7 @@ public class CustomerServiceDepartmentworkerMainWindow implements Initializable 
 
 		// (AZ) adding a timer label
 		Label time = new Label("00:00");
-		Button button = new Button("edit>)");
+		Button button = new Button("update...>)");
 
 		complaintRow lastItem;
 
