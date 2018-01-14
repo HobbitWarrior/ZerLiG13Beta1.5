@@ -414,6 +414,33 @@ public class ChatClient extends AbstractClient {
 		
 		
 	}
- 
+
+	
+	
+	
+	/*(AZ) this method requests all the active complaints from the server
+	 */
+	public void sendRequestToGetComplaints(int itemID)
+	{
+		try 
+		{
+			this.openConnection();
+		}
+
+		catch (IOException e1) {
+			System.out.println("Cannot open connection");
+		}
+
+		try 
+		{
+			sendToServer("activeComplaints");
+		} 
+		catch (IOException e) 
+		{
+			System.out.println("Error! could'nt retrive active complaints, Cannot connect to server.");
+			e.printStackTrace();
+		}
+	}
+
 
 }
