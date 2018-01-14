@@ -136,7 +136,6 @@ public class CatalogEditControl extends LoginContol implements Initializable
 			OrdersControl.ItemsInOrderList.clear();
 			this.catalogList.clear();            // *************************need to check if i can delete only the "this." so it look like: catalogList.clear();
 			aFrame.start(arg0);
-			
 	    }
 	    
 	    //****************************************************************
