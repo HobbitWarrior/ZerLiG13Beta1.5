@@ -1,7 +1,9 @@
 package BranchManager;
 
 import java.io.IOException;
+import java.net.URL;
 import java.time.Year;
+import java.util.ResourceBundle;
 import java.util.Vector;
 
 import Users.LoginContol;
@@ -12,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,7 +28,7 @@ import BranchManager.Reports;
 import Customer.CatalogItemGUI;
 import client.ChatClient;
 
-public class OwnReportBrowseControl  extends LoginContol
+public class OwnReportBrowseControl  extends LoginContol  implements Initializable
 {
 	public static Vector<Reports> AllReports=new Vector<Reports>();
     @FXML
@@ -53,57 +56,28 @@ public class OwnReportBrowseControl  extends LoginContol
     private Button BrowseBtn;
 
     @FXML
-    private static TableView<Reports> tableV;
+    private   TableView<Reports> tableV;
 
     @FXML
-    private static TableColumn<Reports,Integer> ReportTypeCol;
+    private   TableColumn<Reports,Integer> ReportTypeCol;
 
     @FXML
-    private static TableColumn<Reports, Year> ReportYearCol;
+    private   TableColumn<Reports, Year> ReportYearCol;
 
     @FXML
-    private static TableColumn<Reports, Integer> ReportQuarterCol;
+    private   TableColumn<Reports, Integer> ReportQuarterCol;
 
     @FXML
-    private static TableColumn<Reports, Image> ImageCol;
-
+    private   TableColumn<Reports, Image> ImageCol;
     @FXML
-    private static TableColumn<Reports, String> BranchIDCol;
+     private   TableColumn<Reports, String> BranchIDCol;
 
 	public static ObservableList<Reports> ReportList= FXCollections.observableArrayList();
 
 	 @FXML 
     void BrowseBranchReport(ActionEvent event) {
-    	 int port=5555 ;
-  	   String ip="localhost";
-  	   try 
-  	   {
-  		myClient = new ChatClient(ip,port);	//create new client to get all users in db (server)
-  		myClient.setLoginControl(this);
-  	   } 
-  	   catch (IOException e) 
-  	   {
-  		   System.out.println("Cannot create client");	  
-  	   }
-  	    	  
-
-  	   myClient.sendRequestToGetAllReports("Give Me All Reports"); //send request to get all users from db (server)
     	
-    	
-    	System.out.println("[list]");
-     	
-     Reports rp=new Reports();
-      Reports rp1=new Reports();
-      
-      ReportList.add(rp);
-      ReportList.add(rp1);
-      
-  /*    ReportTypeCol.setCellValueFactory(new PropertyValueFactory<Reports, Integer>("ReportType"));
-      ReportYearCol.setCellValueFactory(new PropertyValueFactory<Reports, Year>("ReportYear"));
-      ReportQuarterCol.setCellValueFactory(new PropertyValueFactory<Reports, Integer>("ReportQuarter"));
-      ImageCol.setCellValueFactory(new PropertyValueFactory<Reports, Image>("Image"));
-      BranchIDCol.setCellValueFactory(new PropertyValueFactory<Reports, String>("BranchID"));
-   	tableV.setItems(ReportList);*/
+  
    	  
       
     }
@@ -142,11 +116,28 @@ public class OwnReportBrowseControl  extends LoginContol
     }
 	public void start(Stage primaryStage) throws  IOException 
 	{		
+	   	 int port=5555 ;
+	 	   String ip="localhost";
+	 	   try 
+	 	   {
+	 		myClient = new ChatClient(ip,port);	//create new client to get all users in db (server)
+	 		myClient.setLoginControl(this); 
+	 	   } 
+	 	   catch (IOException e) 
+	 	   {
+	 		   System.out.println("Cannot create client");	  
+	 	   }
+	 	   myClient.sendRequestToGetAllReports("Give Me All Reports"); //send request to get all users from db (server)
+
+		
 		Parent root = FXMLLoader.load(getClass().getResource("/BranchManager/SelfBrowseReportFrame.fxml"));
 		Scene scene = new Scene(root);
 		primaryStage.setTitle("Open New Payment Account To Customer"); // name of the title of the window
 		primaryStage.setScene(scene);
-	  	primaryStage.show();
+	  	
+ 	   
+		
+		primaryStage.show();
 
 		//Can't close the window without logout
 		primaryStage.setOnCloseRequest( event -> {event.consume();} );
@@ -155,23 +146,20 @@ public class OwnReportBrowseControl  extends LoginContol
 
  
 
-	public static void SetReportsInList() {
+
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) 
+	{
+		
+		
+
 		// TODO Auto-generated method stub
-		int i;
-	    for(i=0 ; i< AllReports.size() ; i++)			 
-	   	   {
-	    	Reports Rep =new Reports();
-	    	 Rep = AllReports.get(i) ; 
-	    	System.out.println(Rep);
-	    	ReportList.add(Rep);
-	   	   }
-    	System.out.println(ReportList);
-  /*    ReportTypeCol.setCellValueFactory(new PropertyValueFactory<Reports, Integer>("ReportType"));
+		 ReportTypeCol.setCellValueFactory(new PropertyValueFactory<Reports, Integer>("ReportType"));
 	      ReportYearCol.setCellValueFactory(new PropertyValueFactory<Reports, Year>("ReportYear"));
 	      ReportQuarterCol.setCellValueFactory(new PropertyValueFactory<Reports, Integer>("ReportQuarter"));
-	      ImageCol.setCellValueFactory(new PropertyValueFactory<Reports, Image>("Image"));
-	      BranchIDCol.setCellValueFactory(new PropertyValueFactory<Reports, String>("BranchID")); 
-	   	tableV.setItems(ReportList); */
-	    
+	    //  ImageCol.setCellValueFactory(new PropertyValueFactory<Reports, Image>("Image"));
+	     BranchIDCol.setCellValueFactory(new PropertyValueFactory<Reports, String>("BranchID")); 
+	     tableV.setItems(ReportList);
 	}
 }

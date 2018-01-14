@@ -3,9 +3,10 @@ package BranchManager;
 import java.io.Serializable;
 import java.time.Year;
 
+import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 
-public class Reports implements Serializable {
+public class Reports implements Serializable   {
 
 	
 	Integer ReportType ;
@@ -13,6 +14,8 @@ public class Reports implements Serializable {
 	Integer ReportQuarter  ; 
 	Image longblob;
 	String BranchID  ;
+	//String ReportYearStr  ;
+
 	public Integer getReportType() {
 		return ReportType;
 	}
@@ -43,15 +46,33 @@ public class Reports implements Serializable {
 	public void setBranchID(String branchID) {
 		BranchID = branchID;
 	}
+	
+	/*public String getReportYearStr()
+	{
+		return this.ReportYearStr;
+	}
+	
+	public void setReportYearStr(String ReportYearStr)
+	{
+		 this.ReportYearStr=ReportYearStr;
+	}*/
+	
+	
+	
 	@Override
 	public String toString() {
 		return "Reports [ReportType=" + ReportType + ", ReportYear=" + ReportYear + ", ReportQuarter=" + ReportQuarter
 				+ ", longblob=" + longblob + ", BranchID=" + BranchID + "]";
 	}
+	
+	
+	
+	
 	public Reports(Integer reportType, Year reportYear, Integer reportQuarter, Image longblob, String branchID) {
 		super();
 		ReportType = reportType;
 		ReportYear = reportYear;
+		//ReportYearStr=""+ReportYear;
 		ReportQuarter = reportQuarter;
 		this.longblob = longblob;
 		BranchID = branchID;
@@ -62,6 +83,7 @@ public class Reports implements Serializable {
 		ReportQuarter = 120;
 		this.longblob = null;
 		BranchID = "s10";
+		//ReportYearStr=""+ReportYear;
 		
 	}
 	 
