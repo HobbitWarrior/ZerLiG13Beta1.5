@@ -193,7 +193,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 				this.sendToAllClients("GetFail");
 			}
 			
-		 
+		
 		}
 		
 		if(msg instanceof Survey)
@@ -214,6 +214,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 			}
 			
 		 }
+		
 		
 		
 		if(msg instanceof CatalogItem)
