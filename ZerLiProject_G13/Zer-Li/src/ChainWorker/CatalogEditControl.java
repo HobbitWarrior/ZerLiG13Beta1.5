@@ -279,7 +279,6 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    @FXML
 	    void saveEvent(ActionEvent event) //input checks and if correct input: add item or edit item depends on what we pressed
 	    {    		
-	    	
 			if(! (ItemIDTextField.getText().equals("") || itemNameTextField.getText().equals("") || descriptionTextField.getText().equals("") || typeTextField.getText().equals("") || priceTextField.getText().equals("")) )
 			{
 		    	if(!(imageTextField.getText().equals(null) || imageTextField.getText().equals("")) ) //not empty image text field
