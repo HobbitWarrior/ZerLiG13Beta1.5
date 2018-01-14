@@ -30,7 +30,7 @@ import client.ChatClient;
 
 public class OwnReportBrowseControl  extends LoginContol  implements Initializable
 {
-	public static Vector<Reports> AllReports=new Vector<Reports>();
+	 
     @FXML
     private Button btnBrowseBranchReport;
 

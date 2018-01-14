@@ -183,16 +183,7 @@ public class ChatClient extends AbstractClient {
  			    	 OwnReportBrowseControl.ReportList.add(replist);
 				}
 				quit();
-				Platform.runLater(new Runnable() 
-				{
-
-					@Override
-					public void run() 
-					{
-						OwnReportBrowseControl.SetReportsInList();
-					}
-
-				});
+			 
 
 				return;
 				 

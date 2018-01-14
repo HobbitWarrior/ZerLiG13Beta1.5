@@ -57,9 +57,5 @@
         </columns>
       </TableView>
       <Button fx:id="btnCart" layoutX="660.0" layoutY="17.0" mnemonicParsing="false" opacity="0.01" prefHeight="38.0" prefWidth="75.0" text="btnCart" />
-      <Button fx:id="BrowseBtn" layoutX="396.0" layoutY="281.0" mnemonicParsing="false" onAction="#BrowseBranchReport" prefHeight="43.0" prefWidth="199.0" text="Browse Branch Reports" textFill="#dd0d0d">
-         <font>
-            <Font name="System Italic" size="17.0" />
-         </font></Button>
    </children>
 </AnchorPane>
