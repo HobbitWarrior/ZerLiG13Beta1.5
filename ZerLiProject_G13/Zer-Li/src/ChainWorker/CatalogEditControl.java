@@ -136,15 +136,14 @@ public class CatalogEditControl extends LoginContol implements Initializable
 			OrdersControl.ItemsInOrderList.clear();
 			this.catalogList.clear();            // *************************need to check if i can delete only the "this." so it look like: catalogList.clear();
 			aFrame.start(arg0);
-			
 	    }
 	    
 	    //****************************************************************
 
 		@FXML
-		void goHome(ActionEvent event) 
+		void goHome(ActionEvent event) throws IOException 
 		{
-
+			backEvent(event);
 		}
 		
 		 //****************************************************************
@@ -277,81 +276,155 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    
 	    //****************************************************************
 	    @FXML
-	    void saveEvent(ActionEvent event)
+	    void saveEvent(ActionEvent event) //input checks and if correct input: add item or edit item depends on what we pressed
 	    {    		
-	    	
 			if(! (ItemIDTextField.getText().equals("") || itemNameTextField.getText().equals("") || descriptionTextField.getText().equals("") || typeTextField.getText().equals("") || priceTextField.getText().equals("")) )
 			{
-		    	if(!(imageTextField.getText().equals(null) || imageTextField.getText().equals("")) ) //if we load correct image
+		    	if(!(imageTextField.getText().equals(null) || imageTextField.getText().equals("")) ) //not empty image text field
 		    	{
 		    		System.out.println("input is not empty");
 		    		
-		    		if(loadPressed==1)
+		    		if(isParsableInt(ItemIDTextField.getText())) //if item id can convert to int
 		    		{
-			    		if(newImage.getImage().errorProperty().getValue().equals(false) ) //no error
-			    		{
-			    			System.out.println("correct image");
-			    			
-			    			
-			    			//******* Task to do:  check price is string (using convert string to int)
-			    			
-			    	    	if(pressedBtn==1) //add item
-			    	    	{
-			    	    		
-			    	    		int IDfromTextField = Integer.parseInt(ItemIDTextField.getText()); //convert string to int
+		    			int checkID=Integer.parseInt(ItemIDTextField.getText());
+		    			if(checkID>0) //if item id positive
+		    			{
+		    				
+		    				if(isDouble(priceTextField.getText())) //if item price can convert to double
+				    		{
+				    			double checkprice= Double.parseDouble(priceTextField.getText());
+				    			if(checkprice>0)
+				    			{
+						    		if(loadPressed==1)
+						    		{
+							    		if(newImage.getImage().errorProperty().getValue().equals(false) ) //no error, we load correct image.
+							    		{
+							    			System.out.println("correct image");
 
-			    	    		checkUniqueID(IDfromTextField); //check if there is no id like this.
-			    	    		
-			    	    		
-
-			    	    	}
-			    	    	
-			    	    	if(pressedBtn==2) //edit item
-			    	    	{
-			    	    		int IDfromTextField = Integer.parseInt(ItemIDTextField.getText()); //convert string to int
-			    	    		AddorEditItems(IDfromTextField);
-			    	    	}
-			    			
-			    		}
-			    		else
+							    			int IDfromTextField = Integer.parseInt(ItemIDTextField.getText()); //convert string to int
+							    			
+							    			
+							    	    	if(pressedBtn==1) //add item
+							    	    	{
+							    	    		checkUniqueID(IDfromTextField); //check if there is no id like this. if unique id - go to func AddorEditItems to add item.
+							    	    	}
+							    	    	
+							    	    	
+							    	    	
+							    	    	if(pressedBtn==2) //edit item
+							    	    	{
+							    	    		AddorEditItems(IDfromTextField); //edit item
+							    	    	}
+							    			
+							    		}
+							    		else//Incorrect Image Adress
+							    		{
+							    			Alert incorrectImageAlert = new Alert(AlertType.WARNING);
+								    		incorrectImageAlert.setTitle("Incorrect Image Adress");
+								    		incorrectImageAlert.setHeaderText("Incorrect Image Adress");
+								    		incorrectImageAlert.setContentText("Please load correct image adress!");
+								    		incorrectImageAlert.showAndWait();
+							    		}
+						    		}
+						    		else //Did not press the load button
+						    		{
+						    			Alert incorrectImageAlert = new Alert(AlertType.WARNING);
+							    		incorrectImageAlert.setTitle("Did not press the load button");
+							    		incorrectImageAlert.setHeaderText("You Did not press the load button");
+							    		incorrectImageAlert.setContentText("Please press on the load first");
+							    		incorrectImageAlert.showAndWait();
+						    		}
+				    			}
+				    			else //price is negative
+					    		{
+					    			Alert incorrectImageAlert = new Alert(AlertType.WARNING);
+						    		incorrectImageAlert.setTitle("Negative or zero item price");
+						    		incorrectImageAlert.setHeaderText("You entered Negative or zero item ID number");
+						    		incorrectImageAlert.setContentText("Please enter positive number");
+						    		incorrectImageAlert.showAndWait();
+					    		}
+				    		}	
+		    				else //price is not double
+				    		{
+				    			Alert incorrectImageAlert = new Alert(AlertType.WARNING);
+					    		incorrectImageAlert.setTitle("price is not number");
+					    		incorrectImageAlert.setHeaderText("You did not enter valid number in the price field");
+					    		incorrectImageAlert.setContentText("Please enter number in the price field");
+					    		incorrectImageAlert.showAndWait();
+				    		}
+		    				
+		    				
+		    				
+		    			}
+		    			else //negative id number
 			    		{
 			    			Alert incorrectImageAlert = new Alert(AlertType.WARNING);
-				    		incorrectImageAlert.setTitle("Incorrect Image Adress");
-				    		incorrectImageAlert.setHeaderText("Incorrect Image Adress");
-				    		incorrectImageAlert.setContentText("Please load correct image adress!");
+				    		incorrectImageAlert.setTitle("Negative or zero item ID number");
+				    		incorrectImageAlert.setHeaderText("You entered Negative or zero item ID number");
+				    		incorrectImageAlert.setContentText("Please enter positive number");
 				    		incorrectImageAlert.showAndWait();
 			    		}
+		    		
 		    		}
-		    		else
+		    		else //id is not integer
 		    		{
 		    			Alert incorrectImageAlert = new Alert(AlertType.WARNING);
-			    		incorrectImageAlert.setTitle("Did not press the load button");
-			    		incorrectImageAlert.setHeaderText("You Did not press the load button");
-			    		incorrectImageAlert.setContentText("Please press on the load first");
+			    		incorrectImageAlert.setTitle("Item ID is not number");
+			    		incorrectImageAlert.setHeaderText("You did not enter valid numbers in item ID!");
+			    		incorrectImageAlert.setContentText("Please press enter numbers in item ID");
 			    		incorrectImageAlert.showAndWait();
 		    		}
 		    		
 		    	}
-		    	else
-		    	{
-		    		Alert incorrectImageAlert = new Alert(AlertType.WARNING);
-		    		incorrectImageAlert.setTitle("Empty picture address");
-		    		incorrectImageAlert.setHeaderText("Empty picture address");
-		    		incorrectImageAlert.setContentText("Please enter and load image adress!");
-		    		incorrectImageAlert.showAndWait();
-		    	}
+		    	else //Empty picture address
+			    {
+			    		Alert incorrectImageAlert = new Alert(AlertType.WARNING);
+			    		incorrectImageAlert.setTitle("Empty picture address");
+			    		incorrectImageAlert.setHeaderText("Empty picture address");
+			    		incorrectImageAlert.setContentText("Please enter and load image adress!");
+			    		incorrectImageAlert.showAndWait();
+			    }
+		    	
 			}
-	    	else
+		    else //empty fields
 			{
 				Alert incorrectImageAlert = new Alert(AlertType.WARNING);
-	    		incorrectImageAlert.setTitle("Empty fields");
-	    		incorrectImageAlert.setHeaderText("You did not fill all the fields");
-	    		incorrectImageAlert.setContentText("Please fill the fields!");
-	    		incorrectImageAlert.showAndWait();
+		    	incorrectImageAlert.setTitle("Empty fields");
+		    	incorrectImageAlert.setHeaderText("You did not fill all the fields");
+		    	incorrectImageAlert.setContentText("Please fill the fields!");
+		    	incorrectImageAlert.showAndWait();
 			}
 			
 			
 	    }
+	    
+	    
+	    //****************************************************************
+	    
+	    public static boolean isParsableInt(String input) //check if we can convert the textfield to integer
+	    {
+	        boolean parsable = true;
+	        try{
+	            Integer.parseInt(input);
+	        }catch(NumberFormatException e){
+	            parsable = false;
+	        }
+	        return parsable;
+	    }
+	    
+	    
+	    
+	    public static boolean isDouble(String input) //check if we can convert the textfield to double
+	    {
+	    	boolean isDoublePrice = true;
+	        try{
+	        	 Double.parseDouble(input);
+	        }catch(NumberFormatException e){
+	        	isDoublePrice = false;
+	        }
+	        return isDoublePrice;
+	    }
+	    
 	    
 	    //****************************************************************
 
@@ -527,10 +600,20 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    
 
 	    @FXML
-	    void backEvent(ActionEvent event) 
+	    void backEvent(ActionEvent event) throws IOException 
 	    {
 	    	loadPressed=0;
 
+	    	
+			int port = 5555;
+			String ip = "localhost";
+			myClient = new ChatClient(ip, port); // create new client
+			myClient.setCatalogEditControl(this);
+			myClient.setchooseControl("CatalogEditControl");
+			myClient.sendRequestToGetAllCatalogItems();
+	    	
+	    	
+	    	
 	    	
 	    	anchorPaneAddItem.setVisible(false);
 	    	titleLabel.setText("EDIT CATALOG");
