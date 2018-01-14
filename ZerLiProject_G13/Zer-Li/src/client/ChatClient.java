@@ -5,8 +5,10 @@ import common.*;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 
 import java.io.*;
+import java.time.Year;
 import java.util.ArrayList;
 
 import BranchManager.OwnReportBrowseControl;
@@ -171,7 +173,14 @@ public class ChatClient extends AbstractClient {
 				ArrayList<Reports> AllReportsFromServer = (ArrayList<Reports>) ServerMsg.getMsgObject();
 				for (int i = 0; i < AllReportsFromServer.size(); i++) 
 				{ 
-			    	 OwnReportBrowseControl.AllReports.add(AllReportsFromServer.get(i));
+					
+					int ReportType = AllReportsFromServer.get(i).getReportType(); 
+					Year ReportYear = AllReportsFromServer.get(i).getReportYear(); 
+					int ReportQuarter = AllReportsFromServer.get(i).getReportQuarter(); 
+					Image longblob = AllReportsFromServer.get(i).getLongblob();
+					String BranchID = AllReportsFromServer.get(i).getBranchID(); 
+					Reports replist=new Reports(ReportType,ReportYear,ReportQuarter,longblob,BranchID);
+ 			    	 OwnReportBrowseControl.ReportList.add(replist);
 				}
 				quit();
 				Platform.runLater(new Runnable() 
