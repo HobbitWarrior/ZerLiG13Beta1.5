@@ -82,19 +82,19 @@
             <ToggleGroup fx:id="delivery" />
          </toggleGroup></RadioButton>
       <RadioButton fx:id="privateAdressRadio" layoutX="125.0" layoutY="556.0" mnemonicParsing="false" onAction="#privateAdressRadioChosen" text="Private adress" toggleGroup="$delivery" />
-      <ComboBox fx:id="comboBranch" layoutX="212.0" layoutY="519.0" prefWidth="150.0" />
+      <ComboBox fx:id="comboBranch" disable="true" layoutX="212.0" layoutY="519.0" prefWidth="150.0" />
       <Label fx:id="adressShipmentLabel" layoutX="214.0" layoutY="594.0" text="Adress:" />
       <Label fx:id="adresseeShipmentLabel" layoutX="196.0" layoutY="633.0" text="Addressee:" />
       <Label fx:id="phoneNumberShipmentLabel" layoutX="170.0" layoutY="671.0" text="Phone Number:" />
-      <TextField fx:id="adressShipmentTxt" layoutX="267.0" layoutY="590.0" prefHeight="25.0" prefWidth="201.0" />
-      <TextField fx:id="adresseeShipmentTxt" layoutX="267.0" layoutY="629.0" prefHeight="25.0" prefWidth="201.0" />
+      <TextField fx:id="adressShipmentTxt" disable="true" layoutX="267.0" layoutY="590.0" prefHeight="25.0" prefWidth="201.0" />
+      <TextField fx:id="adresseeShipmentTxt" disable="true" layoutX="267.0" layoutY="629.0" prefHeight="25.0" prefWidth="201.0" />
       <TextField fx:id="phoneNumberTxt" disable="true" layoutX="357.0" layoutY="669.0" prefHeight="25.0" prefWidth="124.0" />
       <Label fx:id="aditionalCostLabel" layoutX="239.0" layoutY="556.0" prefHeight="17.0" prefWidth="210.0" text="Additional cost of 14.99 $" textFill="RED">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Label>
-      <ComboBox fx:id="KidometPhone" layoutX="270.0" layoutY="669.0" onAction="#KidometChosen" prefHeight="25.0" prefWidth="66.0" />
+      <ComboBox fx:id="KidometPhone" disable="true" layoutX="270.0" layoutY="669.0" onAction="#KidometChosen" prefHeight="25.0" prefWidth="66.0" />
       <Label fx:id="makafKidometNumPhone" layoutX="343.0" layoutY="669.0" text="-">
          <font>
             <Font size="18.0" />

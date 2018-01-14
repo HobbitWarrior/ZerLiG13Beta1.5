@@ -1,6 +1,8 @@
 package common;
 
-public class Branch 
+import java.io.Serializable;
+
+public class Branch implements Serializable
 {
 	private String branchName;
 	private String brancAdress;
@@ -28,4 +30,11 @@ public class Branch
 		this.brancAdress = brancAdress;
 	}
 
+	
+	//tostring method:
+	public String toString()
+	{
+		String branchStr= ""+this.branchName;
+		return branchStr;
+	}
 }

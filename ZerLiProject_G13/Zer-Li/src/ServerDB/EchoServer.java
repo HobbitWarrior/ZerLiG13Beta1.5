@@ -21,6 +21,7 @@ import ServerDB.Product;
 import Users.LoginContol;
 import Users.User;
 import client.Message;
+import common.Branch;
 import common.MyFile;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -53,10 +54,17 @@ public class EchoServer extends AbstractServer implements Initializable
 
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) 
 	{
+
+		
 		//------------------------------------instanceof String-------------------------------------------------------
 		if (msg instanceof String) 
 		{
 			String DiscoverMessage=(String) msg;
+			
+			if (DiscoverMessage.equals("Give Me All Branches")) 
+							System.out.println("I got branch message");
+
+			
 			
 			//-----------------------------------------------------------//
 			if (DiscoverMessage.equals("Give Me All Users")) 
@@ -183,7 +191,32 @@ public class EchoServer extends AbstractServer implements Initializable
 						return;
 				}
 				
+				//System.out.println("branch2"); //haim&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+				
 			}//end of if ( (DiscoverMessage.length()) >= 28 )
+			if (DiscoverMessage.equals("Give Me All Branches")) 
+			{
+				System.out.println("Get all Branches  from DB");
+
+				ArrayList<Branch> BranchesFromDB = new ArrayList<Branch>();
+				try 
+				{
+					BranchesFromDB = PutOutAllBranches(BranchesFromDB);
+
+					Message Msg = new Message(BranchesFromDB, "Branch");
+
+					this.sendToAllClients(Msg);
+					
+				} 
+				catch (SQLException e) 
+				{
+					System.out.println("error-can't get users data from db");
+					this.sendToAllClients("GetFail");
+				}
+				return;
+			}
+
    	
 		}//end of if (msg instanceof String)
 		
@@ -256,10 +289,31 @@ public class EchoServer extends AbstractServer implements Initializable
 	} //end of handleMessageFromClient
 	
 	
+	//****************************************************************************************************************************
 	
 	
 	
-	
+	private ArrayList<Branch> PutOutAllBranches(ArrayList<Branch> branchesFromDB) throws SQLException 
+	{
+		Statement st = (Statement) ServerDataBase.createStatement();
+
+		ResultSet rs = st.executeQuery("select * from branches ");
+
+		while (rs.next()) {
+			String BranchName = "" + rs.getString(1);
+			String BranchAdress = "" + rs.getString(2);
+			
+
+			Branch BranchReturnToClient = new Branch(BranchName, BranchAdress);
+			branchesFromDB.add(BranchReturnToClient);
+
+		}
+		rs.close();
+		st.close();
+
+		return branchesFromDB;
+	}
+
 	// Class methods ***************************************************
 	
 	//***********************************************************************************************************************************************************************************

@@ -26,7 +26,6 @@ public class ChatClient extends AbstractClient {
 	private LoginContol login;
 	private CatalogOrderControl orderFromCatalog;
 	private CatalogEditControl editCatalog;   // ************************************************* i added
-	
 	private String chooseControl; //choose between CatalogEditControl and CatalogOrderControl   // ************************************** i added
 	// Constructors ****************************************************
 
@@ -65,6 +64,8 @@ public class ChatClient extends AbstractClient {
 		{
 			Message ServerMsg;
 			ServerMsg = (Message) msg;
+			
+			
 			if (ServerMsg.getMsgType().equals("User")) 
 			{
 				ArrayList<User> AllUsersFromServer = (ArrayList<User>) ServerMsg.getMsgObject();
@@ -128,21 +129,22 @@ public class ChatClient extends AbstractClient {
 					MyFile itemPhoto = AllCatalogItems.get(i).getItemPhoto(); 
 					double Price = AllCatalogItems.get(i).getItemPrice();
 					
-					if(chooseControl.equals("CatalogOrderControl"))
+					if(chooseControl.equals("CatalogOrderControl")) //window of haim
 					{
 					
 					CatalogItemGUI catalogProduct= new CatalogItemGUI(itemID , itemName , itemType , itemDescription , itemPhoto , Price, orderFromCatalog );
 					CatalogOrderControl.catalogList.add(catalogProduct);					// ->* observablelist loaded into the table
 					}
 					
-					if(chooseControl.equals("CatalogEditControl"))
+					if(chooseControl.equals("CatalogEditControl"))	//window of sharon
 					{
 					
 					CatalogItemGUI catalogProduct= new CatalogItemGUI(itemID , itemName , itemType , itemDescription , itemPhoto , Price, editCatalog );
 					CatalogEditControl.catalogList.add(catalogProduct);					// ->* observablelist loaded into the table
+					quit();	//this quit is only here because  CatalogOrderControl need to get branches too!!!, if we put this quit after this if, CatalogOrderControl (of Haim) will not get branches
 					}
+
 				}
-				quit();
 				
 				/*
 				Platform.runLater(new Runnable() 
@@ -188,7 +190,25 @@ public class ChatClient extends AbstractClient {
 				return;
 				 
 			}
+			
+			if (ServerMsg.getMsgType().equals("Branch")) 
+			{
+				ArrayList<Branch> AllBranchesFromServer = (ArrayList<Branch>) ServerMsg.getMsgObject();
+				for (int i = 0; i < AllBranchesFromServer.size(); i++) 
+				{
+					// System.out.println(""+AllUsersFromServer.get(i));
+					CatalogOrderControl.AllBranchesNames.add(""+AllBranchesFromServer.get(i));
+					CatalogOrderControl.AllBranches.add(AllBranchesFromServer.get(i));
+					System.out.println(""+AllBranchesFromServer.get(i));
+				}
+				quit();
+				
+
+				return;
+			}
 		}
+		
+		
 
 	}
 

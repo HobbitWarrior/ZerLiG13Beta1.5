@@ -52,6 +52,7 @@ public class OrdersControl extends LoginContol implements Initializable
 	private static Date  completedTransactionDate ;
 	private static Time supplyTime;
 	private static Time completedTransactionDateTime;
+	private static String selfArrivalBranch="";
 
 	private ObservableList<String> hourList = FXCollections.observableArrayList();
 	private ObservableList<String> MinutesList = FXCollections.observableArrayList();
@@ -185,11 +186,20 @@ public class OrdersControl extends LoginContol implements Initializable
     }
     
     @FXML
-    void branchRadioChosen(ActionEvent event) 
+    void branchRadioChosen(ActionEvent event) //if customer chose a self arrival delivery
     {
-    	//branchRadio 
-        
-       // privateAdressRadio;
+    	this.comboBranch.setDisable(false);
+    	this.comboBoxHour.setDisable(false);
+    	this.adressShipmentTxt.setDisable(true);
+    	this.adresseeShipmentTxt.setDisable(true);
+    	this.KidometPhone.setDisable(true);
+    	this.phoneNumberTxt.setDisable(true);
+    	this.adressShipmentTxt.clear();
+    	this.adresseeShipmentTxt.clear();
+    	this.phoneNumberTxt.clear();
+    	
+    	
+    	
     }
 
     @FXML
@@ -246,7 +256,7 @@ public class OrdersControl extends LoginContol implements Initializable
     void comboBoxHourPressed(ActionEvent event) 
     {
     	supplyTime=null;
-    	supplyTime = new Time(comboBoxHour.getValue(), "00", "00");
+    	supplyTime = new Time(comboBoxHour.getValue(), "00", "00");	//here we keep the date of supplying that customer wanted
     	System.out.println(""+supplyTimeDate);
     	System.out.println(""+supplyTime);
 		
@@ -386,11 +396,10 @@ public class OrdersControl extends LoginContol implements Initializable
 		primaryStage.setTitle("Create an order"); // name of the title of the window
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		int port = 5555;
-		String ip = "localhost";
+		//int port = 5555;
+		//String ip = "localhost";
 		//myClient = new ChatClient(ip, port); // create new client
-		//myClient.setCatalogOrderControl(this);
-		//myClient.sendRequestToGetAllCatalogItems();
+		
 
 		// Can't close the window without logout
 		primaryStage.setOnCloseRequest(event -> {
@@ -494,12 +503,15 @@ public class OrdersControl extends LoginContol implements Initializable
     	BackToCartBtn.setVisible(false);
     	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
         LocalDateTime now = LocalDateTime.now(); 
-       
+        comboBranch.setItems(CatalogOrderControl.AllBranchesNames); //**************
     	LocalDate minDate = LocalDate.of(now.getYear(), now.getMonth(), now.getDayOfMonth());
         LocalDate maxDate = LocalDate.of(2100, Month.DECEMBER, 31);
         ComboDate.setDayCellFactory((p) -> new DateCell() {
-            @Override
-            public void updateItem(LocalDate ld, boolean bln) {
+           
+        	
+        	@Override
+            public void updateItem(LocalDate ld, boolean bln) 	//this part is making dates to be disabled before the current day
+            {
                 super.updateItem(ld, bln);
                 setDisable(ld.isBefore(minDate) || ld.isAfter(maxDate));
             }
