@@ -182,7 +182,9 @@ public class OrdersControl extends LoginContol implements Initializable
     @FXML
     void KidometChosen(ActionEvent event) 
     {
-
+    	
+    		phoneNumberTxt.setDisable(false);
+    
     }
     
     @FXML
@@ -197,7 +199,8 @@ public class OrdersControl extends LoginContol implements Initializable
     	this.adressShipmentTxt.clear();
     	this.adresseeShipmentTxt.clear();
     	this.phoneNumberTxt.clear();
-    	
+    	KidometPhone.valueProperty().set(null);
+
     	
     	
     }
@@ -205,7 +208,18 @@ public class OrdersControl extends LoginContol implements Initializable
     @FXML
     void privateAdressRadioChosen(ActionEvent event) 
     {
-
+    	comboBranch.valueProperty().set(null);
+    	this.comboBranch.setDisable(true);
+    	this.comboBoxHour.setDisable(false);
+    	this.adressShipmentTxt.setDisable(false);
+    	this.adresseeShipmentTxt.setDisable(false);
+    	this.KidometPhone.setDisable(false);
+    	this.phoneNumberTxt.setDisable(true);
+    	this.adressShipmentTxt.clear();
+    	this.adresseeShipmentTxt.clear();
+    	this.phoneNumberTxt.clear();
+    	
+    	
     }
     
     
@@ -391,7 +405,7 @@ public class OrdersControl extends LoginContol implements Initializable
 	
 	public void start(Stage primaryStage) throws IOException 
 	{
-		Pane root = FXMLLoader.load(getClass().getResource("/Customer/ordersCatalogCustomWindow.fxml"));
+		Pane root = FXMLLoader.load(getClass().getResource("/Customer/OrderControl.fxml"));
 		Scene scene = new Scene(root);
 		primaryStage.setTitle("Create an order"); // name of the title of the window
 		primaryStage.setScene(scene);
@@ -521,6 +535,8 @@ public class OrdersControl extends LoginContol implements Initializable
         });
         ComboDate.setDisable(false);
           comboBoxHour.setDisable(true);
+          ObservableList<String> phoneKidomet= FXCollections.observableArrayList("02","03","02","04","08","09","050","052","053","054","055","058");
+     	 KidometPhone.setItems(phoneKidomet);
 	}
 
 	
