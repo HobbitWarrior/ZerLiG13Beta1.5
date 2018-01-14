@@ -144,7 +144,7 @@ public class CatalogEditControl extends LoginContol implements Initializable
 		@FXML
 		void goHome(ActionEvent event) 
 		{
-
+			backEvent(event);
 		}
 		
 		 //****************************************************************
