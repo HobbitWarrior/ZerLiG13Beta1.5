@@ -49,6 +49,7 @@ public class CatalogEditControl extends LoginContol implements Initializable
 
 	
 		//on top of the screen:
+	
     	@FXML
     	private Button btnHome;
 	    @FXML
@@ -57,7 +58,7 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    private Button btnLogout;
 	    
 	    //content
-	
+	    
 		@FXML
 		private Label titleLabel;	
 	    @FXML
@@ -66,7 +67,7 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    private Button btnEditItem;
 	    @FXML
 	    private Button btnDeleteItem;   
-	   @FXML
+	    @FXML
 	    private Button btnEditCatalog;
 	    @FXML
 	    private TableView<CatalogItemGUI> CatalogTable;
@@ -683,7 +684,7 @@ public class CatalogEditControl extends LoginContol implements Initializable
 		myClient.setCatalogEditControl(this);
 		myClient.setchooseControl("CatalogEditControl");
 		myClient.sendRequestToGetAllCatalogItems();
-	  	
+			  	
 		//Can't close the window without logout
 		primaryStage.setOnCloseRequest( event -> {event.consume();} );
 	}
