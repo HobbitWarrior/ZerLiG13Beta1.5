@@ -38,6 +38,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class OrdersControl extends LoginContol implements Initializable
@@ -53,7 +54,8 @@ public class OrdersControl extends LoginContol implements Initializable
 	private static Time supplyTime;
 	private static Time completedTransactionDateTime;
 	private static String selfArrivalBranch="";
-
+	private static boolean expeditedSupplying=false;
+	
 	private ObservableList<String> hourList = FXCollections.observableArrayList();
 	private ObservableList<String> MinutesList = FXCollections.observableArrayList();
 	private LocalDateTime now;
@@ -178,6 +180,9 @@ public class OrdersControl extends LoginContol implements Initializable
     private Label makafKidometNumPhone; 	//screen2
     
 
+    @FXML
+    private ToggleGroup delivery;			//screen 2
+
     
     @FXML
     void KidometChosen(ActionEvent event) 
@@ -281,7 +286,61 @@ public class OrdersControl extends LoginContol implements Initializable
     @FXML
     void goToCheckoutBtnPressed(ActionEvent event) 
     {
+    	String ErrorMsg="";
+    	if(ComboDate.getValue() == null)	//check is customer picked date
+    		ErrorMsg=ErrorMsg+"Supply date.\n";
+    	
+    	if(comboBoxHour.getValue() == null)	//check is customer picked hour
+    		ErrorMsg=ErrorMsg+"Supply time.\n";
+    	
+    	if(delivery.getSelectedToggle() ==null ) //check is customer picked kind of any delivery
+    		ErrorMsg=ErrorMsg+"Delivery.\n";
+    	else 	//if user did pick a king of delivery, then....
+    		{
+    			if(branchRadio.isSelected() == true)	//if he chose self arrival delivery,
+    			{
+    				if(comboBranch.getValue()== null)	//check if customer picked a branch in combobox
+    				{	//not picked
+    		    		ErrorMsg=ErrorMsg+"Branch to self arrival delivery.\n";
+    				}
+    			}
+    			
+    			else if(privateAdressRadio.isSelected() == true)	//if he chose self arrival delivery,
+    			{
+    				if(adressShipmentTxt.getText().equals(""))	//check if customer entered adress to text field
+    				{	//not picked
+    		    		ErrorMsg=ErrorMsg+"Adress for private shipment.\n";
+    				}
+    				if(adresseeShipmentTxt.getText().equals(""))	//check if customer entered adressee to text field
+    				{	//not picked
+    		    		ErrorMsg=ErrorMsg+"Adressee for private shipment.\n";
+    				}
+    				
+    				if(KidometPhone.getValue() ==null) //check if customer entered phone number by check kidomet
+    				{
+    		    		ErrorMsg=ErrorMsg+"Phone number.\n";
 
+    				}
+    				
+    				else
+    				{
+    					if(phoneNumberTxt.getText().equals(""))
+        		    		ErrorMsg=ErrorMsg+"Phone number.\n";
+
+    				}
+    			}
+    		
+    		}
+    	
+    	if(!ErrorMsg.equals(""))	//if there is an error (at least one) show error message and get out from this method, to prevent customer to arrive to payments level
+    	{
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setTitle("You cannot procced to checkout!");
+    		alert.setHeaderText("The folowing details are false or missing:");
+    		alert.setContentText(ErrorMsg);
+    		alert.showAndWait();
+    		return;
+    	}
     }
     
     @FXML
