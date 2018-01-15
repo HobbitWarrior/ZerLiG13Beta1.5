@@ -55,6 +55,7 @@ public class OrdersControl extends LoginContol implements Initializable
 	private static Time completedTransactionDateTime;
 	private static String selfArrivalBranch="";
 	private static boolean expeditedSupplying=false;
+	private static Delivery myShipment;
 	
 	private ObservableList<String> hourList = FXCollections.observableArrayList();
 	private ObservableList<String> MinutesList = FXCollections.observableArrayList();
@@ -275,7 +276,6 @@ public class OrdersControl extends LoginContol implements Initializable
     void comboBoxHourPressed(ActionEvent event) 
     {
     	supplyTime=null;
-    	supplyTime = new Time(comboBoxHour.getValue(), "00", "00");	//here we keep the date of supplying that customer wanted
     	System.out.println(""+supplyTimeDate);
     	System.out.println(""+supplyTime);
 		
@@ -341,6 +341,69 @@ public class OrdersControl extends LoginContol implements Initializable
     		alert.showAndWait();
     		return;
     	}
+    	int chosenYear=ComboDate.getValue().getYear();
+    	int chosenMounth=ComboDate.getValue().getMonthValue();
+    	int chosenDay=ComboDate.getValue().getDayOfMonth();
+        LocalDateTime now = LocalDateTime.now(); 	//here we will check if customer picked expedited delivery for boolean value of customerorder class
+    	int nowYear=now.getYear();
+    	int nowMounth=now.getMonthValue();
+    	int nowDay=now.getDayOfMonth();
+    	supplyTimeDate =new Date(chosenYear ,chosenMounth , chosenDay);	//here we create date of supplying for customerOrder class
+    	supplyTime = new Time(comboBoxHour.getValue(), "00", "00");	//here we keep the date of supplying that customer wanted
+
+    	
+    	if(nowYear == chosenYear && nowMounth == chosenMounth && nowDay== chosenDay) //if customer want the supplying today....
+    	{
+    		int nowHour = now.getHour();
+    		int supplyHour = Integer.parseInt(supplyTime.getHour());
+    		if ((supplyHour-nowHour) <=3 )	//if customer want his order in the next 3 hours, then define this order to be expedited
+    		{
+    			expeditedSupplying=true;
+    		}
+    		
+    		else
+    		{
+    			expeditedSupplying=false;		//if customer want his order in more than 3 hours, then this order is not expedited
+
+    		}
+    	}
+
+    	else
+    	{
+			expeditedSupplying=false;	//if customer want his order in more than 1 day later, then this order is not expedited
+
+    	}
+        
+     
+    	if(branchRadio.isSelected())
+    	{
+    		String myBranchName=comboBranch.getValue();	
+    		String myBranchAdress="";
+    		for (int i=0; i < CatalogOrderControl.AllBranches.size() ; i++)	//we look for the address of the branch's name
+    		{
+    			String checkBranchName=CatalogOrderControl.AllBranches.get(i).getBranchName();	//keep the current scanned branch
+    			if(checkBranchName.equals(myBranchName))
+    			{
+    				myBranchAdress=CatalogOrderControl.AllBranches.get(i).getBrancAdress();
+    				break;
+    			}
+    		}
+    		
+    		myShipment=new BranchShipment(myBranchName,myBranchAdress);	//create delivery of self arrival, 
+    		System.out.println(""+((BranchShipment)myShipment).getBranchName()+", "+ ((BranchShipment)myShipment).getBranchAdress());
+    	}
+    	
+    	else if(privateAdressRadio.isSelected())
+    	{
+    		String Address=adressShipmentTxt.getText();
+    		String Adressee=adresseeShipmentTxt.getText();
+    		String PhoneNum=KidometPhone.getValue()+"-"+phoneNumberTxt.getText();
+    		myShipment = new PrivateShipment(14.99,Adressee, Address, PhoneNum);  
+    		System.out.println(((PrivateShipment)myShipment).getAddressee()+", " +((PrivateShipment)myShipment).getPhoneNumber()+", "+((PrivateShipment)myShipment).getAddress());
+    	}
+    	
+    	
+
     }
     
     @FXML
@@ -464,7 +527,7 @@ public class OrdersControl extends LoginContol implements Initializable
 	
 	public void start(Stage primaryStage) throws IOException 
 	{
-		Pane root = FXMLLoader.load(getClass().getResource("/Customer/OrderControl.fxml"));
+		Pane root = FXMLLoader.load(getClass().getResource("/Customer/OrdersControl.fxml"));
 		Scene scene = new Scene(root);
 		primaryStage.setTitle("Create an order"); // name of the title of the window
 		primaryStage.setScene(scene);
