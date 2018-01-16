@@ -276,6 +276,49 @@ public class EchoServer extends AbstractServer implements Initializable
 			return;
 		 }
 		
+		//---------------------------------------instance of Complaints----------------------------------------------------
+
+		// inserts the complaints to the DB
+		if (msg instanceof complaint) {
+			complaint cmp = (complaint) msg;
+			// make sure the data is valid
+			if (cmp.getComplaintID() < 1 || cmp.getCustomerID() < 1 || cmp.getDateComplaint().isEmpty()
+					|| cmp.getEmpHandling() < 1 || cmp.getStatus().isEmpty() || cmp.getTimeComplaint().isEmpty()
+					|| cmp.getTopic().isEmpty() || cmp.getDetails().isEmpty()) {
+				System.out.println("Illegal Complaint record entry\nCould not insert to DB");
+				return;
+			}
+
+			try {
+				// insert the data into the table
+				Statement statementquery = (Statement) ServerDataBase.createStatement(); // query to check if table
+																							// filled
+
+				PreparedStatement ps1 = ServerDataBase
+						.prepareStatement("INSERT INTO complaints VALUES (?,?,?,?,?,?,?)");
+
+				// INSERT INTO complaints VALUES (?,?,?,?,?,?,?);
+				// (`ComplaintID`, `CustomerID`, `EmpHendelingID`, `Topic`, `TimeComplaint`,
+				// `DateComplaint`, `Status`) VALUES
+
+				ps1.setString(1, Integer.toString(cmp.getComplaintID()));
+				ps1.setString(2, Integer.toString(cmp.getCustomerID()));
+				ps1.setString(3, Integer.toString(cmp.getEmpHandling()));
+				ps1.setString(3, cmp.getTopic());
+				ps1.setString(4, cmp.getTimeComplaint());
+				ps1.setString(5, cmp.getDateComplaint());
+				ps1.setString(6, cmp.getStatus());
+				ps1.executeUpdate();
+				ps1.close();
+
+				statementquery.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+
+		
 		//---------------------------------------instanceof CatalogItem----------------------------------------------------
 		if(msg instanceof CatalogItem)
 		 {
