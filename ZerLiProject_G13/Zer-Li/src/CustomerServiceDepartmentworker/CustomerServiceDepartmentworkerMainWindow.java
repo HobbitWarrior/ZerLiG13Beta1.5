@@ -1,10 +1,15 @@
 package CustomerServiceDepartmentworker;
 
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.lang.*;
 import javafx.concurrent.Task;
 import Customer.CatalogItemGUI;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,7 +27,9 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.Duration;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DataFormat;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -32,7 +39,6 @@ import javafx.beans.binding.*;
 
 public class CustomerServiceDepartmentworkerMainWindow implements Initializable {
 
-	
 	public Stage mainStageReference;
 	public static // a version with a complaintRow class instead of a String
 	ObservableList<complaintRow> upgradedList = FXCollections.observableArrayList();
@@ -46,11 +52,16 @@ public class CustomerServiceDepartmentworkerMainWindow implements Initializable 
 	@FXML
 	private GridPane Griddy;
 
+	static int iterations;
+
+	// the unique key of the complaint, sent from the caller
+	public static int complaintID;
+	public static int customerServiceID;
+
 	public void start(Stage primaryStage) throws Exception {
 
-		mainStageReference=primaryStage;
-		
-		
+		mainStageReference = primaryStage;
+
 		Parent root = FXMLLoader.load(getClass()
 				.getResource("/CustomerServiceDepartmentworker/CustomerServiceDepartmentworkerMainWindow.fxml"));
 		Scene scene = new Scene(root);
@@ -58,23 +69,39 @@ public class CustomerServiceDepartmentworkerMainWindow implements Initializable 
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
-		// testing run later--for the fututre it will call the timers
-		Platform.runLater(new Runnable() {
-
-			@Override
+		Thread updateTimersThread = new Thread() {
 			public void run() {
-				System.out.println("just running later, Chill Bro:)");
-				try {
-					Thread.sleep(3000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				upgradedList.add(new complaintRow("added by run later",mainStageReference));
-				upgradedList.get(2).timerTextSetter("23:59");
-			}
+				for (int i = 0; i < 10000000; i++) {
+					iterations = i;
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					Platform.runLater(new Runnable() {
 
-		});
+						@Override
+						public void run() {
+
+							// get current time
+							// seconds:
+							DateTimeFormatter seconds = DateTimeFormatter.ofPattern("ss");
+							LocalDateTime now = LocalDateTime.now();
+							// minutes:
+							DateTimeFormatter minutes = DateTimeFormatter.ofPattern("MM");
+							// hours:
+							DateTimeFormatter hours = DateTimeFormatter.ofPattern("HH");
+
+							// upgradedList.get(0).timerTextSetter(hours.format(now),minutes.format(now),seconds.format(now));
+							for (complaintRow row : upgradedList)
+								row.timerTextSetter(hours.format(now), minutes.format(now), seconds.format(now));
+						}
+					});
+				}
+			}
+		};
+		updateTimersThread.start();
 
 		// Can't close the window without logout
 		// primaryStage.setOnCloseRequest( event -> {event.consume();} );
@@ -127,7 +154,7 @@ public class CustomerServiceDepartmentworkerMainWindow implements Initializable 
 						 * window or generate a new stage
 						 */
 						item.buttonEventHandler();
-						
+
 					}
 				});
 				setGraphic(hbox);
@@ -143,18 +170,20 @@ public class CustomerServiceDepartmentworkerMainWindow implements Initializable 
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		newComplaint.setText("Dunno");
+		newComplaint.setText("New Complaint...");
 
-		upgradedList.add(new complaintRow("just adding an item to a static list",mainStageReference));
-		
-		/*new complaintRow("this is a sad"),
-			new complaintRow("about a list "), new complaintRow("that its only purpose is"),
-			new complaintRow("to store angry customers complaints :("), new complaintRow()*/
-		upgradedList.add(new complaintRow("this is a sad",mainStageReference));
-		upgradedList.add(new complaintRow("that its only purpose is",mainStageReference));
-		upgradedList.add(new complaintRow("to store angry customers complaints :(",mainStageReference));
+		upgradedList.add(new complaintRow("just adding an item to a static list", mainStageReference));
+
+		/*
+		 * new complaintRow("this is a sad"), new complaintRow("about a list "), new
+		 * complaintRow("that its only purpose is"), new
+		 * complaintRow("to store angry customers complaints :("), new complaintRow()
+		 */
+		upgradedList.add(new complaintRow("this is a sad", mainStageReference));
+		upgradedList.add(new complaintRow("that its only purpose is", mainStageReference));
+		upgradedList.add(new complaintRow("to store angry customers complaints :(", mainStageReference));
 		upgradedList.add(new complaintRow(mainStageReference));
-		
+
 		// point the complaintlist to the observable upgradedList
 		complaintsList.setItems(upgradedList);
 		// define the cell style
@@ -164,34 +193,5 @@ public class CustomerServiceDepartmentworkerMainWindow implements Initializable 
 				return new XCell();
 			}
 		});
-
-
-		Task<Integer> task = new Task<Integer>() {
-		    @Override protected Integer call() throws Exception {
-		        int iterations;
-		        for (iterations = 0; iterations < 1000; iterations++) {
-		            if (isCancelled()) {
-		                updateMessage("Cancelled");
-		                break;
-		            }
-		            updateMessage("Iteration " + iterations);
-		            updateProgress(iterations, 1000);
-		 
-		            //Block the thread for a short time, but be sure
-		            //to check the InterruptedException for cancellation
-		            try {
-		                Thread.sleep(100);
-		            } catch (InterruptedException interrupted) {
-		                if (isCancelled()) {
-		                    updateMessage("Cancelled");
-		                    break;
-		                }
-		            }
-		        }
-		        return iterations;
-		    }
-		};
-		upgradedList.get(0).timerTextSetter(task.getMessage());
-
 	}
 }

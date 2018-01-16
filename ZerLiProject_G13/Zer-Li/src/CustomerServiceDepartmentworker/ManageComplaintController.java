@@ -26,7 +26,7 @@ public class ManageComplaintController {
 	public Button save;
 	@FXML
 	public Label title;
-
+ 	
 	public void start(Stage primaryStage) throws Exception {
 		Parent root = FXMLLoader
 				.load(getClass().getResource("/CustomerServiceDepartmentworker/ManageComplaintFrame.fxml"));
