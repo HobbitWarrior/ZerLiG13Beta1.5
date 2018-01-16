@@ -849,6 +849,15 @@ public class EchoServer extends AbstractServer implements Initializable
 		String Photo2Path = "" + userDir + "\\flowerArrangement.jpg";
 		String Photo3Path = "" + userDir + "\\ClusterFlowers.jpg";
 		String Photo4Path = "" + userDir + "\\FloweringPlant.jpg";
+		String Photo5Path = "" + userDir + "\\BridalBouquet2.jpg";
+		String Photo6Path = "" + userDir + "\\ClusterFlowers2.jpg";
+		String Photo7Path = "" + userDir + "\\ClusterFlowers3.jpg";
+		String Photo8Path = "" + userDir + "\\flowerArrangement2.jpg";
+		String Photo9Path = "" + userDir + "\\flowerArrangement3.jpg";
+		String Photo10Path = "" + userDir + "\\FloweringPlant2.png";
+		
+		
+		
 		ArrayList<CatalogItem> ListOfItemToPutInMySQL = new ArrayList<CatalogItem>();
 
 		// here we create new catalog items, and put it into arraylist
@@ -856,10 +865,23 @@ public class EchoServer extends AbstractServer implements Initializable
 		CatalogItem itemNo2 = new CatalogItem(22222, "The best of all bouqets", "Flower Arrangement", "Bouquet for special ceremonies", createFile(Photo2Path), 78.22);
 		CatalogItem itemNo3 = new CatalogItem(33333, "The bouqets of the stingy people", "Cluster Flowers",	"Bouquet for people who has not too\nmuch money", createFile(Photo3Path), 21.74);
 		CatalogItem itemNo4 = new CatalogItem(44444, "Beautifull flowers in big\nplant", "Flowering Plant",	"Plants for big gardens", createFile(Photo4Path), 150);
+		CatalogItem itemNo5 = new CatalogItem(55555, "The bouqets of weddings ", "Bridal Bouquet" , "Bouquet for all weddings", createFile(Photo5Path), 55.65);
+		CatalogItem itemNo6 = new CatalogItem(66666, "The bouqet of all bouqets", "Cluster Flowers", "Bouquet for grand parties", createFile(Photo6Path), 43.22);
+		CatalogItem itemNo7 = new CatalogItem(77777, "The bouqets of children", "Cluster Flowers",	"Bouquet for babies or little\nchildren", createFile(Photo7Path), 111.22);
+		CatalogItem itemNo8 = new CatalogItem(88888, "The bouqets women", "Flower Arrangement",	"Bouqets for old women", createFile(Photo8Path), 77.2);
+		CatalogItem itemNo9 = new CatalogItem(99999, "The bouqets of men", "Flower Arrangement",	"Bouquet for old men", createFile(Photo9Path), 21.74);
+		CatalogItem itemNo10 = new CatalogItem(11110, "The Sad flowers", "Flowering Plant",	"Plants for funreals", createFile(Photo10Path), 150);
 		ListOfItemToPutInMySQL.add(itemNo1);
 		ListOfItemToPutInMySQL.add(itemNo2);
 		ListOfItemToPutInMySQL.add(itemNo3);
 		ListOfItemToPutInMySQL.add(itemNo4);
+		ListOfItemToPutInMySQL.add(itemNo5);
+		ListOfItemToPutInMySQL.add(itemNo6);
+		ListOfItemToPutInMySQL.add(itemNo7);
+		ListOfItemToPutInMySQL.add(itemNo8);
+		ListOfItemToPutInMySQL.add(itemNo9);
+		ListOfItemToPutInMySQL.add(itemNo10);
+		
 		try {
 
 			Statement statementquery = (Statement) ServerDataBase.createStatement(); // query to check if table filled
@@ -874,7 +896,8 @@ public class EchoServer extends AbstractServer implements Initializable
 			PreparedStatement ps1 = ServerDataBase.prepareStatement(
 					"insert into catalogitems (ItemID,ItemName,ItemType,Description,Photo,Price) values (?,?,?,?,?,?)");
 			PreparedStatement ps2 = ServerDataBase.prepareStatement("insert into itemstypes (categorytype) values (?)");
-			for (int row = 0; row < ListOfItemToPutInMySQL.size(); row++) {
+			for (int row = 0; row < ListOfItemToPutInMySQL.size(); row++) 
+			{
 				// this loop put new rows in catalogitems table!!
 				CatalogItem itemFromCatalog = ListOfItemToPutInMySQL.get(row);
 				ps1.setInt(1, itemFromCatalog.getItemID());
@@ -893,10 +916,11 @@ public class EchoServer extends AbstractServer implements Initializable
 				catch (FileNotFoundException e) {
 					System.out.println("Can't create inputStream");
 				}
-
-				ps2.setString(1, itemFromCatalog.getItemType());
-
+				if(row<4)
+				{
+					ps2.setString(1, itemFromCatalog.getItemType());
 				ps2.executeUpdate(); // safe close of the statements
+				}
 				ps1.executeUpdate();
 
 			}

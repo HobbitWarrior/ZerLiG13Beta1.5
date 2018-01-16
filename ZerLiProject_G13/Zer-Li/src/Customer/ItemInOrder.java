@@ -6,7 +6,7 @@ import java.util.Comparator;
 
 import javafx.collections.ObservableList;
 
-public class ItemInOrder implements Comparable,Serializable
+public abstract class ItemInOrder implements Comparable,Serializable
 {
 	private Integer orderID= null;
 	private int itemID;

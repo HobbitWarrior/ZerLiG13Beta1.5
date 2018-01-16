@@ -55,8 +55,7 @@ public class OrdersControl extends LoginContol implements Initializable
 	private static Time completedTransactionDateTime;
 	private static String selfArrivalBranch="";
 	private static boolean expeditedSupplying=false;
-	private static Delivery myShipment;
-	
+	private static Delivery myShipment;	
 	private ObservableList<String> hourList = FXCollections.observableArrayList();
 	private ObservableList<String> MinutesList = FXCollections.observableArrayList();
 	private LocalDateTime now;
@@ -329,6 +328,8 @@ public class OrdersControl extends LoginContol implements Initializable
 
     				}
     			}
+    			calculateTotalPriceAndQuantity();
+    			
     		
     		}
     	

@@ -89,7 +89,7 @@ public class CatalogItemGUI extends CatalogItem
 	private void AddButtonClicked() 
 	{
 		//System.out.println(""+this.getItemID()+", "+this.getItemName()+", "+this.getItemType()+", "+this.getItemDescription()+", "+this.getItemPrice());
-		ItemInOrder newItem = new ItemInOrder(this.getItemID(),this.getItemName(), this.getItemPrice());
+		ItemInOrder newItem = new CatalogItemInOrder(this.getItemID(),this.getItemName(), this.getItemPrice());
 		ObservableList<ItemInOrder> prepareItemsInOrder= OrdersControl.ItemsInOrderList;
 		
 		for(int i=0 ; i< prepareItemsInOrder.size(); i++)	//scan all item that chosen before
@@ -113,7 +113,7 @@ public class CatalogItemGUI extends CatalogItem
 	private void RemoveButtonClicked()
 	{
 		//System.out.println(""+this.getItemID()+", "+this.getItemName()+", "+this.getItemType()+", "+this.getItemDescription()+", "+this.getItemPrice());
-		ItemInOrder newItem = new ItemInOrder(this.getItemID(),this.getItemName(),this.getItemPrice());
+		ItemInOrder newItem = new CatalogItemInOrder(this.getItemID(),this.getItemName(),this.getItemPrice());
 		ObservableList<ItemInOrder> prepareItemsInOrder= OrdersControl.ItemsInOrderList;
 		for(int i=0 ; i< prepareItemsInOrder.size(); i++)
 		{
