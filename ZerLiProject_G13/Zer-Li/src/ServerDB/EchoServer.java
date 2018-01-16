@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import com.mysql.jdbc.Blob;
 import com.mysql.jdbc.Statement;
 
+import CustomerServiceDepartmentworker.complaint;
 import BranchManager.PaymentAccount;
 import BranchManager.Reports;
 import BranchWorker.Survey;
@@ -134,6 +135,23 @@ public class EchoServer extends AbstractServer implements Initializable
 				}
 				return;
 			}
+			// get all the complaints from the DB
+				if (DiscoverMessage.equals("complaints")) {
+					System.out.println("Dear server will you be so kind to get all the Compliants from the DB?");
+					ArrayList<complaint> Complaints = new ArrayList<complaint>();
+					try {
+						// Complaints = PutOutAllCatalogItems(Complaints);
+
+						Message Msg = new Message(Complaints, "Complaints");
+
+						this.sendToAllClients(Msg);
+
+					} catch (Exception e) // SQLException
+					{
+						System.out.println("error-can't get catalogItems data from db");
+						this.sendToAllClients("GetFail");
+					}
+				}
 			//-----------------------------------------------------------//
 			 
 			// "Please change Entry of user: "  "Please change Entry of user: "+UserName;
