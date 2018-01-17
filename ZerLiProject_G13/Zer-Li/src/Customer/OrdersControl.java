@@ -183,6 +183,65 @@ public class OrdersControl extends LoginContol implements Initializable
 
     @FXML
     private ToggleGroup delivery;			//screen 2
+    
+    @FXML
+    private Button backToDeliveryBtn;		//screen 3
+    
+    
+    @FXML
+    private Label CheckotFinalMainLabel;	//screen 3
+    
+    
+    @FXML
+    private Label PA_userNameLabe;			//screen 3
+    
+    
+    @FXML
+    private TextField PA_userName_txt;		//screen 3
+    
+    
+    @FXML
+    private Label PA_PasswordLabe;			//screen 3
+    
+    @FXML
+    private TextField PA_password_txt;		//screen 3
+    
+    @FXML
+    private Label payMethodLabel;			//screen 3
+    
+    
+    @FXML
+    private ComboBox<String> payMethodcomboBox;	//screen 3
+    
+    @FXML
+    private Button payButton;					//screen 3
+    
+    
+    
+    
+    @FXML
+    void backToDeliveryBtnPressed(ActionEvent event) 
+    {
+    	ShowScreenTWO();	//show screen number 3
+
+    }
+    
+    
+    @FXML
+    void payButtonPressed(ActionEvent event) 
+    {
+
+    }
+    
+    
+    
+    
+    @FXML
+    void payMethodcomboBoxPressed(ActionEvent event) 
+    {
+
+    }
+    
 
     
     @FXML
@@ -285,7 +344,7 @@ public class OrdersControl extends LoginContol implements Initializable
     
     @FXML
     void goToCheckoutBtnPressed(ActionEvent event) 
-    {
+    {	/**this method show screen 3 and prepare important data to load customer order table*/
     	String ErrorMsg="";
     	if(ComboDate.getValue() == null)	//check is customer picked date
     		ErrorMsg=ErrorMsg+"Supply date.\n";
@@ -405,6 +464,7 @@ public class OrdersControl extends LoginContol implements Initializable
     	}
     	
     	
+    	ShowScreenThree();	//show screen number 3
 
     }
     
@@ -723,7 +783,7 @@ public class OrdersControl extends LoginContol implements Initializable
 	}
 	
 	private void ShowScreenTWO()
-	{
+	{	/**this method show screen 2 of delivery, no matta where you come from*/
 		goToDelivery.setVisible(false);
 		goToCheckoutBtn.setVisible(true);
 		yourinvoiceLabel.setVisible(false);
@@ -755,6 +815,64 @@ public class OrdersControl extends LoginContol implements Initializable
     	KidometPhone.setVisible(true);
     	phoneNumberTxt.setVisible(true);
     	phoneNumberTxt.setDisable(true);
+    	backToDeliveryBtn.setVisible(false);		//from here it is the third part of window = checkout	
+    	CheckotFinalMainLabel.setVisible(false);	
+     	PA_userNameLabe.setVisible(false);			
+    	PA_userName_txt.setVisible(false);		
+    	PA_PasswordLabe.setVisible(false);			
+    	PA_password_txt.setVisible(false);		
+     	payMethodLabel.setVisible(false);			
+     	payMethodcomboBox.setVisible(false);	
+    	payButton.setVisible(false);					
+		CheckoutLabel.setTextFill(Color.WHITE);
+   
+    	
+    	
+    	//end of screen 2 = delivery
+    	
+	}
+	
+	
+	private void ShowScreenThree()
+	{	/**this method show screen 2 of delivery, no matta where you come from*/
+		
+
+		DeliverLabel.setTextFill(Color.WHITE);
+    	CheckoutLabel.setTextFill(Color.web("#34fffc"));
+    	BackToCartBtn.setVisible(false);
+    	goToDelivery.setVisible(false);
+    	messageAfterGreeting.setVisible(false);
+    	SupplyTimeLabel.setVisible(false);	//from here it is the second part of window = delivery
+    	dateLabel.setVisible(false);
+    	ComboDate.setVisible(false);
+    	HourLabel.setVisible(false);
+    	comboBoxHour.setVisible(false);
+    	ShipmentLabel.setVisible(false);
+    	branchRadio.setVisible(false);
+    	comboBranch.setVisible(false);
+    	privateAdressRadio.setVisible(false);
+    	aditionalCostLabel.setVisible(false);
+    	adressShipmentLabel.setVisible(false);
+    	adressShipmentTxt.setVisible(false);
+    	adresseeShipmentLabel.setVisible(false);
+    	adresseeShipmentTxt.setVisible(false);
+    	phoneNumberShipmentLabel.setVisible(false);
+    	KidometPhone.setVisible(false);
+    	phoneNumberTxt.setVisible(false);
+    	phoneNumberTxt.setDisable(false);
+    	backToDeliveryBtn.setVisible(true);		//from here it is the third part of window = checkout	
+    	CheckotFinalMainLabel.setVisible(true);	
+     	PA_userNameLabe.setVisible(true);			
+    	PA_userName_txt.setVisible(true);		
+    	PA_PasswordLabe.setVisible(true);			
+    	PA_password_txt.setVisible(true);		
+     	payMethodLabel.setVisible(true);			
+     	payMethodcomboBox.setVisible(true);	
+    	payButton.setVisible(true);					
+    	goToCheckoutBtn.setVisible(false);
+    
+    	
+    	
     	//end of screen 2 = delivery
     	
 	}
