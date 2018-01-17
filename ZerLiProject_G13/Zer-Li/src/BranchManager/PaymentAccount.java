@@ -13,6 +13,8 @@ public class PaymentAccount  implements Serializable {
 	  int CvvCreditCardNum  ; 
 	  String CreditCardType     ;
 	  String SubscriptionType  ;
+	  String BranchID;
+	  String ExpAccountDate;
 	public String getUserName() {
 		return UserName;
 	}
@@ -67,8 +69,29 @@ public class PaymentAccount  implements Serializable {
 	public void setSubscriptionType(String subscriptionType) {
 		SubscriptionType = subscriptionType;
 	}
+	public String getBranchID() {
+		return BranchID;
+	}
+	public void setBranchID(String branchID) {
+		BranchID = branchID;
+	}
+	public String getExpAccountDate() {
+		return ExpAccountDate;
+	}
+	public void setExpAccountDate(String expAccountDate) {
+		ExpAccountDate = expAccountDate;
+	}
+	@Override
+	public String toString() {
+		return "PaymentAccount [UserName=" + UserName + ", CustomerID=" + CustomerID + ", Password=" + Password
+				+ ", PaymentType=" + PaymentType + ", CreditCardNum=" + CreditCardNum + ", CreditCardExpDate="
+				+ CreditCardExpDate + ", CvvCreditCardNum=" + CvvCreditCardNum + ", CreditCardType=" + CreditCardType
+				+ ", SubscriptionType=" + SubscriptionType + ", BranchID=" + BranchID + ", ExpAccountDate="
+				+ ExpAccountDate + "]";
+	}
 	public PaymentAccount(String userName, int customerID, String password, String paymentType, String creditCardNum,
-			String creditCardExpDate, int cvvCreditCardNum, String creditCardType, String subscriptionType) {
+			String creditCardExpDate, int cvvCreditCardNum, String creditCardType, String subscriptionType,
+			String branchID, String expAccountDate) {
 		super();
 		UserName = userName;
 		CustomerID = customerID;
@@ -79,24 +102,12 @@ public class PaymentAccount  implements Serializable {
 		CvvCreditCardNum = cvvCreditCardNum;
 		CreditCardType = creditCardType;
 		SubscriptionType = subscriptionType;
+		BranchID = branchID;
+		ExpAccountDate = expAccountDate;
 	}
 	public PaymentAccount() {
-		UserName = null;
-		CustomerID = 0;
-		Password = null;
-		PaymentType = null;
-		CreditCardNum = null;
-		CreditCardExpDate = null;
-		CvvCreditCardNum = 0;
-		CreditCardType = null;
-		SubscriptionType = null;
+		// TODO Auto-generated constructor stub
 	}
-	@Override
-	public String toString() {
-		return "PaymentAccount [UserName=" + UserName + ", CustomerID=" + CustomerID + ", Password=" + Password
-				+ ", PaymentType=" + PaymentType + ", CreditCardNum=" + CreditCardNum + ", CreditCardExpDate="
-				+ CreditCardExpDate + ", CvvCreditCardNum=" + CvvCreditCardNum + ", CreditCardType=" + CreditCardType
-				+ ", SubscriptionType=" + SubscriptionType + "]";
-	} 
+	  
 	  
 }

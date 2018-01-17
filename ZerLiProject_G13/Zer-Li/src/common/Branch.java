@@ -4,12 +4,14 @@ import java.io.Serializable;
 
 public class Branch implements Serializable
 {
+	private String branchID="";
 	private String branchName;
 	private String brancAdress;
 	
 	
-	public Branch(String branchName, String brancAdress)
+	public Branch(String branchID, String branchName, String brancAdress)
 	{
+		this.branchID=branchID;
 		this.branchName = branchName;
 		this.brancAdress = brancAdress;
 	}
@@ -36,5 +38,19 @@ public class Branch implements Serializable
 	{
 		String branchStr= ""+this.branchName;
 		return branchStr;
+	}
+
+
+
+
+	public String getBranchID() {
+		return branchID;
+	}
+
+
+
+
+	public void setBranchID(String branchID) {
+		this.branchID = branchID;
 	}
 }

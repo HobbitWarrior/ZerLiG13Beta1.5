@@ -60,7 +60,9 @@ public class LoginContol
 	
     protected static String UserNameToCheck;
     
-    protected static int userID;
+    protected static int userID;		//this is id of role
+    
+    protected static String userRole="";	//this is role name
 
 	protected ChatClient myClient;
 	
@@ -160,7 +162,8 @@ public class LoginContol
 					   else	
 					   {
 						   userPermition = person.getPermition(); 	//all details approved
-						   this.userID=person.getId();
+						   this.userID=person.getId();	//keep the userID for the next windows
+						   this.userRole=person.getPermition();	//keep permition to the next windows
 						   if(person.getEntry()==1)	//check if the account already in use
 						   {
 							   //error message on borbidden account

@@ -198,9 +198,9 @@ public class ChatClient extends AbstractClient {
 				for (int i = 0; i < AllBranchesFromServer.size(); i++) 
 				{
 					// System.out.println(""+AllUsersFromServer.get(i));
-					CustomerMainWindow.AllBranchesNames.add(""+AllBranchesFromServer.get(i));
+					CustomerMainWindow.AllBranchesNames.add(""+AllBranchesFromServer.get(i).getBranchName());
 					CustomerMainWindow.AllBranches.add(AllBranchesFromServer.get(i));
-					System.out.println(""+AllBranchesFromServer.get(i));
+					System.out.println(""+AllBranchesFromServer.get(i).getBranchName());
 				}
 				quit();
 				

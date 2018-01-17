@@ -366,12 +366,14 @@ public class EchoServer extends AbstractServer implements Initializable
 		ResultSet rs = st.executeQuery("select * from branches ");
 
 		while (rs.next()) {
-			String BranchName = "" + rs.getString(1);
-			String BranchAdress = "" + rs.getString(2);
+			String BranchID=""+rs.getString(1);
+			String BranchName = "" + rs.getString(2);
+			String BranchAdress = "" + rs.getString(3);
 			
 
-			Branch BranchReturnToClient = new Branch(BranchName, BranchAdress);
+			Branch BranchReturnToClient = new Branch(BranchID,BranchName, BranchAdress);
 			branchesFromDB.add(BranchReturnToClient);
+			System.out.println(""+BranchReturnToClient);
 
 		}
 		rs.close();

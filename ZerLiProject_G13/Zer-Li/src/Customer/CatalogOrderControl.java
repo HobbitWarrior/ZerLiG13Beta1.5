@@ -227,7 +227,6 @@ public class CatalogOrderControl extends LoginContol implements Initializable
 			MinusColumn.setCellValueFactory(new PropertyValueFactory<CatalogItemGUI, Button>("minusBtn"));
 
 			CatalogTable.setItems(catalogList);
-
 		
 		}
 	 
