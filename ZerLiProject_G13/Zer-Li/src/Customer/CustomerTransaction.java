@@ -1,8 +1,9 @@
 package Customer;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
-public class CustomerOrder implements Serializable
+public class CustomerTransaction implements Serializable
 {	/**this class is responsible for the customer order, and check if payment account exist in table*/
 	private int OrderID;
 	private int customerID;
@@ -19,50 +20,11 @@ public class CustomerOrder implements Serializable
 	private int CompleteStatus=0;
 	private String PaymentAccountUserName;
 	private String PaymentAccountPassword;
+	private ArrayList<ItemInOrder> productsList;
 	
 	
-	public CustomerOrder(int orderID, int customerID, Delivery ordercustomerDelivery, String orderbranchID,
-			Double ordertotalPrice, Date ordersupplyDate, Time ordersupplyTime, Date orderCompletedDate,
-			Time orderCompletedTime, String greeting, String paymentType, String isExpeditedDelivery,
-			int completeStatus, String paymentAccountUserName, String paymentAccountPassword) 
+	public CustomerTransaction() //constructor is empty because is will be too long to insert attributes
 	{
-		OrderID = orderID;
-		this.customerID = customerID;
-		OrderCustomerDelivery = ordercustomerDelivery;
-		OrderbranchID = orderbranchID;
-		OrdertotalPrice = ordertotalPrice;
-		OrdersupplyDate = ordersupplyDate;
-		OrdersupplyTime = ordersupplyTime;
-		OrderCompletedDate = orderCompletedDate;
-		OrderCompletedTime = orderCompletedTime;
-		Greeting = greeting;
-		PaymentType = paymentType;
-		IsExpeditedDelivery = isExpeditedDelivery;
-		CompleteStatus = completeStatus;
-		PaymentAccountUserName = paymentAccountUserName;
-		PaymentAccountPassword = paymentAccountPassword;
-	}
-
-
-	public CustomerOrder(int customerID, Delivery orderCustomerDelivery, String orderbranchID, Double ordertotalPrice,
-			Date ordersupplyDate, Time ordersupplyTime, Date orderCompletedDate, Time orderCompletedTime,
-			String greeting, String paymentType, String isExpeditedDelivery, String paymentAccountUserName,
-			String paymentAccountPassword) {
-		super();
-		this.customerID = customerID;
-		OrderCustomerDelivery = orderCustomerDelivery;
-		OrderbranchID = orderbranchID;
-		OrdertotalPrice = ordertotalPrice;
-		OrdersupplyDate = ordersupplyDate;
-		OrdersupplyTime = ordersupplyTime;
-		OrderCompletedDate = orderCompletedDate;
-		OrderCompletedTime = orderCompletedTime;
-		Greeting = greeting;
-		PaymentType = paymentType;
-		IsExpeditedDelivery = isExpeditedDelivery;
-		PaymentAccountUserName = paymentAccountUserName;
-		PaymentAccountPassword = paymentAccountPassword;
-		this.CompleteStatus=0;	//0= not supplyied, 1 =supplyed
 	}
 
 
@@ -215,12 +177,17 @@ public class CustomerOrder implements Serializable
 		PaymentAccountPassword = paymentAccountPassword;
 	}
 
-	
-	
+
+	public ArrayList<ItemInOrder> getProductsList() {
+		return productsList;
+	}
+
+
+	public void setProductsList(ArrayList<ItemInOrder> productsList) {
+		this.productsList = productsList;
+	}
 	
 	
 	
 }
-
-
 
