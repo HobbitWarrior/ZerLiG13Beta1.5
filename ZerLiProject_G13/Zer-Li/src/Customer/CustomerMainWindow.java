@@ -30,6 +30,7 @@ public class CustomerMainWindow extends LoginContol implements Initializable
 {
 	public static ObservableList<Branch> AllBranches= FXCollections.observableArrayList();
 	public static ObservableList<String> AllBranchesNames= FXCollections.observableArrayList();
+	public static String chosenBranchID="";
     @FXML
     private Button btnCancelOrder;
 
@@ -50,8 +51,7 @@ public class CustomerMainWindow extends LoginContol implements Initializable
 
 
 
-    @FXML
-    private Button PickBranchBtn;
+   
 
  
 
@@ -96,7 +96,7 @@ public class CustomerMainWindow extends LoginContol implements Initializable
     
     @FXML
     void showCatalog(ActionEvent event) 
-    { 
+    { 	/**this method shows catalog*/
 		   System.out.println("I got the event of catalog button");	  
 
  	   	Stage primaryStage = new Stage();
@@ -150,27 +150,41 @@ public class CustomerMainWindow extends LoginContol implements Initializable
 
 		//Can't close the window without logout
 		primaryStage.setOnCloseRequest( event -> {event.consume();} );
-		
 	} 
 
 	
 
-    @FXML
-    void PickBranchBtnPressed(ActionEvent event) 
-    {
-
-    }
+   
     
     @FXML
     void PickBranchComboPressed(ActionEvent event) 
-    {
+    {	/**this method get the id of chosen branch for buying*/
     	OrdersControl.oneBranchName.add(comboBranch.getValue());	//we transfer the branch name to the branch list of delivery, customer will be able to pick order in one single branch (if self arrival chosen)
+    	for(int i=0; i<AllBranches.size();i++)
+    	{
+    		if(comboBranch.getValue().equals(AllBranches.get(i).getBranchName()))
+    		{
+    			this.chosenBranchID=AllBranches.get(i).getBranchID();
+    			break;
+    		}
+    	}
+    	
+    	if(!this.chosenBranchID.equals(""))
+    	{
+    		btnCatalog.setDisable(false);	//if branch chosen, allow user to open the catalog
+
+    	}
+    	System.out.println(""+chosenBranchID);;
+    	//this.chosenBranchID
     }
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) 
-	{
+	{/**loading all branches to combobox*/
 		comboBranch.setItems(AllBranchesNames);	
+		chosenBranchID="";
+		btnCatalog.setDisable(true);
+
 		
 	}
 }

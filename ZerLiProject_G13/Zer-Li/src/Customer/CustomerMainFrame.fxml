@@ -48,7 +48,6 @@
       </Label>
       <AnchorPane layoutX="83.0" layoutY="624.0" prefHeight="247.0" prefWidth="178.0" />
       <AnchorPane layoutX="330.0" layoutY="624.0" prefHeight="247.0" prefWidth="178.0" />
-      <Button fx:id="PickBranchBtn" layoutX="330.0" layoutY="462.0" mnemonicParsing="false" onAction="#PickBranchBtnPressed" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: #9a4140;" text="Pick a branch" textFill="WHITE" />
-      <ComboBox fx:id="comboBranch" layoutX="330.0" layoutY="387.0" onAction="#PickBranchComboPressed" prefHeight="25.0" prefWidth="156.0" />
+      <ComboBox fx:id="comboBranch" layoutX="330.0" layoutY="387.0" onAction="#PickBranchComboPressed" prefHeight="25.0" prefWidth="156.0" promptText="pick a branch" />
    </children>
 </AnchorPane>

@@ -197,7 +197,7 @@ public class CatalogOrderControl extends LoginContol implements Initializable
 	
 	  @FXML
 	    void orderDetailsBtnPressed(ActionEvent event) 
-	  {
+	  {/**this method create a status label about how many items we want to buy and the total price*/
 		  OrdersControl.calculateTotalPriceAndQuantity();
 		  double totalPrice = OrdersControl.getTotalPrice();
 		  int totalQuantity = OrdersControl.getTotalQuantity();
@@ -213,10 +213,10 @@ public class CatalogOrderControl extends LoginContol implements Initializable
 	  
 	  
 		@Override
-		public void initialize(URL location, ResourceBundle resources) 
+		public void initialize(URL location, ResourceBundle resources) 	
 		{	//(int itemID, String itemName,	String itemType , String itemDescription , MyFile itemPhoto ,double Price )
 			
-
+			/**this method load the table view*/
 
 			CatalogItemNameColumn.setCellValueFactory(new PropertyValueFactory<CatalogItemGUI, String>("itemName"));
 			CatalogItemDescriptionColumn.setCellValueFactory(new PropertyValueFactory<CatalogItemGUI, String>("itemDescription"));
@@ -241,7 +241,7 @@ public class CatalogOrderControl extends LoginContol implements Initializable
 			myClient = new ChatClient(ip, port); // create new client
 			myClient.setCatalogOrderControl(this);
 			myClient.setchooseControl("CatalogOrderControl");
-			myClient.sendRequestToGetAllCatalogItems();
+			myClient.sendRequestToGetAllCatalogItemsOfBranch(CustomerMainWindow.chosenBranchID);
 			// Can't close the window without logout
 			primaryStage.setOnCloseRequest(event -> {
 				event.consume();

@@ -19,6 +19,7 @@ import BranchManager.PaymentAccount;
 import BranchManager.Reports;
 import BranchWorker.Survey;
 import Catalog.CatalogItem;
+import Customer.MessgaeCatalogProduct;
 import ServerDB.Product;
 import Users.LoginContol;
 import Users.User;
@@ -381,9 +382,88 @@ public class EchoServer extends AbstractServer implements Initializable
 
 		 }
 		
+		if(msg instanceof MessgaeCatalogProduct)
+		 {/***this method will give client all catalog items of a specific branch*/
+			System.out.println("Get all CatalogItems of a branch from DB");
+			MessgaeCatalogProduct specialMessage =(MessgaeCatalogProduct)msg;
+			String branchID =specialMessage.getBranchID();
+			
+			ArrayList<CatalogItem> CatalogItemsFromDB = new ArrayList<CatalogItem>();
+			try 
+			{
+				
+				CatalogItemsFromDB = PutOutAllCatalogItems(CatalogItemsFromDB);	//get all catalog items 
+				CatalogItemsFromDB = PutOutAllBranchCatalogItems(CatalogItemsFromDB, branchID);	//get all catalog items  new prices
+
+
+				Message Msg = new Message(CatalogItemsFromDB, "CatalogItem");
+				//this.sendToAllClients(Msg);
+				try {
+					client.sendToClient(Msg);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			} 
+			catch (SQLException e) 
+			{
+				System.out.println("error-can't get catalogItems data from db");
+				this.sendToAllClients("GetFail");
+			}
+			return;
+		 }
+		
 	} //end of handleMessageFromClient
 	
-	
+	//****************************************************************************************************************************
+
+	private ArrayList<CatalogItem> PutOutAllBranchCatalogItems(ArrayList<CatalogItem> catalogItemsFromDB, String branchID) 
+	{	/**this method return prices for item in specific branch*/
+		Statement st=null;
+
+		try 
+		{
+			st = (Statement) ServerDataBase.createStatement();
+			String sql = "SELECT * FROM catalogitemsofbranch WHERE BranchID = '" + branchID + "'";
+			ResultSet rs=null;
+			rs = st.executeQuery(sql);
+			while (rs.next()) 
+			{
+				
+				int newItemID = rs.getInt(1);
+				String newBranchID= rs.getString(2);
+				double newItemPrice=rs.getDouble(3);
+				for(int i=0; i < catalogItemsFromDB.size() ;i++)
+				{
+					int oldItemID =catalogItemsFromDB.get(i).getItemID();
+					if(oldItemID == newItemID) //if the item in table catalogitemsofbranch exit, take the new price
+					{
+						catalogItemsFromDB.get(i).setItemPrice(newItemPrice);
+						break;
+					}
+				}
+				
+				
+
+				
+			}
+			rs.close();
+			st.close();
+
+		} 
+		catch (SQLException e1) 
+		{
+			e1.printStackTrace();
+			System.out.println("Cannot update new price of branch");
+		};
+		
+		
+		
+		
+		return catalogItemsFromDB;
+	}
+
 	//****************************************************************************************************************************
 	
 	
@@ -394,7 +474,8 @@ public class EchoServer extends AbstractServer implements Initializable
 
 		ResultSet rs = st.executeQuery("select * from branchmanagers ");
 
-		while (rs.next()) {
+		while (rs.next()) 
+		{
 			int BranchManagerID= rs.getInt(1);
 			String BranchManagerName = "" + rs.getString(2);
 			String BranchManagerEmail = "" + rs.getString(3);
