@@ -31,6 +31,8 @@ public class CustomerMainWindow extends LoginContol implements Initializable
 	public static ObservableList<Branch> AllBranches= FXCollections.observableArrayList();
 	public static ObservableList<String> AllBranchesNames= FXCollections.observableArrayList();
 	public static String chosenBranchID="";
+	public static String chosenBranchName="";
+
     @FXML
     private Button btnCancelOrder;
 
@@ -159,12 +161,18 @@ public class CustomerMainWindow extends LoginContol implements Initializable
     @FXML
     void PickBranchComboPressed(ActionEvent event) 
     {	/**this method get the id of chosen branch for buying*/
+		OrdersControl.oneBranchName.clear();
     	OrdersControl.oneBranchName.add(comboBranch.getValue());	//we transfer the branch name to the branch list of delivery, customer will be able to pick order in one single branch (if self arrival chosen)
     	for(int i=0; i<AllBranches.size();i++)
     	{
     		if(comboBranch.getValue().equals(AllBranches.get(i).getBranchName()))
     		{
+    			if(!chosenBranchID.equals(""))	//if customer want to change branche, delete old list of itemsInOrder
+    			{
+    				OrdersControl.ItemsInOrderList.clear();
+    			}
     			this.chosenBranchID=AllBranches.get(i).getBranchID();
+    			this.chosenBranchName=AllBranches.get(i).getBranchName();
     			break;
     		}
     	}
@@ -182,8 +190,16 @@ public class CustomerMainWindow extends LoginContol implements Initializable
 	public void initialize(URL location, ResourceBundle resources) 
 	{/**loading all branches to combobox*/
 		comboBranch.setItems(AllBranchesNames);	
-		chosenBranchID="";
-		btnCatalog.setDisable(true);
+		if(!this.chosenBranchName.equals("")) //if customer already chose branch from previous entrances, keep his choice
+		{
+			comboBranch.setValue(this.chosenBranchName);
+    		btnCatalog.setDisable(false);	//if branch chosen, allow user to open the catalog
+    		OrdersControl.oneBranchName.clear();
+    		OrdersControl.oneBranchName.add(this.chosenBranchName);
+
+		}
+		else
+			btnCatalog.setDisable(true);
 
 		
 	}

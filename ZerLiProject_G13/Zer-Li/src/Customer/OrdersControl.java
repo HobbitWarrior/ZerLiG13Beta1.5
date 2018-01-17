@@ -290,7 +290,7 @@ public class OrdersControl extends LoginContol implements Initializable
     
     @FXML
     void comboBoxDatePressed(ActionEvent event) 
-    {
+    {	/**this method responsible for screen of checkout*/
     	supplyTimeDate=null;
     	supplyTime=null;
     	hourList.clear();
@@ -390,6 +390,7 @@ public class OrdersControl extends LoginContol implements Initializable
     			}
     			calculateTotalPriceAndQuantity();
     			
+    			
     		
     		}
     	
@@ -415,6 +416,7 @@ public class OrdersControl extends LoginContol implements Initializable
     	
     	if(nowYear == chosenYear && nowMounth == chosenMounth && nowDay== chosenDay) //if customer want the supplying today....
     	{
+    		myShipment=null;
     		int nowHour = now.getHour();
     		int supplyHour = Integer.parseInt(supplyTime.getHour());
     		if ((supplyHour-nowHour) <=3 )	//if customer want his order in the next 3 hours, then define this order to be expedited
@@ -450,7 +452,7 @@ public class OrdersControl extends LoginContol implements Initializable
     			}
     		}
     		
-    		myShipment=new BranchShipment(myBranchName,myBranchAdress);	//create delivery of self arrival, 
+    		myShipment=new BranchShipment(CustomerMainWindow.chosenBranchID,myBranchName,myBranchAdress);	//create delivery of self arrival, 
     		System.out.println(""+((BranchShipment)myShipment).getBranchName()+", "+ ((BranchShipment)myShipment).getBranchAdress());
     	}
     	
@@ -463,10 +465,11 @@ public class OrdersControl extends LoginContol implements Initializable
     		System.out.println(((PrivateShipment)myShipment).getAddressee()+", " +((PrivateShipment)myShipment).getPhoneNumber()+", "+((PrivateShipment)myShipment).getAddress());
     	}
     	
-    	
+		this.totalPrice=this.totalPrice+myShipment.getPrice();	//updating the total price according to the delivery
+		System.out.println("Total price:"+this.totalPrice);
     	ShowScreenThree();	//show screen number 3
-
-    }
+    	
+    	}
     
     @FXML
     void BackToCartBtnPressed(ActionEvent event) 
@@ -721,6 +724,9 @@ public class OrdersControl extends LoginContol implements Initializable
           comboBoxHour.setDisable(true);
           ObservableList<String> phoneKidomet= FXCollections.observableArrayList("02","03","02","04","08","09","050","052","053","054","055","058");
      	 KidometPhone.setItems(phoneKidomet);
+         ObservableList<String> PaymentTypeToChoose= FXCollections.observableArrayList("Immidate","Subscription");
+
+     	payMethodcomboBox.setItems(PaymentTypeToChoose);
 	}
 
 	
