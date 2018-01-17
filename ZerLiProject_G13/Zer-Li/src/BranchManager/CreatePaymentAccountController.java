@@ -189,86 +189,98 @@ public class CreatePaymentAccountController extends LoginContol implements Initi
 	   {
 		myClient = new ChatClient(ip,port);	//create new client to get all users in db (server)
 		myClient.setLoginControl(this);
+		   PaymentAccount paymentA = new PaymentAccount() ; 
+		   
+		   paymentA.setUserName(txtf1.getText());
+		   paymentA.setCustomerID(Integer.parseInt(txtf2.getText()) );
+		   paymentA.setPassword( passtxt.getText());
+		   paymentA.setPhoneNumber(phoneNumberTxt.getText());
+		   paymentA.setPaymentType(comboBoxPaymentType.getValue());
+		   paymentA.setCreditCardNum(txtf4.getText());
+		   paymentA.setCreditCardExpDate(txtf5.getText());
+		   paymentA.setCvvCreditCardNum(Integer.parseInt(txtf6.getText()));
+		   paymentA.setCreditCardType(txtf7.getText());
+		   paymentA.setSubscriptionType(ComboBoxSubscriptionType.getValue());
+		   paymentA.setBranchID(BranchManagerMainWindow.getBranchIdOfBranchManager());
+		   
+	   		LocalDateTime now = LocalDateTime.now(); 
+	   		int years=now.getYear();
+	   		int mounth=now.getMonthValue();
+	   		int day=now.getDayOfMonth();
+	   		String expDate="";
+	   		
+	   		
+	   		if(paymentA.getSubscriptionType().equals("Monthly"))
+	   		{
+	   			if(mounth==12)
+	   			{
+	   				mounth=1;
+	   				years++;
+	   			}
+	   			
+	   			else
+	   			{
+	   				mounth++;
+	   			}
+	   			day=28;
+	   			
+	   		}
+	   		else
+	   		{
+			 years++;
+
+	   		}
+		   
+	   		String DayStr="";
+	   		String MounthStr="";
+	   		String yearsStr=""+years;
+	   		if(mounth<10)
+	   		{
+	   			 MounthStr="0"+mounth;
+	   		}
+	   		else
+	   		{
+	   			 MounthStr=""+mounth;
+
+	   		}
+	   		
+	   		if(day<10)
+	   		{
+	   			 DayStr="0"+day;
+	   		}
+	   		else
+	   		{
+	   			 DayStr=""+day;
+
+	   		}
+		   
+	   		expDate=yearsStr+"-"+MounthStr+"-"+DayStr;
+		   paymentA.setExpAccountDate(expDate);
+		   
+		   
+		   System.out.println(paymentA);	  
+
+		   myClient.sendRequestToSaveObjectOnDB(paymentA); //send request to get all users from db (server)
+		   Alert alert = new Alert(AlertType.INFORMATION);
+		   alert.setTitle("The creation succeeded!");
+		   alert.setHeaderText(null);
+		   alert.setContentText("Payment account created successfully!");
+
+		   alert.showAndWait();
+
 	   } 
-	   catch (IOException e) 
+	   catch (Exception e) 
 	   {
-		   System.out.println("Cannot create client");	  
+		   System.out.println("Cannot create client");
+		   Alert alert = new Alert(AlertType.ERROR);
+		   alert.setTitle("Payment account creation failed");
+		   alert.setHeaderText("Payment account creation failed");
+		   alert.setContentText("Error in the details");
+
+		   alert.showAndWait();
 	   }
 	   
-	   PaymentAccount paymentA = new PaymentAccount() ; 
 	   
-	   paymentA.setUserName(txtf1.getText());
-	   paymentA.setCustomerID(Integer.parseInt(txtf2.getText()) );
-	   paymentA.setPassword( passtxt.getText());
-	   paymentA.setPhoneNumber(phoneNumberTxt.getText());
-	   paymentA.setPaymentType(comboBoxPaymentType.getValue());
-	   paymentA.setCreditCardNum(txtf4.getText());
-	   paymentA.setCreditCardExpDate(txtf5.getText());
-	   paymentA.setCvvCreditCardNum(Integer.parseInt(txtf6.getText()));
-	   paymentA.setCreditCardType(txtf7.getText());
-	   paymentA.setSubscriptionType(ComboBoxSubscriptionType.getValue());
-	   paymentA.setBranchID(BranchManagerMainWindow.getBranchIdOfBranchManager());
-	   
-   		LocalDateTime now = LocalDateTime.now(); 
-   		int years=now.getYear();
-   		int mounth=now.getMonthValue();
-   		int day=now.getDayOfMonth();
-   		String expDate="";
-   		
-   		
-   		if(paymentA.getSubscriptionType().equals("Monthly"))
-   		{
-   			if(mounth==12)
-   			{
-   				mounth=1;
-   				years++;
-   			}
-   			
-   			else
-   			{
-   				mounth++;
-   			}
-   			day=28;
-   			
-   		}
-   		else
-   		{
-		 years++;
-
-   		}
-	   
-   		String DayStr="";
-   		String MounthStr="";
-   		String yearsStr=""+years;
-   		if(mounth<10)
-   		{
-   			 MounthStr="0"+mounth;
-   		}
-   		else
-   		{
-   			 MounthStr=""+mounth;
-
-   		}
-   		
-   		if(day<10)
-   		{
-   			 DayStr="0"+day;
-   		}
-   		else
-   		{
-   			 DayStr=""+day;
-
-   		}
-	   
-   		expDate=yearsStr+"-"+MounthStr+"-"+DayStr;
-	   paymentA.setExpAccountDate(expDate);
-	   
-	   
-	   System.out.println(paymentA);	  
-
-	   myClient.sendRequestToSaveObjectOnDB(paymentA); //send request to get all users from db (server)
-	   
-	  // while( myClient.isConnected());	//wait until client (this class) get all users from the db!
 	 
 	   
     }
