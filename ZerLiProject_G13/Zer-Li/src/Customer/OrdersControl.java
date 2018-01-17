@@ -44,7 +44,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class OrdersControl extends LoginContol implements Initializable
 {
 	public static ObservableList<ItemInOrder> ItemsInOrderList= FXCollections.observableArrayList();
-	
+	public static ObservableList<String> oneBranchName= FXCollections.observableArrayList();
+
 	private static int totalQuantity=0;
 	private static double totalPrice=0;
 	private static boolean checkboxFilled=false;
@@ -380,12 +381,12 @@ public class OrdersControl extends LoginContol implements Initializable
     	{
     		String myBranchName=comboBranch.getValue();	
     		String myBranchAdress="";
-    		for (int i=0; i < CatalogOrderControl.AllBranches.size() ; i++)	//we look for the address of the branch's name
+    		for (int i=0; i < CustomerMainWindow.AllBranches.size() ; i++)	//we look for the address of the branch's name
     		{
-    			String checkBranchName=CatalogOrderControl.AllBranches.get(i).getBranchName();	//keep the current scanned branch
+    			String checkBranchName=CustomerMainWindow.AllBranches.get(i).getBranchName();	//keep the current scanned branch
     			if(checkBranchName.equals(myBranchName))
     			{
-    				myBranchAdress=CatalogOrderControl.AllBranches.get(i).getBrancAdress();
+    				myBranchAdress=CustomerMainWindow.AllBranches.get(i).getBrancAdress();
     				break;
     			}
     		}
@@ -640,7 +641,7 @@ public class OrdersControl extends LoginContol implements Initializable
     	BackToCartBtn.setVisible(false);
     	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
         LocalDateTime now = LocalDateTime.now(); 
-        comboBranch.setItems(CatalogOrderControl.AllBranchesNames); //**************
+        comboBranch.setItems(this.oneBranchName); //**************
     	LocalDate minDate = LocalDate.of(now.getYear(), now.getMonth(), now.getDayOfMonth());
         LocalDate maxDate = LocalDate.of(2100, Month.DECEMBER, 31);
         ComboDate.setDayCellFactory((p) -> new DateCell() {

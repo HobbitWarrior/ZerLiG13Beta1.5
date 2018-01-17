@@ -46,90 +46,9 @@
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="223.0" layoutY="313.0" text="FEATURED PRODUCTS">
-         <font>
-            <Font name="System Bold Italic" size="18.0" />
-         </font>
-      </Label>
-      <AnchorPane layoutX="91.0" layoutY="347.0" prefHeight="247.0" prefWidth="178.0">
-         <children>
-            <ImageView fx:id="geaturedProduct1" fitHeight="247.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/1.JPG" />
-               </image>
-            </ImageView>
-            <Button fx:id="btnAddToCart1" layoutX="8.0" layoutY="209.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" style="-fx-background-color: #9a4140;" text="Add To Cart" textFill="WHITE" />
-            <Button fx:id="btnView1" layoutX="112.0" layoutY="209.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: #ada2a2;" text="View" textFill="WHITE" />
-            <Label fx:id="labelPrice1" layoutY="1.0" text="\$34.95">
-               <font>
-                  <Font name="System Bold Italic" size="18.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="325.0" layoutY="354.0" prefHeight="247.0" prefWidth="178.0">
-         <children>
-            <ImageView fx:id="geaturedProduct2" fitHeight="247.0" fitWidth="200.0" layoutX="8.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/2.JPG" />
-               </image>
-            </ImageView>
-            <Button fx:id="btnAddToCart2" layoutX="14.0" layoutY="208.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" style="-fx-background-color: #9a4140;" text="Add To Cart" textFill="WHITE" />
-            <Button fx:id="btnView2" layoutX="127.0" layoutY="208.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: #ada2a2;" text="View" textFill="WHITE" />
-            <Label fx:id="labelPrice2" layoutX="14.0" layoutY="1.0" text="\$40">
-               <font>
-                  <Font name="System Bold Italic" size="18.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="83.0" layoutY="624.0" prefHeight="247.0" prefWidth="178.0">
-         <children>
-            <ImageView fx:id="geaturedProduct3" fitHeight="247.0" fitWidth="200.0" layoutX="7.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/3.JPG" />
-               </image>
-            </ImageView>
-            <Button fx:id="btnAddToCart3" layoutX="7.0" layoutY="214.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" style="-fx-background-color: #9a4140;" text="Add To Cart" textFill="WHITE" />
-            <Button fx:id="btnView3" layoutX="125.0" layoutY="214.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: #ada2a2;" text="View" textFill="WHITE" />
-            <Label fx:id="labelPrice3" layoutX="14.0" layoutY="8.0" text="\$58">
-               <font>
-                  <Font name="System Bold Italic" size="18.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="330.0" layoutY="624.0" prefHeight="247.0" prefWidth="178.0">
-         <children>
-            <ImageView fx:id="geaturedProduct4" fitHeight="247.0" fitWidth="200.0" layoutX="7.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/4.JPG" />
-               </image>
-            </ImageView>
-            <Button fx:id="btnView4" layoutX="121.0" layoutY="208.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: #ada2a2;" text="View" textFill="WHITE" />
-            <Button fx:id="btnAddToCart4" layoutX="14.0" layoutY="208.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" style="-fx-background-color: #9a4140;" text="Add To Cart" textFill="WHITE" />
-            <Label fx:id="labelPrice4" layoutX="16.0" layoutY="4.0" text="\$15">
-               <font>
-                  <Font name="System Bold Italic" size="18.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-      <ImageView fitHeight="234.0" fitWidth="268.0" layoutX="554.0" layoutY="333.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../../Desktop/deals.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="27.0" fitWidth="268.0" layoutX="554.0" layoutY="308.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../../Desktop/pas.jpg" />
-         </image>
-      </ImageView>
-      <Label layoutX="660.0" layoutY="307.0" text="DEALS">
-         <font>
-            <Font name="System Bold Italic" size="18.0" />
-         </font>
-      </Label>
-      <Button fx:id="btnDeals" layoutX="553.0" layoutY="335.0" mnemonicParsing="false" opacity="0.0" prefHeight="171.0" prefWidth="268.0" text="btnDeals" />
+      <AnchorPane layoutX="83.0" layoutY="624.0" prefHeight="247.0" prefWidth="178.0" />
+      <AnchorPane layoutX="330.0" layoutY="624.0" prefHeight="247.0" prefWidth="178.0" />
+      <Button fx:id="PickBranchBtn" layoutX="330.0" layoutY="462.0" mnemonicParsing="false" onAction="#PickBranchBtnPressed" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: #9a4140;" text="Pick a branch" textFill="WHITE" />
+      <ComboBox fx:id="comboBranch" layoutX="330.0" layoutY="387.0" onAction="#PickBranchComboPressed" prefHeight="25.0" prefWidth="156.0" />
    </children>
 </AnchorPane>

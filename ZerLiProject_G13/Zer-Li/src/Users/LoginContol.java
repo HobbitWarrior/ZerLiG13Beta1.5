@@ -59,6 +59,8 @@ public class LoginContol
 	public static Vector<User> AllUsers=new Vector<User>();
 	
     protected static String UserNameToCheck;
+    
+    protected static int userID;
 
 	protected ChatClient myClient;
 	
@@ -158,7 +160,7 @@ public class LoginContol
 					   else	
 					   {
 						   userPermition = person.getPermition(); 	//all details approved
-						   
+						   this.userID=person.getId();
 						   if(person.getEntry()==1)	//check if the account already in use
 						   {
 							   //error message on borbidden account

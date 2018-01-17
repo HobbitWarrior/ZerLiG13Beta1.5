@@ -1,41 +1,37 @@
 package Customer;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import ServerDB.ServerGuiApp;
 import Users.LoginApplication;
 import Users.LoginContol;
 import client.ChatClient;
+import common.Branch;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 
-public class CustomerMainWindow extends LoginContol
+public class CustomerMainWindow extends LoginContol implements Initializable
 {
-
+	public static ObservableList<Branch> AllBranches= FXCollections.observableArrayList();
+	public static ObservableList<String> AllBranchesNames= FXCollections.observableArrayList();
     @FXML
     private Button btnCancelOrder;
-
-    @FXML
-    private Button btnView1;
-
-    @FXML
-    private Button btnView2;
-
-    @FXML
-    private Button btnView3;
-
-    @FXML
-    private Button btnView4;
 
     @FXML
     private Button btnCart;
@@ -47,35 +43,17 @@ public class CustomerMainWindow extends LoginContol
     private Button btnCustomise;
 
     @FXML
-    private Button btnAddToCart4;
-
-    @FXML
     private Button btnLogout;
-
-    @FXML
-    private ImageView geaturedProduct1;
-
-    @FXML
-    private Button btnDeals;
-
 
     @FXML
     private Button btnCatalog;
 
 
-   
 
     @FXML
-    private Label labelPrice1;
+    private Button PickBranchBtn;
 
-    @FXML
-    private Label labelPrice2;
-
-    @FXML
-    private Label labelPrice3;
-
-    @FXML
-    private Label labelPrice4;
+ 
 
     @FXML
     private Button btnAccount;
@@ -84,13 +62,7 @@ public class CustomerMainWindow extends LoginContol
     private ImageView background;
 
     @FXML
-    private ImageView geaturedProduct2;
-
-    @FXML
-    private ImageView geaturedProduct3;
-
-    @FXML
-    private ImageView geaturedProduct4;
+    private ComboBox<String> comboBranch;
     
     @FXML
     void btnCartPressedEvenet(ActionEvent event)
@@ -169,8 +141,34 @@ public class CustomerMainWindow extends LoginContol
 		primaryStage.setScene(scene);		
 		primaryStage.show();
 		
+		int port = 5555;
+		String ip = "localhost";
+		myClient = new ChatClient(ip, port); // create new client
+		myClient.sendRequestToGetAllBranches();
+
 		//Can't close the window without logout
 		primaryStage.setOnCloseRequest( event -> {event.consume();} );
+		
 	} 
 
+	
+
+    @FXML
+    void PickBranchBtnPressed(ActionEvent event) 
+    {
+
+    }
+    
+    @FXML
+    void PickBranchComboPressed(ActionEvent event) 
+    {
+    	OrdersControl.oneBranchName.add(comboBranch.getValue());	//we transfer the branch name to the branch list of delivery, customer will be able to pick order in one single branch (if self arrival chosen)
+    }
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) 
+	{
+		comboBranch.setItems(AllBranchesNames);	
+		
+	}
 }

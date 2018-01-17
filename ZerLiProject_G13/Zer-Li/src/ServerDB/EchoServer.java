@@ -55,7 +55,6 @@ public class EchoServer extends AbstractServer implements Initializable
 
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) 
 	{
-
 		
 		//------------------------------------instanceof String-------------------------------------------------------
 		if (msg instanceof String) 
@@ -78,7 +77,13 @@ public class EchoServer extends AbstractServer implements Initializable
 					UsersFromDB = PutOutAllUsers(UsersFromDB);
 
 					Message Msg = new Message(UsersFromDB, "User");
-					this.sendToAllClients(Msg);
+					//this.sendToAllClients(Msg);
+					try {
+						client.sendToClient(Msg);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					
 				} 
 				catch (SQLException e) 

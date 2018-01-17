@@ -18,6 +18,7 @@ import Catalog.CatalogItem;
 import ChainWorker.CatalogEditControl;
 import Customer.CatalogItemGUI;
 import Customer.CatalogOrderControl;
+import Customer.CustomerMainWindow;
 import Users.LoginContol;
 import Users.User;
 
@@ -197,8 +198,8 @@ public class ChatClient extends AbstractClient {
 				for (int i = 0; i < AllBranchesFromServer.size(); i++) 
 				{
 					// System.out.println(""+AllUsersFromServer.get(i));
-					CatalogOrderControl.AllBranchesNames.add(""+AllBranchesFromServer.get(i));
-					CatalogOrderControl.AllBranches.add(AllBranchesFromServer.get(i));
+					CustomerMainWindow.AllBranchesNames.add(""+AllBranchesFromServer.get(i));
+					CustomerMainWindow.AllBranches.add(AllBranchesFromServer.get(i));
 					System.out.println(""+AllBranchesFromServer.get(i));
 				}
 				quit();
