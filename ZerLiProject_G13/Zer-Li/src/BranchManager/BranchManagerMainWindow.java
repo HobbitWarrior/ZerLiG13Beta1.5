@@ -144,13 +144,30 @@ public class BranchManagerMainWindow extends LoginContol implements Initializabl
 		primaryStage.setOnCloseRequest( event -> {event.consume();} );
 	}
 
-
+	public static String getBranchIdOfBranchManager()
+	{
+		int myID = LoginContol.userID; //get the branch manager id from the first window
+		String branchIDtoReturn="";
+		for(int i=0; i<allBrancheManagers.size(); i++)	//we scan all branch managers to get the current manager branchID
+		{
+			BranchManager bManager=allBrancheManagers.get(i);
+			if(bManager.getBranchManagerID() == myID)
+			{
+				branchIDtoReturn=bManager.getBranchID();
+				break;
+			}
+		}
+		
+		return branchIDtoReturn;
+	}
+	
+	
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
-		System.out.println(""+this.allBrancheManagers);
-		System.out.println(""+this.allBranches);
-
 		
+
+
 	} 
 }

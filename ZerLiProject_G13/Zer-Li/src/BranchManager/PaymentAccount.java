@@ -7,6 +7,7 @@ public class PaymentAccount  implements Serializable {
 	String UserName          ;
 	int  CustomerID        ;
 	  String  Password          ;
+	  String PhoneNumber;
 	  String  PaymentType      ;
 	  String  CreditCardNum     ;
 	  String  CreditCardExpDate  ;
@@ -15,6 +16,14 @@ public class PaymentAccount  implements Serializable {
 	  String SubscriptionType  ;
 	  String BranchID;
 	  String ExpAccountDate;
+	  
+	  
+	public String getPhoneNumber() {
+		return PhoneNumber;
+	}
+	public void setPhoneNumber(String phoneNumber) {
+		PhoneNumber = phoneNumber;
+	}
 	public String getUserName() {
 		return UserName;
 	}
@@ -81,21 +90,15 @@ public class PaymentAccount  implements Serializable {
 	public void setExpAccountDate(String expAccountDate) {
 		ExpAccountDate = expAccountDate;
 	}
-	@Override
-	public String toString() {
-		return "PaymentAccount [UserName=" + UserName + ", CustomerID=" + CustomerID + ", Password=" + Password
-				+ ", PaymentType=" + PaymentType + ", CreditCardNum=" + CreditCardNum + ", CreditCardExpDate="
-				+ CreditCardExpDate + ", CvvCreditCardNum=" + CvvCreditCardNum + ", CreditCardType=" + CreditCardType
-				+ ", SubscriptionType=" + SubscriptionType + ", BranchID=" + BranchID + ", ExpAccountDate="
-				+ ExpAccountDate + "]";
-	}
-	public PaymentAccount(String userName, int customerID, String password, String paymentType, String creditCardNum,
-			String creditCardExpDate, int cvvCreditCardNum, String creditCardType, String subscriptionType,
-			String branchID, String expAccountDate) {
+ 
+	public PaymentAccount(String userName, int customerID, String password, String phoneNumber, String paymentType,
+			String creditCardNum, String creditCardExpDate, int cvvCreditCardNum, String creditCardType,
+			String subscriptionType, String branchID, String expAccountDate) {
 		super();
 		UserName = userName;
 		CustomerID = customerID;
 		Password = password;
+		PhoneNumber = phoneNumber;
 		PaymentType = paymentType;
 		CreditCardNum = creditCardNum;
 		CreditCardExpDate = creditCardExpDate;
@@ -104,6 +107,14 @@ public class PaymentAccount  implements Serializable {
 		SubscriptionType = subscriptionType;
 		BranchID = branchID;
 		ExpAccountDate = expAccountDate;
+	}
+	@Override
+	public String toString() {
+		return "PaymentAccount [UserName=" + UserName + ", CustomerID=" + CustomerID + ", Password=" + Password
+				+ ", PhoneNumber=" + PhoneNumber + ", PaymentType=" + PaymentType + ", CreditCardNum=" + CreditCardNum
+				+ ", CreditCardExpDate=" + CreditCardExpDate + ", CvvCreditCardNum=" + CvvCreditCardNum
+				+ ", CreditCardType=" + CreditCardType + ", SubscriptionType=" + SubscriptionType + ", BranchID="
+				+ BranchID + ", ExpAccountDate=" + ExpAccountDate + "]";
 	}
 	public PaymentAccount() {
 		// TODO Auto-generated constructor stub

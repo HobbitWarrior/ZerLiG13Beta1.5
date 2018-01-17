@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
@@ -126,6 +127,12 @@ public class CreatePaymentAccountController extends LoginContol implements Initi
     private Label UserNameLabel7;
 
     @FXML
+    private Label PhoneNumberLabel;
+    
+    @FXML
+    private TextField phoneNumberTxt;
+    
+    @FXML
     private TextField txtf1;
 
     @FXML
@@ -174,7 +181,7 @@ public class CreatePaymentAccountController extends LoginContol implements Initi
 
     @FXML
     void SaveOnDB(ActionEvent event) {
-     System.out.println("aaaa");
+   //  System.out.println("aaaa");
      
      int port=5555;
 	   String ip="localhost";
@@ -193,16 +200,72 @@ public class CreatePaymentAccountController extends LoginContol implements Initi
 	   paymentA.setUserName(txtf1.getText());
 	   paymentA.setCustomerID(Integer.parseInt(txtf2.getText()) );
 	   paymentA.setPassword( passtxt.getText());
-	  // paymentA.setPaymentType(txtf3.getText());
+	   paymentA.setPhoneNumber(phoneNumberTxt.getText());
+	   paymentA.setPaymentType(comboBoxPaymentType.getValue());
 	   paymentA.setCreditCardNum(txtf4.getText());
 	   paymentA.setCreditCardExpDate(txtf5.getText());
 	   paymentA.setCvvCreditCardNum(Integer.parseInt(txtf6.getText()));
 	   paymentA.setCreditCardType(txtf7.getText());
-	  // paymentA.setSubscriptionType(txtf8.getText());
+	   paymentA.setSubscriptionType(ComboBoxSubscriptionType.getValue());
+	   paymentA.setBranchID(BranchManagerMainWindow.getBranchIdOfBranchManager());
+	   
+   		LocalDateTime now = LocalDateTime.now(); 
+   		int years=now.getYear();
+   		int mounth=now.getMonthValue();
+   		int day=now.getDayOfMonth();
+   		String expDate="";
+   		
+   		
+   		if(paymentA.getSubscriptionType().equals("Monthly"))
+   		{
+   			if(mounth==12)
+   			{
+   				mounth=1;
+   				years++;
+   			}
+   			
+   			else
+   			{
+   				mounth++;
+   			}
+   			day=28;
+   			
+   		}
+   		else
+   		{
+		 years++;
+
+   		}
+	   
+   		String DayStr="";
+   		String MounthStr="";
+   		String yearsStr=""+years;
+   		if(mounth<10)
+   		{
+   			 MounthStr="0"+mounth;
+   		}
+   		else
+   		{
+   			 MounthStr=""+mounth;
+
+   		}
+   		
+   		if(day<10)
+   		{
+   			 DayStr="0"+day;
+   		}
+   		else
+   		{
+   			 DayStr=""+day;
+
+   		}
+	   
+   		expDate=yearsStr+"-"+MounthStr+"-"+DayStr;
+	   paymentA.setExpAccountDate(expDate);
+	   
 	   
 	   System.out.println(paymentA);	  
-	   
-	   
+
 	   myClient.sendRequestToSaveObjectOnDB(paymentA); //send request to get all users from db (server)
 	   
 	  // while( myClient.isConnected());	//wait until client (this class) get all users from the db!
@@ -253,6 +316,11 @@ public class CreatePaymentAccountController extends LoginContol implements Initi
 		ComboBoxSubscriptionType.setItems(SubscriptionType);
 		}
 		
-		System.out.println(""+BranchManagerMainWindow.allBranches);
+		//System.out.println(""+BranchManagerMainWindow.allBranches);
+		System.out.println("xxx "+BranchManagerMainWindow.allBrancheManagers);
+		System.out.println("yyy "+BranchManagerMainWindow.allBranches);
+		System.out.println("The id of branch is:" +BranchManagerMainWindow.getBranchIdOfBranchManager());
+		
+		
 	}
 }

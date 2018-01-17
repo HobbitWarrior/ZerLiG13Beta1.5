@@ -279,7 +279,8 @@ public class EchoServer extends AbstractServer implements Initializable
 			System.out.println("Set Payment Account on DB");
 			 
 			
-			try {
+			try 
+			{
 				AddNewPaymentAccount(msg);
 			} 
 			catch (SQLException e) 
@@ -745,17 +746,22 @@ public class EchoServer extends AbstractServer implements Initializable
 			Statement statementquery = (Statement) ServerDataBase.createStatement(); // query to check if table filled
 			 
 			PreparedStatement ps1 = ServerDataBase.prepareStatement(
-					"INSERT INTO paymentaccounts VALUES(?,?,?,?,?,?,?,?,?)");
+					"INSERT INTO paymentaccounts VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
 			 
 				ps1.setString(1,PA.getUserName());
 				ps1.setInt(2,PA.getCustomerID());
 				ps1.setString(3, PA.getPassword());
-				ps1.setString(4,PA.getPaymentType());
-				ps1.setString(5, PA.getCreditCardNum());
-				ps1.setString(6,PA.getCreditCardExpDate());
-				ps1.setInt(7, PA.getCvvCreditCardNum());
-				ps1.setString(8,PA.getCreditCardType());
-				ps1.setString(9, PA.getSubscriptionType());
+				ps1.setString(4, PA.getPhoneNumber());
+				ps1.setString(5,PA.getPaymentType());
+				ps1.setString(6, PA.getCreditCardNum());
+				ps1.setString(7,PA.getCreditCardExpDate());
+				ps1.setInt(8, PA.getCvvCreditCardNum());
+				ps1.setString(9,PA.getCreditCardType());
+				ps1.setString(10, PA.getSubscriptionType());
+				ps1.setString(11, PA.getBranchID());
+				ps1.setString(12, PA.getExpAccountDate());
+
+
 			 
 		 
 				ps1.executeUpdate();

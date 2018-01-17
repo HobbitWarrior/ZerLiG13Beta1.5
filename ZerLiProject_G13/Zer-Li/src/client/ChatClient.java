@@ -197,14 +197,28 @@ public class ChatClient extends AbstractClient {
 			if (ServerMsg.getMsgType().equals("Branch")) 
 			{
 				ArrayList<Branch> AllBranchesFromServer = (ArrayList<Branch>) ServerMsg.getMsgObject();
-				for (int i = 0; i < AllBranchesFromServer.size(); i++) 
+				Platform.runLater(new Runnable() 
 				{
-					// System.out.println(""+AllUsersFromServer.get(i));
-					CustomerMainWindow.AllBranchesNames.add(""+AllBranchesFromServer.get(i).getBranchName());
-					CustomerMainWindow.AllBranches.add(AllBranchesFromServer.get(i));
-					BranchManagerMainWindow.allBranches.add(AllBranchesFromServer.get(i));
-					//System.out.println(""+AllBranchesFromServer.get(i).getBranchName());
-				}
+
+					@Override
+					public void run() 
+					{
+						for (int i = 0; i < AllBranchesFromServer.size(); i++) 
+						{
+							// System.out.println(""+AllUsersFromServer.get(i));
+							CustomerMainWindow.AllBranchesNames.add(""+AllBranchesFromServer.get(i).getBranchName());
+							CustomerMainWindow.AllBranches.add(AllBranchesFromServer.get(i));
+							BranchManagerMainWindow.allBranches.add(AllBranchesFromServer.get(i));
+							//System.out.println("ddd "+AllBranchesFromServer.get(i).getBranchName());
+						}
+					}
+
+				});
+				
+				
+				
+				
+				
 				quit();
 				
 
@@ -215,11 +229,24 @@ public class ChatClient extends AbstractClient {
 			if (ServerMsg.getMsgType().equals("BranchManager")) 
 			{
 				ArrayList<BranchManager> AllBranchManagersFromServer = (ArrayList<BranchManager>) ServerMsg.getMsgObject();
-				for (int i = 0; i < AllBranchManagersFromServer.size(); i++) 
+				Platform.runLater(new Runnable() 
 				{
-					// System.out.println(""+AllUsersFromServer.get(i));
-					BranchManagerMainWindow.allBrancheManagers.add(AllBranchManagersFromServer.get(i));
+				@Override
+				public void run() 
+				{
+					for (int i = 0; i < AllBranchManagersFromServer.size(); i++) 
+					{
+						// System.out.println("bbb "+AllBranchManagersFromServer.get(i));
+						BranchManagerMainWindow.allBrancheManagers.add(AllBranchManagersFromServer.get(i));
+					}
 				}
+
+				});
+				
+				
+				
+				
+				
 				
 
 				return;
@@ -527,7 +554,9 @@ public class ChatClient extends AbstractClient {
 		{
 			System.out.println("Cannot connect to server to get Branches managers");
 
-		}		
+		}	
+		
+		
 	}
  
 

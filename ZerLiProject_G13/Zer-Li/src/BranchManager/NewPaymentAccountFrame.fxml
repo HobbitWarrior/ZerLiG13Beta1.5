@@ -63,12 +63,12 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <Label fx:id="Password" layoutX="44.0" layoutY="533.0" text="Cvv CreditCard Num" textFill="RED">
+      <Label fx:id="Password" layoutX="44.0" layoutY="582.0" text="Cvv CreditCard Num" textFill="RED">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <Button fx:id="ConnectBtn" layoutX="480.0" layoutY="485.0" mnemonicParsing="false" onAction="#SaveOnDB" prefHeight="43.0" prefWidth="99.0" text="Connect" textFill="#dd0d0d">
+      <Button fx:id="ConnectBtn" layoutX="480.0" layoutY="534.0" mnemonicParsing="false" onAction="#SaveOnDB" prefHeight="43.0" prefWidth="226.0" text="Create new account" textFill="#dd0d0d">
          <font>
             <Font name="System Italic" size="17.0" />
          </font></Button>
@@ -77,17 +77,17 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <Label fx:id="UserNameLabel2" layoutX="50.0" layoutY="565.0" text="CreditCard Type" textFill="RED">
+      <Label fx:id="UserNameLabel2" layoutX="50.0" layoutY="614.0" text="CreditCard Type" textFill="RED">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <Label fx:id="UserNameLabel3" layoutX="46.0" layoutY="501.0" text="CreditCard Exp Date" textFill="RED">
+      <Label fx:id="UserNameLabel3" layoutX="46.0" layoutY="550.0" text="CreditCard Exp Date" textFill="RED">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <Label fx:id="UserNameLabel4" layoutX="50.0" layoutY="469.0" text="CreditCard Num" textFill="RED">
+      <Label fx:id="UserNameLabel4" layoutX="50.0" layoutY="518.0" text="CreditCard Num" textFill="RED">
          <font>
             <Font size="22.0" />
          </font>
@@ -102,19 +102,25 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <Label fx:id="UserNameLabel7" layoutX="56.0" layoutY="604.0" text="Subscription Type" textFill="RED">
+      <Label fx:id="UserNameLabel7" layoutX="56.0" layoutY="653.0" text="Subscription Type" textFill="RED">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
       <TextField fx:id="txtf1" layoutX="297.0" layoutY="338.0" />
       <TextField fx:id="txtf2" layoutX="297.0" layoutY="367.0" />
-      <TextField fx:id="txtf4" layoutX="297.0" layoutY="473.0" />
-      <TextField fx:id="txtf5" layoutX="297.0" layoutY="504.0" />
-      <TextField fx:id="txtf6" layoutX="297.0" layoutY="536.0" />
-      <TextField fx:id="txtf7" layoutX="297.0" layoutY="568.0" />
+      <TextField fx:id="txtf4" layoutX="297.0" layoutY="522.0" />
+      <TextField fx:id="txtf5" layoutX="297.0" layoutY="553.0" />
+      <TextField fx:id="txtf6" layoutX="297.0" layoutY="585.0" />
+      <TextField fx:id="txtf7" layoutX="297.0" layoutY="617.0" />
       <PasswordField fx:id="passtxt" layoutX="297.0" layoutY="401.0" />
       <ComboBox fx:id="comboBoxPaymentType" layoutX="297.0" layoutY="434.0" prefWidth="150.0" />
-      <ComboBox fx:id="ComboBoxSubscriptionType" layoutX="297.0" layoutY="608.0" prefWidth="150.0" />
+      <ComboBox fx:id="ComboBoxSubscriptionType" layoutX="297.0" layoutY="657.0" prefWidth="150.0" />
+      <Label fx:id="PhoneNumberLabel" layoutX="50.0" layoutY="477.0" text="Phone Number" textFill="RED">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="phoneNumberTxt" layoutX="298.0" layoutY="481.0" />
    </children>
 </AnchorPane>
