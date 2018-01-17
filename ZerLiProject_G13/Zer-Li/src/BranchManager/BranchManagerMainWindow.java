@@ -1,53 +1,34 @@
 package BranchManager;
 
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import Customer.CustomerMainWindow;
 import Users.LoginContol;
+import client.ChatClient;
+import common.Branch;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 
-public class BranchManagerMainWindow extends LoginContol
+public class BranchManagerMainWindow extends LoginContol implements Initializable
 {
-/*
-    @FXML
-    private Button btnEditCatalog;
+	public static ObservableList<Branch> allBranches= FXCollections.observableArrayList();
+	public static ObservableList<BranchManager> allBrancheManagers= FXCollections.observableArrayList();
 
-    @FXML
-    private Button btnLogout;
 
-    @FXML
-    private Button btnDeals;
-
-    @FXML
-    private Button btnCreateAcounts;
-
-    @FXML
-    private Button btnReport;
-
-    @FXML
-    private Button btnAccount;
-
-    @FXML
-    private Button btnHome;
-
-    @FXML
-    private Button btnBrowseBranchReport;
-
-    @FXML
-    private Button btnDiscountingOnItem;
-
-    @FXML
-    private Button btnCreatePaymentAccount;
-    */
+   
 
     @FXML
     private Button btnBrowseBranchReport;
@@ -137,10 +118,39 @@ public class BranchManagerMainWindow extends LoginContol
 	  	Pane root = FXMLLoader.load(getClass().getResource("/BranchManager/BranchManagerMainFrame.fxml"));
 		Scene scene = new Scene(root);			
 		primaryStage.setTitle("Branch Manager Main Window"); // name of the title of the window
-		primaryStage.setScene(scene);		
+		primaryStage.setScene(scene);	
+		int port=5555;
+		   String ip="localhost";
+		   try 
+		   {
+			myClient = new ChatClient(ip,port);	//create new client to get all users in db (server)
+
+			myClient.sendRequestToGetAllBranchManagers();
+
+			allBranches.clear();  
+		
+		
+		   
+			myClient.sendRequestToGetAllBranches();
+		   } 
+		   catch (IOException e) 
+		   {
+			   System.out.println("Cannot create client");	  
+		   }
+		
 		primaryStage.show();
 		
 		//Can't close the window without logout
 		primaryStage.setOnCloseRequest( event -> {event.consume();} );
+	}
+
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) 
+	{
+		System.out.println(""+this.allBrancheManagers);
+		System.out.println(""+this.allBranches);
+
+		
 	} 
 }

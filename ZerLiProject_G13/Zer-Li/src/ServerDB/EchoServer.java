@@ -14,6 +14,7 @@ import com.mysql.jdbc.Blob;
 import com.mysql.jdbc.Statement;
 
 import CustomerServiceDepartmentworker.complaint;
+import BranchManager.BranchManager;
 import BranchManager.PaymentAccount;
 import BranchManager.Reports;
 import BranchWorker.Survey;
@@ -241,6 +242,33 @@ public class EchoServer extends AbstractServer implements Initializable
 			}
 
    	
+			if(DiscoverMessage.equals("Give Me All Branches managers"))
+			{
+				System.out.println("Get all Branche managers from DB");
+
+				ArrayList<BranchManager> BrancheManagersFromDB = new ArrayList<BranchManager>();
+				try 
+				{
+					BrancheManagersFromDB = PutOutAllBranchManagers(BrancheManagersFromDB);
+
+					Message Msg = new Message(BrancheManagersFromDB, "BranchManager");
+
+					//this.sendToAllClients(Msg);
+					try {
+						client.sendToClient(Msg);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} 
+				catch (SQLException e) 
+				{
+					System.out.println("error-can't get branchManagers data from db");
+					//this.sendToAllClients("GetFail");
+					
+				}
+				return;			}
+			
 		}//end of if (msg instanceof String)
 		
 		
@@ -359,6 +387,31 @@ public class EchoServer extends AbstractServer implements Initializable
 	
 	
 	
+	private ArrayList<BranchManager> PutOutAllBranchManagers(ArrayList<BranchManager> branchManagersFromDB) throws SQLException 
+	{
+		Statement st = (Statement) ServerDataBase.createStatement();
+
+		ResultSet rs = st.executeQuery("select * from branchmanagers ");
+
+		while (rs.next()) {
+			int BranchManagerID= rs.getInt(1);
+			String BranchManagerName = "" + rs.getString(2);
+			String BranchManagerEmail = "" + rs.getString(3);
+			String BranchID =  rs.getString(4);
+
+			
+
+			BranchManager BranchManagerReturnToClient = new BranchManager(BranchManagerID,BranchManagerName, BranchManagerEmail,BranchID);
+			branchManagersFromDB.add(BranchManagerReturnToClient);
+			System.out.println(""+BranchManagerReturnToClient);
+
+		}
+		rs.close();
+		st.close();
+
+		return branchManagersFromDB;
+	}
+
 	private ArrayList<Branch> PutOutAllBranches(ArrayList<Branch> branchesFromDB) throws SQLException 
 	{
 		Statement st = (Statement) ServerDataBase.createStatement();

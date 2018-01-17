@@ -11,6 +11,8 @@ import java.io.*;
 import java.time.Year;
 import java.util.ArrayList;
 
+import BranchManager.BranchManager;
+import BranchManager.BranchManagerMainWindow;
 import BranchManager.OwnReportBrowseControl;
 import BranchManager.PaymentAccount;
 import BranchManager.Reports;
@@ -200,9 +202,24 @@ public class ChatClient extends AbstractClient {
 					// System.out.println(""+AllUsersFromServer.get(i));
 					CustomerMainWindow.AllBranchesNames.add(""+AllBranchesFromServer.get(i).getBranchName());
 					CustomerMainWindow.AllBranches.add(AllBranchesFromServer.get(i));
-					System.out.println(""+AllBranchesFromServer.get(i).getBranchName());
+					BranchManagerMainWindow.allBranches.add(AllBranchesFromServer.get(i));
+					//System.out.println(""+AllBranchesFromServer.get(i).getBranchName());
 				}
 				quit();
+				
+
+				return;
+			}
+			
+			
+			if (ServerMsg.getMsgType().equals("BranchManager")) 
+			{
+				ArrayList<BranchManager> AllBranchManagersFromServer = (ArrayList<BranchManager>) ServerMsg.getMsgObject();
+				for (int i = 0; i < AllBranchManagersFromServer.size(); i++) 
+				{
+					// System.out.println(""+AllUsersFromServer.get(i));
+					BranchManagerMainWindow.allBrancheManagers.add(AllBranchManagersFromServer.get(i));
+				}
 				
 
 				return;
@@ -479,14 +496,38 @@ public class ChatClient extends AbstractClient {
 
 		try 
 		{
-			System.out.println("Send Message to get all catalogItems");
+			System.out.println("Send Message to get all Branches");
 
 			sendToServer("Give Me All Branches");
 		} catch (IOException e) 
 		{
-			System.out.println("Cannot connect to server to get CatalogItems");
+			System.out.println("Cannot connect to server to get all Branches");
 
 		}
+	}
+
+	public void sendRequestToGetAllBranchManagers() 
+	{
+		try 
+		{
+			this.openConnection();
+		}
+
+		catch (IOException e1) 
+		{
+			System.out.println("Cannot open connection");
+		}
+
+		try 
+		{
+			System.out.println("Send Message to get all catalogItems");
+
+			sendToServer("Give Me All Branches managers");
+		} catch (IOException e) 
+		{
+			System.out.println("Cannot connect to server to get Branches managers");
+
+		}		
 	}
  
 
