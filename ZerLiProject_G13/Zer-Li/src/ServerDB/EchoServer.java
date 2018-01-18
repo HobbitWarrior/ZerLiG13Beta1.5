@@ -17,6 +17,7 @@ import CustomerServiceDepartmentworker.complaint;
 import BranchManager.BranchManager;
 import BranchManager.PaymentAccount;
 import BranchManager.Reports;
+import BranchManager.catalogitemsofbranch;
 import BranchWorker.Survey;
 import Catalog.CatalogItem;
 import Customer.CustomerTransaction;
@@ -169,8 +170,32 @@ public class EchoServer extends AbstractServer implements Initializable
 					}
 					return;
 				}
+			  
 			 
-			 
+		     //-----------------------------------------------//
+			 if ((DiscoverMessage.substring(0, 33)).equals("Give me all catalog items of branch"))
+				{
+					System.out.println("Get all catalog items of branch  from DB");
+
+					ArrayList<catalogitemsofbranch> catalogitemsofbranchFromDB = new ArrayList<catalogitemsofbranch>();
+					try 
+					{
+						System.out.println(  DiscoverMessage.substring(33,DiscoverMessage.length()));
+						
+						catalogitemsofbranchFromDB = PutOutAllCatalogItemsOfBranch(catalogitemsofbranchFromDB,DiscoverMessage.substring(33,DiscoverMessage.length()));
+
+						Message Msg = new Message(catalogitemsofbranchFromDB, "catalog items of branch");
+						
+						
+						this.sendToAllClients(Msg);
+					} 
+					catch (SQLException e) 
+					{
+						System.out.println("error-can't get Reports data from db");
+						this.sendToAllClients("GetFail");
+					}
+					return;
+				}
 			 
 			// get all the complaints from the DB
 				if (DiscoverMessage.equals("complaints")) {
@@ -639,7 +664,31 @@ public class EchoServer extends AbstractServer implements Initializable
 
 			}
 			//***********************************************************************************************************************************************************************************
-			
+			//***********************************************************************************************************************************************************************************
+			private ArrayList<catalogitemsofbranch> PutOutAllCatalogItemsOfBranch(ArrayList<catalogitemsofbranch> catalogitemsofbranchFromDB,String mybranchid) throws SQLException {
+
+				Statement st = (Statement) ServerDataBase.createStatement();
+	            
+				ResultSet rs = st.executeQuery("select * from reports where BranchID="+mybranchid+"");
+
+				while (rs.next()) {
+					int ItemID = rs.getInt(1);
+		            String BranchID =  rs.getString(2);
+					
+					double PriceID =  rs.getInt(3);
+				  
+					catalogitemsofbranch UsersReturnToClient = new  catalogitemsofbranch(ItemID, BranchID, PriceID );
+					System.out.println(UsersReturnToClient);
+					catalogitemsofbranchFromDB.add(UsersReturnToClient);
+
+				}
+				rs.close();
+				st.close();
+
+				return catalogitemsofbranchFromDB;
+
+			}
+		
 	//***********************************************************************************************************************************************************************************
 	
 	private ArrayList<CatalogItem> PutOutAllCatalogItems(ArrayList<CatalogItem> CatalogItemsFromDB) throws SQLException 

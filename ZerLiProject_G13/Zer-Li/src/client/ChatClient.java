@@ -13,9 +13,11 @@ import java.util.ArrayList;
 
 import BranchManager.BranchManager;
 import BranchManager.BranchManagerMainWindow;
+import BranchManager.DiscountingOnItemsControl;
 import BranchManager.OwnReportBrowseControl;
 import BranchManager.PaymentAccount;
 import BranchManager.Reports;
+import BranchManager.catalogitemsofbranch;
 import Catalog.CatalogItem;
 import ChainWorker.CatalogEditControl;
 import Customer.CatalogItemGUI;
@@ -188,6 +190,33 @@ public class ChatClient extends AbstractClient {
 					String BranchID = AllReportsFromServer.get(i).getBranchID(); 
 					Reports replist=new Reports(ReportType,ReportYear,ReportQuarter,longblob,BranchID);
  			    	 OwnReportBrowseControl.ReportList.add(replist);
+				}
+				quit();
+			 
+
+				return;
+				 
+			}
+			else if (ServerMsg.getMsgType().equals("AllBranchReport")) 
+			{
+				
+				System.out.println("-Back-");
+		 
+
+				ArrayList<catalogitemsofbranch> catalogitemsofbranchFromServer = (ArrayList<catalogitemsofbranch>) ServerMsg.getMsgObject();
+				 
+				for (int i = 0; i < catalogitemsofbranchFromServer.size(); i++) 
+				{ 
+					
+					int ItemID = catalogitemsofbranchFromServer.get(i).getItemID();
+					String BranchID = catalogitemsofbranchFromServer.get(i).getBranchID();
+					double Price = catalogitemsofbranchFromServer.get(i).getPrice(); 
+					 
+					catalogitemsofbranch catalogitemslist=new catalogitemsofbranch(ItemID,BranchID,Price);
+					 
+					System.out.println(catalogitemslist);
+
+					DiscountingOnItemsControl.catalogitemsofbranchlist.add(catalogitemslist);
 				}
 				quit();
 			 

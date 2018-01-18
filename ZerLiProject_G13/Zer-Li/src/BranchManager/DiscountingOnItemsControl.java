@@ -64,26 +64,24 @@ public class DiscountingOnItemsControl  extends LoginContol  implements Initiali
     private Button discountingBtn;
     
     @FXML
-    private TableView<?> MyTableV;
+    private TableView<catalogitemsofbranch> MyTableV;
 
     @FXML
-    private TableColumn<?, ?> ItemIDCol;
+    private TableColumn<catalogitemsofbranch, Integer> ItemIDCol;
 
     @FXML
-    private TableColumn<?, ?> PriceCol;
+    private TableColumn<catalogitemsofbranch, Double> PriceCol;
 
     @FXML
-    private TableColumn<?, ?> BranchIDCol;
+    private TableColumn<catalogitemsofbranch, String> BranchIDCol;
 
-	//public static ObservableList<catalogitems> catalogitems= FXCollections.observableArrayList();
+	 public static ObservableList<catalogitemsofbranch> catalogitemsofbranchlist= FXCollections.observableArrayList();
 
 
     @FXML
     void DisCountingPercent(ActionEvent event) {
  	
- 		//   PercentMSG PerMSG =new PercentMSG(IDItemtext.getText(), percenttxt.getText());
- 		//   System.out.println(PerMSG);	  
-
+ 	 
  		  int port=5555 ;
 	 	   String ip="localhost";
 	 	   try 
@@ -175,8 +173,9 @@ public class DiscountingOnItemsControl  extends LoginContol  implements Initiali
     }
 	public void start(Stage primaryStage) throws  IOException 
 	{		
-	 /*  	 int port=5555 ;
-	 	   String ip="localhost";
+		 int port=5555 ;
+	 	   String ip="localhost",ThisBranchId,MSG;
+	 	  catalogitemsofbranchlist.clear();
 	 	   try 
 	 	   {
 	 		myClient = new ChatClient(ip,port);	//create new client to get all users in db (server)
@@ -186,8 +185,14 @@ public class DiscountingOnItemsControl  extends LoginContol  implements Initiali
 	 	   {
 	 		   System.out.println("Cannot create client");	  
 	 	   }
-	 	   myClient.sendRequestToGetAllCatalogItems(); //send request to get all users from db (server)
-*/
+	 	   
+	 	   
+	 	    ThisBranchId=BranchManagerMainWindow.getBranchIdOfBranchManager();
+	 	   System.out.println(ThisBranchId);
+	 	   MSG="Give me all catalog items of branch"+ThisBranchId;
+	 	  System.out.println(MSG.substring(0,33));
+	 	 myClient.sendRequestToGetAllReports(MSG); 
+
 		
 		Parent root = FXMLLoader.load(getClass().getResource("/BranchManager/DiscountingOnItemFrame.fxml"));
 		Scene scene = new Scene(root);
@@ -210,19 +215,10 @@ public class DiscountingOnItemsControl  extends LoginContol  implements Initiali
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
-		
-		
-
-		// TODO Auto-generated method stub
-	 /*   ItemIDCol.setCellValueFactory(new PropertyValueFactory<catalogitems, Integer>("ItemIDCol"));
-	        ItemNameCol.setCellValueFactory(new PropertyValueFactory<catalogitems, String>("ItemNameCol"));
-	     ItemTypeCol.setCellValueFactory(new PropertyValueFactory<catalogitems, String>("ItemTypeCol"));
-	     ItemTypeCol.setCellValueFactory(new PropertyValueFactory<catalogitems, String>("DescriptionCol"));
-
-	       PhotoCol.setCellValueFactory(new PropertyValueFactory<catalogitems, Image>("Image"));
-	       PriceCol.setCellValueFactory(new PropertyValueFactory<catalogitems, Double>("PriceCol"));
-
-	       BranchNameCol.setCellValueFactory(new PropertyValueFactory<catalogitems, String>("BranchID")); 
- 	     //  tableV.setItems(catalogitems);*/
+		 
+	    ItemIDCol.setCellValueFactory(new PropertyValueFactory<catalogitemsofbranch, Integer>("ItemIDCol"));
+	        PriceCol.setCellValueFactory(new PropertyValueFactory<catalogitemsofbranch, Double>("PriceCol"));
+	     BranchIDCol.setCellValueFactory(new PropertyValueFactory<catalogitemsofbranch, String>("BranchIDCol"));
+	        MyTableV.setItems(catalogitemsofbranchlist); 
 	}
 }
