@@ -146,7 +146,7 @@ public class CustomerMainWindow extends LoginContol implements Initializable
 		int port = 5555;
 		String ip = "localhost";
 		myClient = new ChatClient(ip, port); // create new client
-		myClient.sendRequestToGetAllBranchManagers();
+		//myClient.sendRequestToGetAllBranchManagers();
 		AllBranches.clear();
 		myClient.sendRequestToGetAllBranches();
 

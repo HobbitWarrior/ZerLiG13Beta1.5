@@ -54,18 +54,35 @@ public class Date implements Serializable, Comparable, Cloneable
 
 	@Override
 	public int compareTo(Object someday) 
-	{
+	{	/**this method tells if this date equal to another date or it is sooner or later*/
 		if (someday instanceof Date)
 		{
 			Date anotherday = (Date)someday;
 			if(this.day == anotherday.getDay() && this.mounth== anotherday.getMounth() && this.year == anotherday.getYear() )
 			{
-				return 1;
+				return 1;  //this date is the same date to the another date
 			}
+			
+			if(this.day < anotherday.getDay() && this.mounth <= anotherday.getMounth() && this.year <= anotherday.getYear() )
+			{
+				return -1;  //this date is sooner
+			}
+			
+			if(this.day >= anotherday.getDay() && this.mounth < anotherday.getMounth() && this.year <= anotherday.getYear() )
+			{
+				return -1;  //this date is sooner
+			}
+			
+						
+			if(this.day >= anotherday.getDay() && this.mounth >= anotherday.getMounth() && this.year < anotherday.getYear() )
+			{
+				return -1;	//this date is sooner
+			}
+			
 			
 	
 		}
-		return 0;
+		return 0;	//this date is later
 	}
 	
 	//tostring method:

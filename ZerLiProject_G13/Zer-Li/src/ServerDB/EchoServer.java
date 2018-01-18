@@ -21,6 +21,7 @@ import BranchManager.catalogitemsofbranch;
 import BranchWorker.Survey;
 import Catalog.CatalogItem;
 import Customer.CustomerTransaction;
+import Customer.Date;
 import Customer.MessgaeCatalogProduct;
 import ServerDB.Product;
 import Users.LoginContol;
@@ -63,13 +64,36 @@ public class EchoServer extends AbstractServer implements Initializable
 		//------------------------------------instanceof String-------------------------------------------------------
 		if (msg instanceof String) 
 		{ 
+			
+			
 			String DiscoverMessage=(String) msg;
 			
-			if (DiscoverMessage.equals("Give Me All Branches")) 
-							System.out.println("I got branch message");
+			if (DiscoverMessage.equals("Give Me All Branches")) //i changed condition here
+			{
+				System.out.println("Get all Branches  from DB");
 
+				ArrayList<Branch> BranchesFromDB = new ArrayList<Branch>();
+				try 
+				{
+					BranchesFromDB = PutOutAllBranches(BranchesFromDB);
+
+					Message Msg = new Message(BranchesFromDB, "Branch");
+
+					this.sendToAllClients(Msg);
+					
+				} 
+				catch (SQLException e) 
+				{
+					System.out.println("error-can't get users data from db");
+					this.sendToAllClients("GetFail");
+				}
+				return;
+			}
 			
-			
+		
+
+		
+
 			//-----------------------------------------------------------//
 			if (DiscoverMessage.equals("Give Me All Users")) 
 			{
@@ -98,6 +122,8 @@ public class EchoServer extends AbstractServer implements Initializable
 				return;
 			}
 			
+		
+			
 			//-----------------------------------------------------------//
 			if (DiscoverMessage.equals("Give Me All CatalogItems")) 
 			{
@@ -123,7 +149,10 @@ public class EchoServer extends AbstractServer implements Initializable
 			}
 			
 			//-----------------------------------------------------------//
-			 if (DiscoverMessage.equals("Give Me All Reports")) 
+			
+			
+			
+			if (DiscoverMessage.equals("Give Me All Reports")) 
 			{
 				System.out.println("Get all Reports from DB");
 
@@ -147,7 +176,9 @@ public class EchoServer extends AbstractServer implements Initializable
 			 
             //-----------------------------------------------//
 			 
-			 if ((DiscoverMessage.substring(0, 24)).equals("Give me all ReportBranch")) 
+			
+			
+			if ((DiscoverMessage.substring(0, 24)).equals("Give me all ReportBranch")) 
 				{
 					System.out.println("Get all Reports Branch from DB");
 
@@ -172,6 +203,8 @@ public class EchoServer extends AbstractServer implements Initializable
 				}
 			  
 			 
+			
+			
 		     //-----------------------------------------------//
 			 if ((DiscoverMessage.substring(0, 33)).equals("Give me all catalog items of branch"))
 				{
@@ -198,7 +231,11 @@ public class EchoServer extends AbstractServer implements Initializable
 				}
 			 
 			// get all the complaints from the DB
-				if (DiscoverMessage.equals("complaints")) {
+			 
+		
+			 
+				if (DiscoverMessage.equals("complaints")) 
+				{
 					System.out.println("Dear server will you be so kind to get all the Compliants from the DB?");
 					ArrayList<complaint> Complaints = new ArrayList<complaint>();
 					try {
@@ -215,7 +252,9 @@ public class EchoServer extends AbstractServer implements Initializable
 					}
 				}
 			//-----------------------------------------------------------//
-			 
+			
+				
+				
 			// "Please change Entry of user: "  "Please change Entry of user: "+UserName;
 			if ( (DiscoverMessage.length()) >= 28 )	//from here there is a process that check if client asking to change entry status of userName 
 			{
@@ -275,27 +314,11 @@ public class EchoServer extends AbstractServer implements Initializable
 
 				
 			}//end of if ( (DiscoverMessage.length()) >= 28 )
-			if (DiscoverMessage.equals("Give Me All Branches")) 
-			{
-				System.out.println("Get all Branches  from DB");
-
-				ArrayList<Branch> BranchesFromDB = new ArrayList<Branch>();
-				try 
-				{
-					BranchesFromDB = PutOutAllBranches(BranchesFromDB);
-
-					Message Msg = new Message(BranchesFromDB, "Branch");
-
-					this.sendToAllClients(Msg);
-					
-				} 
-				catch (SQLException e) 
-				{
-					System.out.println("error-can't get users data from db");
-					this.sendToAllClients("GetFail");
-				}
-				return;
-			}
+			
+			
+			
+			
+		
 
    	
 			if(DiscoverMessage.equals("Give Me All Branches managers"))
@@ -474,9 +497,114 @@ public class EchoServer extends AbstractServer implements Initializable
 			System.out.println("server got request to save order");
 		 }
 		
+		if(msg instanceof CustomerTransaction)
+		 {	/**this part responsible on check if payment account ok and save later the data of orders in db*/
+			System.out.println("server got request to save order");
+			
+			CustomerTransaction myOrder= (CustomerTransaction)msg;
+			boolean isApproved;
+			String PA_userName = myOrder.getPaymentAccountUserName();
+			String PA_Password = myOrder.getPaymentAccountPassword();
+			String branchID = myOrder.getOrderbranchID();
+			Date dateOfOrder= myOrder.getOrderCompletedDate();
+			
+			
+			try 
+			{
+				isApproved = checkIfAccountOK(PA_userName, PA_Password, branchID, dateOfOrder);
+				if(isApproved == true)
+				{
+					System.out.println("payment account approved");
+
+				}
+				else
+				{
+					System.out.println("payment account not approved");
+
+				}
+				
+			} 
+			catch (SQLException e) 
+			{
+				System.out.println("cannot connect to db to check payment account");
+
+			}
+
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		 }	
+		
+		
 	} //end of handleMessageFromClient
 	
 	//****************************************************************************************************************************
+
+	private boolean checkIfAccountOK(String pA_userName, String pA_Password, String branchID, Date dateOfOrder) throws SQLException 
+	{	/**this method check if payment account of order is ok*/
+		System.out.println("Server enterd to the method of checking account");
+		System.out.println("User name: "+ pA_userName+" Passowrd: "+pA_Password + " branchID: " +branchID );
+
+		
+		
+		Statement st = (Statement) ServerDataBase.createStatement();
+
+		ResultSet rs = st.executeQuery("select * from paymentaccounts ");
+
+		while (rs.next()) 
+		{
+			String DB_PA_UserName=rs.getString(1);
+			String DB_PA_Password=rs.getString(3);
+			String DB_BranchID=rs.getString(11);
+			java.sql.Date myDate = rs.getDate(12);
+			Date DB_PA_expDate = convertSqlDateToDateOfHaim(myDate);
+			System.out.println(""+DB_PA_expDate.getYear() + " "+ DB_PA_expDate.getMounth()+ " " + DB_PA_expDate.getDay());
+			if(pA_userName.equals(DB_PA_UserName) && pA_Password.equals(DB_PA_Password) && branchID.equals(DB_BranchID))
+			{
+				System.out.println("userName and Password and branch approved");
+				
+				if(dateOfOrder.compareTo(DB_PA_expDate) ==0 || dateOfOrder.compareTo(DB_PA_expDate) == -1)
+				{
+					rs.close();
+					st.close();
+					return true;
+				}
+			}
+			
+	
+
+		}
+		rs.close();
+		st.close();
+
+
+		
+		return false;
+	}
+
+	private Date convertSqlDateToDateOfHaim(java.sql.Date myDate) 
+	{	/*this method responsible for convert sql date type to our project date type**/
+		String expDate = ""+ myDate;
+		int year = Integer.parseInt(expDate.substring(0, 4)) ;       
+		int mounth = Integer.parseInt(expDate.substring(5, 7)) ;       
+		int day = Integer.parseInt(expDate.substring(8, expDate.length())) ;       
+		Date haimDate = new Date(year, mounth, day);
+		return haimDate;
+	}
 
 	private ArrayList<CatalogItem> PutOutAllBranchCatalogItems(ArrayList<CatalogItem> catalogItemsFromDB, String branchID) 
 	{	/**this method return prices for item in specific branch*/
