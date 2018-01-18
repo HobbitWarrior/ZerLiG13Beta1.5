@@ -267,6 +267,8 @@ public class OrdersControl extends LoginContol implements Initializable
 		try 
 		{
 			supplyTimeOrder = (Time)this.supplyTime.clone();	//copy time that customer choose
+	    	System.out.println("" + supplyTimeOrder);
+
 	    	newDeal.setOrdersupplyTime(supplyTimeOrder);	
 
 		} 
@@ -277,6 +279,8 @@ public class OrdersControl extends LoginContol implements Initializable
     	try 
     	{
 			Date supplyDateOrder= (Date)supplyTimeDate.clone();	//copy date that customer choose
+	    	System.out.println("" + supplyDateOrder);
+
 			newDeal.setOrderSupplyDate(supplyDateOrder);
 		} 
     	catch (CloneNotSupportedException e) 
@@ -284,7 +288,29 @@ public class OrdersControl extends LoginContol implements Initializable
 			System.out.println("Cannot copy date");
 		}
     	
-    	double totalPriceOfOrder=this.totalPrice;
+    	double totalPriceOfOrder=this.totalPrice;	//getting total price of order
+    	newDeal.setOrderTotalPrice(totalPriceOfOrder);
+    	
+    	String branchID = CustomerMainWindow.chosenBranchID;	//getting branchID of order
+    	newDeal.setOrderbranchID(branchID);
+    	
+    	try 
+    	{
+			Delivery OrderDelivery =(Delivery)myShipment.clone();
+	    	System.out.println("" + OrderDelivery);
+
+		} 
+    	catch (CloneNotSupportedException e) 
+    	{
+			System.out.println("Cannot copy delivery");
+
+		}
+    	
+    	int customerID = LoginContol.userID;	//get customerID
+    	newDeal.setCustomerID(customerID);
+    	
+
+
     	
     }
     

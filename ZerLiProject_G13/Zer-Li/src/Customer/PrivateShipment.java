@@ -54,4 +54,12 @@ public class PrivateShipment extends Delivery implements Serializable
 	{
 		this.phoneNumber = phoneNumber;
 	}
+
+	@Override
+	public String toString() {
+		return "PrivateShipment [addressee=" + addressee + ", address=" + address + ", phoneNumber=" + phoneNumber
+				+ "]";
+	}
+	
+	
 }

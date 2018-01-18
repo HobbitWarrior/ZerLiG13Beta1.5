@@ -2,7 +2,7 @@ package Customer;
 
 import java.io.Serializable;
 
-public abstract class Delivery implements Serializable
+public abstract class Delivery implements Serializable, Cloneable
 {
 	private int OrderID;
 	private int DeliveryID;
@@ -14,6 +14,14 @@ public abstract class Delivery implements Serializable
 		this.DeliveryID=DeliveryID;
 		this.Price=Price;
 	}
+	
+	@Override
+	public Object clone () throws CloneNotSupportedException
+	{
+		return super.clone();
+		
+	}
+	
 	
 	public Delivery (double Price )
 	{

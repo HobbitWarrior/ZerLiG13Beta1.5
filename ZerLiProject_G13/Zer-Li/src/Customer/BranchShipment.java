@@ -51,4 +51,12 @@ public class BranchShipment extends Delivery implements Serializable
 	public void setBranchID(String branchID) {
 		BranchID = branchID;
 	}
+
+	@Override
+	public String toString() {
+		return "BranchShipment [BranchID=" + BranchID + ", BranchName=" + BranchName + ", BranchAdress=" + BranchAdress
+				+ "]";
+	}
+	
+	
 }

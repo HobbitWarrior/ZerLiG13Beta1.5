@@ -74,7 +74,7 @@ public class CustomerTransaction implements Serializable
 	}
 
 
-	public void setOrdertotalPrice(Double ordertotalPrice) {
+	public void setOrderTotalPrice(Double ordertotalPrice) {
 		OrdertotalPrice = ordertotalPrice;
 	}
 
