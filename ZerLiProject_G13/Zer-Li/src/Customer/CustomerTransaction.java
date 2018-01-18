@@ -21,6 +21,7 @@ public class CustomerTransaction implements Serializable
 	private String PaymentAccountUserName;
 	private String PaymentAccountPassword;
 	private ArrayList<ItemInOrder> productsList;
+	private boolean isApproved=false;
 	
 	
 	public CustomerTransaction() //constructor is empty because is will be too long to insert attributes
@@ -185,6 +186,16 @@ public class CustomerTransaction implements Serializable
 
 	public void setProductsList(ArrayList<ItemInOrder> productsList) {
 		this.productsList = productsList;
+	}
+
+
+	public boolean isApproved() {
+		return isApproved;
+	}
+
+
+	public void setApproved(boolean isApproved) {
+		this.isApproved = isApproved;
 	}
 	
 	
