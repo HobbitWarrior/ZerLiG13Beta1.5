@@ -21,6 +21,7 @@ import ChainWorker.CatalogEditControl;
 import Customer.CatalogItemGUI;
 import Customer.CatalogOrderControl;
 import Customer.CustomerMainWindow;
+import Customer.CustomerTransaction;
 import Customer.MessgaeCatalogProduct;
 import Users.LoginContol;
 import Users.User;
@@ -584,6 +585,30 @@ public class ChatClient extends AbstractClient {
 			System.out.println("Cannot connect to server to get Branches managers");
 
 		}			
+	}
+
+	public void sendRequestToSaveCustomerOrder(CustomerTransaction newDeal) 
+	{
+		try 
+		{
+			this.openConnection();
+		}
+
+		catch (IOException e1) 
+		{
+			System.out.println("Cannot open connection");
+		}
+
+		try 
+		{
+			System.out.println("Send Message to get save order in db");
+
+			sendToServer(newDeal);
+		} catch (IOException e) 
+		{
+			System.out.println("Cannot connect to server to save order");
+
+		}	
 	}
  
 

@@ -270,7 +270,7 @@ public class OrdersControl extends LoginContol implements Initializable
 	    	System.out.println("" + supplyTimeOrder);
 
 	    	newDeal.setOrdersupplyTime(supplyTimeOrder);	
-
+ 
 		} 
 		catch (CloneNotSupportedException e) 
 		{
@@ -308,7 +308,18 @@ public class OrdersControl extends LoginContol implements Initializable
     	
     	int customerID = LoginContol.userID;	//get customerID
     	newDeal.setCustomerID(customerID);
-    	
+		int port = 5555;
+		String ip = "localhost";
+		try 
+		{
+			myClient = new ChatClient(ip, port);
+	    	myClient.sendRequestToSaveCustomerOrder(newDeal);	//send request to save order in db
+
+		} 
+		catch (IOException e) 
+		{
+			System.out.println("Cannot send order to server");
+		} // create new client
 
 
     	
@@ -690,16 +701,13 @@ public class OrdersControl extends LoginContol implements Initializable
 		primaryStage.setTitle("Create an order"); // name of the title of the window
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		//int port = 5555;
-		//String ip = "localhost";
-		//myClient = new ChatClient(ip, port); // create new client
 		
 
 		// Can't close the window without logout
 		primaryStage.setOnCloseRequest(event -> {
 			event.consume();
 		});
-	}
+	} 
 
 	
 	public static void calculateTotalPriceAndQuantity()

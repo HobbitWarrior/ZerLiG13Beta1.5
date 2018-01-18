@@ -19,6 +19,7 @@ import BranchManager.PaymentAccount;
 import BranchManager.Reports;
 import BranchWorker.Survey;
 import Catalog.CatalogItem;
+import Customer.CustomerTransaction;
 import Customer.MessgaeCatalogProduct;
 import ServerDB.Product;
 import Users.LoginContol;
@@ -60,7 +61,7 @@ public class EchoServer extends AbstractServer implements Initializable
 		
 		//------------------------------------instanceof String-------------------------------------------------------
 		if (msg instanceof String) 
-		{
+		{ 
 			String DiscoverMessage=(String) msg;
 			
 			if (DiscoverMessage.equals("Give Me All Branches")) 
@@ -412,6 +413,11 @@ public class EchoServer extends AbstractServer implements Initializable
 				this.sendToAllClients("GetFail");
 			}
 			return;
+		 }
+		
+		if(msg instanceof CustomerTransaction)
+		 {
+			System.out.println("server got request to save order");
 		 }
 		
 	} //end of handleMessageFromClient
