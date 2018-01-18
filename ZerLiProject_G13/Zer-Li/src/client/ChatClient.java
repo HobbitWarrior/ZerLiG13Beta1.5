@@ -182,11 +182,39 @@ public class ChatClient extends AbstractClient {
 				{ 
 					
 					int ReportType = AllReportsFromServer.get(i).getReportType(); 
-					Year ReportYear = AllReportsFromServer.get(i).getReportYear(); 
+					String ReportYear = AllReportsFromServer.get(i).getReportYear(); 
 					int ReportQuarter = AllReportsFromServer.get(i).getReportQuarter(); 
 					Image longblob = AllReportsFromServer.get(i).getLongblob();
 					String BranchID = AllReportsFromServer.get(i).getBranchID(); 
 					Reports replist=new Reports(ReportType,ReportYear,ReportQuarter,longblob,BranchID);
+ 			    	 OwnReportBrowseControl.ReportList.add(replist);
+				}
+				quit();
+			 
+
+				return;
+				 
+			}
+			else if (ServerMsg.getMsgType().equals("AllBranchReport")) 
+			{
+				
+				System.out.println("-Back-");
+		 
+
+				ArrayList<Reports> AllReportsFromServer = (ArrayList<Reports>) ServerMsg.getMsgObject();
+				 
+				for (int i = 0; i < AllReportsFromServer.size(); i++) 
+				{ 
+					
+					int ReportType = AllReportsFromServer.get(i).getReportType(); 
+					String ReportYear = AllReportsFromServer.get(i).getReportYear(); 
+					int ReportQuarter = AllReportsFromServer.get(i).getReportQuarter(); 
+					Image longblob = AllReportsFromServer.get(i).getLongblob();
+					String BranchID = AllReportsFromServer.get(i).getBranchID(); 
+					Reports replist=new Reports(ReportType,ReportYear,ReportQuarter,longblob,BranchID);
+					 
+					System.out.println(replist);
+
  			    	 OwnReportBrowseControl.ReportList.add(replist);
 				}
 				quit();
@@ -443,7 +471,7 @@ public class ChatClient extends AbstractClient {
 		{
 			System.out.println("Send Message to get all Reports");
 
-			sendToServer("Give Me All Reports");
+			sendToServer(msg);
 		} catch (IOException e) 
 		{
 			System.out.println("Cannot connect to server to get Reports");

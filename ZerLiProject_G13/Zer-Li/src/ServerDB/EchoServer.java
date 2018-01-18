@@ -143,6 +143,35 @@ public class EchoServer extends AbstractServer implements Initializable
 				}
 				return;
 			}
+			 
+            //-----------------------------------------------//
+			 
+			 if ((DiscoverMessage.substring(0, 24)).equals("Give me all ReportBranch")) 
+				{
+					System.out.println("Get all Reports Branch from DB");
+
+					ArrayList<Reports> ReportsFromDB = new ArrayList<Reports>();
+					try 
+					{
+						System.out.println(  DiscoverMessage.substring(24,DiscoverMessage.length()));
+						
+						ReportsFromDB = PutOutAllBranchReports(ReportsFromDB,DiscoverMessage.substring(24,DiscoverMessage.length()));
+
+						Message Msg = new Message(ReportsFromDB, "AllBranchReport");
+						
+						
+						this.sendToAllClients(Msg);
+					} 
+					catch (SQLException e) 
+					{
+						System.out.println("error-can't get Reports data from db");
+						this.sendToAllClients("GetFail");
+					}
+					return;
+				}
+			 
+			 
+			 
 			// get all the complaints from the DB
 				if (DiscoverMessage.equals("complaints")) {
 					System.out.println("Dear server will you be so kind to get all the Compliants from the DB?");
@@ -581,6 +610,36 @@ public class EchoServer extends AbstractServer implements Initializable
 		return ReportsFromDB;
 
 	}
+	//***********************************************************************************************************************************************************************************
+		//***********************************************************************************************************************************************************************************
+			private ArrayList<Reports> PutOutAllBranchReports(ArrayList<Reports> ReportsFromDB,String mybranchid) throws SQLException {
+
+				Statement st = (Statement) ServerDataBase.createStatement();
+	            
+				ResultSet rs = st.executeQuery("select * from reports where BranchID="+mybranchid+"");
+
+				while (rs.next()) {
+					int ReportType = rs.getInt(1);
+		  String ReportYear =  rs.getString(2);
+					
+					int ReportQuarter =  rs.getInt(3);
+					//Image Permition =  rs.getBlob(4);
+					String BranchID = rs.getString(5);
+					 
+	   
+					Reports UsersReturnToClient = new Reports(ReportType, ReportYear, ReportQuarter, null, BranchID );
+					System.out.println(UsersReturnToClient);
+					ReportsFromDB.add(UsersReturnToClient);
+
+				}
+				rs.close();
+				st.close();
+
+				return ReportsFromDB;
+
+			}
+			//***********************************************************************************************************************************************************************************
+			
 	//***********************************************************************************************************************************************************************************
 	
 	private ArrayList<CatalogItem> PutOutAllCatalogItems(ArrayList<CatalogItem> CatalogItemsFromDB) throws SQLException 

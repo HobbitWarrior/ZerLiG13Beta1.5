@@ -117,7 +117,8 @@ public class OwnReportBrowseControl  extends LoginContol  implements Initializab
 	public void start(Stage primaryStage) throws  IOException 
 	{		
 	   	 int port=5555 ;
-	 	   String ip="localhost";
+	 	   String ip="localhost",ThisBranchId,MSG;
+	 	  ReportList.clear();
 	 	   try 
 	 	   {
 	 		myClient = new ChatClient(ip,port);	//create new client to get all users in db (server)
@@ -127,7 +128,13 @@ public class OwnReportBrowseControl  extends LoginContol  implements Initializab
 	 	   {
 	 		   System.out.println("Cannot create client");	  
 	 	   }
-	 	   myClient.sendRequestToGetAllReports("Give Me All Reports"); //send request to get all users from db (server)
+	 	   
+	 	   
+	 	    ThisBranchId=BranchManagerMainWindow.getBranchIdOfBranchManager();
+	 	   System.out.println(ThisBranchId);
+	 	   MSG="Give me all ReportBranch"+ThisBranchId;
+	 	  System.out.println(MSG.substring(0,24));
+	 	 myClient.sendRequestToGetAllReports(MSG); 
 
 		
 		Parent root = FXMLLoader.load(getClass().getResource("/BranchManager/SelfBrowseReportFrame.fxml"));

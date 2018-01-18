@@ -10,22 +10,20 @@ public class Reports implements Serializable   {
 
 	
 	Integer ReportType ;
-	Year ReportYear  ; 
+	String ReportYear  ; 
 	Integer ReportQuarter  ; 
 	Image longblob;
 	String BranchID  ;
-	//String ReportYearStr  ;
-
 	public Integer getReportType() {
 		return ReportType;
 	}
 	public void setReportType(Integer reportType) {
 		ReportType = reportType;
 	}
-	public Year getReportYear() {
+	public String getReportYear() {
 		return ReportYear;
 	}
-	public void setReportYear(Year reportYear) {
+	public void setReportYear(String reportYear) {
 		ReportYear = reportYear;
 	}
 	public Integer getReportQuarter() {
@@ -46,19 +44,14 @@ public class Reports implements Serializable   {
 	public void setBranchID(String branchID) {
 		BranchID = branchID;
 	}
-	
-	/*public String getReportYearStr()
-	{
-		return this.ReportYearStr;
+	public Reports(Integer reportType, String reportYear, Integer reportQuarter, Image longblob, String branchID) {
+		super();
+		ReportType = reportType;
+		ReportYear = reportYear;
+		ReportQuarter = reportQuarter;
+		this.longblob = longblob;
+		BranchID = branchID;
 	}
-	
-	public void setReportYearStr(String ReportYearStr)
-	{
-		 this.ReportYearStr=ReportYearStr;
-	}*/
-	
-	
-	
 	@Override
 	public String toString() {
 		return "Reports [ReportType=" + ReportType + ", ReportYear=" + ReportYear + ", ReportQuarter=" + ReportQuarter
@@ -66,26 +59,7 @@ public class Reports implements Serializable   {
 	}
 	
 	
-	
-	
-	public Reports(Integer reportType, Year reportYear, Integer reportQuarter, Image longblob, String branchID) {
-		super();
-		ReportType = reportType;
-		ReportYear = reportYear;
-		//ReportYearStr=""+ReportYear;
-		ReportQuarter = reportQuarter;
-		this.longblob = longblob;
-		BranchID = branchID;
-	}
-	public Reports() {
-		ReportType = 100;
-		ReportYear = null;
-		ReportQuarter = 120;
-		this.longblob = null;
-		BranchID = "s10";
-		//ReportYearStr=""+ReportYear;
-		
-	}
+	 
 	 
 	
 	
