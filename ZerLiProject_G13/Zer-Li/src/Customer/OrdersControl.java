@@ -229,8 +229,21 @@ public class OrdersControl extends LoginContol implements Initializable
     
     @FXML
     void payButtonPressed(ActionEvent event) 
-    {
-
+    {	/**this method responsible to prepare the order to be saved on the db, it will send also the details of payment account to commit verification*/
+    	String PAUserName="";
+    	String PAPassword="";
+    	String PAMethod="";
+    	PAUserName = PA_userName_txt.getText();
+    	PAPassword = PA_password_txt.getText();
+    	PAMethod = payMethodcomboBox.getValue();
+    	if(PAUserName.equals("") || PAPassword.equals("") || payMethodcomboBox.getValue() == null)	//check if customer did not forget to insert details of payment
+    	{
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setTitle("You missed some details");
+    		alert.setHeaderText("Please fill again your details!");
+    		alert.showAndWait();
+    		return;
+    	}
     }
     
     
