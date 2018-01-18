@@ -2,7 +2,7 @@ package Customer;
 
 import java.io.Serializable;
 
-public class Time implements Serializable, Comparable 
+public class Time implements Serializable, Comparable,Cloneable
 {
 	private String hour;
 	private String minutes;
@@ -16,6 +16,13 @@ public class Time implements Serializable, Comparable
 		this.seconds = seconds;
 	}
 
+	@Override
+	public Object clone () throws CloneNotSupportedException
+	{
+		return super.clone();
+		
+	}
+	
 	@Override
 	public int compareTo(Object anothertime) 
 	{

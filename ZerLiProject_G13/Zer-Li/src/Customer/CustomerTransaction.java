@@ -16,7 +16,7 @@ public class CustomerTransaction implements Serializable
 	private Time OrderCompletedTime;
 	private String Greeting;
 	private String PaymentType;
-	private String IsExpeditedDelivery;
+	private boolean IsExpeditedDelivery;
 	private int CompleteStatus=0;
 	private String PaymentAccountUserName;
 	private String PaymentAccountPassword;
@@ -84,7 +84,7 @@ public class CustomerTransaction implements Serializable
 	}
 
 
-	public void setOrdersupplyDate(Date ordersupplyDate) {
+	public void setOrderSupplyDate(Date ordersupplyDate) {
 		OrdersupplyDate = ordersupplyDate;
 	}
 
@@ -139,12 +139,12 @@ public class CustomerTransaction implements Serializable
 	}
 
 
-	public String getIsExpeditedDelivery() {
+	public boolean getIsExpeditedDelivery() {
 		return IsExpeditedDelivery;
 	}
 
 
-	public void setIsExpeditedDelivery(String isExpeditedDelivery) {
+	public void setIsExpeditedDelivery(boolean isExpeditedDelivery) {
 		IsExpeditedDelivery = isExpeditedDelivery;
 	}
 

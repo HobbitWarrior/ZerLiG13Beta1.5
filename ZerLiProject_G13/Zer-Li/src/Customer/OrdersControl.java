@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
@@ -51,9 +52,7 @@ public class OrdersControl extends LoginContol implements Initializable
 	private static boolean checkboxFilled=false;
 	private static String textGreeting="";
 	private static Date  supplyTimeDate  ;
-	private static Date  completedTransactionDate ;
 	private static Time supplyTime;
-	private static Time completedTransactionDateTime;
 	private static String selfArrivalBranch="";
 	private static boolean expeditedSupplying=false;
 	private static Delivery myShipment;	
@@ -244,12 +243,67 @@ public class OrdersControl extends LoginContol implements Initializable
     		alert.showAndWait();
     		return;
     	}
+    	//if everything ok, we continue to collect order details
+    	CustomerTransaction newDeal = new CustomerTransaction();		//prepare order
+    
+    	
+    	ArrayList<ItemInOrder> itemsToBuy =new ArrayList<ItemInOrder>();
+    	itemsToBuy = fillInItemsToBuy(itemsToBuy);
+    	newDeal.setProductsList(itemsToBuy);
+    	newDeal.setPaymentAccountPassword(PAPassword);
+    	newDeal.setPaymentAccountUserName(PAUserName);
+    	newDeal.setIsExpeditedDelivery(this.expeditedSupplying);
+    	newDeal.setPaymentType(PAMethod);
+    	newDeal.setGreeting(this.textGreeting);
+    	LocalDateTime now = LocalDateTime.now();
+    	String nowCompletedHour=""+now.getHour();
+    	String nowCompletedMinute=""+now.getMinute();
+    	String nowCompletedSeconds=""+now.getSecond();
+    	Time completedTime = new Time(nowCompletedHour, nowCompletedMinute, nowCompletedSeconds); //time of committing a deal
+    	newDeal.setOrderCompletedTime(completedTime);
+    	Date CompletedDateOrder = new Date(now.getYear(), now.getMonthValue(), now.getMonthValue()); //date of committing a deal
+    	newDeal.setOrderCompletedDate(CompletedDateOrder);
+    	Time supplyTimeOrder;
+		try 
+		{
+			supplyTimeOrder = (Time)this.supplyTime.clone();	//copy time that customer choose
+	    	newDeal.setOrdersupplyTime(supplyTimeOrder);	
+
+		} 
+		catch (CloneNotSupportedException e) 
+		{
+			System.out.println("Cannot copy time");
+		}
+    	try 
+    	{
+			Date supplyDateOrder= (Date)supplyTimeDate.clone();	//copy date that customer choose
+			newDeal.setOrderSupplyDate(supplyDateOrder);
+		} 
+    	catch (CloneNotSupportedException e) 
+    	{
+			System.out.println("Cannot copy date");
+		}
+    	
+    	double totalPriceOfOrder=this.totalPrice;
+    	
     }
     
     
     
     
-    @FXML
+    private ArrayList<ItemInOrder> fillInItemsToBuy(ArrayList<ItemInOrder> itemsToBuy) 
+    {
+    	for(int i=0; i<this.ItemsInOrderList.size() ; i++)
+    	{
+    		itemsToBuy.add( this.ItemsInOrderList.get(i) );
+    	}
+    	
+    	return itemsToBuy;
+
+	}
+
+
+	@FXML
     void payMethodcomboBoxPressed(ActionEvent event) 
     {
 

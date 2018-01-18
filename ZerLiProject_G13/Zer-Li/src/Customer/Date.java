@@ -2,7 +2,7 @@ package Customer;
 
 import java.io.Serializable;
 
-public class Date implements Serializable, Comparable
+public class Date implements Serializable, Comparable, Cloneable
 {
 	private int year;
 	private int mounth;
@@ -16,7 +16,12 @@ public class Date implements Serializable, Comparable
 		
 	}
 	
-	
+	@Override
+	public Object clone () throws CloneNotSupportedException
+	{
+		return super.clone();
+		
+	}
 	
 	
 	public int getYear() 
