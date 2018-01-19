@@ -530,15 +530,8 @@ public class EchoServer extends AbstractServer implements Initializable
 				}
 				
 				System.out.println("payment account  approved");
-				try 
-				{
-					client.sendToClient(myOrder);
-					return;
-				} 
-				catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-			}	
+				myOrder = saveOrderInDB(myOrder);
+
 				
 			} 
 			catch (SQLException e) 
@@ -570,6 +563,12 @@ public class EchoServer extends AbstractServer implements Initializable
 	} //end of handleMessageFromClient
 	
 	//****************************************************************************************************************************
+
+	private CustomerTransaction saveOrderInDB(CustomerTransaction myOrder) 
+	{/**saveOrderInDB method responsible to save order information on 7 tables in db*/
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	private CustomerTransaction checkIfAccountOK(CustomerTransaction myOrder, String pA_userName, String pA_Password, String branchID, Date dateOfOrder) throws SQLException 
 	{	/**this method check if payment account of order is ok*/
