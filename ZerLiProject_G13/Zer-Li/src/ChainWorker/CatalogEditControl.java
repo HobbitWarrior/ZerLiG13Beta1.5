@@ -241,8 +241,8 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    
 	    public void askToDeleteItem(int itemID)
 	    {
-	 	   int port=5555;
-	 	   String ip="localhost";
+	 	   int port=PORT;
+	 	   String ip=ServerIP;
 	 	   try 
 	 	   {
 	 		 myClient = new ChatClient(ip,port);	//create new client
@@ -260,8 +260,8 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    
 	    public void checkUniqueID(int itemID)
 	    {
-	 	   int port=5555;
-	 	   String ip="localhost";
+	 	   int port=PORT;
+	 	   String ip=ServerIP;
 	 	   try 
 	 	   {
 	 		 myClient = new ChatClient(ip,port);	//create new client
@@ -451,8 +451,8 @@ public class CatalogEditControl extends LoginContol implements Initializable
 /*	        
 	    public void addItemToCatalog(int itemID)
 	    {
-	 	   int port=5555;
-	 	   String ip="localhost";
+	 	   int port=PORT;
+	 	   String ip=ServerIP;
 	 	   try 
 	 	   {
 	 		 myClient = new ChatClient(ip,port);	//create new client
@@ -487,8 +487,8 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    
 	    public void AddorEditItems(int itemID)
 	    {
-	 	   int port=5555;
-	 	   String ip="localhost";
+	 	   int port=PORT;
+	 	   String ip=ServerIP;
 	 	   try 
 	 	   {
 	 		 myClient = new ChatClient(ip,port);	//create new client
@@ -608,8 +608,8 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    	
 	    	this.catalogList.clear();
 	    	
-			int port = 5555;
-			String ip = "localhost";
+			int port = PORT;
+			String ip = ServerIP;
 			myClient = new ChatClient(ip, port); // create new client
 			myClient.setCatalogEditControl(this);
 			myClient.setchooseControl("CatalogEditControl");
@@ -678,8 +678,8 @@ public class CatalogEditControl extends LoginContol implements Initializable
 		primaryStage.setScene(scene);
 	  	primaryStage.show();
 	  	
-		int port = 5555;
-		String ip = "localhost";
+		int port = PORT;
+		String ip = ServerIP;
 		myClient = new ChatClient(ip, port); // create new client
 		myClient.setCatalogEditControl(this);
 		myClient.setchooseControl("CatalogEditControl");

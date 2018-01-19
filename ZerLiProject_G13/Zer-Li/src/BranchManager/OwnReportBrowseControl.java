@@ -116,8 +116,8 @@ public class OwnReportBrowseControl  extends LoginContol  implements Initializab
     }
 	public void start(Stage primaryStage) throws  IOException 
 	{		
-	   	 int port=5555 ;
-	 	   String ip="localhost",ThisBranchId,MSG;
+	   	 int port=PORT ;
+	 	   String ip=ServerIP,ThisBranchId,MSG;
 	 	  ReportList.clear();
 	 	   try 
 	 	   {

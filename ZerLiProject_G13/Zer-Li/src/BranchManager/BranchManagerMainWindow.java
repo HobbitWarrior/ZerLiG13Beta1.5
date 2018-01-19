@@ -130,8 +130,8 @@ btnCreatePaymentAccount.getScene().getWindow().hide(); //hiding primary window
 		Scene scene = new Scene(root);			
 		primaryStage.setTitle("Branch Manager Main Window"); // name of the title of the window
 		primaryStage.setScene(scene);	
-		int port=5555;
-		   String ip="localhost";
+		int port=PORT;
+		   String ip=ServerIP;
 		   try 
 		   {
 			myClient = new ChatClient(ip,port);	//create new client to get all users in db (server)

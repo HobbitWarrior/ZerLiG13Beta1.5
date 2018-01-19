@@ -183,8 +183,8 @@ public class CreatePaymentAccountController extends LoginContol implements Initi
     void SaveOnDB(ActionEvent event) {
    //  System.out.println("aaaa");
      
-     int port=5555;
-	   String ip="localhost";
+     int port=PORT;
+	   String ip=ServerIP;
 	   try 
 	   {
 		myClient = new ChatClient(ip,port);	//create new client to get all users in db (server)

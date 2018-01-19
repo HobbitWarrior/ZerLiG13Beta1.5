@@ -66,6 +66,10 @@ public class LoginContol
 
 	protected ChatClient myClient;
 	
+	protected static String ServerIP = "localhost";
+	protected static int PORT = 5555;
+	
+	
 	@FXML
     private Label TitleLabel;
 
@@ -89,6 +93,12 @@ public class LoginContol
     
     @FXML
     private Button btnExit;
+    
+    @FXML
+    private TextField txtServerIP;
+    
+    @FXML
+    private TextField txtPORT;
 
     
   
@@ -106,24 +116,60 @@ public class LoginContol
    @FXML
     void ConnectToSystemEvent(ActionEvent event) 
     {
-	   int port=5555;
-	   String ip="localhost";
-	   try 
-	   {
-		myClient = new ChatClient(ip,port);	//create new client to get all users in db (server)
-		myClient.setLoginControl(this);
-	   } 
-	   catch (IOException e) 
-	   {
-		   System.out.println("Cannot create client");	  
-	   }
+	   String checkPort;
+	   String DeafultPort = txtPORT.getPromptText();//convert string to int
+	   if(txtPORT.getText().isEmpty()) //no one entered port number .. take the deafult port
+		   checkPort=DeafultPort;
+	   else //someone entered number in port 
+		   checkPort=txtPORT.getText(); //get the port number from the text field
 	   
-	   myClient. sendRequestToGetAllUsers()   ;
-	 
-	  // while( myClient.isConnected());	//wait until client (this class) get all users from the db!
+	   if(isParsableInt(checkPort)) //if port can convert to int
+	   {
+		   PORT = Integer.parseInt(checkPort); //convert string to int
+			
+		   int port=PORT;
+		   ServerIP=txtServerIP.getText();
+		   String ip=ServerIP;
+		   try 
+		   {
+			myClient = new ChatClient(ip,port);	//create new client to get all users in db (server)
+			myClient.setLoginControl(this);
+		   } 
+		   catch (IOException e) 
+		   {
+			   System.out.println("Cannot create client");	  
+		   }
+		   
+		   myClient. sendRequestToGetAllUsers()   ;
+		 
+		  // while( myClient.isConnected());	//wait until client (this class) get all users from the db!
+		   
+	   }
+		else //port is not integer
+		{
+			Alert incorrectImageAlert = new Alert(AlertType.WARNING);
+	   		incorrectImageAlert.setTitle("Port is not a number");
+	   		incorrectImageAlert.setHeaderText("You did not enter valid numbers in Port!");
+	   		incorrectImageAlert.setContentText("Please enter valid numbers in Port (e.g 5555)");
+	   		incorrectImageAlert.showAndWait();
+		}
+	   
 	 
 	   
 	}
+   
+   
+   public static boolean isParsableInt(String input) //check if we can convert the txtPORT to integer
+   {
+       boolean parsable = true;
+       try{
+           Integer.parseInt(input);
+       }catch(NumberFormatException e){
+           parsable = false;
+       }
+       return parsable;
+   }
+   
    
     
    public void CheckUserExist()
@@ -350,8 +396,8 @@ public class LoginContol
 
    public void changeEntry(String UserName)
    {
-	   int port=5555;
-	   String ip="localhost";
+	   int port=PORT;
+	   String ip=ServerIP;
 	   try 
 	   {
 		 myClient = new ChatClient(ip,port);	//create new client

@@ -308,8 +308,8 @@ public class OrdersControl extends LoginContol implements Initializable
     	
     	int customerID = LoginContol.userID;	//get customerID
     	newDeal.setCustomerID(customerID);
-		int port = 5555;
-		String ip = "localhost";
+		int port = PORT;
+		String ip = ServerIP;
 		try 
 		{
 			myClient = new ChatClient(ip, port);

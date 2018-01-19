@@ -236,8 +236,8 @@ public class CatalogOrderControl extends LoginContol implements Initializable
 			primaryStage.setTitle("Catalog"); // name of the title of the window
 			primaryStage.setScene(scene);
 			primaryStage.show();
-			int port = 5555;
-			String ip = "localhost";
+			int port = PORT;
+			String ip = ServerIP;
 			myClient = new ChatClient(ip, port); // create new client
 			myClient.setCatalogOrderControl(this);
 			myClient.setchooseControl("CatalogOrderControl");

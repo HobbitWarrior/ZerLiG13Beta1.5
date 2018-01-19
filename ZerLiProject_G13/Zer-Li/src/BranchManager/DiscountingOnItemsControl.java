@@ -82,8 +82,8 @@ public class DiscountingOnItemsControl  extends LoginContol  implements Initiali
     void DisCountingPercent(ActionEvent event) {
  	
  	 
- 		  int port=5555 ;
-	 	   String ip="localhost";
+ 		  int port=PORT ;
+	 	   String ip=ServerIP;
 	 	   try 
 	 	   {
 	 		myClient = new ChatClient(ip,port);	//create new client to get all users in db (server)
@@ -173,8 +173,8 @@ public class DiscountingOnItemsControl  extends LoginContol  implements Initiali
     }
 	public void start(Stage primaryStage) throws  IOException 
 	{		
-		 int port=5555 ;
-	 	   String ip="localhost",ThisBranchId,MSG;
+		 int port=PORT ;
+	 	   String ip=ServerIP,ThisBranchId,MSG;
 	 	  catalogitemsofbranchlist.clear();
 	 	   try 
 	 	   {
