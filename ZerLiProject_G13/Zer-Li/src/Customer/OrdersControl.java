@@ -254,6 +254,7 @@ public class OrdersControl extends LoginContol implements Initializable
     	newDeal.setPaymentAccountUserName(PAUserName);
     	newDeal.setIsExpeditedDelivery(this.expeditedSupplying);
     	newDeal.setPaymentType(PAMethod);
+    	System.out.println("your greeting in client is   ==>" + this.textGreeting);
     	newDeal.setGreeting(this.textGreeting);
     	LocalDateTime now = LocalDateTime.now();
     	String nowCompletedHour=""+now.getHour();
@@ -596,6 +597,7 @@ public class OrdersControl extends LoginContol implements Initializable
     @FXML
     void goToDeliveryPressed(ActionEvent event) 
     {
+    	this.textGreeting=this.txtGreeting.getText();
     	ShowScreenTWO();
     	
     }

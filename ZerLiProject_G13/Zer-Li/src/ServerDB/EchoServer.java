@@ -634,8 +634,6 @@ public class EchoServer extends AbstractServer implements Initializable
 			myOrder.setOrderID(randomOrderID);	//put orderID for customer transaction
 			//myOrder.getOrderCustomerDelivery().setOrderID(randomOrderID);	//put orderID in Delivery of transaction
 			Delivery tempDelivery=myOrder.getOrderCustomerDelivery();
-			Date myddate = new Date(0,0,0);
-			Time myTime = new Time("3","3","3");
 			tempDelivery.setOrderID(randomOrderID);
 			tempDelivery.setDeliveryID(randomDeliveryID);
 			myOrder.setOrderCustomerDelivery(tempDelivery);
@@ -682,46 +680,21 @@ public class EchoServer extends AbstractServer implements Initializable
 
 		try 	
 		{
-			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb3 : ");
 
 			PreparedStatement ps1 = ServerDataBase.prepareStatement(
-					"insert into customerorders (OrderID,CustomerID,DeliveryID,BranchID,OrderPrice,SupplyDate,SupplyHour,CompletedDate,CompletedTime,Greeting,PaymentType,ImmediateOrderCompletedStatus) values (?,?,?,?,?,?,?,?,?,?,?,?,?)");
-			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb4 : ");
+					"insert into customerorders (OrderID,CustomerID,DeliveryID,BranchID,OrderPrice,SupplyDate,SupplyHour,CompletedDate,CompletedTime,Greeting,PaymentType,ImmediateOrder,CompletedStatus) values (?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
-			System.out.println(""+myOrder.getOrderID());
-			System.out.println(""+myOrder.getCustomerID());
-			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb6 : ");
-			Delivery myDelivery=myOrder.getOrderCustomerDelivery();
-			int dNum=myDelivery.getDeliveryID();
-			System.out.println("your delivery in the server is"+myDelivery);
-			if(myOrder.getOrderCustomerDelivery() == null)
-			{
-				System.out.println("delivery is nul!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-			}
-			System.out.println(""+myOrder.getOrderbranchID());
-			System.out.println(""+myOrder.getOrdertotalPrice());
-			System.out.println(""+myOrder.getOrdersupplyDate());
-			System.out.println(""+myOrder.getOrdersupplyTime());
-			System.out.println(""+myOrder.getOrderCompletedDate());
-			System.out.println(""+myOrder.getOrderCompletedTime());
-			System.out.println(""+myOrder.getGreeting());
-			System.out.println(""+myOrder.getPaymentType());
-			System.out.println(""+myOrder.getIsExpeditedDelivery());
-			System.out.println(""+myOrder.getCompleteStatus());
-			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb7 : ");
-
-			
-			ps1.setInt(1, myOrder.getOrderID());
-			ps1.setInt(2, myOrder.getCustomerID());	///CustomerID
-			ps1.setInt(3, myOrder.getOrderCustomerDelivery().getDeliveryID());	//DeliveryID
-			ps1.setString(4, myOrder.getOrderbranchID());	//BranchID
-			ps1.setDouble(5, myOrder.getOrdertotalPrice());	//totalPrice
-			ps1.setString(6, "" + myOrder.getOrdersupplyDate()); //supply date
-			ps1.setString(7, "" + myOrder.getOrdersupplyTime()); //supply hour time
-			ps1.setString(8, "" + myOrder.getOrderCompletedDate()); //completed date
-			ps1.setString(9, "" + myOrder.getOrderCompletedTime()); //completed hour time
-			ps1.setString(10, myOrder.getGreeting());	//greeting
-			ps1.setString(11, myOrder.getPaymentType());	//greeting
+			int OrderID = myOrder.getOrderID();
+			int CustomerId = myOrder.getCustomerID();
+			int DeliveryID = myOrder.getOrderCustomerDelivery().getDeliveryID();
+			String BranchID = myOrder.getOrderbranchID();
+			Double totalPrice = myOrder.getOrdertotalPrice();
+			String supplyDate = ""+myOrder.getOrdersupplyDate();
+			String supplyTime = "" + myOrder.getOrdersupplyTime();
+			String completedDate = "" + myOrder.getOrderCompletedDate();
+			String completedTime = "" + myOrder.getOrderCompletedTime();
+			String greeting = "" + myOrder.getGreeting();
+			String paymentType = "" + myOrder.getPaymentType();
 			boolean isImmidate= myOrder.getIsExpeditedDelivery();
 			String answerIsImmidate="";	
 			if(isImmidate == true)
@@ -733,11 +706,41 @@ public class EchoServer extends AbstractServer implements Initializable
 				answerIsImmidate="No";
 
 			}
+			int completedStatus = myOrder.getCompleteStatus();
+
+
+			ps1.setInt(1, OrderID);
+			ps1.setInt(2, CustomerId);	///CustomerID
+			ps1.setInt(3, DeliveryID);	//DeliveryID
+			ps1.setString(4, BranchID);	//BranchID
+			ps1.setDouble(5, totalPrice);	//totalPrice
+			ps1.setString(6, "" + supplyDate); //supply date
+			ps1.setString(7, "" + supplyTime); //supply hour time
+			ps1.setString(8, "" + completedDate); //completed date
+			ps1.setString(9, "" + completedTime); //completed hour time
+			ps1.setString(10, greeting);	//greeting
+			ps1.setString(11, paymentType);	//greeting
+			ps1.setString(12, answerIsImmidate);	//if customer want expedited delivery
+			ps1.setInt(13, completedStatus);	//completedStauts , 0 = order not sent to customer, 1 = order did sent to customer
+			ps1.executeUpdate();
+			ps1.close();
 			
+			
+		/*	ps1.setInt(1, myOrder.getOrderID());
+			ps1.setInt(2, myOrder.getCustomerID());	///CustomerID
+			ps1.setInt(3, myOrder.getOrderCustomerDelivery().getDeliveryID());	//DeliveryID
+			ps1.setString(4, myOrder.getOrderbranchID());	//BranchID
+			ps1.setDouble(5, myOrder.getOrdertotalPrice());	//totalPrice
+			ps1.setString(6, "" + myOrder.getOrdersupplyDate()); //supply date
+			ps1.setString(7, "" + myOrder.getOrdersupplyTime()); //supply hour time
+			ps1.setString(8, "" + myOrder.getOrderCompletedDate()); //completed date
+			ps1.setString(9, "" + myOrder.getOrderCompletedTime()); //completed hour time
+			ps1.setString(10, myOrder.getGreeting());	//greeting
+			ps1.setString(11, myOrder.getPaymentType());	//greeting
 			ps1.setString(12, answerIsImmidate);	//if customer want expedited delivery
 			ps1.setInt(13, myOrder.getCompleteStatus());	//completedStauts , 0 = order not sent to customer, 1 = order did sent to customer
 			ps1.executeUpdate();
-			ps1.close();
+			ps1.close();*/
 
 		} 
 		
