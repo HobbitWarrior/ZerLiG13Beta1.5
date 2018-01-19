@@ -23,9 +23,11 @@ import BranchManager.SpecialBranchesMessage;
 import BranchManager.catalogitemsofbranch;
 import BranchWorker.Survey;
 import Catalog.CatalogItem;
+import Customer.CatalogItemInOrder;
 import Customer.CustomerTransaction;
 import Customer.Date;
 import Customer.Delivery;
+import Customer.ItemInOrder;
 import Customer.MessgaeCatalogProduct;
 import Customer.Time;
 import ServerDB.Product;
@@ -637,7 +639,6 @@ public class EchoServer extends AbstractServer implements Initializable
 			tempDelivery.setOrderID(randomOrderID);
 			tempDelivery.setDeliveryID(randomDeliveryID);
 			myOrder.setOrderCustomerDelivery(tempDelivery);
-			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1 : ");
 
 			//myOrder.getOrderCustomerDelivery().setDeliveryID(randomDeliveryID); //put deliveryID in Delivery of transaction
 
@@ -655,9 +656,10 @@ public class EchoServer extends AbstractServer implements Initializable
 		finally
 		{
 			
-			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb2 : ");
 
-				saveOrderOnCustomerOrderTable(myOrder);
+				saveOrderOnCustomerOrderTable(myOrder);	//save data in customerOrder table!!
+				saveOrderOnCustomerBillingTable(myOrder);
+				saveItemInOrderOnCatalogCustomProducts(myOrder);
 			 
 			
 		//end of saving on customerOrder table
@@ -666,11 +668,108 @@ public class EchoServer extends AbstractServer implements Initializable
 		
 		return null;
 	}
+	
+	//*****************************************************************************************************************************************************************************
+	private void saveItemInOrderOnCatalogCustomProducts(CustomerTransaction myOrder) 	//this method will be continued
+	{	/**this methods responsible on saving data in catalog/custom item tables*/
+		System.out.println("Server prepare to save on CustomerOrderTable");
+
+
+		try 	
+		{
+
+			PreparedStatement ps1 = ServerDataBase.prepareStatement("insert into catalogiteminorder (OrderID,ItemID,CustomerID,Quantity,ItemPrice) values (?,?,?,?,?)");
+
+			int OrderID = myOrder.getOrderID();
+			int customerID  = myOrder.getCustomerID();
+			ArrayList<ItemInOrder> allItems = myOrder.getProductsList();
+			ArrayList<CatalogItemInOrder> allCatalogItems = new ArrayList<CatalogItemInOrder>();
+			for(int i=0; i< allItems.size() ; i++)
+			{
+				if(allItems.get(i) instanceof CatalogItemInOrder)
+				{
+					ItemInOrder curretnItem = allItems.get(i);
+					CatalogItemInOrder currentCatalogItem = (CatalogItemInOrder) curretnItem;
+					allCatalogItems.add(currentCatalogItem);
+				}
+			}
+			
+			for(int i=0; i < allCatalogItems.size() ; i++)
+			{
+				
+				int itemID = allCatalogItems.get(i).getItemID();
+				int quantityOfItem = allCatalogItems.get(i).getItemQty();
+				double priceOfItem = allCatalogItems.get(i).getItemPrice();
+				ps1.setInt(1, OrderID);
+				ps1.setInt(2, itemID);	
+				ps1.setInt(3, customerID);
+				ps1.setInt(4, quantityOfItem);
+				ps1.setDouble(5, priceOfItem);
+				ps1.executeUpdate();
+			}
+			
+			ps1.close();
+			
+			
+			System.out.println("Data saved in catalogIteminOrder table!!");
+
+
+		} 
+		
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	//OrderID
+		
+		
+	}
+
+//**********************************************************************************************************
+	private void saveOrderOnCustomerBillingTable(CustomerTransaction myOrder) 
+	{
+		/**this methods responsible on saving data in customer billing table*/
+		System.out.println("Server prepare to save on CustomerBillingTable");
+
+
+	
+		// put new row in customerbilling table!!
+
+		try 	
+		{
+
+			PreparedStatement ps1 = ServerDataBase.prepareStatement(
+					"insert into customerbilling (OrderID,OrderPrice) values (?,?)");
+
+			int OrderID = myOrder.getOrderID();
+			Double totalPrice = myOrder.getOrdertotalPrice();
+			
+
+			ps1.setInt(1, OrderID);
+			ps1.setDouble(2, totalPrice);	//totalPrice
+			
+			ps1.executeUpdate();
+			ps1.close();
+			
+			
+		
+
+		} 
+		
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	//OrderID
+		
+		System.out.println("Data saved in customer billing table!!");
+		
+	}
 
 	//****************************************************************************************************************************
 
 	private void saveOrderOnCustomerOrderTable(CustomerTransaction myOrder) 
-	{
+	{	/**this methods responsible on saving data in customerOrders  table*/
 		System.out.println("Server prepare to save on CustomerOrderTable");
 
 		//***********************************************************************************************************************************$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -750,7 +849,7 @@ public class EchoServer extends AbstractServer implements Initializable
 			e.printStackTrace();
 		}	//OrderID
 		
-	
+		System.out.println("Data saved in customer order!!");
 		
 	}
 
