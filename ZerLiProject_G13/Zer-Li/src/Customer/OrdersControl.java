@@ -297,6 +297,7 @@ public class OrdersControl extends LoginContol implements Initializable
     	try 
     	{
 			Delivery OrderDelivery =(Delivery)myShipment.clone();
+			newDeal.setOrderCustomerDelivery(OrderDelivery);
 	    	System.out.println("" + OrderDelivery);
 
 		} 

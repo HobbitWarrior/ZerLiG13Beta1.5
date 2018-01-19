@@ -25,7 +25,9 @@ import BranchWorker.Survey;
 import Catalog.CatalogItem;
 import Customer.CustomerTransaction;
 import Customer.Date;
+import Customer.Delivery;
 import Customer.MessgaeCatalogProduct;
+import Customer.Time;
 import ServerDB.Product;
 import Users.LoginContol;
 import Users.User;
@@ -516,7 +518,7 @@ public class EchoServer extends AbstractServer implements Initializable
 		 }
 		
 		if(msg instanceof CustomerTransaction)
-		 {	/**this part responsible on check if payment account ok and save later the data of orders in db*/
+		{	/**this part responsible on check if payment account ok and save later the data of orders in db*/
 			System.out.println("server got request to save order");
 			
 			CustomerTransaction myOrder= (CustomerTransaction)msg;
@@ -546,7 +548,12 @@ public class EchoServer extends AbstractServer implements Initializable
 				}
 				
 				System.out.println("payment account  approved");
-				myOrder = saveOrderInDB(myOrder);
+				myOrder = SaveOrderInDB(myOrder);	//here we define a orderID and DeliveryID
+				
+				
+				
+				
+				
 				try 
 				{
 					client.sendToClient(myOrder);
@@ -614,7 +621,135 @@ public class EchoServer extends AbstractServer implements Initializable
 		
 	} //end of handleMessageFromClient
 	
+	private CustomerTransaction SaveOrderInDB(CustomerTransaction myOrder) 
+	{/**saveOrderInDB method responsible to save order information on 7 tables in db*/
+
+		try 
+		{
+			int randomDeliveryID=getRandomDeliveryIdFromDB();
+			System.out.println("Your random deliveryID: "+randomDeliveryID);
+
+			int randomOrderID=getRandomOrderIdFromDB();
+			System.out.println("Your random orderID: "+randomOrderID);
+			myOrder.setOrderID(randomOrderID);	//put orderID for customer transaction
+			//myOrder.getOrderCustomerDelivery().setOrderID(randomOrderID);	//put orderID in Delivery of transaction
+			Delivery tempDelivery=myOrder.getOrderCustomerDelivery();
+			Date myddate = new Date(0,0,0);
+			Time myTime = new Time("3","3","3");
+			tempDelivery.setOrderID(randomOrderID);
+			tempDelivery.setDeliveryID(randomDeliveryID);
+			myOrder.setOrderCustomerDelivery(tempDelivery);
+			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1 : ");
+
+			//myOrder.getOrderCustomerDelivery().setDeliveryID(randomDeliveryID); //put deliveryID in Delivery of transaction
+
+		} 
+		catch (SQLException e) 
+		{
+			System.out.println("Cannot find random orderID or DeliveryID");
+		}
+
+		
+		
+		//here we got OrderID and DeliveryID and begins to save on 7 tables!!
+		
+		//saving on customerOrder table
+		finally
+		{
+			
+			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb2 : ");
+
+				saveOrderOnCustomerOrderTable(myOrder);
+			 
+			
+		//end of saving on customerOrder table
+		}
+		
+		
+		return null;
+	}
+
 	//****************************************************************************************************************************
+
+	private void saveOrderOnCustomerOrderTable(CustomerTransaction myOrder) 
+	{
+		System.out.println("Server prepare to save on CustomerOrderTable");
+
+		//***********************************************************************************************************************************$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+	
+		// put new row in catalogitems table!!
+
+		try 	
+		{
+			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb3 : ");
+
+			PreparedStatement ps1 = ServerDataBase.prepareStatement(
+					"insert into customerorders (OrderID,CustomerID,DeliveryID,BranchID,OrderPrice,SupplyDate,SupplyHour,CompletedDate,CompletedTime,Greeting,PaymentType,ImmediateOrderCompletedStatus) values (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb4 : ");
+
+			System.out.println(""+myOrder.getOrderID());
+			System.out.println(""+myOrder.getCustomerID());
+			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb6 : ");
+			Delivery myDelivery=myOrder.getOrderCustomerDelivery();
+			int dNum=myDelivery.getDeliveryID();
+			System.out.println("your delivery in the server is"+myDelivery);
+			if(myOrder.getOrderCustomerDelivery() == null)
+			{
+				System.out.println("delivery is nul!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			}
+			System.out.println(""+myOrder.getOrderbranchID());
+			System.out.println(""+myOrder.getOrdertotalPrice());
+			System.out.println(""+myOrder.getOrdersupplyDate());
+			System.out.println(""+myOrder.getOrdersupplyTime());
+			System.out.println(""+myOrder.getOrderCompletedDate());
+			System.out.println(""+myOrder.getOrderCompletedTime());
+			System.out.println(""+myOrder.getGreeting());
+			System.out.println(""+myOrder.getPaymentType());
+			System.out.println(""+myOrder.getIsExpeditedDelivery());
+			System.out.println(""+myOrder.getCompleteStatus());
+			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb7 : ");
+
+			
+			ps1.setInt(1, myOrder.getOrderID());
+			ps1.setInt(2, myOrder.getCustomerID());	///CustomerID
+			ps1.setInt(3, myOrder.getOrderCustomerDelivery().getDeliveryID());	//DeliveryID
+			ps1.setString(4, myOrder.getOrderbranchID());	//BranchID
+			ps1.setDouble(5, myOrder.getOrdertotalPrice());	//totalPrice
+			ps1.setString(6, "" + myOrder.getOrdersupplyDate()); //supply date
+			ps1.setString(7, "" + myOrder.getOrdersupplyTime()); //supply hour time
+			ps1.setString(8, "" + myOrder.getOrderCompletedDate()); //completed date
+			ps1.setString(9, "" + myOrder.getOrderCompletedTime()); //completed hour time
+			ps1.setString(10, myOrder.getGreeting());	//greeting
+			ps1.setString(11, myOrder.getPaymentType());	//greeting
+			boolean isImmidate= myOrder.getIsExpeditedDelivery();
+			String answerIsImmidate="";	
+			if(isImmidate == true)
+			{
+				answerIsImmidate="Yes";
+			}
+			else
+			{
+				answerIsImmidate="No";
+
+			}
+			
+			ps1.setString(12, answerIsImmidate);	//if customer want expedited delivery
+			ps1.setInt(13, myOrder.getCompleteStatus());	//completedStauts , 0 = order not sent to customer, 1 = order did sent to customer
+			ps1.executeUpdate();
+			ps1.close();
+
+		} 
+		
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	//OrderID
+		
+	
+		
+	}
 
 	private void editItemPriceInDB(PercentMSG OB) {
 
