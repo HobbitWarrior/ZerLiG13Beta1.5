@@ -217,7 +217,7 @@ public class DiscountingOnItemsControl  extends LoginContol  implements Initiali
 	{
 		 
 	    ItemIDCol.setCellValueFactory(new PropertyValueFactory<catalogitemsofbranch, Integer>("ItemIDCol"));
-	        PriceCol.setCellValueFactory(new PropertyValueFactory<catalogitemsofbranch, Double>("PriceCol"));
+	     PriceCol.setCellValueFactory(new PropertyValueFactory<catalogitemsofbranch, Double>("PriceCol"));
 	     BranchIDCol.setCellValueFactory(new PropertyValueFactory<catalogitemsofbranch, String>("BranchIDCol"));
 	        MyTableV.setItems(catalogitemsofbranchlist); 
 	}

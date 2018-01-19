@@ -307,8 +307,9 @@ public class ChatClient extends AbstractClient {
 
 					DiscountingOnItemsControl.catalogitemsofbranchlist.add(catalogitemsofbranchlist);
 				}
-				quit();
-			 
+				quit(); 
+				System.out.println("check->"+DiscountingOnItemsControl.catalogitemsofbranchlist);
+
 
 				return;
 				 
