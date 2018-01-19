@@ -906,6 +906,7 @@ public class EchoServer extends AbstractServer implements Initializable
 			String DB_PA_Password=rs.getString(3);
 			String DB_BranchID=rs.getString(11);
 			java.sql.Date myDate = rs.getDate(12);
+			String DB_subscriptionType = rs.getString(10);
 			Date DB_PA_expDate = convertSqlDateToDateOfHaim(myDate);
 			System.out.println(""+DB_PA_expDate.getYear() + " "+ DB_PA_expDate.getMounth()+ " " + DB_PA_expDate.getDay());
 			if(pA_userName.equals(DB_PA_UserName) && pA_Password.equals(DB_PA_Password))
@@ -923,7 +924,24 @@ public class EchoServer extends AbstractServer implements Initializable
 				else if(dateOfOrder.compareTo(DB_PA_expDate) ==1 || dateOfOrder.compareTo(DB_PA_expDate) == -1)
 				{
 					System.out.println("branch and date exp approved");
-
+					String payTypeCustomerChoose = myOrder.getPaymentType();
+					if(payTypeCustomerChoose.equals("Subscription"))
+					{
+						double priceAfter=myOrder.getOrdertotalPrice();
+						
+						if(DB_subscriptionType.equals("Monthly"))
+						{
+							priceAfter = priceAfter* 0.9;
+						}
+						
+						if(DB_subscriptionType.equals("Yearly"))
+						{
+							priceAfter = priceAfter* 0.75;
+						}
+						myOrder.setOrderTotalPrice(priceAfter);
+					}
+					
+					
 					myOrder.setApproved(true);
 					return myOrder;
 				}
