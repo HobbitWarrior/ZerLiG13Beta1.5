@@ -143,8 +143,8 @@ public class CustomerMainWindow extends LoginContol implements Initializable
 		primaryStage.setScene(scene);		
 		primaryStage.show();
 		
-		int port = PORT;
-		String ip = ServerIP;
+		int port = LoginContol.PORT;
+		String ip = LoginContol.ServerIP;
 		myClient = new ChatClient(ip, port); // create new client
 		//myClient.sendRequestToGetAllBranchManagers();
 		AllBranches.clear();
