@@ -252,7 +252,62 @@ public class ChatClient extends AbstractClient {
 				return;
 				 
 			}
-			
+			else if (ServerMsg.getMsgType().equals("AllBranchReport")) 
+			{
+				
+				System.out.println("-Back-");
+		 
+
+				ArrayList<Reports> AllReportsFromServer = (ArrayList<Reports>) ServerMsg.getMsgObject();
+				 
+				for (int i = 0; i < AllReportsFromServer.size(); i++) 
+				{ 
+					
+					int ReportType = AllReportsFromServer.get(i).getReportType(); 
+					String ReportYear = AllReportsFromServer.get(i).getReportYear(); 
+					int ReportQuarter = AllReportsFromServer.get(i).getReportQuarter(); 
+					Image longblob = AllReportsFromServer.get(i).getLongblob();
+					String BranchID = AllReportsFromServer.get(i).getBranchID(); 
+					Reports replist=new Reports(ReportType,ReportYear,ReportQuarter,longblob,BranchID);
+					 
+					System.out.println(replist);
+
+ 			    	 OwnReportBrowseControl.ReportList.add(replist);
+				}
+				quit();
+			 
+
+				return;
+				 
+			}
+			else if (ServerMsg.getMsgType().equals("catalog items of branch")) 
+			{
+				
+				System.out.println("-Back-");
+		 
+
+				ArrayList<catalogitemsofbranch> catalogitemsofbranchFromServer = (ArrayList<catalogitemsofbranch>) ServerMsg.getMsgObject();
+				 
+				for (int i = 0; i < catalogitemsofbranchFromServer.size(); i++) 
+				{ 
+					
+					int ItemID = catalogitemsofbranchFromServer.get(i).getItemID();
+					String BranchID = catalogitemsofbranchFromServer.get(i).getBranchID(); 
+					double Price = catalogitemsofbranchFromServer.get(i).getPrice(); 
+				 
+					 
+					catalogitemsofbranch catalogitemsofbranchlist=new catalogitemsofbranch(ItemID,BranchID,Price);
+					 
+					System.out.println(catalogitemsofbranchlist);
+
+					DiscountingOnItemsControl.catalogitemsofbranchlist.add(catalogitemsofbranchlist);
+				}
+				quit();
+			 
+
+				return;
+				 
+			}
 			if (ServerMsg.getMsgType().equals("Branch")) 
 			{
 				ArrayList<Branch> AllBranchesFromServer = (ArrayList<Branch>) ServerMsg.getMsgObject();
@@ -606,7 +661,7 @@ public class ChatClient extends AbstractClient {
 
 		try 
 		{
-			System.out.println("Send Message to get all catalogItems");
+			System.out.println("Send Message to get all BranchManagers");
 
 			sendToServer("Give Me All Branches managers");
 		} catch (IOException e) 

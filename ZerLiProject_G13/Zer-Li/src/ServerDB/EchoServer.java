@@ -224,7 +224,7 @@ public class EchoServer extends AbstractServer implements Initializable
 					} 
 					catch (SQLException e) 
 					{
-						System.out.println("error-can't get Reports data from db");
+						System.out.println("error-can't get catalog items data from db");
 						this.sendToAllClients("GetFail");
 					}
 					return;
@@ -797,13 +797,13 @@ public class EchoServer extends AbstractServer implements Initializable
 
 				Statement st = (Statement) ServerDataBase.createStatement();
 	            
-				ResultSet rs = st.executeQuery("select * from reports where BranchID="+mybranchid+"");
+				ResultSet rs = st.executeQuery("select * from catalogitemsofbranch where BranchID="+mybranchid+"");
 
 				while (rs.next()) {
 					int ItemID = rs.getInt(1);
 		            String BranchID =  rs.getString(2);
 					
-					double PriceID =  rs.getInt(3);
+					double PriceID =  rs.getDouble(3);
 				  
 					catalogitemsofbranch UsersReturnToClient = new  catalogitemsofbranch(ItemID, BranchID, PriceID );
 					System.out.println(UsersReturnToClient);

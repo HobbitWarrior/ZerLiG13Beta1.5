@@ -131,6 +131,7 @@ public class OwnReportBrowseControl  extends LoginContol  implements Initializab
 	 	   
 	 	   
 	 	    ThisBranchId=BranchManagerMainWindow.getBranchIdOfBranchManager();
+	 	    
 	 	   System.out.println(ThisBranchId);
 	 	   MSG="Give me all ReportBranch"+ThisBranchId;
 	 	  System.out.println(MSG.substring(0,24));

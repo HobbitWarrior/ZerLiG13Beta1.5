@@ -84,7 +84,18 @@ public class BranchManagerMainWindow extends LoginContol implements Initializabl
 
     @FXML
     void DiscountingOnItem(ActionEvent event) {
+btnCreatePaymentAccount.getScene().getWindow().hide(); //hiding primary window
+		
+ 	       	Stage primaryStage = new Stage();
+ 	       DiscountingOnItemsControl aFrame = new DiscountingOnItemsControl();
 
+				try {
+					aFrame.start(primaryStage);
+				} catch (Exception e) {
+					System.out.println("Cannot start creat Account Window");
+				}
+
+				
     }
     @FXML
     void seeAccount(ActionEvent event) 
@@ -127,7 +138,7 @@ public class BranchManagerMainWindow extends LoginContol implements Initializabl
 
 			myClient.sendRequestToGetAllBranchManagers();
 
-			allBranches.clear();  
+		 	allBranches.clear();  
 		
 		
 		   
