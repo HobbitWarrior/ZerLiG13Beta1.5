@@ -532,7 +532,15 @@ public class EchoServer extends AbstractServer implements Initializable
 				
 				System.out.println("payment account  approved");
 				myOrder = saveOrderInDB(myOrder);
-
+				try 
+				{
+					client.sendToClient(myOrder);
+					return;
+				} 
+				catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 			} 
 			catch (SQLException e) 
@@ -621,19 +629,19 @@ public class EchoServer extends AbstractServer implements Initializable
 			if(pA_userName.equals(DB_PA_UserName) && pA_Password.equals(DB_PA_Password))
 			{
 				System.out.println("UserName and Password and branch approved");
-				
+				rs.close();
+				st.close();
 				if(!branchID.equals(DB_BranchID))
 				{
-					rs.close();
-					st.close();
+					
 					myOrder.setApproved(false);
 					myOrder.setMsgToClient("Your account is not belong to this branch");
 					return myOrder;				}
 				
-				if(dateOfOrder.compareTo(DB_PA_expDate) ==1 || dateOfOrder.compareTo(DB_PA_expDate) == -1)
+				else if(dateOfOrder.compareTo(DB_PA_expDate) ==1 || dateOfOrder.compareTo(DB_PA_expDate) == -1)
 				{
-					rs.close();
-					st.close();
+					System.out.println("branch and date exp approved");
+
 					myOrder.setApproved(true);
 					return myOrder;
 				}
