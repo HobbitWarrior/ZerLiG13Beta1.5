@@ -208,16 +208,16 @@ public class EchoServer extends AbstractServer implements Initializable
 			
 			
 		     //-----------------------------------------------//
-			 if ((DiscoverMessage.substring(0, 33)).equals("Give me all catalog items of branch"))
+			 if ((DiscoverMessage.substring(0, 35)).equals("Give me all catalog items of branch"))
 				{
 					System.out.println("Get all catalog items of branch  from DB");
 
 					ArrayList<catalogitemsofbranch> catalogitemsofbranchFromDB = new ArrayList<catalogitemsofbranch>();
 					try 
 					{
-						System.out.println(  DiscoverMessage.substring(33,DiscoverMessage.length()));
+						System.out.println(  DiscoverMessage.substring(35,DiscoverMessage.length()));
 						
-						catalogitemsofbranchFromDB = PutOutAllCatalogItemsOfBranch(catalogitemsofbranchFromDB,DiscoverMessage.substring(33,DiscoverMessage.length()));
+						catalogitemsofbranchFromDB = PutOutAllCatalogItemsOfBranch(catalogitemsofbranchFromDB,DiscoverMessage.substring(35,DiscoverMessage.length()));
 
 						Message Msg = new Message(catalogitemsofbranchFromDB, "catalog items of branch");
 						

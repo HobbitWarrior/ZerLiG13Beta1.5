@@ -190,7 +190,7 @@ public class DiscountingOnItemsControl  extends LoginContol  implements Initiali
 	 	    ThisBranchId=BranchManagerMainWindow.getBranchIdOfBranchManager();
 	 	   System.out.println(ThisBranchId);
 	 	   MSG="Give me all catalog items of branch"+ThisBranchId;
-	 	  System.out.println(MSG.substring(0,33));
+	 	  System.out.println(MSG.substring(0,35));
 	 	 myClient.sendRequestToGetAllReports(MSG); 
 
 		
