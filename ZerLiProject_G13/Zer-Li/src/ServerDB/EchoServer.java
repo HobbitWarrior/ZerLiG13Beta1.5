@@ -553,11 +553,8 @@ public class EchoServer extends AbstractServer implements Initializable
 				
 				System.out.println("payment account  approved");
 				myOrder = SaveOrderInDB(myOrder);	//here we define a orderID and DeliveryID
-				
-				
-				
-				
-				
+				String msgToClient = "Your order been Placed.\nOrderID: "+myOrder.getOrderID()+" , Total Price: "+myOrder.getOrdertotalPrice()+ " , DeliveryID: "+myOrder.getOrderCustomerDelivery().getDeliveryID();
+				myOrder.setMsgToClient(msgToClient);
 				try 
 				{
 					client.sendToClient(myOrder);
@@ -669,7 +666,7 @@ public class EchoServer extends AbstractServer implements Initializable
 		}
 		
 		
-		return null;
+		return myOrder;
 	}
 	
 	

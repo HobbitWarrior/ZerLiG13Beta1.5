@@ -412,7 +412,7 @@ public class ChatClient extends AbstractClient {
 						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Transcation approved");
 						alert.setHeaderText("Your order been placed!");
-						alert.setContentText("fdnngfngnd");
+						alert.setContentText(yourOrder.getMsgToClient());
 						alert.showAndWait();
 						return;					
 					}
