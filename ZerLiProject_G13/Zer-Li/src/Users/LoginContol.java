@@ -22,6 +22,7 @@ import javax.swing.ImageIcon;
 import BranchManager.BranchManagerMainWindow;
 import BranchWorker.FillSurveyControl;
 import BranchWorker.surveyResultControl;
+import ChainManager.BranchReportBrowseControl;
 import ChainManager.ChainManagerMainWindow;
 import ChainWorker.CatalogEditControl;
 import Customer.CustomerMainWindow;
@@ -380,7 +381,7 @@ public class LoginContol
 	   {		
 			   changeEntry(UserNameToCheck); //user loged in - change the entry in DB to 1
 
-			   ChainManagerMainWindow aFrame = new ChainManagerMainWindow();
+			   BranchReportBrowseControl aFrame = new BranchReportBrowseControl();
 				try {
 					aFrame.start(primaryStage);
 				} catch (IOException e) {

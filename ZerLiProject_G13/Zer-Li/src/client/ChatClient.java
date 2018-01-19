@@ -21,6 +21,7 @@ import BranchManager.Reports;
 import BranchManager.SpecialBranchesMessage;
 import BranchManager.catalogitemsofbranch;
 import Catalog.CatalogItem;
+import ChainManager.BranchReportBrowseControl;
 import ChainWorker.CatalogEditControl;
 import Customer.CatalogItemGUI;
 import Customer.CatalogOrderControl;
@@ -193,7 +194,7 @@ public class ChatClient extends AbstractClient {
 					Image longblob = AllReportsFromServer.get(i).getLongblob();
 					String BranchID = AllReportsFromServer.get(i).getBranchID(); 
 					Reports replist=new Reports(ReportType,ReportYear,ReportQuarter,longblob,BranchID);
- 			    	 OwnReportBrowseControl.ReportList.add(replist);
+					BranchReportBrowseControl.ReportList.add(replist);
 				}
 				quit();
 			 
