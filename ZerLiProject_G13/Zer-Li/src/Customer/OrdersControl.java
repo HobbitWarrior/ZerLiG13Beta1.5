@@ -315,6 +315,7 @@ public class OrdersControl extends LoginContol implements Initializable
 		try 
 		{
 			myClient = new ChatClient(ip, port);
+			myClient.setOrderControlOfBuyningProcess(this);
 	    	myClient.sendRequestToSaveCustomerOrder(newDeal);	//send request to save order in db
 
 		} 
@@ -580,17 +581,7 @@ public class OrdersControl extends LoginContol implements Initializable
     @FXML
     void BackToCartBtnPressed(ActionEvent event) 
     {
-    	/*yourinvoiceLabel.setVisible(true);
-    	ItemInOrderTable.setVisible(true);
-    	totalProductsAmountLabel.setVisible(true);
-    	totalPriceLabel.setVisible(true);
-    	AddGreetingChkBox.setVisible(true);
-    	txtGreeting.setVisible(true);
-    	YourcartLabel.setTextFill(Color.web("#34fffc"));
-    	DeliverLabel.setTextFill(Color.WHITE);
-    	BackToCartBtn.setVisible(false);
-    	goToDelivery.setVisible(true);
-		*/
+    
     	ShowScreenONE();
     }
     
@@ -985,5 +976,32 @@ public class OrdersControl extends LoginContol implements Initializable
     	
     	//end of screen 2 = delivery
     	
+	}
+	
+	public void endBuyingProcess()
+	{	/**this method finish the buying process and return to main menu screen*/
+		 this.ItemsInOrderList.clear();
+
+		this.totalQuantity=0;
+		this.totalPrice=0;
+		this.checkboxFilled=false;
+		this.textGreeting="";
+		this.supplyTimeDate=null;  ;
+		this.supplyTime=null;;
+		this.selfArrivalBranch="";
+		this.expeditedSupplying=false;
+		myShipment=null;
+		btnHome.getScene().getWindow().hide(); // hiding primary window
+		Stage primaryStage = new Stage();
+		CustomerMainWindow aFrame = new CustomerMainWindow();
+		try 
+		{
+			aFrame.start(primaryStage);
+		} 
+		catch (IOException e) 
+		{
+			System.out.println("Cannot start Customer main Window");
+		}
+		
 	}
 }

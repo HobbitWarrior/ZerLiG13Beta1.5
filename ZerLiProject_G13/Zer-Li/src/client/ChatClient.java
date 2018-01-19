@@ -28,6 +28,7 @@ import Customer.CatalogOrderControl;
 import Customer.CustomerMainWindow;
 import Customer.CustomerTransaction;
 import Customer.MessgaeCatalogProduct;
+import Customer.OrdersControl;
 import Users.LoginContol;
 import Users.User;
 
@@ -36,6 +37,7 @@ public class ChatClient extends AbstractClient {
 	private LoginContol login;
 	private CatalogOrderControl orderFromCatalog;
 	private CatalogEditControl editCatalog;   // ************************************************* i added
+	private OrdersControl buyingProcess;
 	private String chooseControl; //choose between CatalogEditControl and CatalogOrderControl   // ************************************** i added
 	// Constructors ****************************************************
 
@@ -414,6 +416,7 @@ public class ChatClient extends AbstractClient {
 						alert.setHeaderText("Your order been placed!");
 						alert.setContentText(yourOrder.getMsgToClient());
 						alert.showAndWait();
+						buyingProcess.endBuyingProcess();
 						return;					
 					}
 
@@ -856,6 +859,11 @@ public class ChatClient extends AbstractClient {
 		}
 		
 		
+	}
+
+	public void setOrderControlOfBuyningProcess(OrdersControl ordersControl) 
+	{
+		this.buyingProcess = ordersControl;		
 	}
  
 
