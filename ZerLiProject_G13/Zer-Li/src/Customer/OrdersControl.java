@@ -566,7 +566,7 @@ public class OrdersControl extends LoginContol implements Initializable
     	{
     		String Address=adressShipmentTxt.getText();
     		String Adressee=adresseeShipmentTxt.getText();
-    		String PhoneNum=KidometPhone.getValue()+"-"+phoneNumberTxt.getText();
+    		String PhoneNum=KidometPhone.getValue()+""+phoneNumberTxt.getText();
     		myShipment = new PrivateShipment(14.99,Adressee, Address, PhoneNum);  
     		System.out.println(((PrivateShipment)myShipment).getAddressee()+", " +((PrivateShipment)myShipment).getPhoneNumber()+", "+((PrivateShipment)myShipment).getAddress());
     	}

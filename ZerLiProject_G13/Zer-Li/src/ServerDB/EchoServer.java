@@ -723,7 +723,46 @@ public class EchoServer extends AbstractServer implements Initializable
 		if(orderDelivery instanceof PrivateShipment)
 		{
 			System.out.println("Server is going to save delivery in privateShipment Table");
+			orderPrivateShipment =(PrivateShipment)orderDelivery; 
+			try 	
+			{
+				PreparedStatement ps1 = ServerDataBase.prepareStatement("insert into privateshipments (OrderID,DeliveryID,DeliveryPrice,Adresse,PhoneNumber,Adress) values (?,?,?,?,?,?)");
 
+				int orderID = myOrder.getOrderID();
+				int deliveryID = orderPrivateShipment.getDeliveryID();
+				double deliveryPrice = orderPrivateShipment.getPrice();
+				String adresse = orderPrivateShipment.getAddressee();
+				String phoneNumber = orderPrivateShipment.getPhoneNumber();
+				String adress = orderPrivateShipment.getAddress();
+				
+					
+					ps1.setInt(1, orderID);
+					ps1.setInt(2, deliveryID);	
+					ps1.setDouble(3, deliveryPrice);
+					ps1.setString(4, adresse);
+					ps1.setString(5, phoneNumber);
+					ps1.setString(6, adress);
+					ps1.executeUpdate();
+				
+				
+				ps1.close();
+				
+				
+				System.out.println("Data saved in branchShipment table!!");
+
+				//dd
+			} 
+			
+			catch (SQLException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	//O
+			
+			
+			
+			
+			
 		}
 	}
 
