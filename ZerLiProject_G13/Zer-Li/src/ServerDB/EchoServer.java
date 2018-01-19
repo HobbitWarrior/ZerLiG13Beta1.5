@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 import com.mysql.jdbc.Blob;
@@ -603,8 +604,96 @@ public class EchoServer extends AbstractServer implements Initializable
 
 	private CustomerTransaction saveOrderInDB(CustomerTransaction myOrder) 
 	{/**saveOrderInDB method responsible to save order information on 7 tables in db*/
-		// TODO Auto-generated method stub
+		try 
+		{
+			int randomOrderID=getRandomOrderIdFromDB();
+			System.out.println("Your random orderID: "+randomOrderID);
+			myOrder.setOrderID(randomOrderID);	//put orderID for customer transaction
+			myOrder.getOrderCustomerDelivery().setOrderID(randomOrderID);	//put orderID in Delivery of transaction
+
+		} 
+		catch (SQLException e) 
+		{
+			System.out.println("Cannot find random orderID");
+		}
+
+		try 
+		{
+			int randomDeliveryID=getRandomDeliveryIdFromDB();
+			myOrder.getOrderCustomerDelivery().setDeliveryID(randomDeliveryID); //put deliveryID in Delivery of transaction
+			System.out.println("Your random deliveryID: "+randomDeliveryID);
+			
+		} 
+		catch (SQLException e) 
+		{
+			System.out.println("Cannot find random orderID");
+		}
+		
+		//here we got OrderID and DeliveryID
+		
+		
+		
+		
+		
+		
+		
 		return null;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	private int getRandomDeliveryIdFromDB() throws SQLException 
+	{
+		Statement st = (Statement) ServerDataBase.createStatement();
+		ArrayList<Integer> allDeliveryID=new ArrayList<Integer>();
+		ResultSet rs = st.executeQuery("select * from customerorders ");
+
+		while (rs.next()) //taking all orderID from customerOrder table
+		{
+			int currentDeliveryID= rs.getInt(3);
+			allDeliveryID.add(currentDeliveryID);
+		}
+		rs.close();
+		st.close();
+		Random rand = new Random();
+		int  myRandomNum = rand.nextInt(99999998) +1;
+		while(allDeliveryID.contains(myRandomNum))
+		{
+			myRandomNum = rand.nextInt(99999998)+1 ;
+		}
+		
+
+		return myRandomNum;
+	}
+
+	private int getRandomOrderIdFromDB() throws SQLException 
+	{
+		Statement st = (Statement) ServerDataBase.createStatement();
+		ArrayList<Integer> allOrdersID=new ArrayList<Integer>();
+		ResultSet rs = st.executeQuery("select * from customerorders ");
+
+		while (rs.next()) //taking all orderID from customerOrder table
+		{
+			int currentOrderID= rs.getInt(1);
+			allOrdersID.add(currentOrderID);
+		}
+		rs.close();
+		st.close();
+		Random rand = new Random();
+		int  myRandomNum = rand.nextInt(99999998) +1;
+		while(allOrdersID.contains(myRandomNum))
+		{
+			myRandomNum = rand.nextInt(99999998)+1 ;
+		}
+		
+
+		return myRandomNum;
 	}
 
 	private CustomerTransaction checkIfAccountOK(CustomerTransaction myOrder, String pA_userName, String pA_Password, String branchID, Date dateOfOrder) throws SQLException 
