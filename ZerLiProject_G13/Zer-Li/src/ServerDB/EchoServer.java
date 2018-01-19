@@ -17,6 +17,7 @@ import com.mysql.jdbc.Statement;
 import CustomerServiceDepartmentworker.complaint;
 import BranchManager.BranchManager;
 import BranchManager.PaymentAccount;
+import BranchManager.PercentMSG;
 import BranchManager.Reports;
 import BranchManager.SpecialBranchesMessage;
 import BranchManager.catalogitemsofbranch;
@@ -461,6 +462,19 @@ public class EchoServer extends AbstractServer implements Initializable
 			}
 
 		 }
+		//---------------------------------------instanceof PercentMSG----------------------------------------------------
+		if(msg instanceof PercentMSG)
+		 {
+			
+			PercentMSG givenItem = (PercentMSG)msg;
+			 
+			editItemPriceInDB(givenItem);
+			System.out.println("Editing item with id: "+givenItem.getItemId());
+			return;
+		 
+
+		 }
+
 		
 		if(msg instanceof MessgaeCatalogProduct)
 		 {/***this method will give client all catalog items of a specific branch*/
@@ -601,6 +615,47 @@ public class EchoServer extends AbstractServer implements Initializable
 	} //end of handleMessageFromClient
 	
 	//****************************************************************************************************************************
+
+	private void editItemPriceInDB(PercentMSG OB) {
+
+		int tempid=Integer.parseInt(OB.getItemId());
+		double tempPrice=Double.parseDouble(OB.getPercent());
+		
+		Statement st=null;		 
+		try 
+		{
+			 st = (Statement) ServerDataBase.createStatement();
+			 ResultSet rs = st.executeQuery("select * from catalogitemsofbranch ");
+ 
+				 while (rs.next()) 
+				   {
+					 
+					int ItemID =  rs.getInt(1) ;
+					System.out.println(ItemID );
+				      if(ItemID==tempid)
+				      {
+				    	  tempPrice=rs.getDouble(3)-(tempPrice/100)*rs.getDouble(3);
+							System.out.println(tempPrice);
+
+				    		rs.close();
+							break;
+				      }
+				       
+				   }
+ 				 
+		     String sql = "UPDATE catalogitemsofbranch SET Price='" + tempPrice + "' WHERE ItemID = '" + tempid + "'";
+			 st.executeUpdate(sql);
+		     st.close();
+		} 
+		catch (SQLException e1) 
+		{
+			e1.printStackTrace();
+			System.out.println("Cannot update entry");
+		};
+		
+		
+		
+	}
 
 	private CustomerTransaction saveOrderInDB(CustomerTransaction myOrder) 
 	{/**saveOrderInDB method responsible to save order information on 7 tables in db*/

@@ -80,7 +80,9 @@ public class DiscountingOnItemsControl  extends LoginContol  implements Initiali
 
     @FXML
     void DisCountingPercent(ActionEvent event) {
- 	
+    	  PercentMSG PerMSG =new PercentMSG(IDItemtext.getText(), percenttxt.getText());
+		   System.out.println(PerMSG);	  
+
  	 
  		  int port=PORT ;
 	 	   String ip=ServerIP;
@@ -94,7 +96,7 @@ public class DiscountingOnItemsControl  extends LoginContol  implements Initiali
 	 		   System.out.println("Cannot create client");	  
 	 	   }
 	 	   
-	 //	   myClient.sendRequestToUpdatePrice(PerMSG); //send request to get all users from db (server)
+	     myClient.sendRequestToUpdatePrice(PerMSG); //send request to get all users from db (server)
 
     	
     }

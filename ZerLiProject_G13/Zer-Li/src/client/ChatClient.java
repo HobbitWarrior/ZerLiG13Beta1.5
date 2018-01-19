@@ -16,6 +16,7 @@ import BranchManager.BranchManagerMainWindow;
 import BranchManager.DiscountingOnItemsControl;
 import BranchManager.OwnReportBrowseControl;
 import BranchManager.PaymentAccount;
+import BranchManager.PercentMSG;
 import BranchManager.Reports;
 import BranchManager.SpecialBranchesMessage;
 import BranchManager.catalogitemsofbranch;
@@ -829,6 +830,31 @@ public class ChatClient extends AbstractClient {
 			System.out.println("Cannot connect to server to save order");
 
 		}	
+	}
+
+	public void sendRequestToUpdatePrice(PercentMSG perMSG) {
+		try 
+		{
+			this.openConnection();
+		}
+
+		catch (IOException e1) 
+		{
+			System.out.println("Cannot open connection");
+		}
+
+		try 
+		{
+			System.out.println("Send Message to Update Price");
+
+			sendToServer(perMSG);
+		} catch (IOException e) 
+		{
+			System.out.println("Cannot connect to server to Update Price");
+
+		}
+		
+		
 	}
  
 
