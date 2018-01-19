@@ -65,21 +65,25 @@ public class Date implements Serializable, Comparable, Cloneable
 			
 			if(this.day < anotherday.getDay() && this.mounth <= anotherday.getMounth() && this.year <= anotherday.getYear() )
 			{
+
 				return -1;  //this date is sooner
 			}
 			
 			if(this.day >= anotherday.getDay() && this.mounth < anotherday.getMounth() && this.year <= anotherday.getYear() )
 			{
+
 				return -1;  //this date is sooner
 			}
 			
 						
 			if(this.day >= anotherday.getDay() && this.mounth >= anotherday.getMounth() && this.year < anotherday.getYear() )
 			{
+				System.out.println("condition 4");
+
 				return -1;	//this date is sooner
 			}
 			
-			
+
 	
 		}
 		return 0;	//this date is later

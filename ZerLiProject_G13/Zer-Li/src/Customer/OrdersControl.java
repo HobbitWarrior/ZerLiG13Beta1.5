@@ -261,7 +261,7 @@ public class OrdersControl extends LoginContol implements Initializable
     	String nowCompletedSeconds=""+now.getSecond();
     	Time completedTime = new Time(nowCompletedHour, nowCompletedMinute, nowCompletedSeconds); //time of committing a deal
     	newDeal.setOrderCompletedTime(completedTime);
-    	Date CompletedDateOrder = new Date(now.getYear(), now.getMonthValue(), now.getMonthValue()); //date of committing a deal
+    	Date CompletedDateOrder = new Date(now.getYear(), now.getMonthValue(), now.getDayOfMonth()); //date of committing a deal
     	newDeal.setOrderCompletedDate(CompletedDateOrder);
     	Time supplyTimeOrder;
 		try 

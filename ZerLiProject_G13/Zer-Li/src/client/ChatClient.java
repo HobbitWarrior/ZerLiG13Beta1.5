@@ -66,7 +66,9 @@ public class ChatClient extends AbstractClient {
 
 	public void handleMessageFromServer(Object msg) 
 	{
-
+		
+		
+		
 		if (msg instanceof Message) 
 		{
 			Message ServerMsg;
@@ -368,7 +370,52 @@ public class ChatClient extends AbstractClient {
 		}
 		
 		
+		if (msg instanceof CustomerTransaction) 
+		{
 
+			CustomerTransaction yourOrder=(CustomerTransaction)msg;
+			boolean isAccountApproved=yourOrder.isApproved();
+			if(isAccountApproved==false)
+			{
+				Platform.runLater(new Runnable() 
+				{
+
+					@Override
+					public void run() 
+					{
+						Alert alert = new Alert(AlertType.ERROR);
+						alert.setTitle("Payment account verefication failed");
+						alert.setHeaderText("Your order not placed!");
+						alert.setContentText(yourOrder.getMsgToClient());
+						alert.showAndWait();
+						return;					}
+
+				});
+				
+			}
+			
+			else
+			{
+				System.out.println("client got approval");
+				Platform.runLater(new Runnable() 
+				{
+
+					@Override
+					public void run() 
+					{
+						Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("Transcation approved");
+						alert.setHeaderText("Your order been placed!");
+						alert.setContentText("fdnngfngnd");
+						alert.showAndWait();
+						return;					
+					}
+
+				});
+			}
+				
+			
+		}
 	}
 
 	public void sendRequestToGetAllUsers() 

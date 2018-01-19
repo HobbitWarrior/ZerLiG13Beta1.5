@@ -22,7 +22,7 @@ public class CustomerTransaction implements Serializable
 	private String PaymentAccountPassword;
 	private ArrayList<ItemInOrder> productsList;
 	private boolean isApproved=false;
-	
+	private String msgToClient="";
 	
 	public CustomerTransaction() //constructor is empty because is will be too long to insert attributes
 	{
@@ -196,6 +196,16 @@ public class CustomerTransaction implements Serializable
 
 	public void setApproved(boolean isApproved) {
 		this.isApproved = isApproved;
+	}
+
+
+	public String getMsgToClient() {
+		return msgToClient;
+	}
+
+
+	public void setMsgToClient(String msgToClient) {
+		this.msgToClient = msgToClient;
 	}
 	
 	

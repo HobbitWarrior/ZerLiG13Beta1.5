@@ -476,9 +476,11 @@ public class EchoServer extends AbstractServer implements Initializable
 
 				Message Msg = new Message(CatalogItemsFromDB, "CatalogItem");
 				//this.sendToAllClients(Msg);
-				try {
+				try 
+				{
 					client.sendToClient(Msg);
-				} catch (IOException e) {
+				} 
+				catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -511,17 +513,32 @@ public class EchoServer extends AbstractServer implements Initializable
 			
 			try 
 			{
-				isApproved = checkIfAccountOK(PA_userName, PA_Password, branchID, dateOfOrder);
-				if(isApproved == true)
-				{
-					System.out.println("payment account approved");
-
-				}
-				else
+				myOrder = checkIfAccountOK(myOrder,PA_userName, PA_Password, branchID, dateOfOrder);
+				isApproved=myOrder.isApproved();
+				if(isApproved == false)
 				{
 					System.out.println("payment account not approved");
-
+					try 
+					{
+						client.sendToClient(myOrder);
+						return;
+					} 
+					catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
+				
+				System.out.println("payment account  approved");
+				try 
+				{
+					client.sendToClient(myOrder);
+					return;
+				} 
+				catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+			}	
 				
 			} 
 			catch (SQLException e) 
@@ -554,7 +571,7 @@ public class EchoServer extends AbstractServer implements Initializable
 	
 	//****************************************************************************************************************************
 
-	private boolean checkIfAccountOK(String pA_userName, String pA_Password, String branchID, Date dateOfOrder) throws SQLException 
+	private CustomerTransaction checkIfAccountOK(CustomerTransaction myOrder, String pA_userName, String pA_Password, String branchID, Date dateOfOrder) throws SQLException 
 	{	/**this method check if payment account of order is ok*/
 		System.out.println("Server enterd to the method of checking account");
 		System.out.println("User name: "+ pA_userName+" Passowrd: "+pA_Password + " branchID: " +branchID );
@@ -573,27 +590,48 @@ public class EchoServer extends AbstractServer implements Initializable
 			java.sql.Date myDate = rs.getDate(12);
 			Date DB_PA_expDate = convertSqlDateToDateOfHaim(myDate);
 			System.out.println(""+DB_PA_expDate.getYear() + " "+ DB_PA_expDate.getMounth()+ " " + DB_PA_expDate.getDay());
-			if(pA_userName.equals(DB_PA_UserName) && pA_Password.equals(DB_PA_Password) && branchID.equals(DB_BranchID))
+			if(pA_userName.equals(DB_PA_UserName) && pA_Password.equals(DB_PA_Password))
 			{
-				System.out.println("userName and Password and branch approved");
+				System.out.println("UserName and Password and branch approved");
 				
-				if(dateOfOrder.compareTo(DB_PA_expDate) ==0 || dateOfOrder.compareTo(DB_PA_expDate) == -1)
+				if(!branchID.equals(DB_BranchID))
 				{
 					rs.close();
 					st.close();
-					return true;
+					myOrder.setApproved(false);
+					myOrder.setMsgToClient("Your account is not belong to this branch");
+					return myOrder;				}
+				
+				if(dateOfOrder.compareTo(DB_PA_expDate) ==1 || dateOfOrder.compareTo(DB_PA_expDate) == -1)
+				{
+					rs.close();
+					st.close();
+					myOrder.setApproved(true);
+					return myOrder;
+				}
+				
+				else
+				{
+					myOrder.setApproved(false);
+					myOrder.setMsgToClient("Your account is expierd");
+					return myOrder;
+
 				}
 			}
 			
-	
+			
+				
+
+			
 
 		}
 		rs.close();
 		st.close();
 
 
-		
-		return false;
+		myOrder.setApproved(false);
+		myOrder.setMsgToClient("You inserted wrong account details");
+		return myOrder;
 	}
 
 	private Date convertSqlDateToDateOfHaim(java.sql.Date myDate) 
