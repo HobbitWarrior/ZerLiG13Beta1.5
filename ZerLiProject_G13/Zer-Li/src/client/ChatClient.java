@@ -17,6 +17,7 @@ import BranchManager.DiscountingOnItemsControl;
 import BranchManager.OwnReportBrowseControl;
 import BranchManager.PaymentAccount;
 import BranchManager.Reports;
+import BranchManager.SpecialBranchesMessage;
 import BranchManager.catalogitemsofbranch;
 import Catalog.CatalogItem;
 import ChainWorker.CatalogEditControl;
@@ -416,6 +417,39 @@ public class ChatClient extends AbstractClient {
 				
 			
 		}
+		
+		if (msg instanceof SpecialBranchesMessage) 
+		{
+			System.out.println("client got special message of elias!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			SpecialBranchesMessage branchesAndManagers = (SpecialBranchesMessage)msg;
+			//System.out.println(""+branchesAndManagers.getAllBranches());
+			//System.out.println(""+branchesAndManagers.getAllBranchManagers());
+			ArrayList<Branch> allTheBrnahcesDB=branchesAndManagers.getAllBranches();
+			ArrayList<BranchManager> allTheBrnahcesManagersDB=branchesAndManagers.getAllBranchManagers();
+			
+			Platform.runLater(new Runnable() 
+			{
+
+				@Override
+				public void run() 
+				{
+					for(int i=0 ; i< allTheBrnahcesDB.size() ; i++)
+					{
+						BranchManagerMainWindow.allBranches.add(allTheBrnahcesDB.get(i));
+					}
+					
+					for(int j=0 ; j< allTheBrnahcesManagersDB.size() ; j++)
+					{
+						BranchManagerMainWindow.allBrancheManagers.add(allTheBrnahcesManagersDB.get(j));
+					}
+				}
+
+			});
+			System.out.println(""+BranchManagerMainWindow.allBranches);
+			System.out.println(""+BranchManagerMainWindow.allBrancheManagers);
+
+			return;
+		}
 	}
 
 	public void sendRequestToGetAllUsers() 
@@ -763,6 +797,30 @@ public class ChatClient extends AbstractClient {
 			System.out.println("Send Message to get save order in db");
 
 			sendToServer(newDeal);
+		} catch (IOException e) 
+		{
+			System.out.println("Cannot connect to server to save order");
+
+		}	
+	}
+
+	public void sendRequestToGetAllBranchManagersAndBranches(SpecialBranchesMessage branchMessage) 
+	{
+		try 
+		{
+			this.openConnection();
+		}
+
+		catch (IOException e1) 
+		{
+			System.out.println("Cannot open connection");
+		}
+
+		try 
+		{
+			System.out.println("Send Message to get all branches and branches managers and  in db");
+
+			sendToServer(branchMessage);
 		} catch (IOException e) 
 		{
 			System.out.println("Cannot connect to server to save order");

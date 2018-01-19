@@ -17,6 +17,7 @@ import CustomerServiceDepartmentworker.complaint;
 import BranchManager.BranchManager;
 import BranchManager.PaymentAccount;
 import BranchManager.Reports;
+import BranchManager.SpecialBranchesMessage;
 import BranchManager.catalogitemsofbranch;
 import BranchWorker.Survey;
 import Catalog.CatalogItem;
@@ -68,6 +69,9 @@ public class EchoServer extends AbstractServer implements Initializable
 			
 			String DiscoverMessage=(String) msg;
 			
+		
+			
+		
 			if (DiscoverMessage.equals("Give Me All Branches")) //i changed condition here
 			{
 				System.out.println("Get all Branches  from DB");
@@ -89,9 +93,6 @@ public class EchoServer extends AbstractServer implements Initializable
 				}
 				return;
 			}
-			
-		
-
 		
 
 			//-----------------------------------------------------------//
@@ -540,24 +541,52 @@ public class EchoServer extends AbstractServer implements Initializable
 
 			}
 
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+	
 		 }	
+		
+		
+		
+		if (msg instanceof SpecialBranchesMessage) 		//Elias condition to get branches and branches managers
+		{ 
+			
+			System.out.println("Server got request to get all branches and branches managers!!");
+			SpecialBranchesMessage eliasMessage = (SpecialBranchesMessage)msg;
+			ArrayList<Branch> allTheBranchesFromDb = new ArrayList<Branch>();
+			ArrayList<BranchManager> allTheBranchManagersFromDb = new ArrayList<BranchManager>();
+
+			try 
+			{
+				allTheBranchesFromDb = this.PutOutAllBranches(allTheBranchesFromDb);
+				eliasMessage.setAllBranches(allTheBranchesFromDb);
+
+			} 
+			catch (SQLException e) 
+			{
+				System.out.println("cannot put out all branches for elias");
+			}
+			
+			try 
+			{
+				allTheBranchManagersFromDb = this.PutOutAllBranchManagers(allTheBranchManagersFromDb);
+				eliasMessage.setAllBranchManagers(allTheBranchManagersFromDb);
+
+			} 
+			catch (SQLException e) 
+			{
+				System.out.println("cannot put out all branch managers for elias");
+			}
+			
+			try 
+			{
+				client.sendToClient(eliasMessage);
+				return;
+			} 
+			catch (IOException e) 
+			{
+				e.printStackTrace();
+			}
+		
+		}
 		
 		
 	} //end of handleMessageFromClient

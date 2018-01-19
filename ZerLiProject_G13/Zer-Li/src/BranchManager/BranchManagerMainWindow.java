@@ -135,10 +135,12 @@ btnCreatePaymentAccount.getScene().getWindow().hide(); //hiding primary window
 		   try 
 		   {
 			myClient = new ChatClient(ip,port);	//create new client to get all users in db (server)
-
-			myClient.sendRequestToGetAllBranchManagers();
-
 		 	allBranches.clear();  
+		 	allBrancheManagers.clear();
+			
+		 	SpecialBranchesMessage branchMessage = new SpecialBranchesMessage();
+			myClient.sendRequestToGetAllBranchManagersAndBranches(branchMessage);
+
 		
 		
 		   
@@ -178,7 +180,8 @@ btnCreatePaymentAccount.getScene().getWindow().hide(); //hiding primary window
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
 		
-
+		System.out.println(""+this.allBrancheManagers);
+		System.out.println(""+this.allBranches);
 
 	} 
 }
