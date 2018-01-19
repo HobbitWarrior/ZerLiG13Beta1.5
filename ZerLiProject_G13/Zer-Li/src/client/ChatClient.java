@@ -227,7 +227,7 @@ public class ChatClient extends AbstractClient {
 				return;
 				 
 			}
-			else if (ServerMsg.getMsgType().equals("AllBranchReport")) 
+			else if (ServerMsg.getMsgType().equals("AllBranchReportE")) 
 			{
 				
 				System.out.println("-Back-");
@@ -246,7 +246,7 @@ public class ChatClient extends AbstractClient {
 					Reports replist=new Reports(ReportType,ReportYear,ReportQuarter,longblob,BranchID);
 					 
 					System.out.println(replist);
-
+					System.out.println("-=-&&"+replist);
  			    	 OwnReportBrowseControl.ReportList.add(replist);
 				}
 				quit();
@@ -258,7 +258,7 @@ public class ChatClient extends AbstractClient {
 			else if (ServerMsg.getMsgType().equals("AllBranchReport")) 
 			{
 				
-				System.out.println("-Back-");
+				System.out.println("-BBack-");
 		 
 
 				ArrayList<Reports> AllReportsFromServer = (ArrayList<Reports>) ServerMsg.getMsgObject();
@@ -269,13 +269,15 @@ public class ChatClient extends AbstractClient {
 					int ReportType = AllReportsFromServer.get(i).getReportType(); 
 					String ReportYear = AllReportsFromServer.get(i).getReportYear(); 
 					int ReportQuarter = AllReportsFromServer.get(i).getReportQuarter(); 
-					Image longblob = AllReportsFromServer.get(i).getLongblob();
+					//Image longblob = AllReportsFromServer.get(i).getLongblob();
 					String BranchID = AllReportsFromServer.get(i).getBranchID(); 
-					Reports replist=new Reports(ReportType,ReportYear,ReportQuarter,longblob,BranchID);
+					Reports replist=new Reports(ReportType,ReportYear,ReportQuarter,null,BranchID);
 					 
 					System.out.println(replist);
 
  			    	 OwnReportBrowseControl.ReportList.add(replist);
+ 			    	System.out.println("-=-&&"+replist);
+
 				}
 				quit();
 			 

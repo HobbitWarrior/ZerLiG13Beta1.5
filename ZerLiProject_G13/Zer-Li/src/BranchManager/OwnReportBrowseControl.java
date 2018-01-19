@@ -164,7 +164,7 @@ public class OwnReportBrowseControl  extends LoginContol  implements Initializab
 
 		// TODO Auto-generated method stub
 		 ReportTypeCol.setCellValueFactory(new PropertyValueFactory<Reports, Integer>("ReportType"));
-	      ReportYearCol.setCellValueFactory(new PropertyValueFactory<Reports, Year>("ReportYear"));
+	   //   ReportYearCol.setCellValueFactory(new PropertyValueFactory<Reports, Year>("ReportYear"));
 	      ReportQuarterCol.setCellValueFactory(new PropertyValueFactory<Reports, Integer>("ReportQuarter"));
 	    //  ImageCol.setCellValueFactory(new PropertyValueFactory<Reports, Image>("Image"));
 	     BranchIDCol.setCellValueFactory(new PropertyValueFactory<Reports, String>("BranchID")); 

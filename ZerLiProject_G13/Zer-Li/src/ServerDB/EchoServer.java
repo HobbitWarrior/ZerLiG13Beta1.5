@@ -190,7 +190,7 @@ public class EchoServer extends AbstractServer implements Initializable
 						
 						ReportsFromDB = PutOutAllBranchReports(ReportsFromDB,DiscoverMessage.substring(24,DiscoverMessage.length()));
 
-						Message Msg = new Message(ReportsFromDB, "AllBranchReport");
+						Message Msg = new Message(ReportsFromDB, "AllBranchReportE");
 						
 						
 						this.sendToAllClients(Msg);
