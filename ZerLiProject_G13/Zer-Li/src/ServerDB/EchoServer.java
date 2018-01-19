@@ -23,12 +23,14 @@ import BranchManager.SpecialBranchesMessage;
 import BranchManager.catalogitemsofbranch;
 import BranchWorker.Survey;
 import Catalog.CatalogItem;
+import Customer.BranchShipment;
 import Customer.CatalogItemInOrder;
 import Customer.CustomerTransaction;
 import Customer.Date;
 import Customer.Delivery;
 import Customer.ItemInOrder;
 import Customer.MessgaeCatalogProduct;
+import Customer.PrivateShipment;
 import Customer.Time;
 import ServerDB.Product;
 import Users.LoginContol;
@@ -660,6 +662,7 @@ public class EchoServer extends AbstractServer implements Initializable
 				saveOrderOnCustomerOrderTable(myOrder);	//save data in customerOrder table!!
 				saveOrderOnCustomerBillingTable(myOrder);
 				saveItemInOrderOnCatalogCustomProducts(myOrder);
+				saveDeliveryOfCustomerOrder(myOrder);
 			 
 			
 		//end of saving on customerOrder table
@@ -669,6 +672,61 @@ public class EchoServer extends AbstractServer implements Initializable
 		return null;
 	}
 	
+	
+	private void saveDeliveryOfCustomerOrder(CustomerTransaction myOrder) 
+	{		/**this methods responsible on saving delivery data in branchShipment/privateShipment  tables*/
+		Delivery orderDelivery = myOrder.getOrderCustomerDelivery();
+		BranchShipment orderBranchShipment;
+		PrivateShipment orderPrivateShipment; 
+		
+		if(orderDelivery instanceof BranchShipment)
+		{
+			System.out.println("Server is going to save delivery in branchShipment Table");
+			try 	
+			{
+				orderBranchShipment = (BranchShipment)orderDelivery;
+				PreparedStatement ps1 = ServerDataBase.prepareStatement("insert into branchshipments (OrderID,BranchID,DeliveryID,DeliveryPrice) values (?,?,?,?)");
+
+				int orderID = myOrder.getOrderID();
+				String branchID  = myOrder.getOrderbranchID();
+				int deliveryID = orderBranchShipment.getDeliveryID();
+				double deliveryPrice = orderBranchShipment.getPrice();
+				
+				
+					
+					ps1.setInt(1, orderID);
+					ps1.setString(2, branchID);	
+					ps1.setInt(3, deliveryID);
+					ps1.setDouble(4, deliveryPrice);
+					ps1.executeUpdate();
+				
+				
+				ps1.close();
+				
+				
+				System.out.println("Data saved in branchShipment table!!");
+
+				//dd
+			} 
+			
+			catch (SQLException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	//OrderID
+			
+			
+		}
+		
+		
+		
+		if(orderDelivery instanceof PrivateShipment)
+		{
+			System.out.println("Server is going to save delivery in privateShipment Table");
+
+		}
+	}
+
 	//*****************************************************************************************************************************************************************************
 	private void saveItemInOrderOnCatalogCustomProducts(CustomerTransaction myOrder) 	//this method will be continued
 	{	/**this methods responsible on saving data in catalog/custom item tables*/
