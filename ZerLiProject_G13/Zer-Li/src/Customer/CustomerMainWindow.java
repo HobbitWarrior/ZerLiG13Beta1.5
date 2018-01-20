@@ -51,12 +51,6 @@ public class CustomerMainWindow extends LoginContol implements Initializable
     @FXML
     private Button btnCatalog;
 
-
-
-   
-
- 
-
     @FXML
     private Button btnAccount;
 
@@ -65,6 +59,31 @@ public class CustomerMainWindow extends LoginContol implements Initializable
 
     @FXML
     private ComboBox<String> comboBranch;
+    
+    
+    
+    @FXML
+    void btnCustomisePressed(ActionEvent event)
+    {
+       	Stage primaryStage = new Stage();
+       	CustomOrderControl aFrame = new CustomOrderControl();
+  	  
+ 			
+ 				try 
+ 				{
+					aFrame.start(primaryStage);
+				} 
+ 				catch (Exception e) 
+ 				{
+					System.out.println("Cannot open customize window");
+				}
+ 			
+ 			btnCustomise.getScene().getWindow().hide(); //hiding primary window
+
+    }
+    
+    
+    
     
     @FXML
     void btnCartPressedEvenet(ActionEvent event)
@@ -180,6 +199,7 @@ public class CustomerMainWindow extends LoginContol implements Initializable
     	if(!this.chosenBranchID.equals(""))
     	{
     		btnCatalog.setDisable(false);	//if branch chosen, allow user to open the catalog
+    		btnCustomise.setDisable(false); //if branch chosen, allow user to open the customizing
 
     	}
     	System.out.println(""+chosenBranchID);;
@@ -194,12 +214,17 @@ public class CustomerMainWindow extends LoginContol implements Initializable
 		{
 			comboBranch.setValue(this.chosenBranchName);
     		btnCatalog.setDisable(false);	//if branch chosen, allow user to open the catalog
+    		btnCustomise.setDisable(false); //if branch chosen, allow user to open the customizing
     		OrdersControl.oneBranchName.clear();
     		OrdersControl.oneBranchName.add(this.chosenBranchName);
 
 		}
 		else
+		{
 			btnCatalog.setDisable(true);
+    		btnCustomise.setDisable(true); 
+
+		}
 
 		
 	}
