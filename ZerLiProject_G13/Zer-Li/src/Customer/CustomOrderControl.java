@@ -1,14 +1,19 @@
 package Customer;
 
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import Users.LoginContol;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -17,9 +22,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
-public class CustomOrderControl extends LoginContol
+public class CustomOrderControl extends LoginContol implements Initializable
 {
-	
+	public static ObservableList<Flower> allFlowers= FXCollections.observableArrayList();
+
 		@FXML
 	    private Label minLabel;
 
@@ -30,7 +36,7 @@ public class CustomOrderControl extends LoginContol
 	    private Button createItemBtn;
 
 	    @FXML
-	    private ComboBox<?> DominantColorCombo;
+	    private ComboBox<String> DominantColorCombo;
 
 	    @FXML
 	    private Label itemTypeLabel;
@@ -48,7 +54,7 @@ public class CustomOrderControl extends LoginContol
 	    private Label DominantColorLabel;
 
 	    @FXML
-	    private ComboBox<?> itemTypeCombo;
+	    private ComboBox<String> itemTypeCombo;
 
 	    @FXML
 	    private TextField priceRangeMinTxt;
@@ -161,5 +167,12 @@ public class CustomOrderControl extends LoginContol
 	  	primaryStage.show();
 		//Can't close the window without logout
 		primaryStage.setOnCloseRequest( event -> {event.consume();} );
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) 
+	{
+		ObservableList<String> allTypes= FXCollections.observableArrayList("Bridal Bouquet","Flower Arrangement","Cluster Flowers","Flowering Plant");		
+		itemTypeCombo.setItems(allTypes);
 	}
 }

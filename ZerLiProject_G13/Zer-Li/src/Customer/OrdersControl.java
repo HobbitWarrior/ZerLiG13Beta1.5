@@ -46,7 +46,6 @@ public class OrdersControl extends LoginContol implements Initializable
 {
 	public static ObservableList<ItemInOrder> ItemsInOrderList= FXCollections.observableArrayList();
 	public static ObservableList<String> oneBranchName= FXCollections.observableArrayList();
-
 	private static int totalQuantity=0;
 	private static double totalPrice=0;
 	private static boolean checkboxFilled=false;
@@ -60,7 +59,7 @@ public class OrdersControl extends LoginContol implements Initializable
 	private ObservableList<String> MinutesList = FXCollections.observableArrayList();
 	private LocalDateTime now;
 	private boolean isPrivateShipment=false;
-
+ 
 	@FXML
     private TableView<ItemInOrder> ItemInOrderTable;		//screen1
 	
