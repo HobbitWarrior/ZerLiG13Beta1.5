@@ -33,6 +33,7 @@ import Customer.MessgaeCatalogProduct;
 import Customer.PrivateShipment;
 import Customer.Time;
 import ServerDB.Product;
+import Users.EntryRequest;
 import Users.LoginContol;
 import Users.User;
 import client.Message;
@@ -619,7 +620,23 @@ public class EchoServer extends AbstractServer implements Initializable
 		
 		}
 		
-		
+		if (msg instanceof EntryRequest) 
+		{ 
+			EntryRequest userEntry = (EntryRequest)msg;
+			String entryMsg=userEntry.getRequest();
+			String checkSubString = entryMsg.substring(0, 28); // cut msg string to "Please change Entry of user:" in case login control sent request	
+			System.out.println(checkSubString);                        // or cut msg string to ""Please delete item with ID: " in case chain worker sent request
+			
+			if (checkSubString.equals("Please change Entry of user:"))
+			{
+				String cutUserNameFromStringMessage=entryMsg.substring(29, ( entryMsg.length() ) );
+					// need to change entry
+					System.out.println("Changing the entry numbers of userName: "+cutUserNameFromStringMessage);
+					changeEntryInDB(cutUserNameFromStringMessage);
+					return;
+			}
+			
+		}
 	} //end of handleMessageFromClient
 	
 	private CustomerTransaction SaveOrderInDB(CustomerTransaction myOrder) 
