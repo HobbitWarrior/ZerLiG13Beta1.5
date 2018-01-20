@@ -59,6 +59,7 @@ public class OrdersControl extends LoginContol implements Initializable
 	private ObservableList<String> hourList = FXCollections.observableArrayList();
 	private ObservableList<String> MinutesList = FXCollections.observableArrayList();
 	private LocalDateTime now;
+	private boolean isPrivateShipment=false;
 
 	@FXML
     private TableView<ItemInOrder> ItemInOrderTable;		//screen1
@@ -215,7 +216,9 @@ public class OrdersControl extends LoginContol implements Initializable
     @FXML
     private Button payButton;					//screen 3
     
-    
+    @FXML
+    private Label totalPriceResult;			//screen 3
+
     
     
     @FXML
@@ -372,7 +375,7 @@ public class OrdersControl extends LoginContol implements Initializable
     	this.adresseeShipmentTxt.clear();
     	this.phoneNumberTxt.clear();
     	KidometPhone.valueProperty().set(null);
-
+    	isPrivateShipment=false;	//flag
     	
     	
     }
@@ -390,7 +393,7 @@ public class OrdersControl extends LoginContol implements Initializable
     	this.adressShipmentTxt.clear();
     	this.adresseeShipmentTxt.clear();
     	this.phoneNumberTxt.clear();
-    	
+    	isPrivateShipment=true; //flag
     	
     }
     
@@ -496,7 +499,11 @@ public class OrdersControl extends LoginContol implements Initializable
     				}
     			}
     			calculateTotalPriceAndQuantity();
-    			
+    			double tempPrice = this.totalPrice;
+    			if(this.isPrivateShipment ==true)
+    						tempPrice = this.totalPrice+14.99;
+    			String statusPrice = "Your order price is: "+tempPrice+"$.\n(There may be another discount)";
+    			totalPriceResult.setText(statusPrice);
     			
     		
     		}
@@ -880,6 +887,7 @@ public class OrdersControl extends LoginContol implements Initializable
     	phoneNumberTxt.setVisible(false);
     	phoneNumberTxt.setDisable(true);
     	goToCheckoutBtn.setVisible(false);
+    	totalPriceResult.setVisible(false);
     	//end of screen 2 = delivery
 	}
 	
@@ -926,6 +934,7 @@ public class OrdersControl extends LoginContol implements Initializable
      	payMethodcomboBox.setVisible(false);	
     	payButton.setVisible(false);					
 		CheckoutLabel.setTextFill(Color.WHITE);
+		totalPriceResult.setVisible(false);
    
     	
     	
@@ -971,7 +980,7 @@ public class OrdersControl extends LoginContol implements Initializable
      	payMethodcomboBox.setVisible(true);	
     	payButton.setVisible(true);					
     	goToCheckoutBtn.setVisible(false);
-    
+    	totalPriceResult.setVisible(true);
     	
     	
     	//end of screen 2 = delivery

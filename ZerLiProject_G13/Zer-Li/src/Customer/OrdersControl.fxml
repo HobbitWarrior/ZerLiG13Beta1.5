@@ -101,17 +101,22 @@
          </font>
       </Label>
       <Button fx:id="backToDeliveryBtn" layoutX="399.0" layoutY="217.0" mnemonicParsing="false" onAction="#backToDeliveryBtnPressed" prefHeight="25.0" prefWidth="118.0" text="&lt;-Back to delivery" visible="false" />
-      <Label fx:id="PA_userNameLabe" layoutX="130.0" layoutY="347.0" text="Payment account user name:" visible="false" />
+      <Label fx:id="PA_userNameLabe" layoutX="130.0" layoutY="394.0" text="Payment account user name:" visible="false" />
       <Label fx:id="CheckotFinalMainLabel" layoutX="122.0" layoutY="284.0" prefHeight="39.0" prefWidth="237.0" text="Checkout:" visible="false">
          <font>
             <Font name="System Bold Italic" size="27.0" />
          </font>
       </Label>
-      <Label fx:id="PA_PasswordLabe" layoutX="129.0" layoutY="382.0" prefHeight="17.0" prefWidth="176.0" text="Payment account passowrd:" visible="false" />
-      <TextField fx:id="PA_userName_txt" layoutX="298.0" layoutY="343.0" visible="false" />
-      <Button fx:id="payButton" layoutX="342.0" layoutY="500.0" mnemonicParsing="false" onAction="#payButtonPressed" text="Pay" visible="false" />
-      <Label fx:id="payMethodLabel" layoutX="211.0" layoutY="429.0" text="Pay method:" visible="false" />
-      <ComboBox fx:id="payMethodcomboBox" layoutX="298.0" layoutY="425.0" onAction="#payMethodcomboBoxPressed" prefWidth="150.0" visible="false" />
-      <PasswordField fx:id="PA_password_txt" layoutX="298.0" layoutY="378.0" visible="false" />
+      <Label fx:id="PA_PasswordLabe" layoutX="129.0" layoutY="429.0" prefHeight="17.0" prefWidth="176.0" text="Payment account passowrd:" visible="false" />
+      <TextField fx:id="PA_userName_txt" layoutX="298.0" layoutY="391.0" visible="false" />
+      <Button fx:id="payButton" layoutX="342.0" layoutY="540.0" mnemonicParsing="false" onAction="#payButtonPressed" text="Pay" visible="false" />
+      <Label fx:id="payMethodLabel" layoutX="211.0" layoutY="476.0" text="Pay method:" visible="false" />
+      <ComboBox fx:id="payMethodcomboBox" layoutX="298.0" layoutY="473.0" onAction="#payMethodcomboBoxPressed" prefWidth="150.0" visible="false" />
+      <PasswordField fx:id="PA_password_txt" layoutX="298.0" layoutY="426.0" visible="false" />
+      <Label fx:id="totalPriceResult" layoutX="128.0" layoutY="327.0" prefHeight="52.0" prefWidth="479.0" text="Label" textFill="RED" visible="false">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
