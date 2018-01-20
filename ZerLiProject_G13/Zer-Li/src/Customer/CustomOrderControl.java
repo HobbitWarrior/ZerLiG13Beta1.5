@@ -80,6 +80,8 @@ public class CustomOrderControl extends LoginContol
 			{
 				System.out.println("Cannot start Customer main Window");
 			}
+			((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window	
+
 	    }
 
 	    @FXML
