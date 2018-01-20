@@ -3,7 +3,7 @@ package Customer;
 import java.io.Serializable;
 import java.util.Comparator;
 
-public class Flower implements Serializable,Comparable,Cloneable,Comparator
+public class Flower implements Serializable
 {	/**Flower class is for customizing of a new product*/
 	private int flowerID;
 	private String flowerColor;
@@ -71,38 +71,7 @@ public class Flower implements Serializable,Comparable,Cloneable,Comparator
 				+ ", flowerPrice=" + flowerPrice + "]";
 	}
 
-	@Override
-	public int compareTo(Object anotherFlower) 
-	{
-		if(anotherFlower instanceof Flower )
-		{
-			Flower secondFlower = (Flower)anotherFlower;
-			if(this.flowerID == secondFlower.getFlowerID() )
-			{
-				return 0; //flowers are equals
-			}
-		}
-		return -1;
-	}
 	
 	
-	@Override
-	public Object clone () throws CloneNotSupportedException
-	{
-		return super.clone();
-		
-	}
-
-	@Override
-	public int compare(Object flower, Object anotherFlower) 
-	{	/**compare method will be for sortinh of floers by their prices*/
-		if((flower instanceof Flower) && (anotherFlower instanceof Flower))
-		{
-			Flower FlowerOne = (Flower) flower;
-			Flower FlowerTwo = (Flower) anotherFlower;
-			if(FlowerOne.getFlowerPrice() <= FlowerTwo.getFlowerPrice())
-				return 1;
-		}
-		return -1;
-	}
+	
 }

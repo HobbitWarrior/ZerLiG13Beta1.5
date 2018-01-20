@@ -9,6 +9,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 
 import Users.LoginContol;
@@ -187,6 +190,13 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    		return;
 	    	}
 	    	
+	    	this.max=tempIntMax;
+	    	this.min=tempIntMin;
+	    	System.out.println(""+this.allFlowers);
+	    	sortFlowers();
+	    
+	    	System.out.println("after sorting:\n"+this.allFlowers);
+
 	    }
 
 	
@@ -195,7 +205,25 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	
 	
 	
+	private static void sortFlowers()
+	{
+		FXCollections.sort(allFlowers, new Comparator<Flower>()
+		{
+
+			@Override
+			public int compare(Flower firstFlower, Flower anotherFlower) {
+				double comparePrice =  anotherFlower.getFlowerPrice();
+				double result = firstFlower.getFlowerPrice() - comparePrice;
+				if(result ==0)
+					return 0;
+				else if(result >0)
+							return 1;
+				else
+					return -1;
+			}
 	
+		});
+	}
 	
 	
 	
