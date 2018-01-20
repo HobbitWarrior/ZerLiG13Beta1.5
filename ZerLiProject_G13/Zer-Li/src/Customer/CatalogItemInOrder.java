@@ -16,3 +16,4 @@ public class CatalogItemInOrder extends ItemInOrder implements Serializable
 
 	}
 }
+ 
