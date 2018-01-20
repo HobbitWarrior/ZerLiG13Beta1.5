@@ -10,6 +10,12 @@ public class Flower implements Serializable,Comparable,Cloneable,Comparator
 	private String flowerName;
 	private double flowerPrice;
 	
+	
+	public Flower()
+	{
+		
+	}
+	
 	public Flower(int flowerID, String flowerColor, String flowerName, double flowerPrice) 
 	{
 		this.flowerID = flowerID;
