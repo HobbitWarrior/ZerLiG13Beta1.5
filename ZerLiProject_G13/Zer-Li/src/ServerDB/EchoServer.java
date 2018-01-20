@@ -187,9 +187,6 @@ public class EchoServer extends AbstractServer implements Initializable
             //-----------------------------------------------//
 			
 			
-			
-			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!the length id :   "+DiscoverMessage.length());
-			
 		// "Please change Entry of user: "  "Please change Entry of user: "+UserName;
 		if ( (DiscoverMessage.length()) >= 28 )	//from here there is a process that check if client asking to change entry status of userName 
 		{
@@ -302,10 +299,8 @@ public class EchoServer extends AbstractServer implements Initializable
 					}
 					return;
 				}
-			 
+			//-----------------------------------------------//
 			// get all the complaints from the DB
-			 
-		
 			 
 				if (DiscoverMessage.equals("complaints")) 
 				{
