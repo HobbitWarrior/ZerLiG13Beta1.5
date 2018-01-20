@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 import Users.LoginContol;
@@ -32,6 +33,7 @@ import javafx.scene.image.ImageView;
 public class CustomOrderControl extends LoginContol implements Initializable
 {
 	public static ObservableList<Flower> allFlowers= FXCollections.observableArrayList();
+	public static int numberOfColors=0;
 	private String ItemType  ="";
 	private int min=0;
 	private int max=0;
@@ -192,10 +194,20 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    	
 	    	this.max=tempIntMax;
 	    	this.min=tempIntMin;
-	    	System.out.println(""+this.allFlowers);
+	    	ArrayList<Flower> flowerComposion = new ArrayList<Flower>();
 	    	sortFlowers();
-	    
-	    	System.out.println("after sorting:\n"+this.allFlowers);
+			System.out.println("all flowers before sorting:\n" +this.allFlowers+"\n\n");
+
+	    	
+	    	if(ItemColor.equals(""))
+	    	{
+	    		flowerComposion = createCompositeWithoutAnyColor(flowerComposion);
+	    	}
+	    	else
+	    	{
+	    		flowerComposion = createCompositeWithtColor(flowerComposion);
+
+	    	}
 
 	    }
 
@@ -205,6 +217,73 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	
 	
 	
+	private ArrayList<Flower> createCompositeWithtColor(ArrayList<Flower> flowerComposion) //flowerComposion = basket 
+	{
+		
+		
+		
+			return null;
+	}
+
+	private ArrayList<Flower> createCompositeWithoutAnyColor(ArrayList<Flower> flowerComposion) 
+	{
+		try
+		{
+		ArrayList<String> colorsInserted = new ArrayList<String>();
+		double priceOfcomposite=0;
+		for(int i=0 ; i < this.allFlowers.size() ; i++)	//scan all flower and put in the basket all of the cheapest flowers in different colors
+		{
+			if( ! colorsInserted.contains( allFlowers.get(i).getFlowerColor() ))	//if the color didn't count already
+			{
+				if(priceOfcomposite < this.max)	//if the total price of our composition is lower than the lower limit that customer choose put the flower in the basket
+				{
+					flowerComposion.add(this.allFlowers.get(i));
+					priceOfcomposite=priceOfcomposite+this.allFlowers.get(i).getFlowerPrice();
+					colorsInserted.add(this.allFlowers.get(i).getFlowerColor());
+				}
+				else
+				{
+					break;
+				}
+				
+			}	
+		}
+		Random rand = new Random();
+
+	
+		while(priceOfcomposite<this.min || priceOfcomposite>this.max)
+		{
+			while(priceOfcomposite < this.max )	// if still we didn`t reach to the lower limit, take a random flower
+			{
+				int  myRandomNum = rand.nextInt(this.allFlowers.size()-1) ;
+				flowerComposion.add(this.allFlowers.get(myRandomNum));
+				priceOfcomposite=priceOfcomposite+this.allFlowers.get(myRandomNum).getFlowerPrice();
+			}
+		
+			while(priceOfcomposite > this.max )	// if still we didn`t reach to the lower limit, take a random flower
+			{
+				int  myRandomNum = rand.nextInt(flowerComposion.size()-1) ;
+				flowerComposion.remove(myRandomNum);
+				priceOfcomposite=priceOfcomposite-this.allFlowers.get(myRandomNum).getFlowerPrice();
+			}
+		}
+		
+		//here we get all cheapest flowers from different colors
+		System.out.println("total price of composiotn is : " +priceOfcomposite +" quantity of flowers is:"+flowerComposion.size());
+		System.out.println("all flowers are:\n" +flowerComposion);
+		}
+		
+		catch(Exception e)
+		{
+			System.out.println("Cannot find composition");
+	    	ArrayList<Flower> flowerComposionSafe = new ArrayList<Flower>();
+	    	return flowerComposionSafe;
+
+			
+		}
+		return flowerComposion;
+		}
+
 	private static void sortFlowers()
 	{
 		FXCollections.sort(allFlowers, new Comparator<Flower>()
@@ -248,12 +327,19 @@ public class CustomOrderControl extends LoginContol implements Initializable
 		itemTypeCombo.setItems(allTypes);
 		ObservableList<String> allFlowerColors= FXCollections.observableArrayList();
 		allFlowerColors.add("");	//an optional to not pick a color
+		this.numberOfColors=0;
 		for(int i=0 ; i< allFlowers.size() ; i++)
 		{
 			String currentColor = allFlowers.get(i).getFlowerColor();
 			if(! allFlowerColors.contains(currentColor))	//if there is no coloer in the list of combobox
-									allFlowerColors.add(currentColor);
+			{
+				allFlowerColors.add(currentColor);
+				this.numberOfColors++;
+
+			}
 		}
+		
+		
 		DominantColorCombo.setItems(allFlowerColors);
 		priceRangeMinTxt.textProperty().addListener(new ChangeListener<String>() 
 		{
