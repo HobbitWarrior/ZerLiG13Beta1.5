@@ -174,6 +174,15 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	{
 		ObservableList<String> allTypes= FXCollections.observableArrayList("Bridal Bouquet","Flower Arrangement","Cluster Flowers","Flowering Plant");		
 		itemTypeCombo.setItems(allTypes);
-		System.out.println(""+allFlowers);
+		ObservableList<String> allFlowerColors= FXCollections.observableArrayList();
+		allFlowerColors.add("");	//an optional to not pick a color
+		for(int i=0 ; i< allFlowers.size() ; i++)
+		{
+			String currentColor = allFlowers.get(i).getFlowerColor();
+			if(! allFlowerColors.contains(currentColor))	//if there is no coloer in the list of combobox
+									allFlowerColors.add(currentColor);
+		}
+		DominantColorCombo.setItems(allFlowerColors);
+		
 	}
 }
