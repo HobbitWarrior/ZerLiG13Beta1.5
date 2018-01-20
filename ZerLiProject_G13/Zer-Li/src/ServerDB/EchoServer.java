@@ -833,14 +833,14 @@ public class EchoServer extends AbstractServer implements Initializable
 		{
 
 			PreparedStatement ps1 = ServerDataBase.prepareStatement(
-					"insert into customerbilling (OrderID,OrderPrice) values (?,?)");
-
+					"insert into customerbilling (CustomerID,OrderID,OrderPrice) values (?,?,?)");
+			int customerID = myOrder.getCustomerID();
 			int OrderID = myOrder.getOrderID();
 			Double totalPrice = myOrder.getOrdertotalPrice();
 			
-
-			ps1.setInt(1, OrderID);
-			ps1.setDouble(2, totalPrice);	//totalPrice
+			ps1.setInt(1, customerID);
+			ps1.setInt(2, OrderID);
+			ps1.setDouble(3, totalPrice);	//totalPrice
 			
 			ps1.executeUpdate();
 			ps1.close();
