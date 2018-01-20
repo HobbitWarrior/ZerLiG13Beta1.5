@@ -28,6 +28,7 @@ import Customer.CatalogItemInOrder;
 import Customer.CustomerTransaction;
 import Customer.Date;
 import Customer.Delivery;
+import Customer.Flower;
 import Customer.ItemInOrder;
 import Customer.MessgaeCatalogProduct;
 import Customer.PrivateShipment;
@@ -56,7 +57,7 @@ public class EchoServer extends AbstractServer implements Initializable
 	private String DataBaseName;
 	private Connection ServerDataBase;
 	private boolean DB_ACCOUNT;
-
+ 
 
 	// Constructors ****************************************************
 
@@ -612,7 +613,22 @@ public class EchoServer extends AbstractServer implements Initializable
 			}
 		
 		}
-		
+	
+		if (msg instanceof Flower) 
+		{ 
+			System.out.println("Server got message about flowers form client!!!!!!");
+			try 
+			{
+				Message flowerMsg = new Message(new Flower(), "Flower");
+				client.sendToClient(flowerMsg);
+				return;
+			} 
+			catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 	} //end of handleMessageFromClient
 	
 	private CustomerTransaction SaveOrderInDB(CustomerTransaction myOrder) 

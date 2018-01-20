@@ -32,7 +32,7 @@ public class CustomerMainWindow extends LoginContol implements Initializable
 	public static ObservableList<String> AllBranchesNames= FXCollections.observableArrayList();
 	public static String chosenBranchID="";
 	public static String chosenBranchName="";
-
+ 
     @FXML
     private Button btnCancelOrder;
 
@@ -165,15 +165,20 @@ public class CustomerMainWindow extends LoginContol implements Initializable
 		int port = LoginContol.PORT;
 		String ip = LoginContol.ServerIP;
 		myClient = new ChatClient(ip, port); // create new client
+		myClient.setMainCustomerControler(this);
 		//myClient.sendRequestToGetAllBranchManagers();
-		AllBranches.clear();
-		myClient.sendRequestToGetAllBranches();
+		myClient.sendRequestToGetAllFlowers();
 
 		//Can't close the window without logout
 		primaryStage.setOnCloseRequest( event -> {event.consume();} );
 	} 
 
-	
+	public void sendReuestToGetAllBranchesForCustomer()
+	{
+		AllBranches.clear();
+		myClient.sendRequestToGetAllBranches();
+
+	}
 
    
     

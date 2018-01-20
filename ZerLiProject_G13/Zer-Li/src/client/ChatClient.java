@@ -27,6 +27,7 @@ import Customer.CatalogItemGUI;
 import Customer.CatalogOrderControl;
 import Customer.CustomerMainWindow;
 import Customer.CustomerTransaction;
+import Customer.Flower;
 import Customer.MessgaeCatalogProduct;
 import Customer.OrdersControl;
 import Users.LoginContol;
@@ -38,6 +39,7 @@ public class ChatClient extends AbstractClient {
 	private CatalogOrderControl orderFromCatalog;
 	private CatalogEditControl editCatalog;   // ************************************************* i added
 	private OrdersControl buyingProcess;
+	private CustomerMainWindow mainCustomerWindow;
 	private String chooseControl; //choose between CatalogEditControl and CatalogOrderControl   // ************************************** i added
 	// Constructors ****************************************************
 
@@ -367,15 +369,17 @@ public class ChatClient extends AbstractClient {
 
 				});
 				
-				
-				
-				
-				
-				
 
 				return;
 			}
-		}
+			
+			if (ServerMsg.getMsgType().equals("Flower")) 
+			{
+				System.out.println("Client got message from server about flowers!!!!!!!!!!");
+				this.mainCustomerWindow.sendReuestToGetAllBranchesForCustomer();
+			}
+			
+		}	// end of Message type
 		
 		
 		if (msg instanceof CustomerTransaction) 
@@ -458,7 +462,10 @@ public class ChatClient extends AbstractClient {
 
 			return;
 		}
-	}
+		
+		
+		
+	}	//end of handle message from server
 
 	public void sendRequestToGetAllUsers() 
 	{
@@ -867,6 +874,35 @@ public class ChatClient extends AbstractClient {
 	public void setOrderControlOfBuyningProcess(OrdersControl ordersControl) 
 	{
 		this.buyingProcess = ordersControl;		
+	}
+
+	public void sendRequestToGetAllFlowers() 
+	{
+		try 
+		{
+			this.openConnection();
+		}
+
+		catch (IOException e1) 
+		{
+			System.out.println("Cannot open connection");
+		}
+
+		try 
+		{
+			System.out.println("Send Message to get all flowers from server");
+			Flower tempFlower = new Flower();
+			sendToServer(tempFlower);
+		} catch (IOException e) 
+		{
+			System.out.println("Cannot connect to server to get all flowers");
+
+		}	
+	}
+
+	public void setMainCustomerControler(CustomerMainWindow customerMainWindow) 
+	{
+		this.mainCustomerWindow = customerMainWindow;
 	}
  
 
