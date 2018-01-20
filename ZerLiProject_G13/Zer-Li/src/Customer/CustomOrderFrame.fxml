@@ -51,16 +51,25 @@
       <Button fx:id="btnLogout" layoutX="454.0" layoutY="15.0" mnemonicParsing="false" onAction="#logoutEvent" opacity="0.01" prefHeight="38.0" prefWidth="97.0" text="btnLogout" />
       <Button fx:id="btnCart" layoutX="660.0" layoutY="17.0" mnemonicParsing="false" onAction="#btnCartPressed" opacity="0.01" prefHeight="38.0" prefWidth="75.0" text="btnCart" />
       <ImageView fx:id="imgController" fitHeight="38.0" fitWidth="117.0" layoutX="195.0" layoutY="474.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="itemTypeLabel" layoutX="205.0" layoutY="350.0" text="Item Type:" />
+      <Label fx:id="itemTypeLabel" layoutX="198.0" layoutY="350.0" text="Item Type:" />
       <ComboBox fx:id="itemTypeCombo" layoutX="317.0" layoutY="346.0" onAction="#itemTypeComboPressed" prefHeight="25.0" prefWidth="181.0" />
-      <Label fx:id="PriceRangeLabel" layoutX="195.0" layoutY="385.0" prefHeight="17.0" prefWidth="82.0" text="Price Range:" />
+      <Label fx:id="PriceRangeLabel" layoutX="198.0" layoutY="385.0" prefHeight="17.0" prefWidth="82.0" text="Price Range:" />
       <TextField fx:id="priceRangeMinTxt" layoutX="317.0" layoutY="410.0" prefHeight="25.0" prefWidth="110.0" />
       <TextField fx:id="priceRangeMaxTxt" layoutX="317.0" layoutY="451.0" prefHeight="25.0" prefWidth="110.0" />
       <Label fx:id="minLabel" layoutX="271.0" layoutY="414.0" text="Min:" />
       <Label fx:id="MaxLabel" layoutX="269.0" layoutY="455.0" text="Max:" />
-      <Label text="Label" />
       <Label fx:id="DominantColorLabel" layoutX="119.0" layoutY="500.0" text="Dominant Color(Optional):" />
       <ComboBox fx:id="DominantColorCombo" layoutX="318.0" layoutY="495.0" onAction="#DominantColorComboPressed" prefWidth="150.0" />
-      <Button fx:id="createItemBtn" disable="true" layoutX="539.0" layoutY="426.0" mnemonicParsing="false" onAction="#createItemBtnPressed" text="-&gt;Create your Item" />
+      <Button fx:id="createItemBtn" layoutX="539.0" layoutY="426.0" mnemonicParsing="false" onAction="#createItemBtnPressed" text="-&gt;Create your Item" />
+      <Label layoutX="181.0" layoutY="350.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="181.0" layoutY="385.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

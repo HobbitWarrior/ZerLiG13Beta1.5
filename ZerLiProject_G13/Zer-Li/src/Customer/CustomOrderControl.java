@@ -12,10 +12,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import Users.LoginContol;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -25,7 +29,13 @@ import javafx.scene.image.ImageView;
 public class CustomOrderControl extends LoginContol implements Initializable
 {
 	public static ObservableList<Flower> allFlowers= FXCollections.observableArrayList();
-
+	private String ItemType  ="";
+	private int min=0;
+	private int max=0;
+	private String ItemColor ="";
+	
+	
+	
 		@FXML
 	    private Label minLabel;
 
@@ -130,19 +140,53 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    @FXML
 	    void itemTypeComboPressed(ActionEvent event) 
 	    {
-
+	    	this.ItemType=itemTypeCombo.getValue();
 	    }
 
 	    @FXML
 	    void DominantColorComboPressed(ActionEvent event) 
 	    {
-
+	    	this.ItemColor=DominantColorCombo.getValue();
 	    }
 
 	    @FXML
 	    void createItemBtnPressed(ActionEvent event) 
 	    {
-
+	    	
+	    	if( this.ItemType.equals("") || this.priceRangeMinTxt.getText().equals("") || this.priceRangeMaxTxt.getText().equals(""))
+	    	{
+	    		Alert alert = new Alert(AlertType.ERROR);
+	    		alert.setTitle("You forgot to insert data of serach");
+	    		alert.setHeaderText("Please fill all necessary fields!");
+	    		alert.showAndWait();
+	    		return;
+	    	}
+	    	
+	    	Integer minField = new Integer(this.priceRangeMinTxt.getText());
+	    	int tempIntMin = (int)minField;
+	    	Integer maxField = new Integer(this.priceRangeMaxTxt.getText());
+	    	int tempIntMax = (int)maxField;
+	    	int result = tempIntMax - tempIntMin;
+	    	if( result <= 0 )
+	    	{
+	    		Alert alert = new Alert(AlertType.ERROR);
+	    		alert.setTitle("You inserted wrong values of price range");
+	    		alert.setHeaderText("Your max range is lower than min range");
+	    		alert.setContentText("Ooops, You inserted wrong range");
+	    		alert.showAndWait();
+	    		return;
+	    	}
+	    	
+	    	if(tempIntMax >250)
+	    	{
+	    		Alert alert = new Alert(AlertType.WARNING);
+	    		alert.setTitle("Sorry, There are some limits...");
+	    		alert.setHeaderText("There is a limit for a custom product.");
+	    		alert.setContentText("Our chain allowes a price up to 250$");
+	    		alert.showAndWait();
+	    		return;
+	    	}
+	    	
 	    }
 
 	
@@ -183,6 +227,27 @@ public class CustomOrderControl extends LoginContol implements Initializable
 									allFlowerColors.add(currentColor);
 		}
 		DominantColorCombo.setItems(allFlowerColors);
+		priceRangeMinTxt.textProperty().addListener(new ChangeListener<String>() 
+		{
+		    @Override
+		    public void changed(ObservableValue<? extends String> observable, String oldValue, 
+		        String newValue) {
+		        if (!newValue.matches("\\d*")) {
+		        	priceRangeMinTxt.setText(newValue.replaceAll("[^\\d]", ""));
+		        }
+		    }
+		});
+		
+		priceRangeMaxTxt.textProperty().addListener(new ChangeListener<String>() 
+		{
+		    @Override
+		    public void changed(ObservableValue<? extends String> observable, String oldValue, 
+		        String newValue) {
+		        if (!newValue.matches("\\d*")) {
+		        	priceRangeMaxTxt.setText(newValue.replaceAll("[^\\d]", ""));
+		        }
+		    }
+		});
 		
 	}
 }
