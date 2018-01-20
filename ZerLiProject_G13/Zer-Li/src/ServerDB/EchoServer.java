@@ -185,8 +185,71 @@ public class EchoServer extends AbstractServer implements Initializable
 			}
 			 
             //-----------------------------------------------//
-			 
 			
+			
+			
+			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!the length id :   "+DiscoverMessage.length());
+			
+		// "Please change Entry of user: "  "Please change Entry of user: "+UserName;
+		if ( (DiscoverMessage.length()) >= 28 )	//from here there is a process that check if client asking to change entry status of userName 
+		{
+
+			String checkSubString = DiscoverMessage.substring(0, 28); // cut msg string to "Please change Entry of user:" in case login control sent request	
+			System.out.println(checkSubString);                        // or cut msg string to ""Please delete item with ID: " in case chain worker sent request
+			
+			if (checkSubString.equals("Please change Entry of user:"))
+			{
+				String cutUserNameFromStringMessage=DiscoverMessage.substring(29, ( DiscoverMessage.length() ) );
+					// need to change entry
+					System.out.println("Changing the entry numbers of userName: "+cutUserNameFromStringMessage);
+					changeEntryInDB(cutUserNameFromStringMessage);
+					return;
+			}
+			
+			//-----------------------------------------------------------//
+			
+			if (checkSubString.equals("Please delete item with ID: "))
+			{
+				String cutItemIDFromStringMessage=DiscoverMessage.substring(28, ( DiscoverMessage.length() ) );
+					// need to change entry
+					System.out.println("Delete the item with itemID: "+cutItemIDFromStringMessage);
+					
+					int id = Integer.parseInt(cutItemIDFromStringMessage);
+					
+					deleteItemInDB(id);
+					return;
+			}
+			
+			//-----------------------------------------------------------//
+			
+			if (checkSubString.equals("Please Check if Unique ID:  "))
+			{
+					String cutItemIDFromStringMessage=DiscoverMessage.substring(28, ( DiscoverMessage.length() ) );
+					// need to change entry
+					System.out.println("Check if Unique item ID: "+cutItemIDFromStringMessage);
+					
+					int id = Integer.parseInt(cutItemIDFromStringMessage);
+					Boolean ans;
+					
+					ans=checkUniqueIDInDB(id);
+					
+					if(ans)
+						System.out.println("true");
+					else
+						System.out.println("false");
+					
+					Message Msg = new Message(ans, "Answer if Unique item ID: "+id);
+					
+					this.sendToAllClients(Msg);
+					
+					return;
+			}
+
+			
+		}//end of if ( (DiscoverMessage.length()) >= 28 )
+		
+			 
+		//-----------------------------------------------------------//
 			
 			if ((DiscoverMessage.substring(0, 24)).equals("Give me all ReportBranch")) 
 				{
@@ -263,73 +326,7 @@ public class EchoServer extends AbstractServer implements Initializable
 					return;
 				}
 			//-----------------------------------------------------------//
-			
-				
-				
-			// "Please change Entry of user: "  "Please change Entry of user: "+UserName;
-			if ( (DiscoverMessage.length()) >= 28 )	//from here there is a process that check if client asking to change entry status of userName 
-			{
 
-				String checkSubString = DiscoverMessage.substring(0, 28); // cut msg string to "Please change Entry of user:" in case login control sent request	
-				System.out.println(checkSubString);                        // or cut msg string to ""Please delete item with ID: " in case chain worker sent request
-				
-				if (checkSubString.equals("Please change Entry of user:"))
-				{
-					String cutUserNameFromStringMessage=DiscoverMessage.substring(29, ( DiscoverMessage.length() ) );
-						// need to change entry
-						System.out.println("Changing the entry numbers of userName: "+cutUserNameFromStringMessage);
-						changeEntryInDB(cutUserNameFromStringMessage);
-						return;
-				}
-				
-				//-----------------------------------------------------------//
-				
-				if (checkSubString.equals("Please delete item with ID: "))
-				{
-					String cutItemIDFromStringMessage=DiscoverMessage.substring(28, ( DiscoverMessage.length() ) );
-						// need to change entry
-						System.out.println("Delete the item with itemID: "+cutItemIDFromStringMessage);
-						
-						int id = Integer.parseInt(cutItemIDFromStringMessage);
-						
-						deleteItemInDB(id);
-						return;
-				}
-				
-				//-----------------------------------------------------------//
-				
-				if (checkSubString.equals("Please Check if Unique ID:  "))
-				{
-						String cutItemIDFromStringMessage=DiscoverMessage.substring(28, ( DiscoverMessage.length() ) );
-						// need to change entry
-						System.out.println("Check if Unique item ID: "+cutItemIDFromStringMessage);
-						
-						int id = Integer.parseInt(cutItemIDFromStringMessage);
-						Boolean ans;
-						
-						ans=checkUniqueIDInDB(id);
-						
-						if(ans)
-							System.out.println("true");
-						else
-							System.out.println("false");
-						
-						Message Msg = new Message(ans, "Answer if Unique item ID: "+id);
-						
-						this.sendToAllClients(Msg);
-						
-						return;
-				}
-				
-				//System.out.println("branch2"); //haim&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-
-				
-			}//end of if ( (DiscoverMessage.length()) >= 28 )
-			
-			
-			
-			
-		
 
    	
 			if(DiscoverMessage.equals("Give Me All Branches managers"))
@@ -357,7 +354,8 @@ public class EchoServer extends AbstractServer implements Initializable
 					//this.sendToAllClients("GetFail");
 					
 				}
-				return;			}
+				return;			
+			}
 			
 		}//end of if (msg instanceof String)
 		
