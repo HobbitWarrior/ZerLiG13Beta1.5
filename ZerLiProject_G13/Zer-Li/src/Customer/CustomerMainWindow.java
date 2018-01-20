@@ -167,6 +167,7 @@ public class CustomerMainWindow extends LoginContol implements Initializable
 		myClient = new ChatClient(ip, port); // create new client
 		myClient.setMainCustomerControler(this);
 		//myClient.sendRequestToGetAllBranchManagers();
+		CustomOrderControl.allFlowers.clear();
 		myClient.sendRequestToGetAllFlowers();
 
 		//Can't close the window without logout

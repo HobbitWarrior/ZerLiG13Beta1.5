@@ -174,5 +174,6 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	{
 		ObservableList<String> allTypes= FXCollections.observableArrayList("Bridal Bouquet","Flower Arrangement","Cluster Flowers","Flowering Plant");		
 		itemTypeCombo.setItems(allTypes);
+		System.out.println(""+allFlowers);
 	}
 }

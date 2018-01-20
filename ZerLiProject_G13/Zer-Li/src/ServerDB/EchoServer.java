@@ -619,7 +619,16 @@ public class EchoServer extends AbstractServer implements Initializable
 			System.out.println("Server got message about flowers form client!!!!!!");
 			try 
 			{
-				Message flowerMsg = new Message(new Flower(), "Flower");
+				ArrayList<Flower> allFlowersFromDB = new ArrayList<Flower>();
+				try 
+				{
+					allFlowersFromDB = putOutAllFlowers(allFlowersFromDB);
+				} 
+				catch (SQLException e) 
+				{
+					e.printStackTrace();
+				}
+				Message flowerMsg = new Message(allFlowersFromDB, "Flower");
 				client.sendToClient(flowerMsg);
 				return;
 			} 
@@ -631,6 +640,29 @@ public class EchoServer extends AbstractServer implements Initializable
 		}
 	} //end of handleMessageFromClient
 	
+	private ArrayList<Flower> putOutAllFlowers(ArrayList<Flower> allFlowersFromDB) throws SQLException 
+	{	/**this method responsible to put out all of the flowers in the db*/
+		Statement st = (Statement) ServerDataBase.createStatement();
+
+		ResultSet rs = st.executeQuery("select * from flowers ");
+
+		while (rs.next()) {
+			int flowerID = rs.getInt(1);
+			String flowerColor = "" + rs.getString(2);
+			String flowerName = "" + rs.getString(3);
+			Double flowerPrice = rs.getDouble(4);
+			
+
+			Flower FlowerReturnToClient = new Flower(flowerID, flowerColor, flowerName, flowerPrice);
+			allFlowersFromDB.add(FlowerReturnToClient);
+
+		}
+		rs.close();
+		st.close();
+
+		return allFlowersFromDB;
+	}
+
 	private CustomerTransaction SaveOrderInDB(CustomerTransaction myOrder) 
 	{/**saveOrderInDB method responsible to save order information on 7 tables in db*/
 

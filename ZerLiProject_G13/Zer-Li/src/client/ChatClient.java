@@ -25,6 +25,7 @@ import ChainManager.BranchReportBrowseControl;
 import ChainWorker.CatalogEditControl;
 import Customer.CatalogItemGUI;
 import Customer.CatalogOrderControl;
+import Customer.CustomOrderControl;
 import Customer.CustomerMainWindow;
 import Customer.CustomerTransaction;
 import Customer.Flower;
@@ -376,7 +377,13 @@ public class ChatClient extends AbstractClient {
 			if (ServerMsg.getMsgType().equals("Flower")) 
 			{
 				System.out.println("Client got message from server about flowers!!!!!!!!!!");
+				ArrayList<Flower> allFlowersFromServer =(ArrayList<Flower>) ServerMsg.getMsgObject();;
+				for(int i=0 ; i<allFlowersFromServer.size() ; i++)
+				{
+					CustomOrderControl.allFlowers.add(allFlowersFromServer.get(i));
+				}
 				this.mainCustomerWindow.sendReuestToGetAllBranchesForCustomer();
+				return;
 			}
 			
 		}	// end of Message type
