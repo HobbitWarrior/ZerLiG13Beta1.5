@@ -29,7 +29,6 @@ import Customer.CustomerMainWindow;
 import Customer.CustomerTransaction;
 import Customer.MessgaeCatalogProduct;
 import Customer.OrdersControl;
-import Users.EntryRequest;
 import Users.LoginContol;
 import Users.User;
 
@@ -502,8 +501,7 @@ public class ChatClient extends AbstractClient {
 		try 
 		{
 			String requestToChangeEntry="Please change Entry of user: "+UserName;
-			EntryRequest clientEntry = new EntryRequest(requestToChangeEntry);
-			sendToServer(clientEntry);
+			sendToServer(requestToChangeEntry);
 		} catch (IOException e) {
 			System.out.println("Cannot connect to server");
 
