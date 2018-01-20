@@ -260,6 +260,7 @@ public class EchoServer extends AbstractServer implements Initializable
 						System.out.println("error-can't get catalogItems data from db");
 						this.sendToAllClients("GetFail");
 					}
+					return;
 				}
 			//-----------------------------------------------------------//
 			
