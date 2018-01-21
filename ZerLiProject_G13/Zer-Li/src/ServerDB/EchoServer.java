@@ -1400,14 +1400,14 @@ public class EchoServer extends AbstractServer implements Initializable
 
 		while (rs.next()) {
 			int ReportType = rs.getInt(1);
-			//Year ReportYear = rs.getInt(2);
+			String ReportYear = rs.getString(2);
 			
 			int ReportQuarter =  rs.getInt(3);
 			//Image Permition =  rs.getBlob(4);
 			String BranchID = rs.getString(5);
 			 
 
-			Reports UsersReturnToClient = new Reports(ReportType, null, ReportQuarter, null, BranchID );
+			Reports UsersReturnToClient = new Reports(ReportType, ReportYear, ReportQuarter, null, BranchID );
 			System.out.println(UsersReturnToClient);
 			ReportsFromDB.add(UsersReturnToClient);
 
