@@ -187,9 +187,17 @@ public class FillSurveyControl extends LoginContol implements Initializable {
     private ComboBox<Integer> Combo6;
 
 
+    @FXML
+    private Button PlusBtn;
+
+    public static int i=0;
+   
+    ArrayList<Survey> MyFillSurveyList = new ArrayList<Survey>();
 	    @FXML
 	    void FillSurvey(ActionEvent event) {
-
+        
+	    	
+	    	
 	    }
 
 	    @FXML
@@ -221,7 +229,38 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 	    void Q6ComboSet(ActionEvent event) {
 
 	    }
- 
+	    
+	    
+	    @FXML
+	    void AddNewFill(ActionEvent event) {
+	          if( txtf1.getText().isEmpty() ||
+             		 txtf2.getText().isEmpty()  ||
+             		 txtf3.getText().isEmpty()     )
+         
+              {
+             	 //error msg 
+              }
+              else
+              {
+            	  
+       		   Survey Surveytemp = new Survey() ; 
+
+       		Surveytemp.setQ1(Combo1.getValue());
+       		Surveytemp.setQ2(Combo2.getValue());
+       		Surveytemp.setQ3(Combo3.getValue());
+       		Surveytemp.setQ4(Combo4.getValue());
+       		Surveytemp.setQ5(Combo5.getValue());
+       		Surveytemp.setQ6(Combo6.getValue());
+      	 
+             	 i++;
+             	 txtf1.clear();
+             	 txtf2.clear();
+             	 txtf3.clear();
+             	MyFillSurveyList.add(Surveytemp);
+             	 System.out.println(MyFillSurveyList);	  
+              }
+	    }
+
 
 	    @FXML
 	    void SaveOnDB(ActionEvent event) {
@@ -239,6 +278,18 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 		   {
 			   System.out.println("Cannot create client");	  
 		   }
+		   int avgQ1=0,avgQ2=0,avgQ3=0,avgQ4=0,avgQ5=0,avgQ6=0;
+		   for(int j=0;j<MyFillSurveyList.size();j++)
+		   {
+			    
+			   avgQ1+=MyFillSurveyList.get(j).getQ1();
+			   avgQ2+=MyFillSurveyList.get(j).getQ2();	 
+		       avgQ3+=MyFillSurveyList.get(j).getQ3();
+			   avgQ4+=MyFillSurveyList.get(j).getQ4();
+			   avgQ5+=MyFillSurveyList.get(j).getQ5();
+			   avgQ6+=MyFillSurveyList.get(j).getQ6();
+		   }
+		   
 		   
 		   Survey SurveyInfo = new Survey() ; 
 		   
@@ -249,12 +300,18 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 		   SurveyInfo.setSurviesQuarter(Integer.parseInt(txtf2.getText()) );
 		   SurveyInfo.setSurviesYear( Integer.parseInt(txtf3.getText()));
 		   SurveyInfo.setBranchWorkerID(LoginContol.userID);
-		   SurveyInfo.setQ1(Combo1.getValue());
-		   SurveyInfo.setQ2(Combo2.getValue());
-		   SurveyInfo.setQ3(Combo3.getValue());
-		   SurveyInfo.setQ4(Combo4.getValue());
-		   SurveyInfo.setQ5(Combo5.getValue());
-		   SurveyInfo.setQ6(Combo6.getValue());
+		   SurveyInfo.setQ1(avgQ1/MyFillSurveyList.size());
+		   SurveyInfo.setQ2(avgQ2/MyFillSurveyList.size());
+		   SurveyInfo.setQ3(avgQ3/MyFillSurveyList.size());
+		   SurveyInfo.setQ4(avgQ4/MyFillSurveyList.size());
+		   SurveyInfo.setQ5(avgQ5/MyFillSurveyList.size());
+		   SurveyInfo.setQ6(avgQ6/MyFillSurveyList.size());
+		   System.out.println(avgQ1/MyFillSurveyList.size());	  
+
+		   System.out.println(avgQ1);	 
+		   System.out.println(avgQ2);	
+		   System.out.println(avgQ3);	
+
 		   System.out.println(SurveyInfo);	  
 
 		   myClient.sendRequestToSaveObjectOnDB(SurveyInfo); //send request to get all users from db (server)
@@ -279,6 +336,7 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 			Stage arg0 = new Stage();
 			aFrame.start(arg0);
 			
+			ListNumbers.clear();
 	    }
 	    
 		 
