@@ -84,8 +84,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import BranchManager.PaymentAccount;
 
-public class FillSurveyControl extends LoginContol {
+public class FillSurveyControl extends LoginContol implements Initializable {
 	 private static final Survey NULL = null;
+		public static ObservableList<Integer> ListNumbers= FXCollections.observableArrayList();
 
 	private static final String UserNameToCheck = null;
 
@@ -167,6 +168,25 @@ public class FillSurveyControl extends LoginContol {
     @FXML
     private TextField txtf10;
 
+    @FXML
+    private ComboBox<Integer> Combo1;
+
+    @FXML
+    private ComboBox<Integer> Combo2;
+
+    @FXML
+    private ComboBox<Integer> Combo3;
+
+    @FXML
+    private ComboBox<Integer> Combo4;
+
+    @FXML
+    private ComboBox<Integer> Combo5;
+
+    @FXML
+    private ComboBox<Integer> Combo6;
+
+
 	    @FXML
 	    void FillSurvey(ActionEvent event) {
 
@@ -227,14 +247,14 @@ public class FillSurveyControl extends LoginContol {
 		   
 		   SurveyInfo.setCustomerID(Integer.parseInt(txtf1.getText()));
 		   SurveyInfo.setSurviesQuarter(Integer.parseInt(txtf2.getText()) );
-		   SurveyInfo.setSurviesYear(Integer.parseInt(txtf3.getText()));
-		   SurveyInfo.setBranchWorkerID(Integer.parseInt(txtf4.getText()));
-		   SurveyInfo.setQ1(Integer.parseInt(txtf5.getText()));
-		   SurveyInfo.setQ2(Integer.parseInt(txtf6.getText()));
-		   SurveyInfo.setQ3(Integer.parseInt(txtf7.getText()));
-		   SurveyInfo.setQ4(Integer.parseInt(txtf8.getText()));
-		   SurveyInfo.setQ5(Integer.parseInt(txtf9.getText()));
-		   SurveyInfo.setQ6(Integer.parseInt(txtf10.getText()));
+		   SurveyInfo.setSurviesYear( Integer.parseInt(txtf3.getText()));
+		   SurveyInfo.setBranchWorkerID(LoginContol.userID);
+		   SurveyInfo.setQ1(Combo1.getValue());
+		   SurveyInfo.setQ2(Combo2.getValue());
+		   SurveyInfo.setQ3(Combo3.getValue());
+		   SurveyInfo.setQ4(Combo4.getValue());
+		   SurveyInfo.setQ5(Combo5.getValue());
+		   SurveyInfo.setQ6(Combo6.getValue());
 		   System.out.println(SurveyInfo);	  
 
 		   myClient.sendRequestToSaveObjectOnDB(SurveyInfo); //send request to get all users from db (server)
@@ -280,6 +300,22 @@ public class FillSurveyControl extends LoginContol {
 			
 			
 		 	 
+		}
+
+		@Override
+		public void initialize(URL location, ResourceBundle resources) {
+			for(int i=1;i<4;i++)
+			{
+				ListNumbers.add(i);
+ 			}
+			Combo1.setItems(ListNumbers);
+			Combo2.setItems(ListNumbers);
+			Combo3.setItems(ListNumbers);
+			Combo4.setItems(ListNumbers);
+			Combo5.setItems(ListNumbers);
+			Combo6.setItems(ListNumbers);
+			
+
 		}
 	
 	
