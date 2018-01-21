@@ -78,5 +78,6 @@
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Label>
+      <Button fx:id="btnCatalog" layoutX="563.0" layoutY="175.0" mnemonicParsing="false" onAction="#btenCatalogPressed" opacity="0.0" prefHeight="38.0" prefWidth="87.0" text="Button" />
    </children>
 </AnchorPane>

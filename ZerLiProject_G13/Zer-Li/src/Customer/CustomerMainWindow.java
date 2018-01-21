@@ -33,7 +33,7 @@ public class CustomerMainWindow extends LoginContol implements Initializable
 	public static String chosenBranchID="";
 	public static String chosenBranchName="";
  
-    @FXML
+    @FXML 
     private Button btnCancelOrder;
 
     @FXML

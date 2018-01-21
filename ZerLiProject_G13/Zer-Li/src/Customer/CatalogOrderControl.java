@@ -45,6 +45,8 @@ public class CatalogOrderControl extends LoginContol implements Initializable
 	public static ObservableList<CatalogItemGUI> catalogList= FXCollections.observableArrayList();
 	
 
+    @FXML
+    private Button btnCustomise;
 
 
 
@@ -104,7 +106,25 @@ public class CatalogOrderControl extends LoginContol implements Initializable
     private ImageView imgController;
     
     
-    
+    @FXML
+    void btnCustomisePressed(ActionEvent event)
+    {
+       	Stage primaryStage = new Stage();
+       	CustomOrderControl aFrame = new CustomOrderControl();
+  	  
+ 			
+ 				try 
+ 				{
+					aFrame.start(primaryStage);
+				} 
+ 				catch (Exception e) 
+ 				{
+					System.out.println("Cannot open customize window");
+				}
+ 			
+ 			btnCustomise.getScene().getWindow().hide(); //hiding primary window
+
+    }
   
 	@FXML
 	void logoutEvent(ActionEvent event) throws IOException 

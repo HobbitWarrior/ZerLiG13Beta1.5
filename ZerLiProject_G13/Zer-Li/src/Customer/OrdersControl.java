@@ -59,7 +59,7 @@ public class OrdersControl extends LoginContol implements Initializable
 	private ObservableList<String> MinutesList = FXCollections.observableArrayList();
 	private LocalDateTime now;
 	private boolean isPrivateShipment=false;
- 
+  
 	@FXML
     private TableView<ItemInOrder> ItemInOrderTable;		//screen1
 	
@@ -496,7 +496,14 @@ public class OrdersControl extends LoginContol implements Initializable
         		    		ErrorMsg=ErrorMsg+"Phone number.\n";
 
     				}
+    				if(KidometPhone.getValue().length() ==3 && phoneNumberTxt.getText().length() != 7)
+    		    		ErrorMsg=ErrorMsg+"Invalid Phone number.\n";
+        			else if(KidometPhone.getValue().length() ==2 && phoneNumberTxt.getText().length() != 7)
+    		    		ErrorMsg=ErrorMsg+"Invalid Phone number.\n";
     			}
+    			
+    			
+
     			calculateTotalPriceAndQuantity();
     			double tempPrice = this.totalPrice;
     			if(this.isPrivateShipment ==true)
@@ -934,8 +941,11 @@ public class OrdersControl extends LoginContol implements Initializable
     	payButton.setVisible(false);					
 		CheckoutLabel.setTextFill(Color.WHITE);
 		totalPriceResult.setVisible(false);
-   
-    	
+		if(phoneNumberTxt.getText().length() >0)
+		{
+			phoneNumberTxt.setDisable(false);
+		}
+	    	
     	
     	//end of screen 2 = delivery
     	

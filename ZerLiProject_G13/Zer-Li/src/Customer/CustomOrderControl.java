@@ -89,7 +89,33 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    @FXML
 	    private TextField priceRangeMaxTxt;
 
-	   
+	    @FXML
+	    private Button btnCatalog;
+	    
+	    
+
+	    @FXML
+	    void btenCatalogPressed(ActionEvent event) 
+	    {
+			   System.out.println("I got the event of catalog button");	  
+
+		 	   	Stage primaryStage = new Stage();
+		 	   CatalogOrderControl aFrame = new CatalogOrderControl();
+		 	  
+					try 
+					{
+						aFrame.start(primaryStage);
+					} 
+					catch (IOException e) 
+					{
+						System.out.println("Cannot start catalog Window");
+					}
+			    	btnCatalog.getScene().getWindow().hide(); //hiding primary window	
+
+	    }
+	    
+	    
+	    
 
 	    @FXML
 	    void goHome(ActionEvent event) 
@@ -209,24 +235,24 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    		
 	    		System.out.println("total price of composiotn is : " +this.priceComposition +" quantity of flowers is:"+this.quantityComposition);
 	    		System.out.println("all flowers are:\n" +flowerComposion);
-	    		if(this.quantityComposition<15)
-	    		{
-	    			this.quantityComposition=0;
-	    			this.priceComposition=0;
-	    			flowerComposion.clear();
-	    			Alert alert = new Alert(AlertType.WARNING);
-		    		alert.setTitle("Item not fount");
-		    		alert.setHeaderText("We didn't find an item for you.");
-		    		alert.showAndWait();
-		    		return;
-	    		}
+	    	
 	    	}
 	    	else
 	    	{
 	    		flowerComposion = createCompositeWithtColor(flowerComposion);
 
 	    	}
-
+	    	if(this.quantityComposition<15)
+    		{
+    			this.quantityComposition=0;
+    			this.priceComposition=0;
+    			flowerComposion.clear();
+    			Alert alert = new Alert(AlertType.WARNING);
+	    		alert.setTitle("Item not fount");
+	    		alert.setHeaderText("We didn't find an item for you.");
+	    		alert.showAndWait();
+	    		return;
+    		}
 	    }
 
 	
@@ -237,14 +263,95 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	
 	private ArrayList<Flower> createCompositeWithtColor(ArrayList<Flower> flowerComposion) //flowerComposion = basket 
 	{
+		ArrayList<String> colorsInserted = new ArrayList<String>();
+		double NowpriceOfcomposite=0;
+		for(int i=0 ; i < this.allFlowers.size() ; i++)	//scan all flower and put  the cheapest flower in the basket, we mean the flower with the color that customer choose, array already sorted by price from cheapest to most expensive
+		{
+			if(this.allFlowers.get(i).getFlowerColor().equals(this.ItemColor))	
+			{
+				flowerComposion.add(this.allFlowers.get(i));
+				colorsInserted.add(this.allFlowers.get(i).getFlowerColor());
+				NowpriceOfcomposite =  this.allFlowers.get(i).getFlowerPrice();
+				break;
+			}
+		}
+		
+		for(double i=NowpriceOfcomposite ; i<= (this.max - NowpriceOfcomposite) ;i= i+NowpriceOfcomposite)
+		{
+			flowerComposion.add(flowerComposion.get(0));
+		}
+		NowpriceOfcomposite = flowerComposion.get(0).getFlowerPrice() * flowerComposion.size();
+		
+		int maxFlowersOfCheapestColor = flowerComposion.size() ;
+		
+		for(int i = 0; i < ( maxFlowersOfCheapestColor / 2); i++)
+		{
+			flowerComposion.remove(0);
+		}
+		NowpriceOfcomposite = flowerComposion.get(0).getFlowerPrice() * flowerComposion.size();
+
+		System.out.println("total price of composiotn is : " +NowpriceOfcomposite +" quantity of flowers is:"+flowerComposion.size());
+		System.out.println("all flowers are:\n" +flowerComposion);
+		
+		ArrayList <Flower> allDiffrentColorFlowers = new ArrayList <Flower>();
+		for(int i=0 ; i < this.allFlowers.size() ; i++)	//scan all flower and put  the cheapest flower in the basket, we mean the flower with the color that customer choose, array already sorted by price from cheapest to most expensive
+		{ 
+			String currentColor = this.allFlowers.get(i).getFlowerColor();
+			
+			if (! colorsInserted.contains(currentColor) )	//if the color wasn't picked
+			{
+				allDiffrentColorFlowers.add(this.allFlowers.get(i));	//put all the cheapest flowers from different color that customer chose
+				colorsInserted.add(currentColor);
+			}
+		}
+		System.out.println(" quantity of flowers is:"+allDiffrentColorFlowers.size());
+		System.out.println("all flowers from different colors are:\n" +allDiffrentColorFlowers);
+
 		
 		
 		
-			return null;
+		int currentFlowerFromDiffrentColor=0;
+		double currentFlowerPriceFromDiffrentColor=0;
+
+		
+		for(int i = 0; i < ( maxFlowersOfCheapestColor / 2)  ; i++)	//from here, put in the basket all cheapest flowers, until we get the highest limit
+		{
+			currentFlowerPriceFromDiffrentColor = allDiffrentColorFlowers.get(currentFlowerFromDiffrentColor).getFlowerPrice();
+			
+			if ( ( NowpriceOfcomposite +  currentFlowerPriceFromDiffrentColor) > this.max) // we reach to the highest limit ... 
+			{
+				break;
+			}
+			
+			else
+			{
+				flowerComposion.add(allDiffrentColorFlowers.get(currentFlowerFromDiffrentColor));	//take a flower from list of flowers in different colors from customer choice
+				NowpriceOfcomposite = NowpriceOfcomposite +  currentFlowerPriceFromDiffrentColor;
+				currentFlowerFromDiffrentColor++;	
+				if(currentFlowerFromDiffrentColor == (allDiffrentColorFlowers.size()-1))	//if the different flowers are over, start over and retake different flower, until you reach the limit
+				{
+					currentFlowerFromDiffrentColor=0;
+				}
+			}
+		}		
+		
+		
+		
+		
+		
+		
+		System.out.println("total price of composiotn is : " +NowpriceOfcomposite +" quantity of flowers is:"+flowerComposion.size());
+		System.out.println("all flowers are:\n" +flowerComposion);
+		this.quantityComposition=flowerComposion.size();
+		this.priceComposition=NowpriceOfcomposite;
+		
+		
+		
+			return flowerComposion;
 	}
 
 	private ArrayList<Flower> createCompositeWithoutAnyColor(ArrayList<Flower> flowerComposion) 
-	{
+	{	/**this method give a flower composition, at least 15 flowers at the customer range*/
 		
 		ArrayList<String> colorsInserted = new ArrayList<String>();
 		double NowpriceOfcomposite=0;
