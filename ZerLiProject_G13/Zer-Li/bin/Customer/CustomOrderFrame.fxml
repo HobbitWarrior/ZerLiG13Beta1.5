@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
@@ -89,5 +90,16 @@
       </TableView>
       <Label fx:id="labelQtyFlower" layoutX="535.0" layoutY="770.0" text="Number of flowers: 0 items" />
       <Label fx:id="labelItemPrice" layoutX="537.0" layoutY="787.0" text="Item price: 0$" />
+      <Button fx:id="addToCartBtn" disable="true" graphicTextGap="66.0" layoutX="679.0" layoutY="590.0" mnemonicParsing="false" onAction="#addToCartBtnPressed" text="Add to cart-&gt;" textFill="#09ff00">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="removeBtnCart" disable="true" layoutX="679.0" layoutY="647.0" mnemonicParsing="false" onAction="#removeBtnCartPressed" text="&lt;-Remove from cart" textFill="RED">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Label fx:id="basketStatusLabel" layoutX="683.0" layoutY="560.0" text="Label" visible="false" />
    </children>
 </AnchorPane>

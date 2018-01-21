@@ -33,20 +33,20 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
 public class CustomOrderControl extends LoginContol implements Initializable
 {
 	public static ObservableList<Flower> allFlowers= FXCollections.observableArrayList();
-	public static ObservableList<Flower> CustomerFlowers= FXCollections.observableArrayList();
-
+	public static ObservableList<Flower> CustomerFlowers= FXCollections.observableArrayList();	//flowers that customer choose
+	public static ArrayList<ItemInOrder> basket = new ArrayList<ItemInOrder>();
 	public static int numberOfColors=0;
 	private String ItemType  ="";
 	private int min=0;
-	private int max=0;
+	private int max=0; 
 	private String ItemColor ="";
 	private double priceComposition=0;
 	private int quantityComposition=0;
-	
 	
 	
 		@FXML
@@ -119,14 +119,65 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    private TableColumn<Flower, String> FlowerPriceClomun;
 	    
 	    
+	    @FXML
+	    private Button addToCartBtn;
+	    
+	    
+	    @FXML
+	    private Button removeBtnCart;
+	    
+	    @FXML
+	    private Label basketStatusLabel;
+
+
+	  
+	    private void addBasketToCart()
+	    {
+	    	for(int i =0; i< basket.size() ; i++)
+	    	{
+	    		OrdersControl.ItemsInOrderList.add(basket.get(i));
+	    	}
+	    }
 	    
 	    
 
+	    @FXML
+	    void removeBtnCartPressed(ActionEvent event)
+	    {	/**this method remove a custom item from the basket*/
+	    	basketStatusLabel.setTextFill(Color.web("#ff0000"));
+	    	basketStatusLabel.setText("Removed from cart");
+	    	basketStatusLabel.setVisible(true);
+	    	removeBtnCart.setDisable(true);
+	    	addToCartBtn.setDisable(false);
+	    	basket.remove(basket.size()-1);
+
+	    }
+	    
+
+	    @FXML
+	    void addToCartBtnPressed(ActionEvent event)
+	    {	/**this method take a custom item and put it on the basket, basket=place before cart*/
+	    	basketStatusLabel.setTextFill(Color.web("#09ff00"));
+	    	basketStatusLabel.setText("Added to cart");
+	    	basketStatusLabel.setVisible(true);
+	    	removeBtnCart.setDisable(false);
+	    	addToCartBtn.setDisable(true);
+	    	ArrayList<Flower> myFlowers = new ArrayList <Flower>();
+	    	for(int i = 0 ; i< this.CustomerFlowers.size(); i++)
+	    	{
+	    		myFlowers.add(this.CustomerFlowers.get(i));
+	    	}
+	    	CustomItemInOrder myProduct= new CustomItemInOrder(0, "CustomItem-"+LoginContol.userID, this.ItemType ,this.priceComposition, myFlowers);
+	    	basket.add(myProduct);
+
+	    }
 
 
 	    @FXML
 	    void btenCatalogPressed(ActionEvent event) 
 	    {
+	    	addBasketToCart();
+
 			   System.out.println("I got the event of catalog button");	  
 
 		 	   	Stage primaryStage = new Stage();
@@ -150,6 +201,7 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    @FXML
 	    void goHome(ActionEvent event) 
 	    {
+	    	addBasketToCart();
 	    	Stage primaryStage = new Stage();
 			CustomerMainWindow aFrame = new CustomerMainWindow();
 			try 
@@ -167,6 +219,7 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    @FXML
 	    void seeAccount(ActionEvent event) 
 	    {
+	    	addBasketToCart();
 
 	    }
 
@@ -185,6 +238,8 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    @FXML
 	    void btnCartPressed(ActionEvent event) 
 	    {
+	    	addBasketToCart();
+
 	      	Stage primaryStage = new Stage();
 	       	OrdersControl aFrame = new OrdersControl();
  			this.btnCart.getScene().getWindow().hide(); //hiding primary window
@@ -205,17 +260,23 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    void itemTypeComboPressed(ActionEvent event) 
 	    {
 	    	this.ItemType=itemTypeCombo.getValue();
+	    	shutDownBasket();
 	    }
 
 	    @FXML
 	    void DominantColorComboPressed(ActionEvent event) 
 	    {
 	    	this.ItemColor=DominantColorCombo.getValue();
+	    	shutDownBasket();
 	    }
 
 	    @FXML
 	    void createItemBtnPressed(ActionEvent event) 
 	    {
+	    	CustomerFlowers.clear();
+	    	basketStatusLabel.setVisible(false);
+	    	addToCartBtn.setDisable(true);
+	    	removeBtnCart.setDisable(true);
 	    	this.priceComposition=0;
 	    	this.quantityComposition=0;
 	    	if( this.ItemType.equals("") || this.priceRangeMinTxt.getText().equals("") || this.priceRangeMaxTxt.getText().equals(""))
@@ -299,6 +360,7 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    	flowersCompositionTable.setItems(CustomerFlowers);
 	    	this.labelQtyFlower.setText("Number of flowers: "+this.quantityComposition+" items");
 	    	this.labelItemPrice.setText("Item price: "+this.priceComposition+"$");
+	    	addToCartBtn.setDisable(false);
 	    }
 
 	
@@ -564,8 +626,21 @@ public class CustomOrderControl extends LoginContol implements Initializable
 		   FlowerColorClomun.setStyle( "-fx-alignment: CENTER;");
 		   FlowerPriceClomun.setStyle( "-fx-alignment: CENTER;");
 
+		   priceRangeMinTxt.textProperty().addListener((obs, oldText, newText) -> {
+			   shutDownBasket();
+			    // ...
+			});
+		   priceRangeMaxTxt.textProperty().addListener((obs, oldText, newText) -> {
+			   shutDownBasket();
+			    // ...
+			});
 		   
-		   
-		   
+	}
+	private void shutDownBasket()
+	{
+		basketStatusLabel.setVisible(false);
+		addToCartBtn.setDisable(true);
+		removeBtnCart.setDisable(true);
+		CustomerFlowers.clear();
 	}
 }

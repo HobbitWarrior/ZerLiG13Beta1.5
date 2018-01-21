@@ -5,20 +5,22 @@ import java.util.ArrayList;
 
 public class CustomItemInOrder extends ItemInOrder implements Serializable
 {
-
+	private String itemType;
 	private ArrayList<Flower> flowersInItem;
-	public CustomItemInOrder(int orderid, int itemId, String itemName, double price,ArrayList<Flower> flowersInItem) 
-	{
+	public CustomItemInOrder(int orderid, int itemId, String itemName,String itemType, double price,ArrayList<Flower> flowersInItem) 
+	{ 
 		super(orderid, itemId, itemName, price);
 		this.flowersInItem = flowersInItem;
+		this.itemType=itemType;
 	}
 	
-	public CustomItemInOrder(int itemId, String itemName, double price,ArrayList<Flower> flowersInItem) 
+	public CustomItemInOrder(int itemId, String itemName,String itemType, double price,ArrayList<Flower> flowersInItem) 
 	{
 		super(itemId, itemName, price);
 		this.flowersInItem = flowersInItem;
+		this.itemType=itemType;
 
-	}
+	} 
 
 	public ArrayList<Flower> getFlowersInItem() 
 	{
@@ -30,6 +32,13 @@ public class CustomItemInOrder extends ItemInOrder implements Serializable
 		this.flowersInItem = flowersInItem;
 	}
 
+	@Override
+	public String toString() {
+		return "CustomItemInOrder [flowersInItem=" + flowersInItem + ", getOrderID()=" + getOrderID()
+				+ ", getItemQty()=" + getItemQty() + ", getItemName()=" + getItemName()
+				+ ", getItemTotalPriceWithCoin()=" + getItemTotalPriceWithCoin() + "]" +flowersInItem;
+	}
 
+ 
 
 }
