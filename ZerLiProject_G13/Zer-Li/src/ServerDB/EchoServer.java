@@ -184,6 +184,53 @@ public class EchoServer extends AbstractServer implements Initializable
 				return;
 			}
 			 
+			
+			
+			// get all the complaints from the DB
+			if (DiscoverMessage.equals("complaintsList")) {
+				System.out.println("Dear server will you be so kind to get all the Compliants from the DB?");
+				ArrayList<complaint> Complaints = new ArrayList<complaint>();
+				try {
+					// get the items from the DB
+					Statement st = (Statement) ServerDataBase.createStatement();
+
+					ResultSet rs = st.executeQuery("SELECT * FROM complaints");
+
+					while (rs.next()) {
+						/*
+						 * String BranchName = "" + rs.getString(1); String BranchAdress = "" +
+						 * rs.getString(2);
+						 */
+						int i = 1;
+						complaint Complaint = new complaint(rs.getInt(i++), rs.getInt(i++), rs.getInt(i++),
+								rs.getString(i++), rs.getString(i++), rs.getString(i++), rs.getString(i), "no details");
+						// 1 2 3 4 5 6 7
+						Complaints.add(Complaint);
+						System.out.print("complaint: " + Complaint.getComplaintID() + " " + Complaint.getCustomerID()
+								+ " " + Complaint.getDateComplaint() + " " + Complaint.getDetails() + " "
+								+ Complaint.getEmpHandling() + "\n");
+					}
+
+					// serialize the array, but the array i already a serializable :O
+					Message Msg = new Message(Complaints, "ComplaintsList");
+					rs.close();
+					st.close();
+					this.sendToAllClients(Msg);
+
+				} catch (SQLException e) {
+					System.out.print("Sorry something went wrong with the SQL expression\n");
+					e.printStackTrace();
+				} catch (Exception e) // SQLException
+				{
+					System.out.println("Error, sorry something went wrong, could not get the complaints list");
+					this.sendToAllClients("GetFail");
+				}
+			}
+			// -----------------------------------------------------------//
+
+			
+			
+			
             //-----------------------------------------------//
 			
 			
