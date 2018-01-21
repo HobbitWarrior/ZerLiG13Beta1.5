@@ -9,7 +9,7 @@ public class Flower implements Serializable
 	private String flowerColor;
 	private String flowerName;
 	private double flowerPrice;
-	
+	private String flowerPriceWIthCoins;
 	
 	public Flower()
 	{
@@ -22,7 +22,8 @@ public class Flower implements Serializable
 		this.flowerColor = flowerColor;
 		this.flowerName = flowerName;
 		this.flowerPrice = flowerPrice;
-	}
+		flowerPriceWIthCoins=""+ flowerPrice+"$";
+	} 
 
 	public int getFlowerID() 
 	{
@@ -69,6 +70,14 @@ public class Flower implements Serializable
 	{
 		return "Flower [flowerID=" + flowerID + ", flowerColor=" + flowerColor + ", flowerName=" + flowerName
 				+ ", flowerPrice=" + flowerPrice + "]";
+	}
+
+	public String getFlowerPriceWIthCoins() {
+		return flowerPriceWIthCoins;
+	}
+
+	public void setFlowerPriceWIthCoins(String flowerPriceWIthCoins) {
+		this.flowerPriceWIthCoins = flowerPriceWIthCoins;
 	}
 
 	

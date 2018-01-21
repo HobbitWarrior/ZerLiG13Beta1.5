@@ -25,15 +25,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
 public class CustomOrderControl extends LoginContol implements Initializable
 {
 	public static ObservableList<Flower> allFlowers= FXCollections.observableArrayList();
+	public static ObservableList<Flower> CustomerFlowers= FXCollections.observableArrayList();
+
 	public static int numberOfColors=0;
 	private String ItemType  ="";
 	private int min=0;
@@ -92,7 +97,32 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    @FXML
 	    private Button btnCatalog;
 	    
+	    @FXML
+	    private Label labelItemPrice;
 	    
+	    @FXML
+	    private Label labelQtyFlower;
+	    
+	    @FXML
+	    private TableView<Flower> flowersCompositionTable;
+	    
+	    @FXML
+	    private TableColumn<Flower, Integer> FlowerIDClomun;
+	    
+	    @FXML
+	    private TableColumn<Flower, String> FlowerNameClomun;
+	    	    
+	    @FXML
+	    private TableColumn<Flower, String> FlowerColorClomun;
+	    
+	    @FXML
+	    private TableColumn<Flower, String> FlowerPriceClomun;
+	    
+	    
+	    
+	    
+
+
 
 	    @FXML
 	    void btenCatalogPressed(ActionEvent event) 
@@ -244,6 +274,10 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    	}
 	    	if(this.quantityComposition<15)
     		{
+		    	CustomerFlowers.clear();
+		    	this.labelQtyFlower.setText("Number of flowers: 0 items");
+		    	this.labelItemPrice.setText("Item price: 0$");
+
     			this.quantityComposition=0;
     			this.priceComposition=0;
     			flowerComposion.clear();
@@ -251,8 +285,20 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    		alert.setTitle("Item not fount");
 	    		alert.setHeaderText("We didn't find an item for you.");
 	    		alert.showAndWait();
+
 	    		return;
     		}
+	    	CustomerFlowers.clear();
+
+	    	for(int i=0 ; i < flowerComposion.size(); i++ )
+	    	{
+	    		CustomerFlowers.add(flowerComposion.get(i));
+	    	}
+	    	
+	    
+	    	flowersCompositionTable.setItems(CustomerFlowers);
+	    	this.labelQtyFlower.setText("Number of flowers: "+this.quantityComposition+" items");
+	    	this.labelItemPrice.setText("Item price: "+this.priceComposition+"$");
 	    }
 
 	
@@ -504,5 +550,22 @@ public class CustomOrderControl extends LoginContol implements Initializable
 		    }
 		});
 		
+		
+		   FlowerIDClomun.setCellValueFactory(new PropertyValueFactory<Flower, Integer>("flowerID"));
+		    
+		   FlowerNameClomun.setCellValueFactory(new PropertyValueFactory<Flower, String>("flowerName"));
+		    	    
+		   FlowerColorClomun.setCellValueFactory(new PropertyValueFactory<Flower, String>("flowerColor"));
+		    
+		   FlowerPriceClomun.setCellValueFactory(new PropertyValueFactory<Flower, String>("flowerPriceWIthCoins"));
+		   
+		   FlowerIDClomun.setStyle( "-fx-alignment: CENTER;");
+		   FlowerNameClomun.setStyle( "-fx-alignment: CENTER;");
+		   FlowerColorClomun.setStyle( "-fx-alignment: CENTER;");
+		   FlowerPriceClomun.setStyle( "-fx-alignment: CENTER;");
+
+		   
+		   
+		   
 	}
 }

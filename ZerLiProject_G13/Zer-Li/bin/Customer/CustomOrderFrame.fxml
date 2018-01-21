@@ -79,5 +79,15 @@
          </font>
       </Label>
       <Button fx:id="btnCatalog" layoutX="563.0" layoutY="175.0" mnemonicParsing="false" onAction="#btenCatalogPressed" opacity="0.0" prefHeight="38.0" prefWidth="87.0" text="Button" />
+      <TableView fx:id="flowersCompositionTable" editable="true" layoutX="190.0" layoutY="547.0" prefHeight="200.0" prefWidth="436.0">
+        <columns>
+          <TableColumn fx:id="FlowerIDClomun" editable="false" prefWidth="85.0" resizable="false" text="FlowerID" />
+          <TableColumn fx:id="FlowerNameClomun" editable="false" prefWidth="129.0" resizable="false" text="Flower name" />
+            <TableColumn fx:id="FlowerColorClomun" editable="false" prefWidth="106.0" resizable="false" text="Flower color" />
+            <TableColumn fx:id="FlowerPriceClomun" editable="false" prefWidth="115.0" resizable="false" text="Flower price" />
+        </columns>
+      </TableView>
+      <Label fx:id="labelQtyFlower" layoutX="535.0" layoutY="770.0" text="Number of flowers: 0 items" />
+      <Label fx:id="labelItemPrice" layoutX="537.0" layoutY="787.0" text="Item price: 0$" />
    </children>
 </AnchorPane>
