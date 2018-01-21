@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -38,6 +39,8 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	private int min=0;
 	private int max=0;
 	private String ItemColor ="";
+	private double priceComposition=0;
+	private int quantityComposition=0;
 	
 	
 	
@@ -157,7 +160,8 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    @FXML
 	    void createItemBtnPressed(ActionEvent event) 
 	    {
-	    	
+	    	this.priceComposition=0;
+	    	this.quantityComposition=0;
 	    	if( this.ItemType.equals("") || this.priceRangeMinTxt.getText().equals("") || this.priceRangeMaxTxt.getText().equals(""))
 	    	{
 	    		Alert alert = new Alert(AlertType.ERROR);
@@ -176,7 +180,7 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    	{
 	    		Alert alert = new Alert(AlertType.ERROR);
 	    		alert.setTitle("You inserted wrong values of price range");
-	    		alert.setHeaderText("Your max range is lower than min range");
+	    		alert.setHeaderText("Your max range is lower or equal to the min range");
 	    		alert.setContentText("Ooops, You inserted wrong range");
 	    		alert.showAndWait();
 	    		return;
@@ -202,6 +206,20 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    	if(ItemColor.equals(""))
 	    	{
 	    		flowerComposion = createCompositeWithoutAnyColor(flowerComposion);
+	    		
+	    		System.out.println("total price of composiotn is : " +this.priceComposition +" quantity of flowers is:"+this.quantityComposition);
+	    		System.out.println("all flowers are:\n" +flowerComposion);
+	    		if(this.quantityComposition<15)
+	    		{
+	    			this.quantityComposition=0;
+	    			this.priceComposition=0;
+	    			flowerComposion.clear();
+	    			Alert alert = new Alert(AlertType.WARNING);
+		    		alert.setTitle("Item not fount");
+		    		alert.setHeaderText("We didn't find an item for you.");
+		    		alert.showAndWait();
+		    		return;
+	    		}
 	    	}
 	    	else
 	    	{
@@ -227,18 +245,17 @@ public class CustomOrderControl extends LoginContol implements Initializable
 
 	private ArrayList<Flower> createCompositeWithoutAnyColor(ArrayList<Flower> flowerComposion) 
 	{
-		try
-		{
+		
 		ArrayList<String> colorsInserted = new ArrayList<String>();
-		double priceOfcomposite=0;
+		double NowpriceOfcomposite=0;
 		for(int i=0 ; i < this.allFlowers.size() ; i++)	//scan all flower and put in the basket all of the cheapest flowers in different colors
 		{
 			if( ! colorsInserted.contains( allFlowers.get(i).getFlowerColor() ))	//if the color didn't count already
 			{
-				if(priceOfcomposite < this.max)	//if the total price of our composition is lower than the lower limit that customer choose put the flower in the basket
+				if(NowpriceOfcomposite < this.max)	//if the total price of our composition is lower than the lower limit that customer choose put the flower in the basket
 				{
 					flowerComposion.add(this.allFlowers.get(i));
-					priceOfcomposite=priceOfcomposite+this.allFlowers.get(i).getFlowerPrice();
+					NowpriceOfcomposite = NowpriceOfcomposite + this.allFlowers.get(i).getFlowerPrice();
 					colorsInserted.add(this.allFlowers.get(i).getFlowerColor());
 				}
 				else
@@ -246,42 +263,59 @@ public class CustomOrderControl extends LoginContol implements Initializable
 					break;
 				}
 				
-			}	
-		}
-		Random rand = new Random();
-
-	
-		while(priceOfcomposite<this.min || priceOfcomposite>this.max)
-		{
-			while(priceOfcomposite < this.max )	// if still we didn`t reach to the lower limit, take a random flower
-			{
-				int  myRandomNum = rand.nextInt(this.allFlowers.size()-1) ;
-				flowerComposion.add(this.allFlowers.get(myRandomNum));
-				priceOfcomposite=priceOfcomposite+this.allFlowers.get(myRandomNum).getFlowerPrice();
 			}
-		
-			while(priceOfcomposite > this.max )	// if still we didn`t reach to the lower limit, take a random flower
+			if(NowpriceOfcomposite < this.max && i==(this.allFlowers.size()-1))
 			{
-				int  myRandomNum = rand.nextInt(flowerComposion.size()-1) ;
-				flowerComposion.remove(myRandomNum);
-				priceOfcomposite=priceOfcomposite-this.allFlowers.get(myRandomNum).getFlowerPrice();
+				i=0;
+				colorsInserted.clear();
 			}
 		}
-		
-		//here we get all cheapest flowers from different colors
-		System.out.println("total price of composiotn is : " +priceOfcomposite +" quantity of flowers is:"+flowerComposion.size());
-		System.out.println("all flowers are:\n" +flowerComposion);
-		}
-		
-		catch(Exception e)
+		int i;
+		while(NowpriceOfcomposite > this.max )
 		{
-			System.out.println("Cannot find composition");
-	    	ArrayList<Flower> flowerComposionSafe = new ArrayList<Flower>();
-	    	return flowerComposionSafe;
-
 			
+			for( i =flowerComposion.size()-1 ; i >= 0  ; i--)	
+			{
+				if( ( NowpriceOfcomposite - flowerComposion.get(i).getFlowerPrice() ) <= this.max  && ( NowpriceOfcomposite - flowerComposion.get(i).getFlowerPrice() ) >=this.min)  
+				{
+					NowpriceOfcomposite = NowpriceOfcomposite - flowerComposion.get(i).getFlowerPrice();
+					flowerComposion.remove(i);
+					break;
+				}
+			}
+			if(i==-1)
+			{
+				flowerComposion.clear();
+				this.priceComposition=0;
+				this.quantityComposition=0;
+				NowpriceOfcomposite = 0;
+				break;
+			}
 		}
-		return flowerComposion;
+		
+		if(! flowerComposion.isEmpty())
+		{
+			this.priceComposition = NowpriceOfcomposite;
+			this.quantityComposition=flowerComposion.size();
+
+		Collections.sort(flowerComposion, new Comparator<Flower>()
+		{
+				@Override
+				public int compare(Flower firstFlower, Flower anotherFlower) {
+				double comparePrice =  anotherFlower.getFlowerPrice();
+						double result = firstFlower.getFlowerPrice() - comparePrice;
+						if(result ==0)
+						return 0;
+						else if(result >0)
+								return 1;
+						else
+								return -1;
+				}
+	
+			});
+		}
+
+		return flowerComposion; 
 		}
 
 	private static void sortFlowers()
