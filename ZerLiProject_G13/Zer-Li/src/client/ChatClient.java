@@ -31,6 +31,9 @@ import Customer.CustomerTransaction;
 import Customer.Flower;
 import Customer.MessgaeCatalogProduct;
 import Customer.OrdersControl;
+import CustomerServiceDepartmentworker.CustomerServiceDepartmentworkerMainWindow;
+import CustomerServiceDepartmentworker.complaint;
+import CustomerServiceDepartmentworker.complaintRow;
 import Users.LoginContol;
 import Users.User;
 
@@ -386,6 +389,27 @@ public class ChatClient extends AbstractClient {
 				return;
 			}
 			
+			
+			
+			
+			/*complaints list handler*/
+			
+			if(ServerMsg.getMsgType().equals("ComplaintsList"))
+			{
+				//point the active complains that were retrieved from the server to the arrayList in the 
+				//CustomerServiceDepartmentwokerMainWindow class
+				CustomerServiceDepartmentworkerMainWindow.activeComplaints=(ArrayList<complaint>) ServerMsg.getMsgObject();
+				for(complaint c : CustomerServiceDepartmentworkerMainWindow.activeComplaints)
+				{
+					System.out.print("complaint: " + c.getComplaintID()+" "+c.getCustomerID()+" "+c.getDateComplaint()+" "+c.getDetails()+" "+c.getEmpHandling()+" "+c.getStatus()+" "+c.getTimeComplaint()+" "+c.getTopic()+"\n");
+					CustomerServiceDepartmentworkerMainWindow.upgradedList.add(new complaintRow("Customer:" +c.getCustomerID()+" Topic: "+c.getTopic()+"  ",c.getTimeComplaint(), CustomerServiceDepartmentworkerMainWindow.mainStageReference));
+				}
+				quit();
+				return;
+			}
+			
+			
+			
 		}	// end of Message type
 		
 		
@@ -706,7 +730,7 @@ public class ChatClient extends AbstractClient {
 	
 	/*(AZ) this method requests all the active complaints from the server
 	 */
-	public void sendRequestToGetComplaints(int itemID)
+	public void sendRequestForComplaintsList()
 	{
 		try 
 		{
@@ -907,6 +931,15 @@ public class ChatClient extends AbstractClient {
 		}	
 	}
 
+	/**the following method will request from the server to send 
+	 * all the current active complaints from the DB
+	 * @param customerMainWindow
+	 */
+
+
+	
+	
+	
 	public void setMainCustomerControler(CustomerMainWindow customerMainWindow) 
 	{
 		this.mainCustomerWindow = customerMainWindow;

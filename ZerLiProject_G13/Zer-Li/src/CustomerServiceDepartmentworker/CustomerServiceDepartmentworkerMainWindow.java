@@ -3,10 +3,12 @@ package CustomerServiceDepartmentworker;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.lang.*;
 import javafx.concurrent.Task;
 import Customer.CatalogItemGUI;
+import client.ChatClient;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -39,9 +41,10 @@ import javafx.beans.binding.*;
 
 public class CustomerServiceDepartmentworkerMainWindow implements Initializable {
 
-	public Stage mainStageReference;
+	public static Stage mainStageReference;
 	public static // a version with a complaintRow class instead of a String
 	ObservableList<complaintRow> upgradedList = FXCollections.observableArrayList();
+	public static ArrayList<complaint> activeComplaints;
 
 	@FXML
 	public Button newComplaint;
@@ -58,9 +61,15 @@ public class CustomerServiceDepartmentworkerMainWindow implements Initializable 
 	public static int complaintID;
 	public static int customerServiceID;
 
+	//create a chatClient instance, for com with the server
+	public ChatClient cClient;
 	public void start(Stage primaryStage) throws Exception {
 
+		//will be used to track back to the main window
 		mainStageReference = primaryStage;
+		
+		ChatClient cClient=new ChatClient("localhost",5555);
+		cClient.sendRequestForComplaintsList();
 
 		Parent root = FXMLLoader.load(getClass()
 				.getResource("/CustomerServiceDepartmentworker/CustomerServiceDepartmentworkerMainWindow.fxml"));
@@ -172,19 +181,19 @@ public class CustomerServiceDepartmentworkerMainWindow implements Initializable 
 	public void initialize(URL location, ResourceBundle resources) {
 		newComplaint.setText("New Complaint...");
 
-		upgradedList.add(new complaintRow("just adding an item to a static list", mainStageReference));
+		upgradedList.add(new complaintRow("just adding an item to a static list","13:10", mainStageReference));
 
 		/*
 		 * new complaintRow("this is a sad"), new complaintRow("about a list "), new
 		 * complaintRow("that its only purpose is"), new
 		 * complaintRow("to store angry customers complaints :("), new complaintRow()
 		 */
-		upgradedList.add(new complaintRow("this is a sad", mainStageReference));
-		upgradedList.add(new complaintRow("that its only purpose is", mainStageReference));
-		upgradedList.add(new complaintRow("to store angry customers complaints :(", mainStageReference));
+		upgradedList.add(new complaintRow("this is a sad","17:48", mainStageReference));
+		upgradedList.add(new complaintRow("that its only purpose is","17:40", mainStageReference));
+		upgradedList.add(new complaintRow("to store angry customers complaints :(", "15:35",mainStageReference));
 		upgradedList.add(new complaintRow(mainStageReference));
-
-		// point the complaintlist to the observable upgradedList
+		
+		// point the complaintList to the observable upgradedList
 		complaintsList.setItems(upgradedList);
 		// define the cell style
 		complaintsList.setCellFactory(new Callback<ListView<complaintRow>, ListCell<complaintRow>>() {
@@ -193,5 +202,10 @@ public class CustomerServiceDepartmentworkerMainWindow implements Initializable 
 				return new XCell();
 			}
 		});
+	}
+	
+	public void loadListOfComplaintsFromServer()
+	{
+		
 	}
 }

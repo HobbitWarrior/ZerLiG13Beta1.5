@@ -35,9 +35,10 @@ public class complaintRow {
 		seconds = rn.nextInt(60);
 	}
 
-	public complaintRow(String complaintText, Stage stg) {
+	public complaintRow(String complaintText, String time, Stage stg) {
 		this(stg);
 		complaintLabelSetter(complaintText);
+		GetComplaintOpeningTime(time);
 	}
 
 	public complaintRow(Stage stg) {
@@ -62,9 +63,9 @@ public class complaintRow {
 
 	public void timerTextSetter(String Hours, String Minutes, String Seconds) {
 
-		int hh = Math.abs(Integer.parseInt(Hours) - hours);
-		int mm = Math.abs(Integer.parseInt(Minutes) - minutes);
-		int ss = Math.abs(Integer.parseInt(Seconds) - seconds);
+		int hh = Integer.parseInt(Hours) - hours;
+		int mm = Integer.parseInt(Minutes) - minutes;
+		int ss = Integer.parseInt(Seconds) - seconds;
 		// add leading zero's if the time digit is less than 10
 		String HH = "";
 		String MM = "";
@@ -78,6 +79,18 @@ public class complaintRow {
 		timerText.set(HH + hh + ":" + MM + mm + " : " + SS + ss);
 	}
 
+	//parse time to 'hours','minutes' & 'seconds' of type int
+	public void GetComplaintOpeningTime(String time) {
+
+		String[] Time=time.split(":");
+		hours=Integer.parseInt(Time[0]);
+		minutes=Integer.parseInt(Time[1]);
+	}
+
+	
+	
+	
+	
 	// event handler for the button
 	public void buttonEventHandler() {
 		// open a new edit complaint, opens the "ManageComplaintFrame"
