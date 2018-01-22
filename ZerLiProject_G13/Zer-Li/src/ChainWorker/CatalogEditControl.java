@@ -8,29 +8,22 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
-import com.mysql.jdbc.Blob;
 
 import Catalog.CatalogItem;
 import Customer.CatalogItemGUI;
-import Customer.CustomerMainWindow;
 import Customer.OrdersControl;
 import Users.LoginContol;
 import client.ChatClient;
 import common.MyFile;
-import javafx.beans.property.ReadOnlyObjectProperty;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
