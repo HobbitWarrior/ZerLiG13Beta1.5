@@ -137,7 +137,7 @@ public class CatalogEditControl extends LoginContol implements Initializable
 			LoginContol aFrame = new LoginContol(); // create Login Frame
 			Stage arg0 = new Stage();
 			OrdersControl.ItemsInOrderList.clear();
-			this.catalogList.clear();            // *************************need to check if i can delete only the "this." so it look like: catalogList.clear();
+			catalogList.clear();
 			aFrame.start(arg0);
 	    }
 	    
@@ -665,7 +665,7 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    	loadPressed=0;
 
 	    	
-	    	this.catalogList.clear();
+	    	catalogList.clear();
 	    	
 			int port = PORT;
 			String ip = ServerIP;
