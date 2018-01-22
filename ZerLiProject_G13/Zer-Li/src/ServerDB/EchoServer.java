@@ -33,29 +33,17 @@ import Customer.Flower;
 import Customer.ItemInOrder;
 import Customer.MessgaeCatalogProduct;
 import Customer.PrivateShipment;
-import Customer.Time;
-import ServerDB.Product;
-import Users.LoginContol;
 import Users.User;
 import client.Message;
 import common.Branch;
 import common.MyFile;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import ocsf.server.*;
 
 public class EchoServer extends AbstractServer implements Initializable 
 {
 	// Class attributes *************************************************
 
-	private String UserName;
-	private String Password;
-	private String DataBaseName;
 	private Connection ServerDataBase;
 	private boolean DB_ACCOUNT;
  
@@ -185,7 +173,7 @@ public class EchoServer extends AbstractServer implements Initializable
 				return;
 			}
 			 
-			
+			//-----------------------------------------------------------//
 			
 			// get all the complaints from the DB
 			if (DiscoverMessage.equals("complaintsList")) {
@@ -227,15 +215,9 @@ public class EchoServer extends AbstractServer implements Initializable
 					this.sendToAllClients("GetFail");
 				}
 			}
-			// -----------------------------------------------------------//
-
 			
-			
-			
-            //-----------------------------------------------//
-			
-			
-		// "Please change Entry of user: "  "Please change Entry of user: "+UserName;
+			//-----------------------------------------------------------//
+					
 		if ( (DiscoverMessage.length()) >= 28 )	//from here there is a process that check if client asking to change entry status of userName 
 		{
 
@@ -251,7 +233,7 @@ public class EchoServer extends AbstractServer implements Initializable
 					return;
 			}
 			
-			//-----------------------------------------------------------//
+			//------------------------
 			
 			if (checkSubString.equals("Please delete item with ID: "))
 			{
@@ -265,7 +247,7 @@ public class EchoServer extends AbstractServer implements Initializable
 					return;
 			}
 			
-			//-----------------------------------------------------------//
+			//------------------------
 			
 			if (checkSubString.equals("Please Check if Unique ID:  "))
 			{
@@ -524,7 +506,7 @@ public class EchoServer extends AbstractServer implements Initializable
 
 		 }
 
-		
+		//---------------------------------------instanceof MessgaeCatalogProduct----------------------------------------------------
 		if(msg instanceof MessgaeCatalogProduct)
 		 {/***this method will give client all catalog items of a specific branch*/
 			System.out.println("Get all CatalogItems of a branch from DB");
@@ -559,11 +541,13 @@ public class EchoServer extends AbstractServer implements Initializable
 			return;
 		 }
 		
+		//---------------------------------------instanceof CustomerTransaction----------------------------------------------------
 		if(msg instanceof CustomerTransaction)
 		 {
 			System.out.println("server got request to save order");
 		 }
 		
+
 		if(msg instanceof CustomerTransaction)
 		{	/**this part responsible on check if payment account ok and save later the data of orders in db*/
 			System.out.println("server got request to save order");
@@ -618,7 +602,7 @@ public class EchoServer extends AbstractServer implements Initializable
 	
 		 }	
 		
-		
+		//---------------------------------------instanceof SpecialBranchesMessage----------------------------------------------------
 		
 		if (msg instanceof SpecialBranchesMessage) 		//Elias condition to get branches and branches managers
 		{ 
@@ -662,6 +646,7 @@ public class EchoServer extends AbstractServer implements Initializable
 		
 		}
 	
+		//---------------------------------------instanceof Flower----------------------------------------------------
 		if (msg instanceof Flower) 
 		{ 
 			System.out.println("Server got message about flowers form client!!!!!!");
@@ -687,7 +672,15 @@ public class EchoServer extends AbstractServer implements Initializable
 			
 		}
 	} //end of handleMessageFromClient
+	//***********************************************************************************************************************************************************************************
+	// Class methods ********************************************************************************************************************************************************************
+	//***********************************************************************************************************************************************************************************
 	
+	
+	
+	
+	
+	//***********************************************************************************************************************************************************************************
 	private ArrayList<Flower> putOutAllFlowers(ArrayList<Flower> allFlowersFromDB) throws SQLException 
 	{	/**this method responsible to put out all of the flowers in the db*/
 		Statement st = (Statement) ServerDataBase.createStatement();
@@ -710,7 +703,7 @@ public class EchoServer extends AbstractServer implements Initializable
 
 		return allFlowersFromDB;
 	}
-
+	//***********************************************************************************************************************************************************************************
 	private CustomerTransaction SaveOrderInDB(CustomerTransaction myOrder) 
 	{/**saveOrderInDB method responsible to save order information on 7 tables in db*/
 
@@ -758,7 +751,7 @@ public class EchoServer extends AbstractServer implements Initializable
 		return myOrder;
 	}
 	
-	
+	//***********************************************************************************************************************************************************************************	
 	private void saveDeliveryOfCustomerOrder(CustomerTransaction myOrder) 
 	{		/**this methods responsible on saving delivery data in branchShipment/privateShipment  tables*/
 		Delivery orderDelivery = myOrder.getOrderCustomerDelivery();
@@ -973,9 +966,6 @@ public class EchoServer extends AbstractServer implements Initializable
 				e.printStackTrace();
 			}
 			System.out.println("Data saved in customIteminOrder table!!");
-
-		//dd
-		
 		
 		
 	}
@@ -1027,9 +1017,6 @@ public class EchoServer extends AbstractServer implements Initializable
 	{	/**this methods responsible on saving data in customerOrders  table*/
 		System.out.println("Server prepare to save on CustomerOrderTable");
 
-		//***********************************************************************************************************************************$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-
-	
 		// put new row in catalogitems table!!
 
 		try 	
@@ -1107,6 +1094,8 @@ public class EchoServer extends AbstractServer implements Initializable
 		System.out.println("Data saved in customer order!!");
 		
 	}
+	
+	//***********************************************************************************************************************************************************************************
 
 	private void editItemPriceInDB(PercentMSG OB) {
 
@@ -1148,7 +1137,7 @@ public class EchoServer extends AbstractServer implements Initializable
 		
 		
 	}
-
+	//***********************************************************************************************************************************************************************************
 	private CustomerTransaction saveOrderInDB(CustomerTransaction myOrder) 
 	{/**saveOrderInDB method responsible to save order information on 7 tables in db*/
 		try 
@@ -1186,14 +1175,9 @@ public class EchoServer extends AbstractServer implements Initializable
 		
 		return null;
 	}
-
 	
 	
-	
-	
-	
-	
-	
+	//***********************************************************************************************************************************************************************************
 	
 	private int getRandomDeliveryIdFromDB() throws SQLException 
 	{
@@ -1218,7 +1202,7 @@ public class EchoServer extends AbstractServer implements Initializable
 
 		return myRandomNum;
 	}
-
+	//***********************************************************************************************************************************************************************************
 	private int getRandomOrderIdFromDB() throws SQLException 
 	{
 		Statement st = (Statement) ServerDataBase.createStatement();
@@ -1242,7 +1226,7 @@ public class EchoServer extends AbstractServer implements Initializable
 
 		return myRandomNum;
 	}
-
+	//***********************************************************************************************************************************************************************************
 	private CustomerTransaction checkIfAccountOK(CustomerTransaction myOrder, String pA_userName, String pA_Password, String branchID, Date dateOfOrder) throws SQLException 
 	{	/**this method check if payment account of order is ok*/
 		System.out.println("Server enterd to the method of checking account");
@@ -1323,7 +1307,7 @@ public class EchoServer extends AbstractServer implements Initializable
 		myOrder.setMsgToClient("You inserted wrong account details");
 		return myOrder;
 	}
-
+	//***********************************************************************************************************************************************************************************
 	private Date convertSqlDateToDateOfHaim(java.sql.Date myDate) 
 	{	/*this method responsible for convert sql date type to our project date type**/
 		String expDate = ""+ myDate;
@@ -1333,7 +1317,7 @@ public class EchoServer extends AbstractServer implements Initializable
 		Date haimDate = new Date(year, mounth, day);
 		return haimDate;
 	}
-
+	//***********************************************************************************************************************************************************************************
 	private ArrayList<CatalogItem> PutOutAllBranchCatalogItems(ArrayList<CatalogItem> catalogItemsFromDB, String branchID) 
 	{	/**this method return prices for item in specific branch*/
 		Statement st=null;
@@ -1434,7 +1418,6 @@ public class EchoServer extends AbstractServer implements Initializable
 		return branchesFromDB;
 	}
 
-	// Class methods ***************************************************
 	
 	//***********************************************************************************************************************************************************************************
 
@@ -1492,17 +1475,18 @@ public class EchoServer extends AbstractServer implements Initializable
 		return ReportsFromDB;
 
 	}
+	
 	//***********************************************************************************************************************************************************************************
-		//***********************************************************************************************************************************************************************************
 			private ArrayList<Reports> PutOutAllBranchReports(ArrayList<Reports> ReportsFromDB,String mybranchid) throws SQLException {
 
 				Statement st = (Statement) ServerDataBase.createStatement();
 	            
 				ResultSet rs = st.executeQuery("select * from reports where BranchID="+mybranchid+"");
 
-				while (rs.next()) {
+				while (rs.next()) 
+				{
 					int ReportType = rs.getInt(1);
-		  String ReportYear =  rs.getString(2);
+					String ReportYear =  rs.getString(2);
 					
 					int ReportQuarter =  rs.getInt(3);
 					//Image Permition =  rs.getBlob(4);
@@ -1520,7 +1504,7 @@ public class EchoServer extends AbstractServer implements Initializable
 				return ReportsFromDB;
 
 			}
-			//***********************************************************************************************************************************************************************************
+			
 			//***********************************************************************************************************************************************************************************
 			private ArrayList<catalogitemsofbranch> PutOutAllCatalogItemsOfBranch(ArrayList<catalogitemsofbranch> catalogitemsofbranchFromDB,String mybranchid) throws SQLException {
 
