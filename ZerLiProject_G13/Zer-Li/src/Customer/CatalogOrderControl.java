@@ -106,7 +106,7 @@ public class CatalogOrderControl extends LoginContol implements Initializable
     private ImageView imgController;
     
     @FXML
-    private Label branchLabelAtCatalog;
+    private Label branchLabelAtCatalog; //I added this label
     
     @FXML
     void btnCustomisePressed(ActionEvent event)

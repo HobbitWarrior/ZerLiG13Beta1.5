@@ -101,7 +101,7 @@
          </font>
       </Button>
       <Label fx:id="basketStatusLabel" layoutX="683.0" layoutY="560.0" text="Label" visible="false" />
-      <Label fx:id="branchLabelAtCatalog" layoutX="519.0" layoutY="240.0" text="Label" visible="false">
+      <Label fx:id="branchLabelAtCatalog" layoutX="519.0" layoutY="240.0" text="LabelOfBranch" visible="false">
          <font>
             <Font size="18.0" />
          </font>

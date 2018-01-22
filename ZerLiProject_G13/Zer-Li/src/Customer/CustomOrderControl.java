@@ -130,7 +130,7 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    private Label basketStatusLabel;
 
 	    @FXML
-	    private Label branchLabelAtCatalog;
+	    private Label branchLabelAtCatalog; //added this label
 
 	  
 	    private void addBasketToCart()
