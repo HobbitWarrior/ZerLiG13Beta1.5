@@ -47,6 +47,7 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	private String ItemColor ="";
 	private double priceComposition=0;
 	private int quantityComposition=0;
+	private int quantityOfItems=0;
 	
 	 
 		@FXML
@@ -135,10 +136,12 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	  
 	    private void addBasketToCart()
 	    {
-	    	for(int i =0; i< basket.size() ; i++)
-	    	{
-	    		OrdersControl.ItemsInOrderList.add(basket.get(i));
-	    	}
+	    	
+	    		for(int i =0; i< basket.size() ; i++)
+	    		{
+	    			OrdersControl.ItemsInOrderList.add(basket.get(i));
+	    		}
+	    	
 	    }
 	    
 	    
@@ -146,12 +149,24 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    @FXML
 	    void removeBtnCartPressed(ActionEvent event)
 	    {	/**this method remove a custom item from the basket*/
+	    	quantityOfItems--;
+	    	if(this.quantityOfItems>0)
+	    	{
+	    		basket.get(basket.size()-1).setItemQty(quantityOfItems);
+	    	}
+	    	
+	    	else
+	    	{
+		    	basket.remove(basket.size()-1);
+		    	removeBtnCart.setDisable(true);
+
+	    	}
+	    	
 	    	basketStatusLabel.setTextFill(Color.web("#ff0000"));
-	    	basketStatusLabel.setText("Removed from cart");
+	    	basketStatusLabel.setText("Removed from cart,"+" Quantity: "+ quantityOfItems);
 	    	basketStatusLabel.setVisible(true);
-	    	removeBtnCart.setDisable(true);
+	    	
 	    	addToCartBtn.setDisable(false);
-	    	basket.remove(basket.size()-1);
 
 	    }
 	    
@@ -159,19 +174,27 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    @FXML
 	    void addToCartBtnPressed(ActionEvent event)
 	    {	/**this method take a custom item and put it on the basket, basket=place before cart*/
+	    	
+	    	if(this.quantityOfItems==0)
+	    	{
+	    		ArrayList<Flower> myFlowers = new ArrayList <Flower>();
+	    		for(int i = 0 ; i< this.CustomerFlowers.size(); i++)
+	    		{
+	    		myFlowers.add(this.CustomerFlowers.get(i));
+	    		}
+	    		CustomItemInOrder myProduct= new CustomItemInOrder(0, "CustomItem-"+LoginContol.userID, this.ItemType ,this.priceComposition, myFlowers,this.ItemColor);
+	    		basket.add(myProduct);
+	    		quantityOfItems++;
+	    	}
+	    	else
+	    	{
+	    		quantityOfItems++;
+	    		basket.get(basket.size()-1).setItemQty(quantityOfItems);
+	    	}
 	    	basketStatusLabel.setTextFill(Color.web("#09ff00"));
-	    	basketStatusLabel.setText("Added to cart");
+	    	basketStatusLabel.setText("Added to cart,"+" Quantity: "+ quantityOfItems);
 	    	basketStatusLabel.setVisible(true);
 	    	removeBtnCart.setDisable(false);
-	    	addToCartBtn.setDisable(true);
-	    	ArrayList<Flower> myFlowers = new ArrayList <Flower>();
-	    	for(int i = 0 ; i< this.CustomerFlowers.size(); i++)
-	    	{
-	    		myFlowers.add(this.CustomerFlowers.get(i));
-	    	}
-	    	CustomItemInOrder myProduct= new CustomItemInOrder(0, "CustomItem-"+LoginContol.userID, this.ItemType ,this.priceComposition, myFlowers,this.ItemColor);
-	    	basket.add(myProduct);
-
 	    }
 
 
@@ -263,6 +286,7 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    {
 	    	this.ItemType=itemTypeCombo.getValue();
 	    	shutDownBasket();
+	    	this.quantityOfItems=0;
 	    }
 
 	    @FXML
@@ -270,11 +294,13 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    {
 	    	this.ItemColor=DominantColorCombo.getValue();
 	    	shutDownBasket();
+	    	this.quantityOfItems=0;
 	    }
 
 	    @FXML
 	    void createItemBtnPressed(ActionEvent event) 
 	    {
+	    	this.quantityOfItems=0;
 	    	CustomerFlowers.clear();
 	    	basketStatusLabel.setVisible(false);
 	    	addToCartBtn.setDisable(true);
@@ -646,5 +672,7 @@ public class CustomOrderControl extends LoginContol implements Initializable
 		addToCartBtn.setDisable(true);
 		removeBtnCart.setDisable(true);
 		CustomerFlowers.clear();
+    	this.quantityOfItems=0;
+
 	}
 }

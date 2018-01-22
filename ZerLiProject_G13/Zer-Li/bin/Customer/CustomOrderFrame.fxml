@@ -100,7 +100,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Label fx:id="basketStatusLabel" layoutX="683.0" layoutY="560.0" text="Label" visible="false" />
+      <Label fx:id="basketStatusLabel" layoutX="672.0" layoutY="560.0" text="Label" visible="false" />
       <Label fx:id="branchLabelAtCatalog" layoutX="519.0" layoutY="240.0" text="LabelOfBranch" visible="false">
          <font>
             <Font size="18.0" />
