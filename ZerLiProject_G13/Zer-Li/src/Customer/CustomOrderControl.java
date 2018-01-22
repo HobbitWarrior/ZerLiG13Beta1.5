@@ -129,6 +129,8 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    @FXML
 	    private Label basketStatusLabel;
 
+	    @FXML
+	    private Label branchLabelAtCatalog;
 
 	  
 	    private void addBasketToCart()
@@ -634,7 +636,9 @@ public class CustomOrderControl extends LoginContol implements Initializable
 			   shutDownBasket();
 			    // ...
 			});
-		   
+			branchLabelAtCatalog.setText("Your branch: "+CustomerMainWindow.chosenBranchName);
+			branchLabelAtCatalog.setVisible(true);
+ 
 	}
 	private void shutDownBasket()
 	{

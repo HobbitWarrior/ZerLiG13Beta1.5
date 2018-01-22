@@ -105,6 +105,8 @@ public class CatalogOrderControl extends LoginContol implements Initializable
     @FXML
     private ImageView imgController;
     
+    @FXML
+    private Label branchLabelAtCatalog;
     
     @FXML
     void btnCustomisePressed(ActionEvent event)
@@ -247,7 +249,8 @@ public class CatalogOrderControl extends LoginContol implements Initializable
 			MinusColumn.setCellValueFactory(new PropertyValueFactory<CatalogItemGUI, Button>("minusBtn"));
 
 			CatalogTable.setItems(catalogList);
-		
+			branchLabelAtCatalog.setText("Your branch: "+CustomerMainWindow.chosenBranchName);
+			branchLabelAtCatalog.setVisible(true);
 		}
 	 
 		public void start(Stage primaryStage) throws IOException {
@@ -267,8 +270,7 @@ public class CatalogOrderControl extends LoginContol implements Initializable
 				event.consume();
 			});
 			
-			 
-			
+		
 			 
 		}
 	
