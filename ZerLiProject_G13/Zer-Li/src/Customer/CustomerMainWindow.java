@@ -31,7 +31,7 @@ public class CustomerMainWindow extends LoginContol implements Initializable
 	public static ObservableList<Branch> AllBranches= FXCollections.observableArrayList();
 	public static ObservableList<String> AllBranchesNames= FXCollections.observableArrayList();
 	public static String chosenBranchID="";
-	public static String chosenBranchName="";
+	public static String chosenBranchName=""; 
  
     @FXML 
     private Button btnCancelOrder;

@@ -59,7 +59,7 @@ public class OrdersControl extends LoginContol implements Initializable
 	private ObservableList<String> MinutesList = FXCollections.observableArrayList();
 	private LocalDateTime now;
 	private boolean isPrivateShipment=false;
-  
+   
 	@FXML
     private TableView<ItemInOrder> ItemInOrderTable;		//screen1
 	

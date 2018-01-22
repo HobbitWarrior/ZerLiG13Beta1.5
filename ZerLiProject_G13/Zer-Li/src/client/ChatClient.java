@@ -5,7 +5,12 @@ import common.*;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 
 import java.io.*;
 import java.time.Year;
@@ -50,7 +55,7 @@ public class ChatClient extends AbstractClient {
 	public ChatClient(String host, int port) throws IOException {
 		super(host, port); // Call the superclass constructor
 	}
-
+ 
 	// Instance methods ************************************************
 
 	public void setLoginControl(LoginContol login) 
@@ -148,11 +153,19 @@ public class ChatClient extends AbstractClient {
 					String itemDescription = AllCatalogItems.get(i).getItemDescription();
 					MyFile itemPhoto = AllCatalogItems.get(i).getItemPhoto(); 
 					double Price = AllCatalogItems.get(i).getItemPrice();
+					boolean sale=AllCatalogItems.get(i).isSale();
 					
 					if(chooseControl.equals("CatalogOrderControl")) //window of haim
 					{
 					
 					CatalogItemGUI catalogProduct= new CatalogItemGUI(itemID , itemName , itemType , itemDescription , itemPhoto , Price, orderFromCatalog );
+					Label price = new Label(catalogProduct.getItemPriceWithCoin());
+					if(sale==true)
+					{
+						price.setTextFill(Color.web("#ff0000"));
+						price.setFont(Font.font("Ariel", FontWeight.EXTRA_BOLD, FontPosture.ITALIC, 12)); 		
+					}
+					catalogProduct.setPriceItemLabel(price);
 					CatalogOrderControl.catalogList.add(catalogProduct);					// ->* observablelist loaded into the table
 					}
 					
@@ -163,7 +176,7 @@ public class ChatClient extends AbstractClient {
 					CatalogEditControl.catalogList.add(catalogProduct);					// ->* observablelist loaded into the table
 					quit();	//this quit is only here because  CatalogOrderControl need to get branches too!!!, if we put this quit after this if, CatalogOrderControl (of Haim) will not get branches
 					}
-
+ 
 				}
 				
 				/*
@@ -333,6 +346,8 @@ public class ChatClient extends AbstractClient {
 					@Override
 					public void run() 
 					{
+						CustomerMainWindow.AllBranchesNames.clear();
+
 						for (int i = 0; i < AllBranchesFromServer.size(); i++) 
 						{
 							// System.out.println(""+AllUsersFromServer.get(i));

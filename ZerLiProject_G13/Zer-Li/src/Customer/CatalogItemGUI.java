@@ -28,7 +28,7 @@ public class CatalogItemGUI extends CatalogItem
 	private CatalogOrderControl CatalogWindow;
 	private CatalogEditControl CatalogEditWindow;
 	private String ItemPriceWithCoin;
-
+	private Label priceItemLabel=null;
 	
 	
 	public CatalogItemGUI(int itemID, String itemName, String itemType, String itemDescription, MyFile itemPhoto, double Price, CatalogOrderControl window) 
@@ -178,6 +178,16 @@ public class CatalogItemGUI extends CatalogItem
 	public String getItemPriceWithCoin() 
 	{
 		return ItemPriceWithCoin;
+	}
+
+
+	public Label getPriceItemLabel() {
+		return priceItemLabel;
+	}
+
+
+	public void setPriceItemLabel(Label priceItem) {
+		this.priceItemLabel = priceItem;
 	}
 	
 	

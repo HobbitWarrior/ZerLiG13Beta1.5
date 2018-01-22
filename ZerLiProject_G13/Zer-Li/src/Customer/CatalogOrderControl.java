@@ -68,7 +68,7 @@ public class CatalogOrderControl extends LoginContol implements Initializable
 
 	
 	@FXML
-	private TableColumn<CatalogItemGUI, String> CatalogPriceColumn;
+	private TableColumn<CatalogItemGUI, Label> CatalogPriceColumn;
 
 	@FXML
     private TableColumn<CatalogItemGUI, Button> PlusColumn;
@@ -242,7 +242,7 @@ public class CatalogOrderControl extends LoginContol implements Initializable
 			CatalogItemDescriptionColumn.setCellValueFactory(new PropertyValueFactory<CatalogItemGUI, String>("itemDescription"));
 			CatalogItemTypeColumn.setCellValueFactory(new PropertyValueFactory<CatalogItemGUI, String>("itemType"));
 			 CatalogImageColumn.setCellValueFactory(new PropertyValueFactory<CatalogItemGUI,  ImageView>("img"));
-			CatalogPriceColumn.setCellValueFactory(new PropertyValueFactory<CatalogItemGUI, String>("ItemPriceWithCoin"));
+			CatalogPriceColumn.setCellValueFactory(new PropertyValueFactory<CatalogItemGUI, Label>("priceItemLabel"));
 			PlusColumn.setCellValueFactory(new PropertyValueFactory<CatalogItemGUI, Button>("plusBtn"));
 			MinusColumn.setCellValueFactory(new PropertyValueFactory<CatalogItemGUI, Button>("minusBtn"));
 
@@ -267,7 +267,7 @@ public class CatalogOrderControl extends LoginContol implements Initializable
 				event.consume();
 			});
 			
-			
+			 
 			
 			 
 		}

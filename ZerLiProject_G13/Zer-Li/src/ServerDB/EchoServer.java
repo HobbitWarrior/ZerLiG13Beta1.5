@@ -58,14 +58,14 @@ public class EchoServer extends AbstractServer implements Initializable
 	private Connection ServerDataBase;
 	private boolean DB_ACCOUNT;
  
-
+ 
 	// Constructors ****************************************************
 
 	public EchoServer(int port, String UserName, String Password, String DataBaseName) {
 		super(port);
 		ServerDataBase = connectToDB(UserName, Password, DataBaseName);
 	}
-
+ 
 	// handle Messages From Client *****************************************************************************************************************************************************
 
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) 
@@ -1283,6 +1283,7 @@ public class EchoServer extends AbstractServer implements Initializable
 					if(oldItemID == newItemID) //if the item in table catalogitemsofbranch exit, take the new price
 					{
 						catalogItemsFromDB.get(i).setItemPrice(newItemPrice);
+						catalogItemsFromDB.get(i).setSale(true);
 						break;
 					}
 				}

@@ -12,8 +12,8 @@ public class CatalogItem implements Serializable
 	private String itemDescription;
 	private MyFile itemPhoto;
 	private double itemPrice;
-
-
+	private boolean isSale=false;
+ 
 
 	public CatalogItem(int itemID, String itemName,	String itemType , String itemDescription , MyFile itemPhoto ,double Price ) 
 	{
@@ -94,12 +94,26 @@ public class CatalogItem implements Serializable
 
 	}
 	
-
+ 
 	
 	public String toString()
 	{
 		String CatalogProduct = ""+this.itemID+" "+this.itemName+" " +this.itemType+" "+ this.itemDescription  ;
 		CatalogProduct=CatalogProduct+ " "+this.itemPhoto.getFileName()+" "+this.itemPrice;
 		return CatalogProduct;
+	}
+
+
+
+
+	public boolean isSale() {
+		return isSale;
+	}
+
+
+
+
+	public void setSale(boolean isSale) {
+		this.isSale = isSale;
 	}
 }

@@ -48,7 +48,7 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	private double priceComposition=0;
 	private int quantityComposition=0;
 	
-	
+	 
 		@FXML
 	    private Label minLabel;
 
@@ -167,7 +167,7 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    	{
 	    		myFlowers.add(this.CustomerFlowers.get(i));
 	    	}
-	    	CustomItemInOrder myProduct= new CustomItemInOrder(0, "CustomItem-"+LoginContol.userID, this.ItemType ,this.priceComposition, myFlowers);
+	    	CustomItemInOrder myProduct= new CustomItemInOrder(0, "CustomItem-"+LoginContol.userID, this.ItemType ,this.priceComposition, myFlowers,this.ItemColor);
 	    	basket.add(myProduct);
 
 	    }

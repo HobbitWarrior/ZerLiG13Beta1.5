@@ -35,7 +35,7 @@ public abstract class ItemInOrder implements Comparable,Serializable
 		this.itemPrice = price;
 		this.itemTotalPrice = this.itemPrice;
 		itemTotalPriceWithCoin=""+itemTotalPrice+"$";
-
+ 
 		this.itemQty=1;	
 	}
 	
