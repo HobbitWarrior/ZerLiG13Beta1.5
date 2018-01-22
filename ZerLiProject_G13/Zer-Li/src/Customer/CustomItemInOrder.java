@@ -8,6 +8,7 @@ public class CustomItemInOrder extends ItemInOrder implements Serializable
 	private String itemType;
 	private ArrayList<Flower> flowersInItem;
 	private String itemDominantColor="";
+
 	public CustomItemInOrder(int orderid, int itemId, String itemName,String itemType, double price,ArrayList<Flower> flowersInItem,String itemDominantColor) 
 	{ 
 		super(orderid, itemId, itemName, price);
@@ -47,6 +48,14 @@ public class CustomItemInOrder extends ItemInOrder implements Serializable
 
 	public void setItemDominantColor(String itemDominantColor) {
 		this.itemDominantColor = itemDominantColor;
+	}
+
+	public String getItemType() {
+		return itemType;
+	}
+
+	public void setItemType(String itemType) {
+		this.itemType = itemType;
 	}
 
  

@@ -157,7 +157,7 @@ public class CustomerMainWindow extends LoginContol implements Initializable
     
 	public void start(Stage primaryStage) throws IOException  
 	{		
-	  	Pane root = FXMLLoader.load(getClass().getResource("/Customer/CustomerMainFrame.fxml"));
+	  	Pane root = FXMLLoader.load(getClass().getResource("/Customer/CustomerMainWindowFrame.fxml"));
 		Scene scene = new Scene(root);			
 		primaryStage.setTitle("Customer Main Menu"); // name of the title of the window
 		primaryStage.setScene(scene);		
@@ -217,6 +217,7 @@ public class CustomerMainWindow extends LoginContol implements Initializable
 	public void initialize(URL location, ResourceBundle resources) 
 	{/**loading all branches to combobox*/
 		comboBranch.setItems(AllBranchesNames);	
+
 		if(!this.chosenBranchName.equals("")) //if customer already chose branch from previous entrances, keep his choice
 		{
 			comboBranch.setValue(this.chosenBranchName);

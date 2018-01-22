@@ -76,6 +76,11 @@ public abstract class ItemInOrder implements Comparable,Serializable
 		this.orderID = orderID;
 	}
 
+	public void setItemID(int id) 
+	{
+		this.itemID=id;
+	}
+	
 	public int getItemID() 
 	{
 		return itemID;

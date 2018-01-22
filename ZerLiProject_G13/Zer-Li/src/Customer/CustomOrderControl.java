@@ -227,6 +227,7 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    void goHome(ActionEvent event) 
 	    {
 	    	addBasketToCart();
+			this.basket.clear();
 	    	Stage primaryStage = new Stage();
 			CustomerMainWindow aFrame = new CustomerMainWindow();
 			try 
@@ -245,12 +246,15 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    void seeAccount(ActionEvent event) 
 	    {
 	    	addBasketToCart();
+			this.basket.clear();
+
 
 	    }
 
 	    @FXML
 	    void logoutEvent(ActionEvent event) throws IOException 
 	    {
+			this.basket.clear();
 	    	changeEntry(UserNameToCheck);
 			CustomerMainWindow.chosenBranchName="";
 	    	CustomerMainWindow.chosenBranchID="";
@@ -265,7 +269,7 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    void btnCartPressed(ActionEvent event) 
 	    {
 	    	addBasketToCart();
-
+			this.basket.clear();
 	      	Stage primaryStage = new Stage();
 	       	OrdersControl aFrame = new OrdersControl();
  			this.btnCart.getScene().getWindow().hide(); //hiding primary window
@@ -601,6 +605,7 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
+		this.basket.clear();
 		ObservableList<String> allTypes= FXCollections.observableArrayList("Bridal Bouquet","Flower Arrangement","Cluster Flowers","Flowering Plant");		
 		itemTypeCombo.setItems(allTypes);
 		ObservableList<String> allFlowerColors= FXCollections.observableArrayList();

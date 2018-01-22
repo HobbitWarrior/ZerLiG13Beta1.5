@@ -25,6 +25,7 @@ import BranchWorker.Survey;
 import Catalog.CatalogItem;
 import Customer.BranchShipment;
 import Customer.CatalogItemInOrder;
+import Customer.CustomItemInOrder;
 import Customer.CustomerTransaction;
 import Customer.Date;
 import Customer.Delivery;
@@ -855,28 +856,34 @@ public class EchoServer extends AbstractServer implements Initializable
 	private void saveItemInOrderOnCatalogCustomProducts(CustomerTransaction myOrder) 	//this method will be continued
 	{	/**this methods responsible on saving data in catalog/custom item tables*/
 		System.out.println("Server prepare to save on CustomerOrderTable");
+		int OrderID = myOrder.getOrderID();
+		int customerID  = myOrder.getCustomerID();
+		ArrayList<ItemInOrder> allItems = myOrder.getProductsList();
+		ArrayList<CatalogItemInOrder> allCatalogItems = new ArrayList<CatalogItemInOrder>();	//list of catalog items from items in order
+		ArrayList<CustomItemInOrder> allCustomItems = new ArrayList<CustomItemInOrder>();		//list of custom items from items in order
 
 
 		try 	
 		{
 
 			PreparedStatement ps1 = ServerDataBase.prepareStatement("insert into catalogiteminorder (OrderID,ItemID,CustomerID,Quantity,ItemPrice) values (?,?,?,?,?)");
-
-			int OrderID = myOrder.getOrderID();
-			int customerID  = myOrder.getCustomerID();
-			ArrayList<ItemInOrder> allItems = myOrder.getProductsList();
-			ArrayList<CatalogItemInOrder> allCatalogItems = new ArrayList<CatalogItemInOrder>();
 			for(int i=0; i< allItems.size() ; i++)
 			{
 				if(allItems.get(i) instanceof CatalogItemInOrder)
 				{
-					ItemInOrder curretnItem = allItems.get(i);
-					CatalogItemInOrder currentCatalogItem = (CatalogItemInOrder) curretnItem;
+					ItemInOrder curretnItemOfCatalog = allItems.get(i);
+					CatalogItemInOrder currentCatalogItem = (CatalogItemInOrder) curretnItemOfCatalog;
 					allCatalogItems.add(currentCatalogItem);
+				}
+				else if(allItems.get(i) instanceof CustomItemInOrder)
+				{
+					ItemInOrder curretnItemOfCustom = allItems.get(i);
+					CustomItemInOrder currentCustomItem = (CustomItemInOrder) curretnItemOfCustom;
+					allCustomItems.add(currentCustomItem);
 				}
 			}
 			
-			for(int i=0; i < allCatalogItems.size() ; i++)
+			for(int i=0; i < allCatalogItems.size() ; i++)	//insert all catalogItems to table of catalogItems
 			{
 				
 				int itemID = allCatalogItems.get(i).getItemID();
@@ -889,20 +896,86 @@ public class EchoServer extends AbstractServer implements Initializable
 				ps1.setDouble(5, priceOfItem);
 				ps1.executeUpdate();
 			}
-			
-			ps1.close();
-			
-			
 			System.out.println("Data saved in catalogIteminOrder table!!");
 
-			//dd
-		} 
+			ps1.close();
+			
+		}	
+			 
 		
 		catch (SQLException e) 
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	//OrderID
+		
+		//here we will insert customItems to customItems table
+		Statement st=null;	
+		ArrayList<Integer> allCustomItemsID= new ArrayList<Integer>();	//we will collect all customItemsID in order to prevent duplicant ID
+		try 
+		{
+			 st = (Statement) ServerDataBase.createStatement();
+			 
+			 ResultSet rs = st.executeQuery("select * from customeiteminorder ");
+ 
+				 while (rs.next()) 
+				   {
+					 
+					int ItemID =  rs.getInt(1) ;
+					Integer itemID_db= new Integer(ItemID);
+					allCustomItemsID.add(itemID_db);		//here we get all itemsId in order to preven duplicant id
+				   }
+		
+			 rs.close(); 
+		}
+		
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	//OrderID
+		try 
+		{
+			PreparedStatement ps2 = ServerDataBase.prepareStatement("insert into customeiteminorder (OrderID,ItemID,CustomerID,Quantity,ItemPrice,itemtype,DominantColor) values (?,?,?,?,?,?,?)");
+			for(int k =0 ; k< allCustomItems.size() ; k++ )	//we will give random itemID to customItems
+			{
+				Random rand = new Random();
+				int  myRandomNum = rand.nextInt(99999998) +1;
+				while(allCustomItemsID.contains(myRandomNum))
+				{
+					myRandomNum = rand.nextInt(99999998)+1 ;	//find random itemID that is not at the table
+				}
+			
+
+				//orderID kept up^^
+				int itemID = myRandomNum;
+				//customerID kept up^^
+				int quantityOfItem = allCustomItems.get(k).getItemQty();
+				double priceOfItem = allCustomItems.get(k).getItemPrice();
+				String itemType = allCustomItems.get(k).getItemType();
+				String dominantColor = allCustomItems.get(k).getItemDominantColor();
+
+				ps2.setInt(1, OrderID);
+				ps2.setInt(2, itemID);	
+				ps2.setInt(3, customerID);	
+				ps2.setInt(4, quantityOfItem);
+				ps2.setDouble(5, priceOfItem);
+				ps2.setString(6, itemType);
+				ps2.setString(7, dominantColor);
+				ps2.executeUpdate();
+				} 
+			ps2.close();
+
+			}
+			catch (SQLException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("Data saved in customIteminOrder table!!");
+
+		//dd
+		
 		
 		
 	}
