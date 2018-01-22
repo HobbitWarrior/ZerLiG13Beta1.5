@@ -8,11 +8,20 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
+
+import com.mysql.jdbc.Blob;
 
 import Catalog.CatalogItem;
 import Customer.CatalogItemGUI;
@@ -166,8 +175,33 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    
 	    //****************************************************************
 	    
+	    private static void writeBytesToFileClassic(byte[] bFile, String fileDest) {
+
+	        FileOutputStream fileOuputStream = null;
+
+	        try {
+	            fileOuputStream = new FileOutputStream(fileDest);
+	            fileOuputStream.write(bFile);
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        } finally {
+	            if (fileOuputStream != null) {
+	                try {
+	                    fileOuputStream.close();
+	                } catch (IOException e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        }
+
+	    }
+
+	    
+	    
+	    
 	    @FXML
-	    void EditItemEvent(ActionEvent event) 
+	    void EditItemEvent(ActionEvent event) throws FileNotFoundException, IOException 
 	    {
 	    	ObservableList<CatalogItemGUI> itemsInRow = CatalogTable.getSelectionModel().getSelectedItems();
 	    	if(!itemsInRow.isEmpty())
@@ -177,9 +211,76 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    		descriptionTextField.setText(""+itemsInRow.get(0).getItemDescription());
 	    		typeTextField.setText(""+itemsInRow.get(0).getItemType());
 	    		priceTextField.setText(""+itemsInRow.get(0).getItemPrice());
-	 //   		imageTextField.setText(""+itemsInRow.get(0).getImg());
 
-	    		imageTextField.setText(""+itemsInRow.get(0).getItemPhoto().getFileName());
+//	    		imageTextField.setText(""+itemsInRow.get(0).getItemPhoto().getFileName());
+	    		
+	    		
+	    		//***********************************
+	    		
+	    		//FileUtils.writeBytetoFile(new File("C:\\sharon.jpg"),itemsInRow.get(0).getItemPhoto().getMybytearray());
+	    		
+	    		byte[] bytes = itemsInRow.get(0).getItemPhoto().getMybytearray();
+	    		
+	    		String userDir = System.getProperty("user.dir");
+				userDir = userDir + "" + "\\ZerLiProject_G13\\Zer-Li\\src\\ChainWorker\\images\\"+itemsInRow.get(0).getItemID()+".jpg";   		
+	    		writeBytesToFileClassic(bytes, userDir);
+	    		
+	    		imageTextField.setText(""+userDir);
+	    		
+	   
+	    		
+	    		
+	    		/*
+	    		String fileName = "file.test";
+
+	    		BufferedOutputStream bs = null;
+//"C:\\"+ itemsInRow.get(0).getItemID()+".jpg"
+	    		try {
+
+	    		    FileOutputStream fs = new FileOutputStream(new File(fileName));
+	    		    bs = new BufferedOutputStream(fs);
+	    		    bs.write(bytes);
+	    		    bs.close();
+	    		    bs = null;
+
+	    		} catch (Exception e) {
+	    		    e.printStackTrace();
+	    		}
+
+	    		if (bs != null) try { bs.close(); } catch (Exception e) {}
+
+*/
+	    		
+	    		
+	    		
+	    		
+	    /*		String userDir = System.getProperty("user.dir");
+				userDir = itemsInRow.get(0).getItemPhoto().getFileName();
+			    File image = new File(userDir);
+			    FileOutputStream fos = null;
+
+				try 
+				{
+					fos = new FileOutputStream(image);
+
+				} 
+				catch (FileNotFoundException e) 
+				{
+					System.out.println("Cannot create FileOutputStream");
+				}
+				
+				byte[] buffer = getSizeFile.getBytes(1, (int) getSizeFile.length());
+				
+			    //byte[] buffer = new byte[102017];
+			    InputStream is = rs.getBinaryStream(5);
+			    try 
+			    {
+					while (is.read(buffer) > 0) 
+					{
+					    fos.write(buffer);
+
+					}
+				    fos.close();*/
 	    		
 		    	pressedBtn=2; //we pressed on add item
 		    	loadPressed=0;
