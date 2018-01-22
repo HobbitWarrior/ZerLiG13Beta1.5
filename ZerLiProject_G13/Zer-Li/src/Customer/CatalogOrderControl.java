@@ -131,6 +131,9 @@ public class CatalogOrderControl extends LoginContol implements Initializable
 	@FXML
 	void logoutEvent(ActionEvent event) throws IOException 
 	{
+		CustomerMainWindow.chosenBranchID="";
+		CustomerMainWindow.chosenBranchName="";
+
 		changeEntry(UserNameToCheck);
 		System.out.println("return to main menu");
 		((Node) event.getSource()).getScene().getWindow().hide(); // hiding primary window
@@ -139,7 +142,6 @@ public class CatalogOrderControl extends LoginContol implements Initializable
 		OrdersControl.ItemsInOrderList.clear();
 		this.catalogList.clear();
 		aFrame.start(arg0);
-
 	}
 
 	@FXML

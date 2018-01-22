@@ -629,7 +629,8 @@ public class OrdersControl extends LoginContol implements Initializable
     @FXML
     void logoutPressed(ActionEvent event)throws IOException 
 	{
-    	
+		CustomerMainWindow.chosenBranchName="";
+    	CustomerMainWindow.chosenBranchID="";
 		changeEntry(UserNameToCheck);
 		System.out.println("return to main menu");
 		((Node) event.getSource()).getScene().getWindow().hide(); // hiding primary window

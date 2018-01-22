@@ -31,8 +31,8 @@ public class CustomerMainWindow extends LoginContol implements Initializable
 	public static ObservableList<Branch> AllBranches= FXCollections.observableArrayList();
 	public static ObservableList<String> AllBranchesNames= FXCollections.observableArrayList();
 	public static String chosenBranchID="";
-	public static String chosenBranchName=""; 
- 
+	public static String chosenBranchName="";  
+	
     @FXML 
     private Button btnCancelOrder;
 
@@ -106,14 +106,15 @@ public class CustomerMainWindow extends LoginContol implements Initializable
     void logoutEvent(ActionEvent event) throws IOException
     {
     	changeEntry(UserNameToCheck);
-    	
-		System.out.println("return to main menu");
+		CustomerMainWindow.chosenBranchID="";
+		CustomerMainWindow.chosenBranchName="";
+		System.out.println("return to main menu"); 
 		((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window	
 		LoginContol aFrame = new LoginContol(); // create Login Frame
 		Stage arg0 = new Stage();
 		aFrame.start(arg0);
 		
-    }
+    } 
     
     @FXML
     void showCatalog(ActionEvent event) 

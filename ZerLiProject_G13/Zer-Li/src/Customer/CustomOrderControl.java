@@ -252,7 +252,8 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    void logoutEvent(ActionEvent event) throws IOException 
 	    {
 	    	changeEntry(UserNameToCheck);
-	    	
+			CustomerMainWindow.chosenBranchName="";
+	    	CustomerMainWindow.chosenBranchID="";
 			System.out.println("return to main menu");
 			((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window	
 			LoginContol aFrame = new LoginContol(); // create Login Frame
