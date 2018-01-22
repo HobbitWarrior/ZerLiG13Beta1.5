@@ -217,7 +217,6 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    		
 	    		//***********************************
 	    		
-	    		//FileUtils.writeBytetoFile(new File("C:\\sharon.jpg"),itemsInRow.get(0).getItemPhoto().getMybytearray());
 	    		
 	    		byte[] bytes = itemsInRow.get(0).getItemPhoto().getMybytearray();
 	    		
@@ -230,7 +229,8 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	   
 	    		
 	    		
-	    		/*
+/* work but we didn't use...
+ * 
 	    		String fileName = "file.test";
 
 	    		BufferedOutputStream bs = null;
@@ -252,35 +252,6 @@ public class CatalogEditControl extends LoginContol implements Initializable
 */
 	    		
 	    		
-	    		
-	    		
-	    /*		String userDir = System.getProperty("user.dir");
-				userDir = itemsInRow.get(0).getItemPhoto().getFileName();
-			    File image = new File(userDir);
-			    FileOutputStream fos = null;
-
-				try 
-				{
-					fos = new FileOutputStream(image);
-
-				} 
-				catch (FileNotFoundException e) 
-				{
-					System.out.println("Cannot create FileOutputStream");
-				}
-				
-				byte[] buffer = getSizeFile.getBytes(1, (int) getSizeFile.length());
-				
-			    //byte[] buffer = new byte[102017];
-			    InputStream is = rs.getBinaryStream(5);
-			    try 
-			    {
-					while (is.read(buffer) > 0) 
-					{
-					    fos.write(buffer);
-
-					}
-				    fos.close();*/
 	    		
 		    	pressedBtn=2; //we pressed on add item
 		    	loadPressed=0;
@@ -347,7 +318,6 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	 	   try 
 	 	   {
 	 		 myClient = new ChatClient(ip,port);	//create new client
-	// 		 myClient.setLoginControl(this);
 	 	   } 
 	 	   catch (IOException e) 
 	 	   {
@@ -656,12 +626,7 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	 	   
 	 	 
 	 	   CatalogItem newItem=new CatalogItem(newID,newName,newpDescription,newType,newImageFile ,newPrice);
-	 	  /* *****************************for me to check..             need to delete this !!!!!!!!!!!!!!!!!!
-	 	  System.out.println();
-	 	 System.out.println();
-	 	  System.out.println("the item: "+newID+", "+newName+", "+newpDescription+", "+newType+", "+newImageFile+", "+newPrice);
-	 	   System.out.println(newItem);
-	 	   */
+
 	 	  
 	 	   	myClient.sendRequestToAddOrEditItem(newItem); //send request to change entry in db (server)
 	    }
