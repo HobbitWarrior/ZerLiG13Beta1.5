@@ -33,25 +33,81 @@
       <AnchorPane layoutX="34.0" layoutY="278.0" prefHeight="625.0" prefWidth="760.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" height="583.0" layoutX="130.0" layoutY="25.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="482.0" />
-            <Group layoutX="9.0" layoutY="6.0">
+            <Group layoutX="9.0" layoutY="59.0">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fcfcfc" height="98.0" layoutX="133.0" layoutY="124.0" stroke="#d3d0d0" strokeType="INSIDE" width="476.0" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fcfcfc" height="98.0" layoutX="133.0" layoutY="507.0" stroke="#d3d0d0" strokeType="INSIDE" width="476.0" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c9c9c9" height="98.0" layoutX="133.0" layoutY="27.0" stroke="#cdcdcd" strokeType="INSIDE" width="476.0" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c9c9c9" height="98.0" layoutX="133.0" layoutY="221.0" stroke="#cdcdcd" strokeType="INSIDE" width="476.0" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c9c9c9" height="98.0" layoutX="133.0" layoutY="410.0" stroke="#cdcdcd" strokeType="INSIDE" width="476.0" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fcfcfc" height="98.0" layoutX="133.0" layoutY="313.0" stroke="#d3d0d0" strokeType="INSIDE" width="476.0" />
-                  <Label layoutX="147.0" layoutY="41.0" text="1) how...">
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bbb9b9" height="79.0" layoutX="133.0" layoutY="105.0" stroke="BLACK" strokeType="INSIDE" width="476.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bbb9b9" height="79.0" layoutX="133.0" layoutY="410.0" stroke="#494949" strokeType="INSIDE" width="476.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c9c9c9" height="79.0" layoutX="133.0" layoutY="27.0" stroke="#494949" strokeType="INSIDE" width="476.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c9c9c9" height="79.0" layoutX="133.0" layoutY="180.0" stroke="#494949" strokeType="INSIDE" width="476.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c9c9c9" height="79.0" layoutX="133.0" layoutY="332.0" stroke="#494949" strokeType="INSIDE" width="476.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bbb9b9" height="79.0" layoutX="133.0" layoutY="254.0" stroke="#494949" strokeType="INSIDE" width="476.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="79.0" layoutX="503.0" layoutY="27.0" stroke="#494949" strokeType="INSIDE" width="106.0" />
+                  <Label layoutX="153.0" layoutY="125.0" text="2) How often do you visit Zer-Li application?">
                      <font>
-                        <Font name="System Bold Italic" size="16.0" />
+                        <Font name="System Bold Italic" size="14.0" />
                      </font>
                   </Label>
+                  <Label layoutX="153.0" layoutY="352.0" text="5) How satisfied are you with the time">
+                     <font>
+                        <Font name="System Bold Italic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="171.0" layoutY="372.0" text="it took for the delivery to reach you?">
+                     <font>
+                        <Font name="System Bold Italic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="153.0" layoutY="274.0" text="4) Are you satisfied with the prices">
+                     <font>
+                        <Font name="System Bold Italic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="171.0" layoutY="294.0" text="in Zer-Li chain?">
+                     <font>
+                        <Font name="System Bold Italic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="153.0" layoutY="430.0" text="6) How likely are you to reccommend">
+                     <font>
+                        <Font name="System Bold Italic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="171.0" layoutY="450.0" text="Zer-Li to a friend or clleague?">
+                     <font>
+                        <Font name="System Bold Italic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="153.0" layoutY="47.0" text="1) What is your overall satisfaction">
+                     <font>
+                        <Font name="System Bold Italic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="171.0" layoutY="67.0" text="with Zer-Li service?">
+                     <font>
+                        <Font name="System Bold Italic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="153.0" layoutY="200.0" text="3) Are you satisfied with the veraity">
+                     <font>
+                        <Font name="System Bold Italic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="171.0" layoutY="220.0" text="of the products we have in our chain?">
+                     <font>
+                        <Font name="System Bold Italic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="79.0" layoutX="503.0" layoutY="105.0" stroke="#494949" strokeType="INSIDE" width="106.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="79.0" layoutX="503.0" layoutY="180.0" stroke="#494949" strokeType="INSIDE" width="106.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="79.0" layoutX="503.0" layoutY="254.0" stroke="#494949" strokeType="INSIDE" width="106.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="79.0" layoutX="503.0" layoutY="332.0" stroke="#494949" strokeType="INSIDE" width="106.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="79.0" layoutX="503.0" layoutY="410.0" stroke="#494949" strokeType="INSIDE" width="106.0" />
                </children>
                <effect>
                   <DropShadow />
                </effect>
             </Group>
-            <Label layoutX="225.0" layoutY="-15.0" text="Customer Satisfaction Survey Results" textFill="#575656">
+            <Label layoutX="198.0" layoutY="25.0" text="Customer Satisfaction Survey Results" textFill="#575656">
                <font>
                   <Font name="System Bold Italic" size="20.0" />
                </font>
