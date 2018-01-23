@@ -85,6 +85,8 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    private TableColumn<CatalogItemGUI, String> CatalogItemNameColumn;
 	    @FXML
 	    private TableColumn<CatalogItemGUI, Integer> CatalogItemIDColumn;
+	    @FXML
+	    private AnchorPane AnchorPaneCatalog;
 	    
 
 	    //change contact - add new item
@@ -156,11 +158,14 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    {    	
 	    	pressedBtn=1; //we pressed on add item
 	    	loadPressed=0;
-	    	CatalogTable.setVisible(false);
 	    	titleLabel.setText("ADD NEW ITEM");
+	    	AnchorPaneCatalog.setVisible(false);
+	    	/*
+	    	CatalogTable.setVisible(false);
 	    	btnAddItem.setVisible(false);
 	    	btnEditItem.setVisible(false);
 	    	btnDeleteItem.setVisible(false);
+	    	*/
 	    	
 	    	anchorPaneAddItem.setVisible(true);
 	    	
@@ -248,12 +253,14 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    		
 		    	pressedBtn=2; //we pressed on add item
 		    	loadPressed=0;
-		    	CatalogTable.setVisible(false);
 		    	titleLabel.setText("EDIT ITEM");
+		    	AnchorPaneCatalog.setVisible(false);
+		    	/*
+		    	CatalogTable.setVisible(false);
 		    	btnAddItem.setVisible(false);
 		    	btnEditItem.setVisible(false);
 		    	btnDeleteItem.setVisible(false);
-		    	
+		    	*/
 		    	
 		    	ItemIDTextField.setDisable(true); //can't edit ID
 		    	
@@ -679,11 +686,14 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    	
 	    	anchorPaneAddItem.setVisible(false);
 	    	titleLabel.setText("EDIT CATALOG");
+	    	
+	    	AnchorPaneCatalog.setVisible(true);
+	    	/*
 	    	CatalogTable.setVisible(true);
 	    	btnAddItem.setVisible(true);
 	    	btnEditItem.setVisible(true);
 	    	btnDeleteItem.setVisible(true);
-	    	
+	    	*/
 	    	
 	    	ItemIDTextField.setDisable(false); //can edit ID              //*******************************
 	    	

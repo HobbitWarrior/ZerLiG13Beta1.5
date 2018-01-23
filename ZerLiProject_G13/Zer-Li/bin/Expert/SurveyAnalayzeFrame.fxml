@@ -1,8 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="311.0" prefWidth="308.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Expert.SurveyAnalayzingControl" />
+<AnchorPane prefHeight="311.0" prefWidth="308.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Expert.SurveyAnalayzingControl">
+   <children>
+      <ImageView pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../ChainWorker/images/empty_background.jpg" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnHome" layoutX="746.0" layoutY="14.0" mnemonicParsing="false" onAction="#goHome" opacity="0.01" prefHeight="38.0" prefWidth="82.0" text="btnHome" />
+      <Button fx:id="btnAccount" layoutX="651.0" layoutY="14.0" mnemonicParsing="false" opacity="0.01" prefHeight="38.0" prefWidth="87.0" text="btnAccount" />
+      <Button fx:id="btnLogout" layoutX="540.0" layoutY="14.0" mnemonicParsing="false" onAction="#logoutEvent" opacity="0.01" prefHeight="38.0" prefWidth="97.0" text="btnLogout" />
+      <Label layoutX="711.0" layoutY="187.0" text="Survey results" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="330.0" layoutY="377.0" text="No polls found" textFill="RED" visible="false">
+         <font>
+            <Font name="System Bold Italic" size="29.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="34.0" layoutY="278.0" prefHeight="625.0" prefWidth="760.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="583.0" layoutX="130.0" layoutY="25.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="482.0" />
+            <Group layoutX="9.0" layoutY="6.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fcfcfc" height="98.0" layoutX="133.0" layoutY="124.0" stroke="#d3d0d0" strokeType="INSIDE" width="476.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fcfcfc" height="98.0" layoutX="133.0" layoutY="507.0" stroke="#d3d0d0" strokeType="INSIDE" width="476.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c9c9c9" height="98.0" layoutX="133.0" layoutY="27.0" stroke="#cdcdcd" strokeType="INSIDE" width="476.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c9c9c9" height="98.0" layoutX="133.0" layoutY="221.0" stroke="#cdcdcd" strokeType="INSIDE" width="476.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c9c9c9" height="98.0" layoutX="133.0" layoutY="410.0" stroke="#cdcdcd" strokeType="INSIDE" width="476.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fcfcfc" height="98.0" layoutX="133.0" layoutY="313.0" stroke="#d3d0d0" strokeType="INSIDE" width="476.0" />
+                  <Label layoutX="147.0" layoutY="41.0" text="1) how...">
+                     <font>
+                        <Font name="System Bold Italic" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Group>
+            <Label layoutX="225.0" layoutY="-15.0" text="Customer Satisfaction Survey Results" textFill="#575656">
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
