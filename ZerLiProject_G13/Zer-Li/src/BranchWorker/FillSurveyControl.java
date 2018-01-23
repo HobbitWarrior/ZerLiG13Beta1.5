@@ -87,9 +87,17 @@ import BranchManager.PaymentAccount;
 
 public class FillSurveyControl extends LoginContol implements Initializable {
 	 private static final Survey NULL = null;
-		public static ObservableList<Integer> ListNumbers= FXCollections.observableArrayList();
-
+	 public static ObservableList<Integer> ListNumbers= FXCollections.observableArrayList();
+	 
+	 private  static ArrayList<Integer> DBcustomersList = new ArrayList<Integer>();
+	 private  ArrayList<Integer> customersList = new ArrayList<Integer>();
+	 
+	 public static int i=0;  
+	 private ArrayList<Survey> MyFillSurveyList = new ArrayList<Survey>();
 		
+	 
+	 
+	 
 	 @FXML
 	 private Button FillSurveyBtn;
 	 
@@ -201,15 +209,17 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 
     @FXML
     private ComboBox<Integer> Combo6;
+    
+
+    @FXML
+    private ComboBox<Integer> pickCustomerComboBox;
 
 
 
     @FXML
     private Button PlusBtn;
 
-    public static int i=0;
-   
-    ArrayList<Survey> MyFillSurveyList = new ArrayList<Survey>();
+
     
     //events:
     
@@ -282,93 +292,113 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 	    }
 	    
 	    
-	    @FXML
-	    void AddNewFill(ActionEvent event) {
-	          if( txtf1.getText().isEmpty() ||
-             		 txtf2.getText().isEmpty()  ||
-             		 txtf3.getText().isEmpty()     )
-         
-              {
-             	 //error msg 
-              }
-              else
-              {
-            	  
-       		   Survey Surveytemp = new Survey() ; 
 
-       		Surveytemp.setQ1(Combo1.getValue());
-       		Surveytemp.setQ2(Combo2.getValue());
-       		Surveytemp.setQ3(Combo3.getValue());
-       		Surveytemp.setQ4(Combo4.getValue());
-       		Surveytemp.setQ5(Combo5.getValue());
-       		Surveytemp.setQ6(Combo6.getValue());
-      	 
-             	 i++;
-             	 txtf1.clear();
-             	 txtf2.clear();
-             	 txtf3.clear();
-             	MyFillSurveyList.add(Surveytemp);
-             	 System.out.println(MyFillSurveyList);	  
-              }
+	    @FXML
+	    void pickCustomerFromComboBox(ActionEvent event) 
+	    {
+	//  	getCustomerIdList();
+	    }
+	    
+	    
+	    @FXML
+	    void AddNewFill(ActionEvent event)
+	    {
+
+	    	if(!(pickCustomerComboBox.getSelectionModel().isEmpty())) //check if we selected customer
+	    	{
+	    		if(customersList.contains(pickCustomerComboBox.getSelectionModel().getSelectedItem())) // check if we already fill this customer
+	    		{
+	    			AnchorPanePickCustomer.setVisible(false);
+	    			AnchorPaneFillAns.setVisible(true);
+	       		    Survey Surveytemp = new Survey() ; 
+
+	          		Surveytemp.setQ1(Combo1.getValue());
+	          		Surveytemp.setQ2(Combo2.getValue());
+	          		Surveytemp.setQ3(Combo3.getValue());
+	          		Surveytemp.setQ4(Combo4.getValue());
+	          		Surveytemp.setQ5(Combo5.getValue());
+	          		Surveytemp.setQ6(Combo6.getValue());
+
+
+	                MyFillSurveyList.add(Surveytemp);
+	                System.out.println(MyFillSurveyList);	  
+	    		}
+	    		else
+	    		{
+	    			//error msg***********************
+	    		}
+	    	}
+	    	else //no selected customer
+	    	{
+	    		//error msg***********************
+	    	}
+
 	    }
 
 
 	    @FXML
-	    void SaveOnDB(ActionEvent event) {
-	     System.out.println("aaaa");
-	     
-	     
-	     int port=PORT;
-		   String ip=ServerIP;
-		   try 
-		   {
-			myClient = new ChatClient(ip,port);	//create new client to get all users in db (server)
-			myClient.setLoginControl(this);
-		   } 
-		   catch (IOException e) 
-		   {
-			   System.out.println("Cannot create client");	  
-		   }
-		   int avgQ1=0,avgQ2=0,avgQ3=0,avgQ4=0,avgQ5=0,avgQ6=0;
-		   for(int j=0;j<MyFillSurveyList.size();j++)
-		   {
-			    
-			   avgQ1+=MyFillSurveyList.get(j).getQ1();
-			   avgQ2+=MyFillSurveyList.get(j).getQ2();	 
-		       avgQ3+=MyFillSurveyList.get(j).getQ3();
-			   avgQ4+=MyFillSurveyList.get(j).getQ4();
-			   avgQ5+=MyFillSurveyList.get(j).getQ5();
-			   avgQ6+=MyFillSurveyList.get(j).getQ6();
-		   }
+	    void SaveOnDB(ActionEvent event) 
+	    {
+	    	int NumberOfCustomers =DBcustomersList.size();
+	    	int NumberOfSurveiesFilled = customersList.size();
+	    	if(NumberOfSurveiesFilled==NumberOfCustomers)
+	    	{
+		     System.out.println("aaaa");   // to delete this !!*******************************
+		     
+		     
+		     int port=PORT;
+			   String ip=ServerIP;
+			   try 
+			   {
+					myClient = new ChatClient(ip,port);	//create new client to get all users in db (server)
+					myClient.setLoginControl(this); //**********************************************************to check if need this ??!
+			   } 
+			   catch (IOException e) 
+			   {
+				   System.out.println("Cannot create client");	  
+			   }
+			   int sumQ1=0,sumQ2=0,sumQ3=0,sumQ4=0,sumQ5=0,sumQ6=0;
+			   for(int j=0;j<MyFillSurveyList.size();j++)
+			   {
+				    
+				   sumQ1+=MyFillSurveyList.get(j).getQ1();
+				   sumQ2+=MyFillSurveyList.get(j).getQ2();	 
+			       sumQ3+=MyFillSurveyList.get(j).getQ3();
+				   sumQ4+=MyFillSurveyList.get(j).getQ4();
+				   sumQ5+=MyFillSurveyList.get(j).getQ5();
+				   sumQ6+=MyFillSurveyList.get(j).getQ6();
+			   }
 		   
-		   
-		   Survey SurveyInfo = new Survey() ; 
-		   
-		//   Year y1=Year.of(Integer.parseInt(txtf3.getText()));
-		    
-		   
-		   SurveyInfo.setCustomerID(Integer.parseInt(txtf1.getText()));
-		   SurveyInfo.setSurviesQuarter(Integer.parseInt(txtf2.getText()) );
-		   SurveyInfo.setSurviesYear( Integer.parseInt(txtf3.getText()));
-		   SurveyInfo.setBranchWorkerID(LoginContol.userID);
-		   SurveyInfo.setQ1(avgQ1/MyFillSurveyList.size());
-		   SurveyInfo.setQ2(avgQ2/MyFillSurveyList.size());
-		   SurveyInfo.setQ3(avgQ3/MyFillSurveyList.size());
-		   SurveyInfo.setQ4(avgQ4/MyFillSurveyList.size());
-		   SurveyInfo.setQ5(avgQ5/MyFillSurveyList.size());
-		   SurveyInfo.setQ6(avgQ6/MyFillSurveyList.size());
-		   System.out.println(avgQ1/MyFillSurveyList.size());	  
+			   
+			   Survey SurveyResult = new Survey() ; 
+			   
 
-		   System.out.println(avgQ1);	 
-		   System.out.println(avgQ2);	
-		   System.out.println(avgQ3);	
-
-		   System.out.println(SurveyInfo);	  
-
-		   myClient.sendRequestToSaveObjectOnDB(SurveyInfo); //send request to get all users from db (server)
-		 
-		  // while( myClient.isConnected());	//wait until client (this class) get all users from the db!
-		  
+	//		   SurveyInfo.setBranchWorkerID(LoginContol.userID);
+			   SurveyResult.setQ1(sumQ1/MyFillSurveyList.size());
+			   SurveyResult.setQ2(sumQ2/MyFillSurveyList.size());
+			   SurveyResult.setQ3(sumQ3/MyFillSurveyList.size());
+			   SurveyResult.setQ4(sumQ4/MyFillSurveyList.size());
+			   SurveyResult.setQ5(sumQ5/MyFillSurveyList.size());
+			   SurveyResult.setQ6(sumQ6/MyFillSurveyList.size());
+			   
+			   
+			   System.out.println(sumQ1/MyFillSurveyList.size());	  
+	
+			   System.out.println(sumQ1);	 
+			   System.out.println(sumQ2);	
+			   System.out.println(sumQ3);	
+	
+			   System.out.println(SurveyResult);	  
+	
+			   myClient.sendRequestToSaveObjectOnDB(SurveyResult); //send request to get all users from db (server)
+			 
+			  // while( myClient.isConnected());	//wait until client (this class) get all users from the db!
+	    	}
+	    	else
+	    	{
+	    		//error msg -you didn't finish to fill all customers 
+	    	}
+			  
 	    }
 	    
 		 

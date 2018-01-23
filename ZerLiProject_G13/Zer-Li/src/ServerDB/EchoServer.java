@@ -1911,11 +1911,12 @@ public class EchoServer extends AbstractServer implements Initializable
 			 
 			PreparedStatement ps1 = ServerDataBase.prepareStatement(
 					"INSERT INTO Survies VALUES(?,?,?,?,?,?,?,?,?,?)");
-			 
+			 /*
 				ps1.setInt(1,SurveyToSave.getCustomerID());
 				ps1.setInt(2,SurveyToSave.getSurviesQuarter());
 				ps1.setInt(3, SurveyToSave.getSurviesYear());
 				ps1.setInt(4,SurveyToSave.getBranchWorkerID());
+				*/
 				ps1.setInt(5, SurveyToSave.getQ1());
 				ps1.setInt(6,SurveyToSave.getQ2());
 				ps1.setInt(7,SurveyToSave.getQ3());

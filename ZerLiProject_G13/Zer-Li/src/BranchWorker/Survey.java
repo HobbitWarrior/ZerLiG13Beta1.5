@@ -5,11 +5,7 @@ import java.time.Year;
 
 public class Survey  implements Serializable {
 
-	
-	Integer CustomerID ; 
-	Integer SurviesQuarter ;
-	Integer SurviesYear   ;
-	Integer BranchWorkerID ;
+
 	Integer Q1  ;
 	Integer Q2  ;
 	Integer Q3  ; 
@@ -19,10 +15,7 @@ public class Survey  implements Serializable {
 	public Survey(Integer customerID, Integer surviesQuarter, Integer surviesYear, Integer branchWorkerID, Integer q1,
 			Integer q2, Integer q3, Integer q4, Integer q5, Integer q6) {
 		super();
-		CustomerID = customerID;
-		SurviesQuarter = surviesQuarter;
-		SurviesYear = surviesYear;
-		BranchWorkerID = branchWorkerID;
+
 		Q1 = q1;
 		Q2 = q2;
 		Q3 = q3;
@@ -33,30 +26,7 @@ public class Survey  implements Serializable {
 	public Survey() {
 		// TODO Auto-generated constructor stub
 	}
-	public Integer getCustomerID() {
-		return CustomerID;
-	}
-	public void setCustomerID(Integer customerID) {
-		CustomerID = customerID;
-	}
-	public Integer getSurviesQuarter() {
-		return SurviesQuarter;
-	}
-	public void setSurviesQuarter(Integer surviesQuarter) {
-		SurviesQuarter = surviesQuarter;
-	}
-	public Integer getSurviesYear() {
-		return SurviesYear;
-	}
-	public void setSurviesYear(Integer surviesYear) {
-		SurviesYear = surviesYear;
-	}
-	public Integer getBranchWorkerID() {
-		return BranchWorkerID;
-	}
-	public void setBranchWorkerID(Integer branchWorkerID) {
-		BranchWorkerID = branchWorkerID;
-	}
+
 	public Integer getQ1() {
 		return Q1;
 	}
@@ -95,8 +65,7 @@ public class Survey  implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "Survey [CustomerID=" + CustomerID + ", SurviesQuarter=" + SurviesQuarter + ", SurviesYear="
-				+ SurviesYear + ", BranchWorkerID=" + BranchWorkerID + ", Q1=" + Q1 + ", Q2=" + Q2 + ", Q3=" + Q3
+		return "Survey [Q1=" + Q1 + ", Q2=" + Q2 + ", Q3=" + Q3
 				+ ", Q4=" + Q4 + ", Q5=" + Q5 + ", Q6=" + Q6 + "]";
 	}
 	 
