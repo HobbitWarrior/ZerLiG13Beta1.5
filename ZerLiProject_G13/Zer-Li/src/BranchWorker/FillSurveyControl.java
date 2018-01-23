@@ -64,6 +64,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import ocsf.client.AbstractClient;
@@ -88,6 +89,13 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 	 private static final Survey NULL = null;
 		public static ObservableList<Integer> ListNumbers= FXCollections.observableArrayList();
 
+		
+	 @FXML
+	 private Button FillSurveyBtn;
+	 
+
+	 @FXML
+	 private Button NextBtn;
 
 	@FXML
     private Button FillSurvey;
@@ -166,6 +174,15 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 
     @FXML
     private TextField txtf10;
+    
+    
+
+
+    @FXML
+    private AnchorPane AnchorPanePickCustomer;
+
+    @FXML
+    private AnchorPane AnchorPaneFillAns;
 
     @FXML
     private ComboBox<Integer> Combo1;
@@ -184,6 +201,7 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 
     @FXML
     private ComboBox<Integer> Combo6;
+
 
 
     @FXML
@@ -218,14 +236,7 @@ public class FillSurveyControl extends LoginContol implements Initializable {
     
     
     
-    
-    
-	    @FXML
-	    void FillSurvey(ActionEvent event) {
-        
-	    	
-	    	
-	    }
+  
 
 	    @FXML
 	    void Q1ComboSet(ActionEvent event) {
@@ -254,6 +265,19 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 
 	    @FXML
 	    void Q6ComboSet(ActionEvent event) {
+
+	    }
+	    
+	    
+	    
+	    @FXML
+	    void FillSurvey(ActionEvent event) {
+
+	    }
+	    
+	    
+	    @FXML
+	    void nextFill(ActionEvent event) {
 
 	    }
 	    
@@ -384,5 +408,8 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 			
 		 	 
 		}
+		
+
+
 	
 }
