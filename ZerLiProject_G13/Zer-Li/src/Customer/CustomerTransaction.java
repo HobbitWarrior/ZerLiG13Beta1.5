@@ -9,9 +9,12 @@ public class CustomerTransaction implements Serializable
 	private int customerID;
 	private Delivery OrderCustomerDelivery;
 	private String OrderbranchID;
+	private String branchName;	//
 	private Double OrdertotalPrice;
 	private Date OrdersupplyDate;
+	private String supplyDateStr="";	//
 	private Time OrdersupplyTime;
+	private String supplyTimeStr="";	//
 	private Date OrderCompletedDate;
 	private Time OrderCompletedTime;
 	private String Greeting;
@@ -22,10 +25,12 @@ public class CustomerTransaction implements Serializable
 	private String PaymentAccountPassword;
 	private ArrayList<ItemInOrder> productsList;
 	private boolean isApproved=false;
+	private String orderPriceWithCoin="";
 	private String msgToClient="";
 	
 	public CustomerTransaction() //constructor is empty because is will be too long to insert attributes
 	{
+		
 	}
 
 
@@ -74,8 +79,10 @@ public class CustomerTransaction implements Serializable
 	}
 
 
-	public void setOrderTotalPrice(Double ordertotalPrice) {
+	public void setOrderTotalPrice(Double ordertotalPrice) 
+	{
 		OrdertotalPrice = ordertotalPrice;
+		orderPriceWithCoin=""+OrdertotalPrice+" $";
 	}
 
 
@@ -206,6 +213,46 @@ public class CustomerTransaction implements Serializable
 
 	public void setMsgToClient(String msgToClient) {
 		this.msgToClient = msgToClient;
+	}
+
+
+	public String getOrderPriceWithCoin() {
+		return orderPriceWithCoin;
+	}
+
+
+	public void setOrderPriceWithCoin(String orderPriceWithCoin) {
+		this.orderPriceWithCoin = orderPriceWithCoin;
+	}
+
+
+	public String getBranchName() {
+		return branchName;
+	}
+
+
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
+	}
+
+
+	public String getSupplyDateStr() {
+		return supplyDateStr;
+	}
+
+
+	public void setSupplyDateStr(String supplyDateStr) {
+		this.supplyDateStr = supplyDateStr;
+	}
+
+
+	public String getSupplyTimeStr() {
+		return supplyTimeStr;
+	}
+
+
+	public void setSupplyTimeStr(String supplyTimeStr) {
+		this.supplyTimeStr = supplyTimeStr;
 	}
 	
 	

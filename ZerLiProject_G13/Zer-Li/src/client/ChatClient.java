@@ -959,6 +959,12 @@ public class ChatClient extends AbstractClient {
 	{
 		this.mainCustomerWindow = customerMainWindow;
 	}
+
+	public void sendRequestToGetAllCustomerOrder(int userID, String chosenBranchID) 
+	{
+		// TODO Auto-generated method stub
+		
+	}
  
 
 

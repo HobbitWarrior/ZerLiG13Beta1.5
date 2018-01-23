@@ -63,5 +63,19 @@
          </font>
       </Label>
       <Button fx:id="customizeBtn" layoutX="428.0" layoutY="178.0" mnemonicParsing="false" onAction="#customizeBtnPressed" opacity="0.0" prefHeight="38.0" prefWidth="97.0" text="Button" />
+      <Button fx:id="cancelOrderBtn" layoutX="342.0" layoutY="660.0" mnemonicParsing="false" onAction="#cancelOrderBtnPressed" text="Cancel order">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <TableView fx:id="ordersTable" layoutX="122.0" layoutY="340.0" prefHeight="285.0" prefWidth="596.0">
+        <columns>
+          <TableColumn fx:id="orderIDColmun" prefWidth="109.0" text="OrderID" />
+          <TableColumn fx:id="branchNameColmun" prefWidth="125.0" text="Branch Name" />
+            <TableColumn fx:id="supplyDateColmun" prefWidth="140.0" text="Supply Date" />
+            <TableColumn fx:id="supplyHourColmun" prefWidth="140.0" text="Supply Hour" />
+            <TableColumn fx:id="priceColmun" prefWidth="81.0" text="Price" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

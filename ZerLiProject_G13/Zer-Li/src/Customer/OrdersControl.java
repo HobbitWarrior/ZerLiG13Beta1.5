@@ -311,7 +311,7 @@ public class OrdersControl extends LoginContol implements Initializable
 		}
     	
     	int customerID = LoginContol.userID;	//get customerID
-    	newDeal.setCustomerID(customerID);
+    	newDeal.setCustomerID(customerID);  	
 		int port = LoginContol.PORT;
 		String ip = LoginContol.ServerIP;
 		try 
