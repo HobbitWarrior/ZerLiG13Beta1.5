@@ -553,6 +553,10 @@ public class EchoServer extends AbstractServer implements Initializable
 			System.out.println("server got request to save order");
 			
 			CustomerTransaction myOrder= (CustomerTransaction)msg;
+			if(myOrder.getMsgToServer().equals("Save this order in db"))
+			{
+				
+			
 			boolean isApproved;
 			String PA_userName = myOrder.getPaymentAccountUserName();
 			String PA_Password = myOrder.getPaymentAccountPassword();
@@ -598,7 +602,7 @@ public class EchoServer extends AbstractServer implements Initializable
 				System.out.println("cannot connect to db to check payment account");
 
 			}
-
+		}
 	
 		 }	
 		

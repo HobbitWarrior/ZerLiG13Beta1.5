@@ -27,6 +27,8 @@ public class CustomerTransaction implements Serializable
 	private boolean isApproved=false;
 	private String orderPriceWithCoin="";
 	private String msgToClient="";
+	private String msgToServer="";
+
 	
 	public CustomerTransaction() //constructor is empty because is will be too long to insert attributes
 	{
@@ -253,6 +255,16 @@ public class CustomerTransaction implements Serializable
 
 	public void setSupplyTimeStr(String supplyTimeStr) {
 		this.supplyTimeStr = supplyTimeStr;
+	}
+
+
+	public String getMsgToServer() {
+		return msgToServer;
+	}
+
+
+	public void setMsgToServer(String msgToServer) {
+		this.msgToServer = msgToServer;
 	}
 	
 	

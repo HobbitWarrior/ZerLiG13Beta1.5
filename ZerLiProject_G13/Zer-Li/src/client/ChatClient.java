@@ -846,6 +846,7 @@ public class ChatClient extends AbstractClient {
 
 	public void sendRequestToSaveCustomerOrder(CustomerTransaction newDeal) 
 	{
+		newDeal.setMsgToServer("Save this order in db");
 		try 
 		{
 			this.openConnection();
@@ -960,10 +961,12 @@ public class ChatClient extends AbstractClient {
 		this.mainCustomerWindow = customerMainWindow;
 	}
 
-	public void sendRequestToGetAllCustomerOrder(int userID, String chosenBranchID) 
+	public void sendRequestToGetAllCustomerOrder(int userID, String chosenBranchID, String chosenBranchName) 
 	{
-		// TODO Auto-generated method stub
-		
+		CustomerTransaction myOrder = new CustomerTransaction();
+		myOrder.setCustomerID(userID);
+		myOrder.setBranchName(chosenBranchName);
+		myOrder.setMsgToServer("Give me all customer active orders");
 	}
  
 

@@ -205,7 +205,7 @@ public class CancelOrderControl extends LoginContol implements Initializable
 			myClient = new ChatClient(ip, port); // create new client
 			//myClient.sendRequestToGetAllBranchManagers();
 			this.allCustomerOrder.clear();
-			myClient.sendRequestToGetAllCustomerOrder(LoginContol.userID,CustomerMainWindow.chosenBranchID);
+			myClient.sendRequestToGetAllCustomerOrder(LoginContol.userID,CustomerMainWindow.chosenBranchID, CustomerMainWindow.chosenBranchName);
 			//Can't close the window without logout
 			primaryStage.setOnCloseRequest( event -> {event.consume();} );
 		} 
@@ -238,6 +238,10 @@ public class CancelOrderControl extends LoginContol implements Initializable
 		supplyDateColmun.setStyle( "-fx-alignment: CENTER;");
 		supplyHourColmun.setStyle( "-fx-alignment: CENTER;");
 		priceColmun.setStyle( "-fx-alignment: CENTER;");
+		if(this.allCustomerOrder.isEmpty())
+		{
+			cancelOrderBtn.setDisable(true);
+		}
 
 		
 	}
