@@ -150,7 +150,8 @@ public class CatalogOrderControl extends LoginContol implements Initializable
 		this.catalogList.clear();
 		Stage primaryStage = new Stage();
 		CustomerMainWindow aFrame = new CustomerMainWindow();
-		try {
+		try 
+		{
 			aFrame.start(primaryStage);
 		} catch (IOException e) {
 			System.out.println("Cannot start Customer main Window");
@@ -195,6 +196,20 @@ public class CatalogOrderControl extends LoginContol implements Initializable
 	@FXML
 	void CancelOrderBtnPressed(ActionEvent event) 
 	{
+    	Stage primaryStage = new Stage();
+    	CancelOrderControl aFrame = new CancelOrderControl();
+  	  
+ 			
+ 				try 
+ 				{
+					aFrame.start(primaryStage);
+				} 
+ 				catch (Exception e) 
+ 				{
+					System.out.println("Cannot open cancel window");
+				}
+ 			
+ 				CancelOrderBtn.getScene().getWindow().hide(); //hiding primary window
 
 	}
 	
@@ -256,7 +271,7 @@ public class CatalogOrderControl extends LoginContol implements Initializable
 		}
 	 
 		public void start(Stage primaryStage) throws IOException {
-			Pane root = FXMLLoader.load(getClass().getResource("/Customer/CatalogOrderFrameWindow.fxml"));
+			Pane root = FXMLLoader.load(getClass().getResource("/Customer/CatalogWindowOrder.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setTitle("Catalog"); // name of the title of the window
 			primaryStage.setScene(scene);

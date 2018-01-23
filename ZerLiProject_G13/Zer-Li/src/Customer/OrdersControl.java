@@ -836,6 +836,8 @@ public class OrdersControl extends LoginContol implements Initializable
          ObservableList<String> PaymentTypeToChoose= FXCollections.observableArrayList("Immidate","Subscription");
 
      	payMethodcomboBox.setItems(PaymentTypeToChoose);
+     	oneBranchName.clear();
+     	oneBranchName.add(CustomerMainWindow.chosenBranchName);
 	}
 
 	

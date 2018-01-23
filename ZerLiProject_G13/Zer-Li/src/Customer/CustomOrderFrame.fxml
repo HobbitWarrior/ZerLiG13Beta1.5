@@ -106,5 +106,6 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <Button fx:id="cancelBtn" layoutX="694.0" layoutY="174.0" mnemonicParsing="false" onAction="#cancelBtnPressed" opacity="0.0" prefHeight="45.0" prefWidth="116.0" text="Button" />
    </children>
 </AnchorPane>
