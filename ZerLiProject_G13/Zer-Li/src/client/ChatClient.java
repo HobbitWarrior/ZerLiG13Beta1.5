@@ -28,6 +28,7 @@ import BranchManager.catalogitemsofbranch;
 import Catalog.CatalogItem;
 import ChainManager.BranchReportBrowseControl;
 import ChainWorker.CatalogEditControl;
+import Customer.CancelOrderControl;
 import Customer.CatalogItemGUI;
 import Customer.CatalogOrderControl;
 import Customer.CustomOrderControl;
@@ -422,6 +423,29 @@ public class ChatClient extends AbstractClient {
 				quit();
 				return;
 			}
+			
+			
+			if(ServerMsg.getMsgType().equals("CustomerTransaction"))	//this condition is complicated, if you want to use it, speak with Haim first!! I can give you a chance to deliver your message, trust me!!
+			{	//be careful with this method!! Elias , Alex Sharon, talk with me before you touch it!!!!
+				ArrayList<CustomerTransaction> allOrders = (ArrayList<CustomerTransaction>)ServerMsg.getMsgObject();
+				for (int i = 0 ; i < allOrders.size() ; i++)
+				{	//Basically , here you can put your condition, but be very careful, talk to me before!!!!
+					if(allOrders.get(i).getMsgToClient().equals("show this order on cancellation table"))
+					{	 
+						String dateToChange ="" + allOrders.get(i).getOrdersupplyDate();
+						
+						allOrders.get(i).setSupplyDateStr(dateToChange);
+						allOrders.get(i).setSupplyTimeStr("" + allOrders.get(i).getOrdersupplyTime());
+						CancelOrderControl.allCustomerOrder.add(allOrders.get(i));
+						System.out.println("important test ----->"+"" + dateToChange);
+					}
+					
+					
+					
+				}
+				return; //do not put here a call to quit()!!! call it from your own controllers!!!!!!!!!!
+			}
+			
 			
 			
 			
@@ -966,7 +990,27 @@ public class ChatClient extends AbstractClient {
 		CustomerTransaction myOrder = new CustomerTransaction();
 		myOrder.setCustomerID(userID);
 		myOrder.setBranchName(chosenBranchName);
+		myOrder.setOrderbranchID(chosenBranchID);
 		myOrder.setMsgToServer("Give me all customer active orders");
+		try 
+		{
+			this.openConnection();
+		}
+
+		catch (IOException e1) 
+		{
+			System.out.println("Cannot open connection");
+		}
+
+		try 
+		{
+			System.out.println("Send Message to get all flowers from server");
+			sendToServer(myOrder);
+		} catch (IOException e) 
+		{
+			System.out.println("Cannot connect to server to get all customer order");
+
+		}	
 	}
  
 

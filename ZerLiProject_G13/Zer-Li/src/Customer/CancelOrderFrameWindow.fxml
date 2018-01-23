@@ -68,13 +68,13 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <TableView fx:id="ordersTable" layoutX="122.0" layoutY="340.0" prefHeight="285.0" prefWidth="596.0">
+      <TableView fx:id="ordersTable" layoutX="108.0" layoutY="340.0" prefHeight="285.0" prefWidth="630.0">
         <columns>
           <TableColumn fx:id="orderIDColmun" prefWidth="109.0" text="OrderID" />
           <TableColumn fx:id="branchNameColmun" prefWidth="125.0" text="Branch Name" />
             <TableColumn fx:id="supplyDateColmun" prefWidth="140.0" text="Supply Date" />
             <TableColumn fx:id="supplyHourColmun" prefWidth="140.0" text="Supply Hour" />
-            <TableColumn fx:id="priceColmun" prefWidth="81.0" text="Price" />
+            <TableColumn fx:id="priceColmun" prefWidth="115.0" text="Price" />
         </columns>
       </TableView>
    </children>

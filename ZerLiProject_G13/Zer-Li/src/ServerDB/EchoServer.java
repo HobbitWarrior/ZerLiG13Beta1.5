@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -32,6 +33,7 @@ import Customer.Delivery;
 import Customer.Flower;
 import Customer.ItemInOrder;
 import Customer.MessgaeCatalogProduct;
+import Customer.MyTime;
 import Customer.PrivateShipment;
 import Users.User;
 import client.Message;
@@ -557,29 +559,29 @@ public class EchoServer extends AbstractServer implements Initializable
 			{
 				
 			
-			boolean isApproved;
-			String PA_userName = myOrder.getPaymentAccountUserName();
-			String PA_Password = myOrder.getPaymentAccountPassword();
-			String branchID = myOrder.getOrderbranchID();
-			Date dateOfOrder= myOrder.getOrderCompletedDate();
+				boolean isApproved;
+				String PA_userName = myOrder.getPaymentAccountUserName();
+				String PA_Password = myOrder.getPaymentAccountPassword();
+				String branchID = myOrder.getOrderbranchID();
+				Date dateOfOrder= myOrder.getOrderCompletedDate();
 			
 			
-			try 
-			{
-				myOrder = checkIfAccountOK(myOrder,PA_userName, PA_Password, branchID, dateOfOrder);
-				isApproved=myOrder.isApproved();
-				if(isApproved == false)
+				try 
 				{
-					System.out.println("payment account not approved");
-					try 
+					myOrder = checkIfAccountOK(myOrder,PA_userName, PA_Password, branchID, dateOfOrder);
+					isApproved=myOrder.isApproved();
+					if(isApproved == false)
 					{
-						client.sendToClient(myOrder);
-						return;
-					} 
-					catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+						System.out.println("payment account not approved");
+						try 
+						{
+							client.sendToClient(myOrder);
+							return;
+						} 
+						catch (IOException e) 
+						{
+							e.printStackTrace();
+						}
 				}
 				
 				System.out.println("payment account  approved");
@@ -591,19 +593,49 @@ public class EchoServer extends AbstractServer implements Initializable
 					client.sendToClient(myOrder);
 					return;
 				} 
-				catch (IOException e) {
+				catch (IOException e) 
+				{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
-			} 
-			catch (SQLException e) 
-			{
-				System.out.println("cannot connect to db to check payment account");
+				} 
+				catch (SQLException e) 
+				{
+					System.out.println("cannot connect to db to check payment account");
 
+				}
 			}
-		}
 	
+			else if(myOrder.getMsgToServer().equals("Give me all customer active orders"))
+			{
+				ArrayList<CustomerTransaction> allCustomerOrders = new ArrayList<CustomerTransaction>();
+				//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+				try 
+				{
+					allCustomerOrders = PutOutAllCustomerOrders(allCustomerOrders, myOrder.getOrderbranchID(), myOrder.getBranchName(), myOrder.getCustomerID() );
+
+					Message Msg = new Message(allCustomerOrders, "CustomerTransaction");
+					//this.sendToAllClients(Msg);
+					try 
+					{
+						client.sendToClient(Msg);
+						return;
+					} 
+					catch (IOException e) 
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				} 
+				catch (SQLException e) 
+				{
+					System.out.println("error-cannot get customer order!!");
+					return;
+				}
+			}
+			
 		 }	
 		
 		//---------------------------------------instanceof SpecialBranchesMessage----------------------------------------------------
@@ -676,14 +708,53 @@ public class EchoServer extends AbstractServer implements Initializable
 			
 		}
 	} //end of handleMessageFromClient
+
+
 	//***********************************************************************************************************************************************************************************
 	// Class methods ********************************************************************************************************************************************************************
 	//***********************************************************************************************************************************************************************************
 	
 	
+	private ArrayList<CustomerTransaction> PutOutAllCustomerOrders(ArrayList<CustomerTransaction> allCustomerOrders, String orderbranchID, String branchName, int customerID) throws SQLException
+	{	/**this method will return all active orders of specific customer*/
+		Statement st=null;
+
+		
+			st = (Statement) ServerDataBase.createStatement();
+			String sql = "SELECT * FROM customerorders WHERE CustomerID = '" + customerID + "'";
+			ResultSet rs=null;
+			rs = st.executeQuery(sql);
+			while (rs.next()) 
+			{
+				int completedStatus = rs.getInt(13);
+				String myBranchID= rs.getString(4);
+
+				if(completedStatus == 0 && myBranchID.equals(orderbranchID))
+				{
+				int myOrderID = rs.getInt(1);
+				double myOrderPrice=rs.getDouble(5);
+				Date mySupplyDate = this.convertSqlDateToDateOfHaim(rs.getDate(6));
+				MyTime mySupplyHour = this.convertSqlTimeToTimeOfHaim(rs.getTime(7));
+				CustomerTransaction myOrder = new CustomerTransaction();
+				myOrder.setOrderID(myOrderID);
+				myOrder.setCustomerID(customerID);
+				myOrder.setBranchName(branchName);
+				myOrder.setOrderSupplyDate(mySupplyDate);
+				myOrder.setOrdersupplyTime(mySupplyHour);
+				myOrder.setOrderTotalPrice(myOrderPrice);
+				myOrder.setMsgToClient("show this order on cancellation table");
+				allCustomerOrders.add(myOrder);
+				}
+			}
+			rs.close();
+			st.close();		
+			return allCustomerOrders;
+		
+	}
 	
 	
-	
+
+
 	//***********************************************************************************************************************************************************************************
 	private ArrayList<Flower> putOutAllFlowers(ArrayList<Flower> allFlowersFromDB) throws SQLException 
 	{	/**this method responsible to put out all of the flowers in the db*/
@@ -1312,12 +1383,24 @@ public class EchoServer extends AbstractServer implements Initializable
 		return myOrder;
 	}
 	//***********************************************************************************************************************************************************************************
+	
+	private MyTime convertSqlTimeToTimeOfHaim(Time time) 
+	{
+		String someTime = ""+time;
+		String hour=someTime.substring(0, 2);
+		String minute=someTime.substring(3, 5);
+		String seconds=someTime.substring(6, someTime.length());
+		MyTime haimTime = new MyTime(hour,  minute,  seconds);
+		return haimTime;
+	}
+	
+	
 	private Date convertSqlDateToDateOfHaim(java.sql.Date myDate) 
 	{	/*this method responsible for convert sql date type to our project date type**/
-		String expDate = ""+ myDate;
-		int year = Integer.parseInt(expDate.substring(0, 4)) ;       
-		int mounth = Integer.parseInt(expDate.substring(5, 7)) ;       
-		int day = Integer.parseInt(expDate.substring(8, expDate.length())) ;       
+		String someDate = ""+ myDate;
+		int year = Integer.parseInt(someDate.substring(0, 4)) ;       
+		int mounth = Integer.parseInt(someDate.substring(5, 7)) ;       
+		int day = Integer.parseInt(someDate.substring(8, someDate.length())) ;       
 		Date haimDate = new Date(year, mounth, day);
 		return haimDate;
 	}

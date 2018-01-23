@@ -2,14 +2,14 @@ package Customer;
 
 import java.io.Serializable;
 
-public class Time implements Serializable, Comparable,Cloneable
+public class MyTime implements Serializable, Comparable,Cloneable
 {
 	private String hour;
 	private String minutes;
 	private String seconds;
 
 
-	public Time(String hour, String minutes, String seconds) 
+	public MyTime(String hour, String minutes, String seconds) 
 	{
 		this.hour = hour;
 		this.minutes = minutes;
@@ -26,9 +26,9 @@ public class Time implements Serializable, Comparable,Cloneable
 	@Override
 	public int compareTo(Object anothertime) 
 	{
-		if(anothertime instanceof Time)
+		if(anothertime instanceof MyTime)
 		{
-			Time check = (Time)anothertime;
+			MyTime check = (MyTime)anothertime;
 			
 			if( check.getHour().equals(this.hour) && check.getMinutes().equals(this.minutes) && check.getSeconds().equals(this.seconds))
 			{

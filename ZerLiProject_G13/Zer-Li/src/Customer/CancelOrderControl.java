@@ -226,11 +226,11 @@ public class CancelOrderControl extends LoginContol implements Initializable
 		    
 		branchNameColmun.setCellValueFactory(new PropertyValueFactory<CustomerTransaction, String>("branchName"));
 		    	    
-		supplyDateColmun.setCellValueFactory(new PropertyValueFactory<CustomerTransaction, String>("OrdersupplyDate"));
+		supplyDateColmun.setCellValueFactory(new PropertyValueFactory<CustomerTransaction, String>("supplyDateStr"));
 		    
 		supplyHourColmun.setCellValueFactory(new PropertyValueFactory<CustomerTransaction, String>("supplyTimeStr"));
 		
-		priceColmun.setCellValueFactory(new PropertyValueFactory<CustomerTransaction, String>("flowerPriceWIthCoins"));
+		priceColmun.setCellValueFactory(new PropertyValueFactory<CustomerTransaction, String>("orderPriceWithCoin"));
 
 		   
 		orderIDColmun.setStyle( "-fx-alignment: CENTER;");
@@ -238,10 +238,8 @@ public class CancelOrderControl extends LoginContol implements Initializable
 		supplyDateColmun.setStyle( "-fx-alignment: CENTER;");
 		supplyHourColmun.setStyle( "-fx-alignment: CENTER;");
 		priceColmun.setStyle( "-fx-alignment: CENTER;");
-		if(this.allCustomerOrder.isEmpty())
-		{
-			cancelOrderBtn.setDisable(true);
-		}
+		ordersTable.setItems(allCustomerOrder);
+		System.out.println(""+allCustomerOrder);
 
 		
 	}

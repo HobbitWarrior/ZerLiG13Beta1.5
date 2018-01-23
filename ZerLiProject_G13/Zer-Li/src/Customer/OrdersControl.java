@@ -51,7 +51,7 @@ public class OrdersControl extends LoginContol implements Initializable
 	private static boolean checkboxFilled=false;
 	private static String textGreeting="";
 	private static Date  supplyTimeDate  ;
-	private static Time supplyTime;
+	private static MyTime supplyTime;
 	private static String selfArrivalBranch="";
 	private static boolean expeditedSupplying=false;
 	private static Delivery myShipment;	
@@ -262,14 +262,14 @@ public class OrdersControl extends LoginContol implements Initializable
     	String nowCompletedHour=""+now.getHour();
     	String nowCompletedMinute=""+now.getMinute();
     	String nowCompletedSeconds=""+now.getSecond();
-    	Time completedTime = new Time(nowCompletedHour, nowCompletedMinute, nowCompletedSeconds); //time of committing a deal
+    	MyTime completedTime = new MyTime(nowCompletedHour, nowCompletedMinute, nowCompletedSeconds); //time of committing a deal
     	newDeal.setOrderCompletedTime(completedTime);
     	Date CompletedDateOrder = new Date(now.getYear(), now.getMonthValue(), now.getDayOfMonth()); //date of committing a deal
     	newDeal.setOrderCompletedDate(CompletedDateOrder);
-    	Time supplyTimeOrder;
+    	MyTime supplyTimeOrder;
 		try 
 		{
-			supplyTimeOrder = (Time)this.supplyTime.clone();	//copy time that customer choose
+			supplyTimeOrder = (MyTime)this.supplyTime.clone();	//copy time that customer choose
 	    	System.out.println("" + supplyTimeOrder);
 
 	    	newDeal.setOrdersupplyTime(supplyTimeOrder);	
@@ -531,7 +531,7 @@ public class OrdersControl extends LoginContol implements Initializable
     	int nowMounth=now.getMonthValue();
     	int nowDay=now.getDayOfMonth();
     	supplyTimeDate =new Date(chosenYear ,chosenMounth , chosenDay);	//here we create date of supplying for customerOrder class
-    	supplyTime = new Time(comboBoxHour.getValue(), "00", "00");	//here we keep the date of supplying that customer wanted
+    	supplyTime = new MyTime(comboBoxHour.getValue(), "00", "00");	//here we keep the date of supplying that customer wanted
 
     	
     	if(nowYear == chosenYear && nowMounth == chosenMounth && nowDay== chosenDay) //if customer want the supplying today....

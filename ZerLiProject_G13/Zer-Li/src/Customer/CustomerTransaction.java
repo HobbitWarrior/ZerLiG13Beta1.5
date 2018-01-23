@@ -13,10 +13,10 @@ public class CustomerTransaction implements Serializable
 	private Double OrdertotalPrice;
 	private Date OrdersupplyDate;
 	private String supplyDateStr="";	//
-	private Time OrdersupplyTime;
+	private MyTime OrdersupplyTime;
 	private String supplyTimeStr="";	//
 	private Date OrderCompletedDate;
-	private Time OrderCompletedTime;
+	private MyTime OrderCompletedTime;
 	private String Greeting;
 	private String PaymentType;
 	private boolean IsExpeditedDelivery;
@@ -98,12 +98,12 @@ public class CustomerTransaction implements Serializable
 	}
 
 
-	public Time getOrdersupplyTime() {
+	public MyTime getOrdersupplyTime() {
 		return OrdersupplyTime;
 	}
 
 
-	public void setOrdersupplyTime(Time ordersupplyTime) {
+	public void setOrdersupplyTime(MyTime ordersupplyTime) {
 		OrdersupplyTime = ordersupplyTime;
 	}
 
@@ -118,12 +118,12 @@ public class CustomerTransaction implements Serializable
 	}
 
 
-	public Time getOrderCompletedTime() {
+	public MyTime getOrderCompletedTime() {
 		return OrderCompletedTime;
 	}
 
 
-	public void setOrderCompletedTime(Time orderCompletedTime) {
+	public void setOrderCompletedTime(MyTime orderCompletedTime) {
 		OrderCompletedTime = orderCompletedTime;
 	}
 
@@ -243,8 +243,11 @@ public class CustomerTransaction implements Serializable
 	}
 
 
-	public void setSupplyDateStr(String supplyDateStr) {
-		this.supplyDateStr = supplyDateStr;
+	public void setSupplyDateStr(String supplyDateStr) 
+	{
+		String dateStrToIsrael=""+supplyDateStr.substring(8, supplyDateStr.length())+"/"+supplyDateStr.substring(5, 7)+"/"+supplyDateStr.substring(0, 4);
+		
+		this.supplyDateStr = dateStrToIsrael;
 	}
 
 
@@ -253,7 +256,11 @@ public class CustomerTransaction implements Serializable
 	}
 
 
-	public void setSupplyTimeStr(String supplyTimeStr) {
+	public void setSupplyTimeStr(String supplyTimeStr) 
+	{
+		
+
+		
 		this.supplyTimeStr = supplyTimeStr;
 	}
 
@@ -265,6 +272,14 @@ public class CustomerTransaction implements Serializable
 
 	public void setMsgToServer(String msgToServer) {
 		this.msgToServer = msgToServer;
+	}
+
+
+	@Override
+	public String toString() {
+		return "CustomerTransaction [OrderID=" + OrderID + ", customerID=" + customerID + ", OrderbranchID="
+				+ OrderbranchID + ", branchName=" + branchName + ", OrdertotalPrice=" + OrdertotalPrice
+				+ ", OrdersupplyDate=" + OrdersupplyDate + ", OrdersupplyTime=" + OrdersupplyTime + "]";
 	}
 	
 	
