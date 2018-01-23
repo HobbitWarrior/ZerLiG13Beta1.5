@@ -366,7 +366,7 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    		flowerComposion = createCompositeWithtColor(flowerComposion);
 
 	    	}
-	    	if(this.quantityComposition<15)
+	    	if(this.quantityComposition<15 || this.priceComposition>this.max || this.priceComposition<this.min)
     		{
 		    	CustomerFlowers.clear();
 		    	this.labelQtyFlower.setText("Number of flowers: 0 items");
