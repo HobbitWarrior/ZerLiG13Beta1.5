@@ -29,6 +29,30 @@ public class SurveyAnalayzingControl extends LoginContol
     private Button btnHome;
     
     
+    
+    // questions:
+    
+    @FXML
+    private Label q1Result;
+
+    @FXML
+    private Label q2Result;
+    
+    @FXML
+    private Label q3Result;
+    
+    @FXML
+    private Label q4Result;
+
+    @FXML
+    private Label q5Result;
+    
+    @FXML
+    private Label q6Result;
+    
+    
+    
+    
 
     @FXML
     void goHome(ActionEvent event) 

@@ -88,7 +88,6 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 	 private static final Survey NULL = null;
 		public static ObservableList<Integer> ListNumbers= FXCollections.observableArrayList();
 
-	private static final String UserNameToCheck = null;
 
 	@FXML
     private Button FillSurvey;
@@ -193,6 +192,34 @@ public class FillSurveyControl extends LoginContol implements Initializable {
     public static int i=0;
    
     ArrayList<Survey> MyFillSurveyList = new ArrayList<Survey>();
+    
+    //events:
+    
+    
+    @FXML
+    void goHome(ActionEvent event) 
+    {
+
+    }
+
+    
+    @FXML
+    void logoutEvent(ActionEvent event) throws IOException 
+    {
+    	changeEntry(UserNameToCheck);
+    	
+		System.out.println("return to main menu");
+		((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window	
+		LoginContol aFrame = new LoginContol(); // create Login Frame
+		Stage arg0 = new Stage();
+		aFrame.start(arg0);
+    }
+    
+    
+    
+    
+    
+    
 	    @FXML
 	    void FillSurvey(ActionEvent event) {
         
@@ -319,28 +346,26 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 		  // while( myClient.isConnected());	//wait until client (this class) get all users from the db!
 		  
 	    }
-
-	    @FXML
-	    void goHome(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void logoutEvent(ActionEvent event) throws IOException
-	    {
-	    	  changeEntry(UserNameToCheck);
-	    	
-			System.out.println("return to main menu");
-			((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window	
-			LoginContol aFrame = new LoginContol(); // create Login Frame
-			Stage arg0 = new Stage();
-			aFrame.start(arg0);
-			
-			ListNumbers.clear();
-	    }
 	    
 		 
 
+		@Override
+		public void initialize(URL location, ResourceBundle resources) {
+			for(int i=1;i<11;i++)
+			{
+				ListNumbers.add(i);
+ 			}
+			Combo1.setItems(ListNumbers);
+			Combo2.setItems(ListNumbers);
+			Combo3.setItems(ListNumbers);
+			Combo4.setItems(ListNumbers);
+			Combo5.setItems(ListNumbers);
+			Combo6.setItems(ListNumbers);
+			
+
+		}
+		
+		
 		public void start(Stage primaryStage) throws IOException 
 		{	
 			
@@ -359,23 +384,5 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 			
 		 	 
 		}
-
-		@Override
-		public void initialize(URL location, ResourceBundle resources) {
-			for(int i=1;i<4;i++)
-			{
-				ListNumbers.add(i);
- 			}
-			Combo1.setItems(ListNumbers);
-			Combo2.setItems(ListNumbers);
-			Combo3.setItems(ListNumbers);
-			Combo4.setItems(ListNumbers);
-			Combo5.setItems(ListNumbers);
-			Combo6.setItems(ListNumbers);
-			
-
-		}
-	
-	
 	
 }
