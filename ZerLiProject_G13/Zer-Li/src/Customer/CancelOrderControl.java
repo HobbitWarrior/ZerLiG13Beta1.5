@@ -97,7 +97,7 @@ public class CancelOrderControl extends LoginContol implements Initializable
 	    		incorrectImageAlert.setContentText("Please select row in the table");
 	    		incorrectImageAlert.showAndWait();
 	    		return;
-	    	}
+	    	} 
 	    	TransactionAbort cancelOrder = calculateRefund(orderInRow.get(0));
 	    	System.out.println(""+cancelOrder);
 	    }
@@ -158,7 +158,7 @@ public class CancelOrderControl extends LoginContol implements Initializable
 		    	return customerRefund;
 
 	    	}
-	    	
+	    	//it working
 	    	return null;
 		}
 
