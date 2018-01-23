@@ -33,7 +33,7 @@
       <AnchorPane layoutX="34.0" layoutY="278.0" prefHeight="625.0" prefWidth="760.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" height="583.0" layoutX="130.0" layoutY="25.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="482.0" />
-            <Group layoutX="9.0" layoutY="59.0">
+            <Group layoutX="9.0" layoutY="55.0">
                <children>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bbb9b9" height="79.0" layoutX="133.0" layoutY="105.0" stroke="BLACK" strokeType="INSIDE" width="476.0" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bbb9b9" height="79.0" layoutX="133.0" layoutY="410.0" stroke="#494949" strokeType="INSIDE" width="476.0" />
