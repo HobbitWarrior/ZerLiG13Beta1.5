@@ -61,6 +61,25 @@ public class CustomerMainWindow extends LoginContol implements Initializable
     private ComboBox<String> comboBranch;
     
     
+    @FXML
+    void btnCancelOrderPressed(ActionEvent event) 
+    {
+    	Stage primaryStage = new Stage();
+    	CancelOrderControl aFrame = new CancelOrderControl();
+  	  
+ 			
+ 				try 
+ 				{
+					aFrame.start(primaryStage);
+				} 
+ 				catch (Exception e) 
+ 				{
+					System.out.println("Cannot open cancel window");
+				}
+ 			
+ 				btnCancelOrder.getScene().getWindow().hide(); //hiding primary window
+    }
+    
     
     @FXML
     void btnCustomisePressed(ActionEvent event)
@@ -157,7 +176,7 @@ public class CustomerMainWindow extends LoginContol implements Initializable
     
 	public void start(Stage primaryStage) throws IOException  
 	{		
-	  	Pane root = FXMLLoader.load(getClass().getResource("/Customer/CustomerMainWindowFrame.fxml"));
+	  	Pane root = FXMLLoader.load(getClass().getResource("/Customer/customerMainMenuWindow.fxml"));
 		Scene scene = new Scene(root);			
 		primaryStage.setTitle("Customer Main Menu"); // name of the title of the window
 		primaryStage.setScene(scene);		
@@ -207,6 +226,7 @@ public class CustomerMainWindow extends LoginContol implements Initializable
     	{
     		btnCatalog.setDisable(false);	//if branch chosen, allow user to open the catalog
     		btnCustomise.setDisable(false); //if branch chosen, allow user to open the customizing
+    		btnCancelOrder.setDisable(false);
 
     	}
     	System.out.println(""+chosenBranchID);;
@@ -223,6 +243,7 @@ public class CustomerMainWindow extends LoginContol implements Initializable
 			comboBranch.setValue(this.chosenBranchName);
     		btnCatalog.setDisable(false);	//if branch chosen, allow user to open the catalog
     		btnCustomise.setDisable(false); //if branch chosen, allow user to open the customizing
+    		btnCancelOrder.setDisable(false);
     		OrdersControl.oneBranchName.clear();
     		OrdersControl.oneBranchName.add(this.chosenBranchName);
 
@@ -231,7 +252,7 @@ public class CustomerMainWindow extends LoginContol implements Initializable
 		{
 			btnCatalog.setDisable(true);
     		btnCustomise.setDisable(true); 
-
+    		btnCancelOrder.setDisable(true);
 		}
 
 		

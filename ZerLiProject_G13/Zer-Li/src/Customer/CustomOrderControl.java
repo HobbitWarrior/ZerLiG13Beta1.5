@@ -133,7 +133,9 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    @FXML
 	    private Label branchLabelAtCatalog; //added this label
 
-	  
+	    @FXML
+	    private Button cancelBtn;
+	    
 	    private void addBasketToCart()
 	    {
 	    	
@@ -144,7 +146,27 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    	
 	    }
 	    
-	    
+	    @FXML
+	    void cancelBtnPressed(ActionEvent event) 
+	    {
+	    	addBasketToCart();
+			this.basket.clear();
+	    	Stage primaryStage = new Stage();
+	    	CancelOrderControl aFrame = new CancelOrderControl();
+	  	  
+	 			
+	 				try 
+	 				{
+						aFrame.start(primaryStage);
+					} 
+	 				catch (Exception e) 
+	 				{
+						System.out.println("Cannot open cancel window");
+					}
+	 			
+	 				cancelBtn.getScene().getWindow().hide(); //hiding primary window
+
+	    }
 
 	    @FXML
 	    void removeBtnCartPressed(ActionEvent event)
@@ -202,6 +224,7 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    void btenCatalogPressed(ActionEvent event) 
 	    {
 	    	addBasketToCart();
+			this.basket.clear();
 
 			   System.out.println("I got the event of catalog button");	  
 
@@ -366,7 +389,7 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    		flowerComposion = createCompositeWithtColor(flowerComposion);
 
 	    	}
-	    	if(this.quantityComposition<15)
+	    	if(this.quantityComposition<15 || this.priceComposition>this.max || this.priceComposition<this.min)
     		{
 		    	CustomerFlowers.clear();
 		    	this.labelQtyFlower.setText("Number of flowers: 0 items");
