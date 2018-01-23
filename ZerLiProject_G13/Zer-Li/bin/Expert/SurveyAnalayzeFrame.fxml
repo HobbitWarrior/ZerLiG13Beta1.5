@@ -25,11 +25,6 @@
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="330.0" layoutY="377.0" text="No polls found" textFill="RED" visible="false">
-         <font>
-            <Font name="System Bold Italic" size="29.0" />
-         </font>
-      </Label>
       <Label layoutX="252.0" layoutY="308.0" text="Customer Satisfaction Survey Results" textFill="#575656">
          <font>
             <Font name="System Bold Italic" size="20.0" />
@@ -41,9 +36,9 @@
                <children>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bbb9b9" height="79.0" layoutX="133.0" layoutY="105.0" stroke="BLACK" strokeType="INSIDE" width="476.0" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bbb9b9" height="79.0" layoutX="133.0" layoutY="410.0" stroke="#494949" strokeType="INSIDE" width="476.0" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c9c9c9" height="79.0" layoutX="133.0" layoutY="27.0" stroke="#494949" strokeType="INSIDE" width="476.0" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c9c9c9" height="79.0" layoutX="133.0" layoutY="180.0" stroke="#494949" strokeType="INSIDE" width="476.0" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c9c9c9" height="79.0" layoutX="133.0" layoutY="332.0" stroke="#494949" strokeType="INSIDE" width="476.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d6d5d5" height="79.0" layoutX="133.0" layoutY="27.0" stroke="#494949" strokeType="INSIDE" width="476.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d6d5d5" height="79.0" layoutX="133.0" layoutY="180.0" stroke="#494949" strokeType="INSIDE" width="476.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d6d5d5" height="79.0" layoutX="133.0" layoutY="332.0" stroke="#494949" strokeType="INSIDE" width="476.0" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bbb9b9" height="79.0" layoutX="133.0" layoutY="254.0" stroke="#494949" strokeType="INSIDE" width="476.0" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="79.0" layoutX="503.0" layoutY="27.0" stroke="#494949" strokeType="INSIDE" width="106.0" />
                   <Label layoutX="153.0" layoutY="125.0" text="2) How often do you visit Zer-Li application?">
@@ -106,11 +101,60 @@
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="79.0" layoutX="503.0" layoutY="254.0" stroke="#494949" strokeType="INSIDE" width="106.0" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="79.0" layoutX="503.0" layoutY="332.0" stroke="#494949" strokeType="INSIDE" width="106.0" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="79.0" layoutX="503.0" layoutY="410.0" stroke="#494949" strokeType="INSIDE" width="106.0" />
+                  <Label fx:id="q1Result" layoutX="544.0" layoutY="35.0" text="1" textFill="#030303">
+                     <font>
+                        <Font name="System Bold Italic" size="43.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="q2Result" layoutX="544.0" layoutY="113.0" text="1" textFill="#030303">
+                     <font>
+                        <Font name="System Bold Italic" size="43.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="q3Result" layoutX="544.0" layoutY="188.0" text="1" textFill="#030303">
+                     <font>
+                        <Font name="System Bold Italic" size="43.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="q4Result" layoutX="544.0" layoutY="262.0" text="1" textFill="#030303">
+                     <font>
+                        <Font name="System Bold Italic" size="43.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="q5Result" layoutX="544.0" layoutY="340.0" text="1" textFill="#030303">
+                     <font>
+                        <Font name="System Bold Italic" size="43.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="q6Result" layoutX="544.0" layoutY="418.0" text="1" textFill="#030303">
+                     <font>
+                        <Font name="System Bold Italic" size="43.0" />
+                     </font>
+                  </Label>
                </children>
                <effect>
                   <DropShadow />
                </effect>
             </Group>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="158.0" layoutY="369.0" prefHeight="200.0" prefWidth="427.0" visible="false">
+         <children>
+            <Label layoutX="10.0" layoutY="24.0" text="No surveys found" textFill="RED">
+               <font>
+                  <Font name="System Bold Italic" size="29.0" />
+               </font>
+            </Label>
+            <Label layoutX="44.0" layoutY="75.0" text="service department did not create a new survey" textFill="RED">
+               <font>
+                  <Font name="System Bold Italic" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="44.0" layoutY="110.0" text="Or the surveys were not filled" textFill="RED">
+               <font>
+                  <Font name="System Bold Italic" size="16.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>
