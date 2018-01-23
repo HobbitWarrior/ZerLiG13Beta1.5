@@ -3,14 +3,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 
 import Users.LoginContol;
@@ -83,10 +88,81 @@ public class CancelOrderControl extends LoginContol implements Initializable
 	    @FXML
 	    void cancelOrderBtnPressed(ActionEvent event) 
 	    {
-
+	    	ObservableList<CustomerTransaction> orderInRow = ordersTable.getSelectionModel().getSelectedItems();
+	    	if(orderInRow.isEmpty())
+	    	{
+	    		Alert incorrectImageAlert = new Alert(AlertType.WARNING);
+	    		incorrectImageAlert.setTitle("No selected order");
+	    		incorrectImageAlert.setHeaderText("You didn't select row in the table");
+	    		incorrectImageAlert.setContentText("Please select row in the table");
+	    		incorrectImageAlert.showAndWait();
+	    		return;
+	    	}
+	    	TransactionAbort cancelOrder = calculateRefund(orderInRow.get(0));
+	    	System.out.println(""+cancelOrder);
 	    }
 	    
-	    @FXML
+	    private TransactionAbort calculateRefund(CustomerTransaction order) 
+	    {
+	    	LocalDateTime now = LocalDateTime.now();
+	    	Date supplyDate = order.getOrdersupplyDate();
+	    	MyTime supplyHour = order.getOrdersupplyTime();
+	    	int yearSupply = supplyDate.getYear();
+	    	int mounthSupply = supplyDate.getMounth();
+	    	int daySupply = supplyDate.getDay();
+	    	Integer hourSupply = new Integer(supplyHour.getHour());
+	    	Integer minutesSupply = new Integer(supplyHour.getMinutes());
+	    	Integer secondsSupply = new Integer(supplyHour.getSeconds());
+
+	    	LocalDateTime fromDateTime = LocalDateTime.of(now.getYear(), now.getMonthValue(), now.getDayOfMonth(), now.getHour(), now.getMinute(), now.getSecond());
+	    	LocalDateTime toDateTime = LocalDateTime.of(yearSupply, mounthSupply, daySupply, hourSupply, minutesSupply, secondsSupply);
+
+	    	LocalDateTime tempDateTime = LocalDateTime.from( fromDateTime );
+
+	    	long years = tempDateTime.until( toDateTime, ChronoUnit.YEARS);
+	    	tempDateTime = tempDateTime.plusYears( years );
+
+	    	long months = tempDateTime.until( toDateTime, ChronoUnit.MONTHS);
+	    	tempDateTime = tempDateTime.plusMonths( months );
+
+	    	long days = tempDateTime.until( toDateTime, ChronoUnit.DAYS);
+	    	tempDateTime = tempDateTime.plusDays( days );
+
+
+	    	long hours = tempDateTime.until( toDateTime, ChronoUnit.HOURS);
+	    	tempDateTime = tempDateTime.plusHours( hours );
+
+	    	long minutes = tempDateTime.until( toDateTime, ChronoUnit.MINUTES);
+	    	tempDateTime = tempDateTime.plusMinutes( minutes );
+
+	    	long seconds = tempDateTime.until( toDateTime, ChronoUnit.SECONDS);
+
+	    	System.out.println( years + " years " + months + " months " +  days + " days " + hours + " hours " +  minutes + " minutes " +   seconds + " seconds.");
+	    	if(years>0 || months>0 || days>0 || hours>3) 
+	    	{
+	    		TransactionAbort customerRefund = new TransactionAbort(order.getOrderID(), 1); //give 100% refund
+		    	return customerRefund;
+
+	    	}
+	    	
+	    	else if (years == 0 && months == 0 && days ==0 && hours>=1 && hours< 3)
+	    	{
+	    		TransactionAbort customerRefund = new TransactionAbort(order.getOrderID(), 0.5); //give 50% refund
+		    	return customerRefund;
+
+	    	}
+	    	
+	    	else if(years == 0 && months == 0 && days ==0 && hours>=0)
+	    	{
+	    		TransactionAbort customerRefund = new TransactionAbort(order.getOrderID(), 0); //give 0% refund
+		    	return customerRefund;
+
+	    	}
+	    	
+	    	return null;
+		}
+
+		@FXML
 	    void customizeBtnPressed(ActionEvent event) 
 	    {
 	    	Stage primaryStage = new Stage();
