@@ -30,10 +30,14 @@
             <Font name="System Bold Italic" size="29.0" />
          </font>
       </Label>
-      <AnchorPane layoutX="34.0" layoutY="278.0" prefHeight="625.0" prefWidth="760.0">
+      <Label layoutX="252.0" layoutY="308.0" text="Customer Satisfaction Survey Results" textFill="#575656">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="154.0" layoutY="358.0" prefHeight="481.0" prefWidth="521.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" height="583.0" layoutX="130.0" layoutY="25.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="482.0" />
-            <Group layoutX="9.0" layoutY="55.0">
+            <Group layoutX="-110.0" layoutY="-17.0">
                <children>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bbb9b9" height="79.0" layoutX="133.0" layoutY="105.0" stroke="BLACK" strokeType="INSIDE" width="476.0" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bbb9b9" height="79.0" layoutX="133.0" layoutY="410.0" stroke="#494949" strokeType="INSIDE" width="476.0" />
@@ -107,11 +111,6 @@
                   <DropShadow />
                </effect>
             </Group>
-            <Label layoutX="198.0" layoutY="25.0" text="Customer Satisfaction Survey Results" textFill="#575656">
-               <font>
-                  <Font name="System Bold Italic" size="20.0" />
-               </font>
-            </Label>
          </children>
       </AnchorPane>
    </children>
