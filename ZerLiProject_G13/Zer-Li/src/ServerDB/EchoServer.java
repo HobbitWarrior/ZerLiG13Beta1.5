@@ -589,6 +589,38 @@ public class EchoServer extends AbstractServer implements Initializable
 		 
 
 		 }
+		//---------------------------------------instanceof report----------------------------------------------------
+		if(msg instanceof Reports)
+		 {
+			
+			Reports givenItem = (Reports)msg;
+			 
+
+		/*	try {
+				// insert the data into the table
+				Statement statementquery = (Statement) ServerDataBase.createStatement(); // query to check if table
+																							// filled
+
+				PreparedStatement ps1 = ServerDataBase
+						.prepareStatement("INSERT INTO reports VALUES (?,?,?,?,? )");
+ 
+
+				ps1.setInt(1, givenItem.getReportType());
+				ps1.setString(2,givenItem.getReportYear()  );
+				ps1.setInt(3, givenItem.getReportQuarter());
+				ps1.setString(4, givenItem.getCsvFILE());
+				ps1.setString(5, givenItem.getBranchID());
+			 
+				 
+				ps1.executeUpdate();
+				ps1.close();
+
+				statementquery.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+*/
+		 }
 
 		//---------------------------------------instanceof MessgaeCatalogProduct----------------------------------------------------
 		if(msg instanceof MessgaeCatalogProduct)

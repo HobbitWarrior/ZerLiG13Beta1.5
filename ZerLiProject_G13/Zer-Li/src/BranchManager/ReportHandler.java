@@ -18,9 +18,11 @@ import com.mysql.jdbc.Blob;
 import com.mysql.jdbc.Statement;
 
 import CustomerServiceDepartmentworker.complaint;
+import Users.LoginContol;
+import client.ChatClient;
 import client.Message;
 
-public class ReportHandler {
+public class ReportHandler  extends LoginContol {
  
 	@SuppressWarnings("deprecation")
 	public void generateQuarterItemsReport(Connection serverDataBase, int quarterNum) {
@@ -125,6 +127,23 @@ public class ReportHandler {
 	{
 		Reports newReport=new Reports(reporttype,year,qar,csvFile,branchid);
 		System.out.println(newReport);
+		 int port=PORT ;
+	 	   String ip=ServerIP ;
+ 	 	   try 
+	 	   {
+	 		myClient = new ChatClient(ip,port);	//create new client to get all users in db (server)
+	 		myClient.setLoginControl(this); 
+	 	   } 
+	 	   catch (IOException e) 
+	 	   {
+	 		   System.out.println("Cannot create client");	  
+	 	   }
+	 	    
+ 	 	 myClient.AddNewReportToDB(newReport); 
+
+		
+		
+		
 		
 	}
 	

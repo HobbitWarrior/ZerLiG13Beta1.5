@@ -224,9 +224,9 @@ public class ChatClient extends AbstractClient {
 					int ReportType = AllReportsFromServer.get(i).getReportType(); 
 					String ReportYear = AllReportsFromServer.get(i).getReportYear(); 
 					int ReportQuarter = AllReportsFromServer.get(i).getReportQuarter(); 
-					Image longblob = AllReportsFromServer.get(i).getLongblob();
+					String fileCsv = AllReportsFromServer.get(i).getCsvFILE();
 					String BranchID = AllReportsFromServer.get(i).getBranchID(); 
-					Reports replist=new Reports(ReportType,ReportYear,ReportQuarter,longblob,BranchID);
+					Reports replist=new Reports(ReportType,ReportYear,ReportQuarter,fileCsv,BranchID);
 					BranchReportBrowseControl.ReportList.add(replist);
 				}
 				quit();
@@ -276,10 +276,10 @@ public class ChatClient extends AbstractClient {
 					int ReportType = AllReportsFromServer.get(i).getReportType(); 
 					String ReportYear = AllReportsFromServer.get(i).getReportYear(); 
 					int ReportQuarter = AllReportsFromServer.get(i).getReportQuarter(); 
-					Image longblob = AllReportsFromServer.get(i).getLongblob();
+					String fileCsv = AllReportsFromServer.get(i).getCsvFILE();
 					String BranchID = AllReportsFromServer.get(i).getBranchID(); 
-					Reports replist=new Reports(ReportType,ReportYear,ReportQuarter,longblob,BranchID);
-					 
+					Reports replist=new Reports(ReportType,ReportYear,ReportQuarter,fileCsv,BranchID);
+					BranchReportBrowseControl.ReportList.add(replist);
 					System.out.println(replist);
 					System.out.println("-=-&&"+replist);
  			    	 OwnReportBrowseControl.ReportList.add(replist);
@@ -333,10 +333,10 @@ public class ChatClient extends AbstractClient {
 					int ReportType = AllReportsFromServer.get(i).getReportType(); 
 					String ReportYear = AllReportsFromServer.get(i).getReportYear(); 
 					int ReportQuarter = AllReportsFromServer.get(i).getReportQuarter(); 
-					//Image longblob = AllReportsFromServer.get(i).getLongblob();
+					String fileCsv = AllReportsFromServer.get(i).getCsvFILE();
 					String BranchID = AllReportsFromServer.get(i).getBranchID(); 
-					Reports replist=new Reports(ReportType,ReportYear,ReportQuarter,null,BranchID);
-					 
+					Reports replist=new Reports(ReportType,ReportYear,ReportQuarter,fileCsv,BranchID);
+					BranchReportBrowseControl.ReportList.add(replist);
 					System.out.println(replist);
 
  			    	 OwnReportBrowseControl.ReportList.add(replist);
@@ -1151,6 +1151,30 @@ public class ChatClient extends AbstractClient {
 			System.out.println("Cannot connect to server to get cancel customer order");
 
 		}			
+	}
+
+	public void AddNewReportToDB(Reports newReport) {
+
+		try 
+		{
+			this.openConnection();
+		}
+
+		catch (IOException e1) 
+		{
+			System.out.println("Cannot open connection");
+		}
+		try 
+		{
+			System.out.println("Send Message to add report");
+			sendToServer(newReport);
+		} 
+		catch (IOException e) 
+		{
+			System.out.println("Cannot connect to server to get add report");
+
+		}			
+		
 	}
 
 }
