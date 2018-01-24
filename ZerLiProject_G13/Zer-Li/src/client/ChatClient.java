@@ -450,7 +450,7 @@ public class ChatClient extends AbstractClient {
 				CustomerServiceDepartmentworkerMainWindow.activeComplaints=(ArrayList<complaint>) ServerMsg.getMsgObject();
 				for(complaint c : CustomerServiceDepartmentworkerMainWindow.activeComplaints)
 				{
-					System.out.print("complaint: " + c.getComplaintID()+" "+c.getCustomerID()+" "+c.getDateComplaint()+" "+c.getDetails()+" "+c.getEmpHandling()+" "+c.getStatus()+" "+c.getTimeComplaint()+" "+c.getTopic()+"\n");
+					System.out.print("complaint: " + c.getComplaintID()+" "+c.getCustomerID()+" "+c.getDateComplaint()+" "+c.getEmpHandling()+" "+c.getStatus()+" "+c.getTimeComplaint()+" "+c.getTopic()+"\n");//" "+c.getDetails()+
 					CustomerServiceDepartmentworkerMainWindow.upgradedList.add(new complaintRow("Customer:" +c.getCustomerID()+" Topic: "+c.getTopic()+"  ",c.getTimeComplaint(), CustomerServiceDepartmentworkerMainWindow.mainStageReference));
 				}
 				quit();
@@ -839,7 +839,7 @@ public class ChatClient extends AbstractClient {
 
 		try 
 		{
-			sendToServer("activeComplaints");
+			sendToServer("ComplaintsList");
 		} 
 		catch (IOException e) 
 		{

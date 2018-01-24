@@ -67,7 +67,7 @@ public class EchoServer extends AbstractServer implements Initializable
 			public void run() {
 				DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 				java.util.Date date = new java.util.Date();
-				
+				Connection serverDataBaseThreadCopy=connectToDB(UserName, Password, DataBaseName);
 				while(true)
 				{
 				//need to add a condition that checks if its time to generate a new report	
@@ -213,7 +213,7 @@ public class EchoServer extends AbstractServer implements Initializable
 			//-----------------------------------------------------------//
 			
 			// get all the complaints from the DB
-			if (DiscoverMessage.equals("complaintsList")) {
+			if (DiscoverMessage.equals("ComplaintsList")) {
 				System.out.println("Dear server will you be so kind to get all the Compliants from the DB?");
 				ArrayList<complaint> Complaints = new ArrayList<complaint>();
 				try {
