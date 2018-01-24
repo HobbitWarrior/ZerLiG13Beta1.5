@@ -89,7 +89,7 @@ public class ReportHandler {
 
 	public void writeToCSV(ArrayList<ordersReportEntry> report, int quarter, int year) {
 		String FileHeader = "ItemId,Quantity\n";
-		String csvFileName = new File("\\").getAbsolutePath()+"Reports\\Orders_Rpoert_" + String.valueOf(quarter) + "-" + String.valueOf(year)+".csv";
+		String csvFileName = new File("\\").getAbsolutePath()+"Reports\\Orders_R÷port_" + String.valueOf(quarter) + "-" + String.valueOf(year)+".csv";
 		System.out.println("the set file name plus path is: "+csvFileName);
 		try {
 			FileWriter writer = new FileWriter(csvFileName);
