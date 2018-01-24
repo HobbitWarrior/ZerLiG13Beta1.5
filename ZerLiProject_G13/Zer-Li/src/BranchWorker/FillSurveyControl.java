@@ -90,8 +90,9 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 	 public static ObservableList<Integer> ListNumbers= FXCollections.observableArrayList();
 	 
 	 private  static ArrayList<Integer> DBcustomersList = new ArrayList<Integer>();
-	 public static  ArrayList<Customer> customersList = new ArrayList<Customer>();
-	 
+	 public static  ObservableList<Customer> customersList = FXCollections.observableArrayList();
+	 public static ObservableList<Integer> customersIDList= FXCollections.observableArrayList();
+
 	 public static int i=0;  
 	 private ArrayList<Survey> MyFillSurveyList = new ArrayList<Survey>();
 		
@@ -426,15 +427,40 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 			Combo4.setItems(ListNumbers);
 			Combo5.setItems(ListNumbers);
 			Combo6.setItems(ListNumbers);
-			
+			 
+	     
+			for(int i=1;i<customersList.size();i++)
+			{
+				System.out.println(customersList.get(i).getCustomerID());	
 
-		}
-		
+				customersIDList.add(customersList.get(i).getCustomerID());
+				 
+			}
+			 
+			 
+ 			System.out.println(customersList);	
+
+			System.out.println(customersIDList);	
+			pickCustomerComboBox.setItems(customersIDList);
+		 
+	    	}
+		 
 		
 		public void start(Stage primaryStage) throws IOException 
 		{	
-			
-		    
+			 
+			int port=PORT;
+			   String ip=ServerIP;
+			   try 
+			   {
+					myClient = new ChatClient(ip,port);	//create new client to get all users in db (server)
+					myClient.setLoginControl(this); //**********************************************************to check if need this ??!
+			   } 
+			   catch (IOException e) 
+			   {
+				   System.out.println("Cannot create client");	  
+			   }
+	    	myClient.sendRequestToGetAllCustomer(); 
 			
 			Parent root = FXMLLoader.load(getClass().getResource("/BranchWorker/FillSurvey.fxml"));
 			Scene scene = new Scene(root);

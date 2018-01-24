@@ -302,7 +302,8 @@ public class ChatClient extends AbstractClient {
 					FillSurveyControl.customersList.add(mycutomer1);
  			    	 
 				}
-				System.out.println(FillSurveyControl.customersList);
+				
+				System.out.println(""+FillSurveyControl.customersList);
 				quit();
 			 
 
