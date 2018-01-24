@@ -901,8 +901,35 @@ public class EchoServer extends AbstractServer implements Initializable
 	//***********************************************************************************************************************************************************************************
 	// Class methods ********************************************************************************************************************************************************************
 	//***********************************************************************************************************************************************************************************
+	private ArrayList<Float> PutAllSatSurveyResults(ArrayList<Float> SatSurveyResults) throws SQLException
+	{
+		
+		Statement st = (Statement) ServerDataBase.createStatement();		
+		ResultSet rs = st.executeQuery("SELECT q1,q2,q3,q4,q5,q6 from satisfactionsurvies where Step=1;");
+		
+		while (rs.next()) {
+			float q1=rs.getFloat(1);
+			float q2=rs.getFloat(2);
+			float q3=rs.getFloat(3);
+			float q4=rs.getFloat(4);
+			float q5=rs.getFloat(5);
+			float q6=rs.getFloat(6);
+
+			SatSurveyResults.add(q1);
+			SatSurveyResults.add(q2);
+			SatSurveyResults.add(q3);
+			SatSurveyResults.add(q4);
+			SatSurveyResults.add(q5);
+			SatSurveyResults.add(q6);
+
+		}
+		rs.close();
+		st.close();
+		
+		return SatSurveyResults;
+	}
 	
-	
+	//***********************************************************************************************************************************************************************************
 	private ArrayList<CustomerTransaction> PutOutAllCustomerOrders(ArrayList<CustomerTransaction> allCustomerOrders, String orderbranchID, String branchName, int customerID) throws SQLException
 	{	/**this method will return all active orders of specific customer*/
 		Statement st=null;
