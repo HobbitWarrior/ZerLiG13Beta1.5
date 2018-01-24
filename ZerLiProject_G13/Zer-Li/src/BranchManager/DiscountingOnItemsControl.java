@@ -18,12 +18,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import BranchManager.Reports;
 import Customer.CatalogItemGUI;
@@ -33,6 +36,8 @@ public class DiscountingOnItemsControl  extends LoginContol  implements Initiali
 {
 	 
 
+    @FXML
+    private Button selectbtn;
 
     @FXML
     private Button btnBrowseBranchReport;
@@ -75,30 +80,60 @@ public class DiscountingOnItemsControl  extends LoginContol  implements Initiali
     @FXML
     private TableColumn<catalogitemsofbranch, String> BranchIDCol;
 
+    
 	 public static ObservableList<catalogitemsofbranch> catalogitemsofbranchlist= FXCollections.observableArrayList();
 
 
+	  
+
     @FXML
     void DisCountingPercent(ActionEvent event) {
-    	  PercentMSG PerMSG =new PercentMSG(IDItemtext.getText(), percenttxt.getText());
-		   System.out.println(PerMSG);	  
-
- 	 
- 		  int port=PORT ;
-	 	   String ip=ServerIP;
-	 	   try 
-	 	   {
-	 		myClient = new ChatClient(ip,port);	//create new client to get all users in db (server)
-	 		myClient.setLoginControl(this); 
-	 	   } 
-	 	   catch (IOException e) 
-	 	   {
-	 		   System.out.println("Cannot create client");	  
-	 	   }
-	 	   
-	     myClient.sendRequestToUpdatePrice(PerMSG); //send request to get all users from db (server)
-
+ 	   
     	
+    	 int percent ;
+    	 percent = Integer.parseInt( percenttxt.getText());
+   if(!IDItemtext.getText().isEmpty() && percent<=0 && percent >=100   ) 
+   {
+	   
+	   
+	    
+		PercentMSG PerMSG =new PercentMSG(IDItemtext.getText(), percenttxt.getText());
+	   System.out.println(PerMSG);	  
+
+	 
+		  int port=PORT ;
+ 	   String ip=ServerIP;
+ 	   try 
+ 	   {
+ 		myClient = new ChatClient(ip,port);	//create new client to get all users in db (server)
+ 		myClient.setLoginControl(this); 
+ 	   } 
+ 	   catch (IOException e) 
+ 	   {
+ 		   System.out.println("Cannot create client");	  
+ 	   }
+ 	   
+     myClient.sendRequestToUpdatePrice(PerMSG); //send request to get all users from db (server)
+
+ 	Alert alert = new Alert(AlertType.INFORMATION);
+	   alert.setTitle("Discounting succeeded!");
+	   alert.setHeaderText(null);
+	   alert.setContentText("Discounting success!");
+
+	   alert.showAndWait();
+	   
+   } 
+   else  
+   {
+	   System.out.println("Cannot create client");
+	   Alert alert = new Alert(AlertType.ERROR);
+	   alert.setTitle("Discounting failed");
+	   alert.setHeaderText("Discounting failed");
+	   alert.setContentText("Error in the details");
+
+	   alert.showAndWait();
+   }
+    	   
     }
     
  
@@ -161,6 +196,13 @@ public class DiscountingOnItemsControl  extends LoginContol  implements Initiali
 
     }
 
+     @FXML
+    void selectedItemGetId(MouseEvent event) {
+    	 ObservableList<catalogitemsofbranch> myselectedrow=MyTableV.getSelectionModel().getSelectedItems();
+    	 IDItemtext.setText(myselectedrow.get(0).getItemID()+"");  
+    	System.out.println("mouse !!!!"); 
+    } 
+
     @FXML
     void logoutEvent(ActionEvent event) throws IOException
     {
@@ -201,13 +243,17 @@ public class DiscountingOnItemsControl  extends LoginContol  implements Initiali
 		primaryStage.setTitle("Open New Payment Account To Customer"); // name of the title of the window
 		primaryStage.setScene(scene);
 	  	
+		
  	   
 		
 		primaryStage.show();
 
+		 
 		//Can't close the window without logout
 		primaryStage.setOnCloseRequest( event -> {event.consume();} );
-		 
+		   
+	   
+		
 	}
 
  
@@ -218,9 +264,12 @@ public class DiscountingOnItemsControl  extends LoginContol  implements Initiali
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
 		 
-	    ItemIDCol.setCellValueFactory(new PropertyValueFactory<catalogitemsofbranch, Integer>("ItemIDCol"));
-	     PriceCol.setCellValueFactory(new PropertyValueFactory<catalogitemsofbranch, Double>("PriceCol"));
-	     BranchIDCol.setCellValueFactory(new PropertyValueFactory<catalogitemsofbranch, String>("BranchIDCol"));
-	        MyTableV.setItems(catalogitemsofbranchlist); 
+	     ItemIDCol.setCellValueFactory(new PropertyValueFactory<catalogitemsofbranch, Integer>("ItemID"));
+	     PriceCol.setCellValueFactory(new PropertyValueFactory<catalogitemsofbranch, Double>("Price"));
+	     BranchIDCol.setCellValueFactory(new PropertyValueFactory<catalogitemsofbranch, String>("BranchID"));
+	     MyTableV.setItems(catalogitemsofbranchlist); 
+	 
+	   
+	     
 	}
 }
