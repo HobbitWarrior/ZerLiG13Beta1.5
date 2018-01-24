@@ -63,9 +63,9 @@ public class complaintRow {
 
 	public void timerTextSetter(String Hours, String Minutes, String Seconds) {
 
-		int hh = Integer.parseInt(Hours) - hours;
-		int mm = Integer.parseInt(Minutes) - minutes;
-		int ss = Integer.parseInt(Seconds) - seconds;
+		int hh =Math.abs(Integer.parseInt(Hours) - hours);
+		int mm = Math.abs(Integer.parseInt(Minutes) - minutes);
+		int ss = Math.abs(Integer.parseInt(Seconds) - seconds);
 		// add leading zero's if the time digit is less than 10
 		String HH = "";
 		String MM = "";
