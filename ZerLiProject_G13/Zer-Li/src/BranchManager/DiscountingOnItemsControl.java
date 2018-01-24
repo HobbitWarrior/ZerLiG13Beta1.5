@@ -92,7 +92,7 @@ public class DiscountingOnItemsControl  extends LoginContol  implements Initiali
     	
     	 int percent ;
     	 percent = Integer.parseInt( percenttxt.getText());
-   if(!IDItemtext.getText().isEmpty() && percent<=0 && percent >=100   ) 
+   if(!IDItemtext.getText().isEmpty() && percent>0 && percent <100   ) 
    {
 	   
 	   
