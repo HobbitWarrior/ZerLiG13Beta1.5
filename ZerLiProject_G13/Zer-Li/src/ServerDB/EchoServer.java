@@ -314,6 +314,25 @@ public class EchoServer extends AbstractServer implements Initializable
 		
 			 
 		//-----------------------------------------------------------//
+		
+		if ( DiscoverMessage.contains("Give Me All Satisfaction Survey Results"))
+		{
+			System.out.println("Get all All Satisfaction Survey Results");
+			ArrayList<Float> SatSurveyResults = new ArrayList<Float>();
+			try {
+				SatSurveyResults=PutAllSatSurveyResults(SatSurveyResults);
+			} catch (SQLException e) {
+				System.out.println("fail to get Satisfaction Survey Results list!");
+			}
+			Message Msg = new Message(SatSurveyResults, "Satisfaction Survey list");
+			
+			this.sendToAllClients(Msg);
+			
+			return;
+		}
+
+		
+		//-----------------------------------------------------------//
 			
 			if ((DiscoverMessage.substring(0, 24)).equals("Give me all ReportBranch")) 
 				{
