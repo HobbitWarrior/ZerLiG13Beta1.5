@@ -73,7 +73,7 @@ public class EchoServer extends AbstractServer implements Initializable
 				//need to add a condition that checks if its time to generate a new report	
 				ReportHandler rp = new ReportHandler();
 				rp.generateQuarterItemsReport(ServerDataBase, 1);
-				System.out.println("The thread just generated reports!!!!!!!!!!!!!! Fuck yeah!!!!!");
+				System.out.println("The thread just generated reports.");
 				//sleep for 24 hours 
 				try {
 					Thread.sleep(86400000);

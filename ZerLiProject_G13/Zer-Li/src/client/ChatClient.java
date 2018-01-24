@@ -126,6 +126,34 @@ public class ChatClient extends AbstractClient {
 				return;
 			}
 			
+			//************************************************************************
+			if (ServerMsg.getMsgType().equals("Satisfaction Survey list")) 
+			{
+				ArrayList<Float> AllSurveyResults = (ArrayList<Float>) ServerMsg.getMsgObject();
+				for (int i = 0; i < AllSurveyResults.size(); i++) 
+				{
+					// System.out.println(""+AllUsersFromServer.get(i));
+					SurveyAnalayzingControl.SurveyResultList.add(AllSurveyResults.get(i));
+				}
+				quit();
+		/*
+				Platform.runLater(new Runnable() 
+				{
+
+					@Override
+					public void run() 
+					{
+						AnalayzingControl.setSurveyResultInfields();
+					}
+
+				});
+				*/
+
+				
+				return;
+			}
+			//************************************************************************
+			
 			if (ServerMsg.getMsgType().contains("Answer if Unique item ID: ")) 
 			{
 				Boolean ans = (Boolean)  ServerMsg.getMsgObject();

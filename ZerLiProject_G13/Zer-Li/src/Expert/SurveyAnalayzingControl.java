@@ -120,6 +120,7 @@ public class SurveyAnalayzingControl extends LoginContol implements Initializabl
     @FXML
     void askForResult(ActionEvent event) 
     {
+    	System.out.println("im in ask for result !!!");
     	
     	
     	if(SurveyResultList.size()>0)
@@ -152,6 +153,10 @@ public class SurveyAnalayzingControl extends LoginContol implements Initializabl
     	AnchorPaneShowResult.setVisible(true);
     	
     }
+    
+    
+    
+    
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) 
