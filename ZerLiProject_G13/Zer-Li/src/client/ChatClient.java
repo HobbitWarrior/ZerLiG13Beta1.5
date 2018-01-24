@@ -43,6 +43,7 @@ import Customer.TransactionAbort;
 import CustomerServiceDepartmentworker.CustomerServiceDepartmentworkerMainWindow;
 import CustomerServiceDepartmentworker.complaint;
 import CustomerServiceDepartmentworker.complaintRow;
+import Expert.SurveyAnalayzingControl;
 import Users.LoginContol;
 import Users.User;
 
@@ -54,6 +55,7 @@ public class ChatClient extends AbstractClient {
 	private OrdersControl buyingProcess;
 	private CustomerMainWindow mainCustomerWindow;
 	private CancelOrderControl cancelWindow;
+	private SurveyAnalayzingControl AnalayzingControl;
 	private String chooseControl; //choose between CatalogEditControl and CatalogOrderControl   // ************************************** i added
 	// Constructors ****************************************************
 
@@ -72,6 +74,11 @@ public class ChatClient extends AbstractClient {
 	public void setCatalogOrderControl(CatalogOrderControl CatalogOrder) 
 	{
 		this.orderFromCatalog=CatalogOrder;
+	}
+	
+	public void setAnalayzingControl(SurveyAnalayzingControl AnalayzingControl) 
+	{
+		this.AnalayzingControl=AnalayzingControl;
 	}
 	
 	
@@ -764,6 +771,30 @@ public class ChatClient extends AbstractClient {
 	}
 	
 	// **************************************** end check
+	
+	public void sendRequestToGetSatisfactionSurveyResult()
+	{
+		try 
+		{
+			this.openConnection();
+		}
+
+		catch (IOException e1) {
+			System.out.println("Cannot open connection");
+		}
+
+		try 
+		{
+			System.out.println("Send Message to get all Satisfaction Survey Results");
+
+			sendToServer("Give Me All Satisfaction Survey Results");
+		} 
+		catch (IOException e) 
+		{
+			System.out.println("Cannot connect to server");
+		}
+	}
+	
 	
 	public void sendRequestToGetAllReports(String msg) 
 	{
