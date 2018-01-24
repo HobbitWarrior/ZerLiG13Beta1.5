@@ -97,7 +97,7 @@ public class ReportHandler {
 			//append headers
 			writer.append(new StringBuilder(FileHeader).toString());
 			/*add all the existing entries from the DB to the CVS file
-			each filed is sepated by a comma, new line with '\n'
+			each field is separated by a comma, new line with '\n'
 			currently the CSV file is saved to the main directory
 			for example C:\\*/
 			for (ordersReportEntry reportEntry : report) {
@@ -113,7 +113,6 @@ public class ReportHandler {
 			writer.flush();
 			writer.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
