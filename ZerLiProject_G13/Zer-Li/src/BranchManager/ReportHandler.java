@@ -21,7 +21,7 @@ import CustomerServiceDepartmentworker.complaint;
 import client.Message;
 
 public class ReportHandler {
-
+ 
 	@SuppressWarnings("deprecation")
 	public void generateQuarterItemsReport(Connection serverDataBase, int quarterNum) {
 
@@ -75,7 +75,7 @@ public class ReportHandler {
 			
 			//Generate a CSV file
 			writeToCSV(report, quarterNum, Year);
-			
+			 
 
 			rs.close();
 			statement.close();
@@ -86,6 +86,9 @@ public class ReportHandler {
 		}
 
 	}
+	
+	
+	
 
 	public void writeToCSV(ArrayList<ordersReportEntry> report, int quarter, int year) {
 		String FileHeader = "ItemId,Quantity\n";
@@ -112,8 +115,17 @@ public class ReportHandler {
 			//force save the CVS to the drive
 			writer.flush();
 			writer.close();
+			addNewReport(3,year+"",quarter,csvFileName,"211");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	public void addNewReport(int reporttype, String year ,int qar,String csvFile,String branchid )
+	{
+		Reports newReport=new Reports(reporttype,year,qar,csvFile,branchid);
+		System.out.println(newReport);
+		
+	}
+	
 }

@@ -12,7 +12,7 @@ public class Reports implements Serializable   {
 	Integer ReportType ;
 	String ReportYear  ; 
 	Integer ReportQuarter  ; 
-	Image longblob;
+	String  CsvFILE;
 	String BranchID  ;
 	public Integer getReportType() {
 		return ReportType;
@@ -32,11 +32,11 @@ public class Reports implements Serializable   {
 	public void setReportQuarter(Integer reportQuarter) {
 		ReportQuarter = reportQuarter;
 	}
-	public Image getLongblob() {
-		return longblob;
+	public String getCsvFILE() {
+		return CsvFILE;
 	}
-	public void setLongblob(Image longblob) {
-		this.longblob = longblob;
+	public void setCsvFILE(String csvFILE) {
+		CsvFILE = csvFILE;
 	}
 	public String getBranchID() {
 		return BranchID;
@@ -44,21 +44,20 @@ public class Reports implements Serializable   {
 	public void setBranchID(String branchID) {
 		BranchID = branchID;
 	}
-	public Reports(Integer reportType, String reportYear, Integer reportQuarter, Image longblob, String branchID) {
+	@Override
+	public String toString() {
+		return "Reports [ReportType=" + ReportType + ", ReportYear=" + ReportYear + ", ReportQuarter=" + ReportQuarter
+				+ ", CsvFILE=" + CsvFILE + ", BranchID=" + BranchID + "]";
+	}
+	public Reports(Integer reportType, String reportYear, Integer reportQuarter, String csvFILE, String branchID) {
 		super();
 		ReportType = reportType;
 		ReportYear = reportYear;
 		ReportQuarter = reportQuarter;
-		this.longblob = longblob;
+		CsvFILE = csvFILE;
 		BranchID = branchID;
 	}
-	@Override
-	public String toString() {
-		return "Reports [ReportType=" + ReportType + ", ReportYear=" + ReportYear + ", ReportQuarter=" + ReportQuarter
-				+ ", longblob=" + longblob + ", BranchID=" + BranchID + "]";
-	}
-	
-	
+	 
 	 
 	 
 	
