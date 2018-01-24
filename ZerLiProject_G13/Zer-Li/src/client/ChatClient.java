@@ -39,6 +39,7 @@ import Customer.CustomerTransaction;
 import Customer.Flower;
 import Customer.MessgaeCatalogProduct;
 import Customer.OrdersControl;
+import Customer.TransactionAbort;
 import CustomerServiceDepartmentworker.CustomerServiceDepartmentworkerMainWindow;
 import CustomerServiceDepartmentworker.complaint;
 import CustomerServiceDepartmentworker.complaintRow;
@@ -52,6 +53,7 @@ public class ChatClient extends AbstractClient {
 	private CatalogEditControl editCatalog;   // ************************************************* i added
 	private OrdersControl buyingProcess;
 	private CustomerMainWindow mainCustomerWindow;
+	private CancelOrderControl cancelWindow;
 	private String chooseControl; //choose between CatalogEditControl and CatalogOrderControl   // ************************************** i added
 	// Constructors ****************************************************
 
@@ -564,7 +566,31 @@ public class ChatClient extends AbstractClient {
 			return;
 		}
 		
-		
+		if (msg instanceof TransactionAbort)
+		{
+			TransactionAbort orderCancellation = (TransactionAbort)msg;
+			if(orderCancellation.isCommit() == false)
+			{
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Cannot cancel your order");
+				alert.setHeaderText("Server has problem with your request");
+				alert.setContentText("Please check the subject with system manager");
+				alert.showAndWait();
+			}
+			else
+			{
+				Platform.runLater(new Runnable() 
+				{
+
+					@Override
+					public void run() 
+					{
+						cancelWindow.actionAfterPositiveAbort(orderCancellation);
+					}
+				});
+			}
+			return;
+		}	
 		
 	}	//end of handle message from server
 
@@ -1067,6 +1093,33 @@ public class ChatClient extends AbstractClient {
 		}	
 	}
  
+	public void setCancelControl(CancelOrderControl cancelOrderControl) 
+	{
+		this.cancelWindow=cancelOrderControl;
+	}
 
+	public void sendRequestToCancelOrder(TransactionAbort cancelOrder) 
+	{
+	
+		try 
+		{
+			this.openConnection();
+		}
+
+		catch (IOException e1) 
+		{
+			System.out.println("Cannot open connection");
+		}
+		try 
+		{
+			System.out.println("Send Message to cancel order of customer");
+			sendToServer(cancelOrder);
+		} 
+		catch (IOException e) 
+		{
+			System.out.println("Cannot connect to server to get cancel customer order");
+
+		}			
+	}
 
 }

@@ -36,6 +36,7 @@ import Customer.ItemInOrder;
 import Customer.MessgaeCatalogProduct;
 import Customer.MyTime;
 import Customer.PrivateShipment;
+import Customer.TransactionAbort;
 import Users.User;
 import client.Message;
 import common.Branch;
@@ -736,9 +737,107 @@ public class EchoServer extends AbstractServer implements Initializable
 			}
 			
 		}
+		
+		if (msg instanceof TransactionAbort)
+		{
+			TransactionAbort orderCancellation = (TransactionAbort)msg;
+			try 
+			{
+				cancelOrder(orderCancellation.getOrderID());
+				changeDebtRegistration(orderCancellation);
+				orderCancellation.setCommit(true);
+				try 
+				{
+					client.sendToClient(orderCancellation);
+				} 
+				catch (IOException e1) 
+				{
+					e1.printStackTrace();
+					System.out.println("Cannot send to client positive abort of order");
+				}
+				System.out.println("server sent positive abort of order");
+			} 
+			
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+				orderCancellation.setCommit(false);
+				try 
+				{
+					client.sendToClient(orderCancellation);
+				} 
+				catch (IOException e1) 
+				{
+					e1.printStackTrace();
+					System.out.println("Cannot send to client negative abort of order");
+				}
+				System.out.println("server sent negative abort of order");
+
+			}
+			
+			return;
+		}
 	} //end of handleMessageFromClient
 
 
+	
+	private void changeDebtRegistration(TransactionAbort orderCancellation) throws SQLException
+	{	/**this method will check customer debt, and change it according to cancellation time*/
+		int orderID = orderCancellation.getOrderID();
+		if(orderCancellation.getRefund() == 0) //no refund
+			return;
+		else if(orderCancellation.getRefund()==0.5)	//50% refund
+		{
+			Statement st=null;
+			double priceAfterRefund = orderCancellation.getOrderPrice() *0.5;
+			
+				st = (Statement) ServerDataBase.createStatement();
+				String sql = "SELECT OrderPrice FROM customerbilling WHERE OrderID = '" + orderID + "'";
+				ResultSet rs=null;
+				rs = st.executeQuery(sql);
+					while (rs.next()) 
+					{
+					
+					
+						String insertTableSQL1 = "UPDATE customerbilling SET OrderPrice = " + priceAfterRefund + " WHERE OrderID='" + orderID + "';";
+						st.executeUpdate(insertTableSQL1);
+						rs.close();
+						st.close();
+						break;	//break the loop to prevent crash
+
+					}
+			return;
+		}
+		
+		else if(orderCancellation.getRefund()==1)
+		{
+			Statement st=null;
+
+			
+				st = (Statement) ServerDataBase.createStatement();
+				String sqlDeleteRow = "DELETE FROM customerbilling WHERE OrderID = " + orderID + ";";
+				
+				st.executeUpdate(sqlDeleteRow);
+				st.close();
+				
+		
+			return;
+		}
+	}
+	
+	private void cancelOrder(int orderID) throws SQLException
+	{	/**this method will delete row of orderId in customerOrder table in database*/
+		Statement st=null;
+
+		
+			st = (Statement) ServerDataBase.createStatement();
+			String sqlDeleteRow = "DELETE FROM customerorders WHERE OrderID = " + orderID + ";";
+			
+			st.executeUpdate(sqlDeleteRow);
+			st.close();
+		
+	}
+	
 	private ArrayList<Customer> PutOutAllCustomers(ArrayList<Customer> customersFromDB) throws SQLException {
 		 
 		Statement st = (Statement) ServerDataBase.createStatement();

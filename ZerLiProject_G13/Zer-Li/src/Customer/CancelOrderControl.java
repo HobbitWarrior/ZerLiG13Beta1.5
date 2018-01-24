@@ -85,6 +85,44 @@ public class CancelOrderControl extends LoginContol implements Initializable
 	    @FXML
 	    private Button cancelOrderBtn;
 	    
+	    public void actionAfterPositiveAbort(TransactionAbort orderCancellation)
+	    {	/**this method will be called by client after server confirmation, and will tell customer about his refuns*/
+	    	if(orderCancellation.getRefund() == 0)
+	    	{
+	    		Alert alert = new Alert(AlertType.INFORMATION);
+		    	alert.setTitle("Your order has been canceled");
+		    	alert.setHeaderText("Your order cancel successfully!");
+		    	alert.setContentText("You will get not refund");
+		    	alert.showAndWait();
+	    	}
+	    	
+	    	else if(orderCancellation.getRefund() == 0.5)
+	    	{
+	    		Alert alert = new Alert(AlertType.INFORMATION);
+		    	alert.setTitle("Your order has been canceled");
+		    	alert.setHeaderText("Your order canceled successfully!");
+		    	alert.setContentText("You will 50% refund, your debt is: "+orderCancellation.getOrderPrice()*orderCancellation.getRefund()+" $");
+		    	alert.showAndWait();
+	    	}
+	    	else if(orderCancellation.getRefund() == 1)
+	    	{
+	    		Alert alert = new Alert(AlertType.INFORMATION);
+		    	alert.setTitle("Your order has been canceled");
+		    	alert.setHeaderText("Your order canceled successfully!");
+		    	alert.setContentText("You will 100% refund");
+		    	alert.showAndWait();
+	    	}
+	    	
+	    	for(int i =0 ; i<this.allCustomerOrder.size() ; i++)
+	    	{
+	    		if(this.allCustomerOrder.get(i).getOrderID() == orderCancellation.getOrderID())
+	    		{
+	    			this.allCustomerOrder.remove(i);
+	    		}
+	    	}
+	    }
+	    
+	    
 	    @FXML
 	    void cancelOrderBtnPressed(ActionEvent event) 
 	    {
@@ -100,6 +138,20 @@ public class CancelOrderControl extends LoginContol implements Initializable
 	    	} 
 	    	TransactionAbort cancelOrder = calculateRefund(orderInRow.get(0));
 	    	System.out.println(""+cancelOrder);
+		  	int port = LoginContol.PORT;
+			String ip = LoginContol.ServerIP;
+			try 
+			{
+				myClient = new ChatClient(ip, port);
+			} 
+			catch (IOException e)
+			{
+				e.printStackTrace();
+				System.out.println("Cannot connect to server");
+			} // create new client
+	    	myClient.setCancelControl(this);
+	    	myClient.sendRequestToCancelOrder(cancelOrder);
+	    	
 	    }
 	    
 	    private TransactionAbort calculateRefund(CustomerTransaction order) 
@@ -140,21 +192,21 @@ public class CancelOrderControl extends LoginContol implements Initializable
 	    	System.out.println( years + " years " + months + " months " +  days + " days " + hours + " hours " +  minutes + " minutes " +   seconds + " seconds.");
 	    	if(years>0 || months>0 || days>0 || hours>3) 
 	    	{
-	    		TransactionAbort customerRefund = new TransactionAbort(order.getOrderID(), 1); //give 100% refund
+	    		TransactionAbort customerRefund = new TransactionAbort(order.getOrderID(),order.getOrdertotalPrice(), 1); //give 100% refund
 		    	return customerRefund;
 
 	    	}
 	    	
 	    	else if (years == 0 && months == 0 && days ==0 && hours>=1 && hours< 3)
 	    	{
-	    		TransactionAbort customerRefund = new TransactionAbort(order.getOrderID(), 0.5); //give 50% refund
+	    		TransactionAbort customerRefund = new TransactionAbort(order.getOrderID(),order.getOrdertotalPrice(), 0.5); //give 50% refund
 		    	return customerRefund;
 
 	    	}
 	    	
 	    	else if(years == 0 && months == 0 && days ==0 && hours>=0)
 	    	{
-	    		TransactionAbort customerRefund = new TransactionAbort(order.getOrderID(), 0); //give 0% refund
+	    		TransactionAbort customerRefund = new TransactionAbort(order.getOrderID(),order.getOrdertotalPrice(), 0); //give 0% refund
 		    	return customerRefund;
 
 	    	}
