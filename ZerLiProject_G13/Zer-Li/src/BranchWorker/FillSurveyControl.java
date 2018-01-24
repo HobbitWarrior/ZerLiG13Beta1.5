@@ -90,7 +90,7 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 	 public static ObservableList<Integer> ListNumbers= FXCollections.observableArrayList();
 	 
 	 private  static ArrayList<Integer> DBcustomersList = new ArrayList<Integer>();
-	 private  ArrayList<Integer> customersList = new ArrayList<Integer>();
+	 public static  ArrayList<Customer> customersList = new ArrayList<Customer>();
 	 
 	 public static int i=0;  
 	 private ArrayList<Survey> MyFillSurveyList = new ArrayList<Survey>();
@@ -339,7 +339,7 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 	    @FXML
 	    void SaveOnDB(ActionEvent event) 
 	    {
-	    	int NumberOfCustomers =DBcustomersList.size();
+	  /* 	int NumberOfCustomers =DBcustomersList.size();
 	    	int NumberOfSurveiesFilled = customersList.size();
 	    	if(NumberOfSurveiesFilled==NumberOfCustomers)
 	    	{
@@ -389,15 +389,26 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 			   System.out.println(sumQ3);	
 	
 			   System.out.println(SurveyResult);	  
-	
-			   myClient.sendRequestToSaveObjectOnDB(SurveyResult); //send request to get all users from db (server)
-			 
+	*/
+		// 	   myClient.sendRequestToSaveObjectOnDB(SurveyResult); //send request to get all users from db (server)
+	    	 int port=PORT;
+			   String ip=ServerIP;
+			   try 
+			   {
+					myClient = new ChatClient(ip,port);	//create new client to get all users in db (server)
+					myClient.setLoginControl(this); //**********************************************************to check if need this ??!
+			   } 
+			   catch (IOException e) 
+			   {
+				   System.out.println("Cannot create client");	  
+			   }
+	    	myClient.sendRequestToGetAllCustomer();   
 			  // while( myClient.isConnected());	//wait until client (this class) get all users from the db!
-	    	}
+	    /*	}
 	    	else
 	    	{
 	    		//error msg -you didn't finish to fill all customers 
-	    	}
+	    	}*/
 			  
 	    }
 	    

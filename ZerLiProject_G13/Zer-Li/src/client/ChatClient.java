@@ -25,6 +25,8 @@ import BranchManager.PercentMSG;
 import BranchManager.Reports;
 import BranchManager.SpecialBranchesMessage;
 import BranchManager.catalogitemsofbranch;
+import BranchWorker.Customer;
+import BranchWorker.FillSurveyControl;
 import Catalog.CatalogItem;
 import ChainManager.BranchReportBrowseControl;
 import ChainWorker.CatalogEditControl;
@@ -273,6 +275,34 @@ public class ChatClient extends AbstractClient {
 					System.out.println("-=-&&"+replist);
  			    	 OwnReportBrowseControl.ReportList.add(replist);
 				}
+				quit();
+			 
+
+				return;
+				 
+			}
+			else if (ServerMsg.getMsgType().equals("all Customer")) 
+			{
+				
+				 
+		 
+
+				ArrayList<Customer> allCustomerFromServer = (ArrayList<Customer>) ServerMsg.getMsgObject();
+				 
+				for (int i = 0; i < allCustomerFromServer.size(); i++) 
+				{ 
+					
+					int id  = allCustomerFromServer.get(i).getCustomerID();
+					String name = allCustomerFromServer.get(i).getCustomerName();
+					String lastname = allCustomerFromServer.get(i).getCustomerlastName();
+					String adress = allCustomerFromServer.get(i).getAddress();
+					String email = allCustomerFromServer.get(i).getEmail();
+					int phonenum=allCustomerFromServer.get(i).getPhoneNumber();
+					Customer mycutomer1= new Customer(id,name,lastname,adress,email,phonenum);
+					FillSurveyControl.customersList.add(mycutomer1);
+ 			    	 
+				}
+				System.out.println(FillSurveyControl.customersList);
 				quit();
 			 
 
@@ -1009,6 +1039,29 @@ public class ChatClient extends AbstractClient {
 		} catch (IOException e) 
 		{
 			System.out.println("Cannot connect to server to get all customer order");
+
+		}	
+	}
+
+	public void sendRequestToGetAllCustomer() {
+		try 
+		{
+			this.openConnection();
+		}
+
+		catch (IOException e1) 
+		{
+			System.out.println("Cannot open connection");
+		}
+
+		try 
+		{
+			System.out.println("Send Message to get all Customers from server");
+			 Customer myCustomer= new Customer();
+			sendToServer(myCustomer);
+		} catch (IOException e) 
+		{
+			System.out.println("Cannot connect to server to get all Customers");
 
 		}	
 	}

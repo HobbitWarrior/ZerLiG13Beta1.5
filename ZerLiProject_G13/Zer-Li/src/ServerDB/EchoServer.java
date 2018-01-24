@@ -22,6 +22,7 @@ import BranchManager.PercentMSG;
 import BranchManager.Reports;
 import BranchManager.SpecialBranchesMessage;
 import BranchManager.catalogitemsofbranch;
+import BranchWorker.Customer;
 import BranchWorker.Survey;
 import Catalog.CatalogItem;
 import Customer.BranchShipment;
@@ -173,7 +174,7 @@ public class EchoServer extends AbstractServer implements Initializable
 					this.sendToAllClients("GetFail");
 				}
 				return;
-			}
+			} 
 			 
 			//-----------------------------------------------------------//
 			
@@ -424,7 +425,35 @@ public class EchoServer extends AbstractServer implements Initializable
 			}
 			return;
 		 }
-		
+		//---------------------------------------instanceof Customer---------------------------------------------------------
+				if(msg instanceof Customer)
+				 {
+					 
+					System.out.println("Get all Branche Customers from DB");
+
+					ArrayList<Customer> CustomerFromDB = new ArrayList<Customer>();
+					try 
+					{
+						CustomerFromDB = PutOutAllCustomers(CustomerFromDB);
+
+						Message Msg = new Message(CustomerFromDB, "all Customer");
+
+						//this.sendToAllClients(Msg);
+						try {
+							client.sendToClient(Msg);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					} 
+					catch (SQLException e) 
+					{
+						System.out.println("error-can't get Customer data from db");
+						//this.sendToAllClients("GetFail");
+						
+					}
+					return;			
+				 }
 		//---------------------------------------instance of Complaints----------------------------------------------------
 
 		// inserts the complaints to the DB
@@ -709,6 +738,33 @@ public class EchoServer extends AbstractServer implements Initializable
 		}
 	} //end of handleMessageFromClient
 
+
+	private ArrayList<Customer> PutOutAllCustomers(ArrayList<Customer> customersFromDB) throws SQLException {
+		 
+		Statement st = (Statement) ServerDataBase.createStatement();
+
+		ResultSet rs = st.executeQuery("select * from customers ");
+
+		while (rs.next()) {
+			
+			 int  CustomerID=   rs.getInt(1);
+			String CustomersName = "" + rs.getString(2);
+			String CustomersLASTName = "" + rs.getString(3);
+			 String Customersaddress= "" + rs.getString(4);
+			 String Customersemail= "" + rs.getString(5);
+			 int CustomerNUMphone=   rs.getInt(6);
+             Customer myCustomer1= new Customer(CustomerID,CustomersName,CustomersLASTName,Customersaddress,Customersemail,CustomerNUMphone);
+			customersFromDB.add(myCustomer1);
+
+		}
+		System.out.println(customersFromDB);
+
+		rs.close();
+		st.close();
+
+		return customersFromDB;
+		    
+	}
 
 	//***********************************************************************************************************************************************************************************
 	// Class methods ********************************************************************************************************************************************************************
