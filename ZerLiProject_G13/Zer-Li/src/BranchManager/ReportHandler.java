@@ -62,8 +62,8 @@ public class ReportHandler {
 			// get the items from the DB
 			String selectStatement = "SELECT CIO.ItemID, CIO.Quantity FROM catalogiteminorder AS CIO, customerorders AS CO WHERE CIO.OrderID=CO.OrderID AND CO.CompletedDate between ? AND ?";
 			PreparedStatement statement = serverDataBase.prepareStatement(selectStatement);
-			statement.setString(1, "2018-01-01");
-			statement.setString(2, "2018-03-31");
+			statement.setString(1, startDate);
+			statement.setString(2, endDate);
 			ResultSet rs = statement.executeQuery();
 			System.out.println("we are printing the report handling results: " + startDate + " " + endDate);
 			while (rs.next()) {
@@ -96,6 +96,10 @@ public class ReportHandler {
 
 			//append headers
 			writer.append(new StringBuilder(FileHeader).toString());
+			/*add all the existing entries from the DB to the CVS file
+			each filed is sepated by a comma, new line with '\n'
+			currently the CSV file is saved to the main directory
+			for example C:\\*/
 			for (ordersReportEntry reportEntry : report) {
 				StringBuilder sb = new StringBuilder();
 				sb.append(String.valueOf(reportEntry.getItemType()));
@@ -105,6 +109,7 @@ public class ReportHandler {
 				System.out.println("currently appending to csv: " + sb.toString());
 				writer.append(sb.toString());
 			}
+			//force save the CVS to the drive
 			writer.flush();
 			writer.close();
 		} catch (IOException e) {

@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -19,6 +21,7 @@ import CustomerServiceDepartmentworker.complaint;
 import BranchManager.BranchManager;
 import BranchManager.PaymentAccount;
 import BranchManager.PercentMSG;
+import BranchManager.ReportHandler;
 import BranchManager.Reports;
 import BranchManager.SpecialBranchesMessage;
 import BranchManager.catalogitemsofbranch;
@@ -57,6 +60,36 @@ public class EchoServer extends AbstractServer implements Initializable
 	public EchoServer(int port, String UserName, String Password, String DataBaseName) {
 		super(port);
 		ServerDataBase = connectToDB(UserName, Password, DataBaseName);
+		
+		
+		// run a new thread to check if its the time to create the quarterly reports
+		Thread quarterlyReportGeneratorThread = new Thread() {
+			public void run() {
+				DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+				java.util.Date date = new java.util.Date();
+				
+				while(true)
+				{
+				//need to add a condition that checks if its time to generate a new report	
+				ReportHandler rp = new ReportHandler();
+				rp.generateQuarterItemsReport(ServerDataBase, 1);
+				System.out.println("The thread just generated reports!!!!!!!!!!!!!! Fuck yeah!!!!!");
+				//sleep for 24 hours 
+				try {
+					Thread.sleep(86400000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			
+				}
+			}
+		};
+		quarterlyReportGeneratorThread.start();
+		
+
+		
+		
+		
 	}
  
 	// handle Messages From Client *****************************************************************************************************************************************************
