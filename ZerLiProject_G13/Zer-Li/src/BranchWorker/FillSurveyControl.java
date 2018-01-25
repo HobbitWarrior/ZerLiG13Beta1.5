@@ -328,9 +328,7 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 		    	if(!(pickCustomerComboBox.getSelectionModel().isEmpty())) //check if we selected customer
 		    	{
 		    		if(customersList.contains(pickCustomerComboBox.getSelectionModel().getSelectedItem())) // check if we already fill this customer
-		    		{
-		    			AnchorPanePickCustomer.setVisible(false);
-		    			AnchorPaneFillAns.setVisible(true);
+		    		{    
 		       		    Survey Surveytemp = new Survey() ; 
 
 		          		Surveytemp.setQ1(Combo1.getValue());
