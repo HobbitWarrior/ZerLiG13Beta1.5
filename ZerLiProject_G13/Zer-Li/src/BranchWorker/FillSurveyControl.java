@@ -1,5 +1,6 @@
 package BranchWorker;
 
+import java.io.FileWriter;
 import java.io.IOException;
 
 
@@ -84,9 +85,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import BranchManager.PaymentAccount;
+import BranchManager.Reports;
+import BranchManager.ordersReportEntry;
 
 public class FillSurveyControl extends LoginContol implements Initializable {
-	 private static final Survey NULL = null;
+	 private static final satisfactionSurvey NULL = null;
 	 public static ObservableList<Integer> ListNumbers= FXCollections.observableArrayList();
 	 
 	 private  static ArrayList<Integer> DBcustomersList = new ArrayList<Integer>();
@@ -94,15 +97,32 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 	 public static ObservableList<Integer> customersIDList= FXCollections.observableArrayList();
 
 	 public static int i=0;   //****************************************************check if need this . if not - delete
-	 private ArrayList<Survey> MyFillSurveyList = new ArrayList<Survey>();
+	 private ArrayList<satisfactionSurvey> MyFillSurveyList = new ArrayList<satisfactionSurvey>();
 	 public static boolean stepAns;
 		
 	 
-	 
+	
 	 
 	 @FXML
 	 private Button FillSurveyBtn;
-	 
+	 @FXML
+	    private Label qes1;
+
+	    @FXML
+	    private Label qes2;
+
+	    @FXML
+	    private Label qes3;
+
+	    @FXML
+	    private Label qes4;
+
+	    @FXML
+	    private Label qes5;
+
+	    @FXML
+	    private Label qes6;
+
 
 	 @FXML
 	 private Button NextBtn;
@@ -226,12 +246,15 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 
 
     
+
+    
     //events:
     
     
     @FXML
     void goHome(ActionEvent event) 
     {
+    	
     	btnHome.getScene().getWindow().hide(); //hiding primary window
 	   	Stage primaryStage = new Stage();
 	   	Pane root=null;
@@ -304,7 +327,32 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 	    
 	    @FXML
 	    void nextFill(ActionEvent event) {
+	    	AnchorPanePickCustomer.setVisible(true);
+    		AnchorPaneFillAns.setVisible(false);
+    		
+    		satisfactionSurvey Surveytemp = new satisfactionSurvey() ; 
+         
+   		 Surveytemp.setCustomerID(pickCustomerComboBox.getValue());
+   		Surveytemp.setStep(1);
+   		Surveytemp.setQarSurvey(1);
+   		Surveytemp.setSurveyYear("2018");
+   		Surveytemp.setQ1(Combo1.getValue());
+  		Surveytemp.setQ2(Combo2.getValue());
+  		Surveytemp.setQ3(Combo3.getValue());
+  		Surveytemp.setQ4(Combo4.getValue());
+  		Surveytemp.setQ5(Combo5.getValue());
+  		Surveytemp.setQ6(Combo6.getValue());
 
+        MyFillSurveyList.add(Surveytemp);
+        System.out.println(MyFillSurveyList);
+
+        customersIDList.remove(pickCustomerComboBox.getValue());
+    	
+     
+		 
+         	
+	    	
+	    	
 	    }
 	    
 	    
@@ -329,18 +377,8 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 		    	{
 		    		if(customersList.contains(pickCustomerComboBox.getSelectionModel().getSelectedItem())) // check if we already fill this customer
 		    		{    
-		       		    Survey Surveytemp = new Survey() ; 
-
-		          		Surveytemp.setQ1(Combo1.getValue());
-		          		Surveytemp.setQ2(Combo2.getValue());
-		          		Surveytemp.setQ3(Combo3.getValue());
-		          		Surveytemp.setQ4(Combo4.getValue());
-		          		Surveytemp.setQ5(Combo5.getValue());
-		          		Surveytemp.setQ6(Combo6.getValue());
-
-
-		                MyFillSurveyList.add(Surveytemp);
-		                System.out.println(MyFillSurveyList);	  
+		       		    
+ 	  
 		    		}
 		    		else
 		    		{
@@ -365,6 +403,54 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 	    @FXML
 	    void SaveOnDB(ActionEvent event) 
 	    {
+	    	if(!(MyFillSurveyList.isEmpty()))
+	    	{
+	    		satisfactionSurvey SurveyAVG = new satisfactionSurvey() ;
+	    		SurveyAVG.setStep(1);
+	    		SurveyAVG.setQarSurvey(MyFillSurveyList.get(i).getQarSurvey());
+	    		SurveyAVG.setSurveyYear(MyFillSurveyList.get(i).getSurveyYear());
+	    		int i;
+	    		float q1=0,q2=0,q3=0,q4=0,q5=0,q6=0;
+	    	    for (i=0;i<MyFillSurveyList.size();i++)
+	    	    {
+	    	    	 q1+=MyFillSurveyList.get(i).getQ1();
+	    	    	 q2+=MyFillSurveyList.get(i).getQ2();
+	    	    	 q3+=MyFillSurveyList.get(i).getQ3();
+	    	    	 q4+=MyFillSurveyList.get(i).getQ4();
+	    	    	 q5+=MyFillSurveyList.get(i).getQ5();
+	    	    	 q6+=MyFillSurveyList.get(i).getQ6();
+	    	    }  
+	    	    SurveyAVG.setQ1(q1/MyFillSurveyList.size());
+	    	    SurveyAVG.setQ2(q2/MyFillSurveyList.size());
+	    	    SurveyAVG.setQ3(q3/MyFillSurveyList.size());
+	    	    SurveyAVG.setQ4(q4/MyFillSurveyList.size());
+	    	    SurveyAVG.setQ5(q5/MyFillSurveyList.size());
+	    	    SurveyAVG.setQ6(q6/MyFillSurveyList.size());
+	    		System.out.println(SurveyAVG);	 
+
+	   	 int port=PORT;
+		   String ip=ServerIP;
+		   try 
+		   {
+				myClient = new ChatClient(ip,port);	//create new client to get all users in db (server)
+				myClient.setLoginControl(this); //**********************************************************to check if need this ??!
+		   } 
+		   catch (IOException e) 
+		   {
+			   System.out.println("Cannot create client");	  
+		   }
+  	         myClient.sendRequestToSaveSurveyResult(SurveyAVG); 
+  	         
+  	          
+  	       writeToCSV(SurveyAVG, SurveyAVG.getQarSurvey()  ,Integer.parseInt(SurveyAVG.getSurveyYear()) );
+  	         
+  	         
+  	         
+	    	}
+	    	else {
+	    		System.out.println("No Fills !");	 
+	    		
+	    	}
 	  /* 	int NumberOfCustomers =DBcustomersList.size();
 	    	int NumberOfSurveiesFilled = customersList.size();
 	    	if(NumberOfSurveiesFilled==NumberOfCustomers)
@@ -417,18 +503,7 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 			   System.out.println(SurveyResult);	  
 	*/
 		// 	   myClient.sendRequestToSaveObjectOnDB(SurveyResult); //send request to get all users from db (server)
-	    	 int port=PORT;
-			   String ip=ServerIP;
-			   try 
-			   {
-					myClient = new ChatClient(ip,port);	//create new client to get all users in db (server)
-					myClient.setLoginControl(this); //**********************************************************to check if need this ??!
-			   } 
-			   catch (IOException e) 
-			   {
-				   System.out.println("Cannot create client");	  
-			   }
-	    	myClient.sendRequestToGetAllCustomer();   
+	       
 			  // while( myClient.isConnected());	//wait until client (this class) get all users from the db!
 	    /*	}
 	    	else
@@ -477,7 +552,7 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 			Combo6.setItems(ListNumbers);
 			 
 	     
-			for(int i=1;i<customersList.size();i++)
+			for(int i=0;i<customersList.size();i++)
 			{
 				System.out.println(customersList.get(i).getCustomerID());	
 
@@ -493,8 +568,69 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 		 
 	    }
 	    
-	    
-		
+		public void writeToCSV(satisfactionSurvey satisfaction, int quarter, int year) {
+			String FileHeader = "Q1,Q2,Q3,Q4,Q5,Q6\n";
+			String csvFileName =  System.getProperty("user.dir")+"\\ZerLiProject_G13\\Zer-Li\\src\\Reports\\satisfactionSurvey_Report_" + String.valueOf(quarter) + "-" + String.valueOf(year)+".csv";
+			System.out.println("the set file name plus path is: "+csvFileName);
+			try {
+				FileWriter writer = new FileWriter(csvFileName);
+
+				//append headers
+				writer.append(new StringBuilder(FileHeader).toString());
+				/*add all the existing entries from the DB to the CVS file
+				each field is separated by a comma, new line with '\n'
+				currently the CSV file is saved to the main directory
+				for example C:\\*/
+				 
+					StringBuilder sb = new StringBuilder();
+					sb.append(String.valueOf(satisfaction.getQ1()));
+					sb.append(",");
+					sb.append(String.valueOf(satisfaction.getQ2()));
+					sb.append(",");
+					sb.append(String.valueOf(satisfaction.getQ3()));
+					sb.append(",");
+					sb.append(String.valueOf(satisfaction.getQ4()));
+					sb.append(",");
+					sb.append(String.valueOf(satisfaction.getQ5()));
+					sb.append(",");
+					sb.append(String.valueOf(satisfaction.getQ6()));
+					sb.append(",");
+					sb.append("\n");
+					System.out.println("currently appending to csv: " + sb.toString());
+					writer.append(sb.toString());
+				 
+				//force save the CVS to the drive
+				writer.flush();
+				writer.close();
+				
+			   addNewReport(4,year+"",quarter,csvFileName,"211");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		public void addNewReport(int reporttype, String year ,int qar,String csvFile,String branchid )
+		{
+			Reports newReport=new Reports(reporttype,year,qar,csvFile,branchid);
+			System.out.println(newReport);
+			 int port=PORT ;
+		 	   String ip=ServerIP ;
+	 	 	   try 
+		 	   {
+		 		myClient = new ChatClient(ip,port);	//create new client to get all users in db (server)
+		 		myClient.setLoginControl(this); 
+		 	   } 
+		 	   catch (IOException e) 
+		 	   {
+		 		   System.out.println("Cannot create client");	  
+		 	   }
+		 	    
+	 	 	 myClient.AddNewReportToDB(newReport); 
+
+			
+			
+			
+			
+		}
 		public void start(Stage primaryStage) throws IOException 
 		{	
 			 
