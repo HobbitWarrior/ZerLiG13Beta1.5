@@ -48,6 +48,11 @@ public class complaintEntry {
 	public SimpleStringProperty getCustomerID() {
 		return new SimpleStringProperty(String.valueOf(CustomerID.getValue()));
 	}
+	public SimpleIntegerProperty getCustomerIDInteger()
+	{
+		return CustomerID;
+	}
+	
 	public void setCustomerID(int customerID) {
 		CustomerID.setValue(customerID);
 	}

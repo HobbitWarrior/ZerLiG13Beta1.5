@@ -13,6 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.beans.binding.*;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 public class ManageComplaintController implements Initializable  {
 	@FXML
@@ -47,6 +49,16 @@ public class ManageComplaintController implements Initializable  {
 	public void initialize(URL location, ResourceBundle resources) {
 		if(CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex!=-1)
 		{
+
+			//attach an event to the save button
+			save.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+				System.out.println("lol that tickles");
+				}
+			});
+
+			
 			int index=CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex;
 			//reset the pressedComplaintIndex
 			CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex=-1;
@@ -66,5 +78,13 @@ public class ManageComplaintController implements Initializable  {
 			
 			
 
+	}
+	
+	
+	
+	public void SaveButtonClickHandler(ActionEvent event)
+	{
+		//save the new data to a new complaint and send it to the server
+		complaint editedComplaint=new complaint(currentComplaint.getCompliantID().getValue(), currentComplaint.getCustomerIDInteger().getValue(), currentComplaint.getEmpHandlingID().getValue(), currentComplaint.getTopic().getValue(), currentComplaint.getTime().getValue(), currentComplaint.getDate().getValue(), currentComplaint.getStatus().getValue(), currentComplaint.getDetails().getValue());
 	}
 }
