@@ -28,56 +28,92 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
+/**
+ * this class implements Chain worker window - chain worker can delete /edit / add item to catalog.
+ * @author Sharon
+ * @version 1.0
+ */
 
 public class SurveyAnalayzingControl extends LoginContol implements Initializable
 
 {
+	/**
+	 * SurveyResultList is a float vector that includes all the results of the survey that filled by the branch worker. 
+	 */
 	public static Vector<Float> SurveyResultList=new Vector<Float>();
-	public static boolean stepAns;
 	
+	/**
+	 * boolean stepAns is true if we are in step 1 - after filling the surveys and false otherwise
+	 */
+	public static boolean stepAns;
+	/**
+	 * Button for logout
+	 */
     @FXML
     private Button btnLogout;
-
+	/**
+	 * Button to see account
+	 */
     @FXML
     private Button btnAccount;
-
+	/**
+	 * Button go to home page.
+	 */
     @FXML
     private Button btnHome;
     
-    
-    
-    // questions:
-    
 
+    /**
+     * AnchorPane show message to expert that there are no survey result ready.
+     */
     @FXML
     private AnchorPane AnchorPaneNoSurvey;
-    
+    /**
+     * AnchorPane show the survey result 
+     */
     @FXML
     private AnchorPane AnchorPaneShowResult;
-    
+    /**
+     * Label of result number 1
+     */
     @FXML
     private Label q1Result;
-
+    /**
+     * Label of result number 2
+     */
     @FXML
     private Label q2Result;
-    
+    /**
+     * Label of result number 3
+     */   
     @FXML
     private Label q3Result;
-    
+    /**
+     * Label of result number 4
+     */   
     @FXML
     private Label q4Result;
-
+    /**
+     * Label of result number 5
+     */
     @FXML
     private Label q5Result;
-    
+    /**
+     * Label of result number 6
+     */   
     @FXML
     private Label q6Result;
-    
+    /**
+     * Label of result number 7
+     */    
     @FXML
     private Button seeResult;
     
-    
-
+    /**
+     * hid current window and go to home page.
+     * if fail to start the home page window send message
+     * @param event
+     */
     @FXML
     void goHome(ActionEvent event) 
     {
@@ -93,11 +129,16 @@ public class SurveyAnalayzingControl extends LoginContol implements Initializabl
     	
 
     }
-
+    
+    /**
+     * hid current window and go to login window.
+     * change the entry number to zero - only 1 person with same user can log in.
+     * @param event
+     */
     @FXML
     void logoutEvent(ActionEvent event) throws IOException 
     {
-    	changeEntry(UserNameToCheck);
+    	changeEntry(UserNameToCheck); //change the entry number to zero
     	
 		System.out.println("return to main menu");
 		((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window	
@@ -107,7 +148,9 @@ public class SurveyAnalayzingControl extends LoginContol implements Initializabl
     }
 
 
-
+    /**
+     * client send request to server to Get Satisfaction Survey Result and insert it inside the vector (SurveyResultList)
+     */
     public void getSurveyResultList()
     {
 	 	   int port=PORT;
@@ -126,7 +169,9 @@ public class SurveyAnalayzingControl extends LoginContol implements Initializabl
 
     }
     
-    
+    /**
+     * put the vector (SurveyResultList) inside the labels of the results.
+     */
     
     public void setSurveyResultInfields()
     {
@@ -164,7 +209,12 @@ public class SurveyAnalayzingControl extends LoginContol implements Initializabl
     
     
     
-    
+    /**
+     * check if stepAns variable is true or false
+     * if true call getSurveyResultList function
+     * else change AnchorPane and show error massage.
+     * @param event
+     */
     
     @FXML
     void askForResult(ActionEvent event) 
@@ -181,8 +231,10 @@ public class SurveyAnalayzingControl extends LoginContol implements Initializabl
     	}
     	
     }
-    
-    public void checkIfStep1() //check if branch worker finish to fill surveys (step = 1 in DB table of satisfactionsurvies)
+    /**
+     * client send request to server to check if step = 1 in DB table of satisfactionsurvies (meaning check if branch worker finish to fill surveys)
+     */
+    public void checkIfStep1()
     {
 	 	   int port=PORT;
 	 	   String ip=ServerIP;
@@ -200,11 +252,12 @@ public class SurveyAnalayzingControl extends LoginContol implements Initializabl
     }
     
     
-    
+    /**
+     * initialize 
+     */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) 
 	{
-//		checkIfStep1(); //check if branch worker finish to fill surveys (step = 1 in DB table of satisfactionsurvies)            //********* can delete this
 		seeResult.setVisible(true);
 		AnchorPaneNoSurvey.setVisible(false);
 		AnchorPaneShowResult.setVisible(false);

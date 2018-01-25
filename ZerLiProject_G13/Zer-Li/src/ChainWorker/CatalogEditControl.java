@@ -40,6 +40,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
+/**
+ * this class implements Chain worker window - chain worker can delete /edit / add item to catalog.
+ * @author Sharon
+ * @version 1.0
+ */
 public class CatalogEditControl extends LoginContol implements Initializable
 {
 	

@@ -40,6 +40,8 @@ public class ManageComplaintController extends LoginContol implements Initializa
 	
 	public static complaintEntry currentComplaint;
  	
+	
+	/*
 	public void start(Stage primaryStage) throws Exception {
 		Parent root = FXMLLoader
 				.load(getClass().getResource("/CustomerServiceDepartmentworker/ManageComplaintFrame.fxml"));
@@ -48,6 +50,7 @@ public class ManageComplaintController extends LoginContol implements Initializa
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
+	*/
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
