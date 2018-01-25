@@ -178,7 +178,7 @@ public class SurveyAnalayzingControl extends LoginContol implements Initializabl
     	
     	if(SurveyResultList.size()>0)
     	{
-    		
+    		//round to 1 decimal place
     		float q1 = (float) (Math.round(SurveyResultList.get(0)*10.0)/10.0);
     		float q2 = (float) (Math.round(SurveyResultList.get(1)*10.0)/10.0);
     		float q3 = (float) (Math.round(SurveyResultList.get(2)*10.0)/10.0);
@@ -186,7 +186,7 @@ public class SurveyAnalayzingControl extends LoginContol implements Initializabl
     		float q5 = (float) (Math.round(SurveyResultList.get(4)*10.0)/10.0);
     		float q6 = (float) (Math.round(SurveyResultList.get(5)*10.0)/10.0);
     		
-    		
+    		//convert to string
 	    	System.out.println(SurveyResultList);
 	    	String q1STR = String.valueOf(q1);
 	    	String q2STR = String.valueOf(q2);
@@ -195,6 +195,7 @@ public class SurveyAnalayzingControl extends LoginContol implements Initializabl
 	    	String q5STR = String.valueOf(q5);
 	    	String q6STR = String.valueOf(q6);
 	
+	    	//put results in the labels
 			q1Result.setText(q1STR);
 			q2Result.setText(q2STR);
 			q3Result.setText(q3STR);
@@ -253,7 +254,7 @@ public class SurveyAnalayzingControl extends LoginContol implements Initializabl
     
     
     /**
-     * initialize 
+     * initialize the AnchorPanes
      */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) 
@@ -264,7 +265,11 @@ public class SurveyAnalayzingControl extends LoginContol implements Initializabl
 	}
 	
     
-	
+	/**
+	 * show the fxml file on the screan
+	 * call to checkIfStep1 function to check if step = 1 on DB
+	 * Does not allow to close the window by pressing on the x button , we can close window only after logout
+	 */
 	public void start(Stage primaryStage) throws IOException
 	{		
 		Parent root = FXMLLoader.load(getClass().getResource("/expert/SurveyAnalayzeFrame.fxml"));
