@@ -336,7 +336,7 @@ public class EchoServer extends AbstractServer implements Initializable
 			System.out.println("Check if step =0");
 			boolean ansStep = false;
 			try {
-				ansStep=CheckIfStep1();
+				ansStep=CheckIfStep0();
 				if(ansStep)
 					System.out.println("ansStep true");
 				else
