@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
+import Customer.CustomOrderControl;
 import Customer.OrdersControl;
 import Users.LoginContol;
 import Users.User;
@@ -25,12 +26,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 
 public class SurveyAnalayzingControl extends LoginContol implements Initializable
 
 {
 	public static Vector<Float> SurveyResultList=new Vector<Float>();
+	public static boolean stepAns;
 	
     @FXML
     private Button btnLogout;
@@ -46,6 +49,9 @@ public class SurveyAnalayzingControl extends LoginContol implements Initializabl
     // questions:
     
 
+    @FXML
+    private AnchorPane AnchorPaneNoSurvey;
+    
     @FXML
     private AnchorPane AnchorPaneShowResult;
     
@@ -75,6 +81,16 @@ public class SurveyAnalayzingControl extends LoginContol implements Initializabl
     @FXML
     void goHome(ActionEvent event) 
     {
+    		btnHome.getScene().getWindow().hide(); //hiding primary window
+ 	   		Stage primaryStage = new Stage();
+ 	   		Pane root=null;
+		   SurveyAnalayzingControl aFrame = new SurveyAnalayzingControl();
+		   try {
+			   		aFrame.start(primaryStage);
+		   } catch (Exception e1) {
+			   		System.out.println("cannot start Expert Window");
+		   }
+    	
 
     }
 
@@ -107,21 +123,13 @@ public class SurveyAnalayzingControl extends LoginContol implements Initializabl
 	 	   }
 	 	   
 	 	   	myClient.sendRequestToGetSatisfactionSurveyResult(); //send request to change entry in db (server)
-/*		
-	 	   	while(SurveyResultList.size()==0)
-	 	   	{
-	 	   		System.out.println("waiting..................");
-	 	   	}
-	 	   setSurveyResultInfields();
-	    
-*/	 	   
+
     }
     
-    @FXML
-    void askForResult(ActionEvent event) 
+    
+    
+    public void setSurveyResultInfields()
     {
-    	System.out.println("im in ask for result !!!");
-    	
     	
     	if(SurveyResultList.size()>0)
     	{
@@ -158,10 +166,48 @@ public class SurveyAnalayzingControl extends LoginContol implements Initializabl
     
     
     
+    @FXML
+    void askForResult(ActionEvent event) 
+    {
+    	
+    	if (stepAns) //if stepAns is true (branch worker filled all surveys) we can see survey result
+    	{
+    		getSurveyResultList();
+    	}
+    	else //stepAns is false (branch worker didn't fill all surveys) we can't see survey result
+    	{
+    		seeResult.setVisible(false);
+    		AnchorPaneNoSurvey.setVisible(true);
+    	}
+    	
+    }
+    
+    public void checkIfStep1() //check if branch worker finish to fill surveys (step = 1 in DB table of satisfactionsurvies)
+    {
+	 	   int port=PORT;
+	 	   String ip=ServerIP;
+	 	   try 
+	 	   {
+	 		 myClient = new ChatClient(ip,port);	//create new client
+	 		 myClient.setAnalayzingControl(this);
+	 	   } 
+	 	   catch (IOException e) 
+	 	   {
+	 		   System.out.println("Cannot create client");	  
+	 	   }
+	 	   
+	 	   	myClient.sendRequestToCheckStep1(); //send request to change entry in db (server)
+    }
+    
+    
+    
 	@Override
 	public void initialize(URL location, ResourceBundle resources) 
 	{
-
+//		checkIfStep1(); //check if branch worker finish to fill surveys (step = 1 in DB table of satisfactionsurvies)            //********* can delete this
+		seeResult.setVisible(true);
+		AnchorPaneNoSurvey.setVisible(false);
+		AnchorPaneShowResult.setVisible(false);
 	}
 	
     
@@ -174,7 +220,8 @@ public class SurveyAnalayzingControl extends LoginContol implements Initializabl
 		primaryStage.setScene(scene);
 	  	primaryStage.show();
 
-	  	getSurveyResultList();
+	  	
+	  	checkIfStep1(); //check if branch worker finish to fill surveys (step = 1 in DB table of satisfactionsurvies)
 	  	
 		//Can't close the window without logout
 		primaryStage.setOnCloseRequest( event -> {event.consume();} );

@@ -136,7 +136,7 @@ public class ChatClient extends AbstractClient {
 					SurveyAnalayzingControl.SurveyResultList.add(AllSurveyResults.get(i));
 				}
 				quit();
-		/*
+		
 				Platform.runLater(new Runnable() 
 				{
 
@@ -147,13 +147,37 @@ public class ChatClient extends AbstractClient {
 					}
 
 				});
-				*/
+				
 
 				
 				return;
 			}
 			//************************************************************************
+			if (ServerMsg.getMsgType().contains("Answer if step is 1")) 
+			{
+				Boolean ansStepFromServer = (Boolean)  ServerMsg.getMsgObject();
+				SurveyAnalayzingControl.stepAns =ansStepFromServer;
+				
+
+				quit();
+		/*		
+				Platform.runLater(new Runnable() 
+				{
+
+					@Override
+					public void run() 
+					{
+						
+						AnalayzingControl.
+					}
+
+				});
+		*/
+				return;
+			}
 			
+			
+			//************************************************************************
 			if (ServerMsg.getMsgType().contains("Answer if Unique item ID: ")) 
 			{
 				Boolean ans = (Boolean)  ServerMsg.getMsgObject();
@@ -807,7 +831,8 @@ public class ChatClient extends AbstractClient {
 			this.openConnection();
 		}
 
-		catch (IOException e1) {
+		catch (IOException e1) 
+		{
 			System.out.println("Cannot open connection");
 		}
 
@@ -816,6 +841,30 @@ public class ChatClient extends AbstractClient {
 			System.out.println("Send Message to get all Satisfaction Survey Results");
 
 			sendToServer("Give Me All Satisfaction Survey Results");
+		} 
+		catch (IOException e) 
+		{
+			System.out.println("Cannot connect to server");
+		}
+	}
+	
+	public void sendRequestToCheckStep1()
+	{
+		try 
+		{
+			this.openConnection();
+		}
+
+		catch (IOException e1) 
+		{
+			System.out.println("Cannot open connection");
+		}
+
+		try 
+		{
+			System.out.println("Send Message to get check if surveys results exist"); //step = 1 in DB
+			String requestToCheckStep1="Please Check if step = 1";
+			sendToServer(requestToCheckStep1);
 		} 
 		catch (IOException e) 
 		{

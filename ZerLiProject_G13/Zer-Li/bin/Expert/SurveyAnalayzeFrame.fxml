@@ -31,7 +31,7 @@
          </font>
       </Label>
       <Button fx:id="seeResult" layoutX="307.0" layoutY="399.0" mnemonicParsing="false" onAction="#askForResult" prefHeight="38.0" prefWidth="238.0" text="See Satisfaction Survey result" />
-      <AnchorPane layoutX="201.0" layoutY="362.0" prefHeight="200.0" prefWidth="427.0" visible="false">
+      <AnchorPane fx:id="AnchorPaneNoSurvey" layoutX="201.0" layoutY="362.0" prefHeight="200.0" prefWidth="427.0" visible="false">
          <children>
             <Label layoutX="96.0" layoutY="21.0" text="No surveys found" textFill="RED">
                <font>

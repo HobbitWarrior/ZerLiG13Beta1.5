@@ -330,6 +330,27 @@ public class EchoServer extends AbstractServer implements Initializable
 			
 			return;
 		}
+		//-----------------------------------------------------------//
+		if ( DiscoverMessage.contains("Please Check if step = 1"))
+		{
+			System.out.println("Check if step =1");
+			boolean ansStep = false;
+			try {
+				ansStep=CheckIfStep1();
+				if(ansStep)
+					System.out.println("ansStep true");
+				else
+					System.out.println("ansStep false");
+			} catch (SQLException e) {
+				System.out.println("fail to get answer: if step = 1");
+			}
+			Message Msg = new Message(ansStep, "Answer if step is 1");
+			
+			this.sendToAllClients(Msg);
+			
+			return;
+		}
+		
 
 		
 		//-----------------------------------------------------------//
@@ -952,6 +973,27 @@ public class EchoServer extends AbstractServer implements Initializable
 	//***********************************************************************************************************************************************************************************
 	// Class methods ********************************************************************************************************************************************************************
 	//***********************************************************************************************************************************************************************************
+	
+	
+	
+	private boolean CheckIfStep1()throws SQLException
+	{
+		Statement st = (Statement) ServerDataBase.createStatement();		
+		ResultSet rs = st.executeQuery("SELECT Step from satisfactionsurvies where Step=1;");
+		
+		while (rs.next())  //there is the same id in DB
+		{
+			return true; //step is 1  , mean the branch worker finish to fill surveys
+		}
+
+		rs.close();
+		st.close();
+	
+	
+		return false;
+	}
+	
+	//***********************************************************************************************************************************************************************************
 	private ArrayList<Float> PutAllSatSurveyResults(ArrayList<Float> SatSurveyResults) throws SQLException
 	{
 		
@@ -978,6 +1020,7 @@ public class EchoServer extends AbstractServer implements Initializable
 		st.close();
 		
 		return SatSurveyResults;
+
 	}
 	
 	//***********************************************************************************************************************************************************************************
