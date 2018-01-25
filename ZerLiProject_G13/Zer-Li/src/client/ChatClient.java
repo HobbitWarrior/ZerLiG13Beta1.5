@@ -1341,5 +1341,34 @@ public class ChatClient extends AbstractClient {
 		}			
 		
 	}
+	
+	
+	
+	public void sendRequestUpdateComplaint(complaint c)
+	{
+		///sends a request to the server to update a complaint entry
+		
+		try 
+		{
+			this.openConnection();
+		}
+
+		catch (IOException e1) 
+		{
+			System.out.println("Cannot open connection");
+		}
+		try 
+		{
+			System.out.println("Asking the server to update a comlaint");
+			sendToServer(c);
+		} 
+		catch (IOException e) 
+		{
+			System.out.println("Cannot connect to server in order to update a complaint entry");
+
+		}			
+		
+
+	}
 
 }

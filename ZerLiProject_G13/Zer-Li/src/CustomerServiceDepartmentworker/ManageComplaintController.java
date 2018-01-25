@@ -1,8 +1,11 @@
 package CustomerServiceDepartmentworker;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import Users.LoginContol;
+import client.ChatClient;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,8 +18,9 @@ import javafx.stage.Stage;
 import javafx.beans.binding.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import Users.LoginContol;
 
-public class ManageComplaintController implements Initializable  {
+public class ManageComplaintController extends LoginContol implements Initializable  {
 	@FXML
 	public Label topic;
 	@FXML
@@ -82,9 +86,12 @@ public class ManageComplaintController implements Initializable  {
 	
 	
 	
-	public void SaveButtonClickHandler(ActionEvent event)
+	public void SaveButtonClickHandler(ActionEvent event) throws IOException
 	{
 		//save the new data to a new complaint and send it to the server
 		complaint editedComplaint=new complaint(currentComplaint.getCompliantID().getValue(), currentComplaint.getCustomerIDInteger().getValue(), currentComplaint.getEmpHandlingID().getValue(), currentComplaint.getTopic().getValue(), currentComplaint.getTime().getValue(), currentComplaint.getDate().getValue(), currentComplaint.getStatus().getValue(), currentComplaint.getDetails().getValue());
+		int port = LoginContol.PORT;
+		String ip = LoginContol.ServerIP;
+		myClient = new ChatClient(ip, port); // create new client
 	}
 }
