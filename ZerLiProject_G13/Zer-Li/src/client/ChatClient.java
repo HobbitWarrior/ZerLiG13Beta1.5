@@ -27,6 +27,7 @@ import BranchManager.SpecialBranchesMessage;
 import BranchManager.catalogitemsofbranch;
 import BranchWorker.Customer;
 import BranchWorker.FillSurveyControl;
+import BranchWorker.satisfactionSurvey;
 import Catalog.CatalogItem;
 import ChainManager.BranchReportBrowseControl;
 import ChainWorker.CatalogEditControl;
@@ -1310,6 +1311,30 @@ public class ChatClient extends AbstractClient {
 		catch (IOException e) 
 		{
 			System.out.println("Cannot connect to server to get add report");
+
+		}			
+		
+	}
+
+	public void sendRequestToSaveSurveyResult(satisfactionSurvey surveyAVG) {
+
+		try 
+		{
+			this.openConnection();
+		}
+
+		catch (IOException e1) 
+		{
+			System.out.println("Cannot open connection");
+		}
+		try 
+		{
+			System.out.println("Send Message to add satisfaction Survey");
+			sendToServer(surveyAVG);
+		} 
+		catch (IOException e) 
+		{
+			System.out.println("Cannot connect to server to get add satisfaction Survey");
 
 		}			
 		
