@@ -11,94 +11,93 @@ public class complaint implements Serializable {
 	 * This class is the 'complaints' entity it will store a single entry form the
 	 * DB
 	 */
-	private SimpleIntegerProperty ComplaintID;
-	private SimpleIntegerProperty CustomerID;
-	private SimpleIntegerProperty EmpHandling;
-	private SimpleStringProperty Topic;
-	private SimpleStringProperty TimeComplaint;
-	private SimpleStringProperty DateComplaint;
-	private SimpleStringProperty Status;
-	private SimpleStringProperty Details;
+	private int ComplaintID;
+	private int CustomerID;
+	private int EmpHandling;
+	private String Topic;
+	private String TimeComplaint;
+	private String DateComplaint;
+	private String Status;
+	private String Details;
 
 	public complaint(int complaintID, int customerID, int empHandling, String topic, String timeComplaint,
 			String dateComplaint, String status, String details) {
 
 		//Generate and instantiate the properties
-		ComplaintID = new SimpleIntegerProperty(complaintID);
-		CustomerID = new SimpleIntegerProperty(customerID);
-		EmpHandling = new SimpleIntegerProperty(empHandling);
-		Topic = new SimpleStringProperty(topic);
-		TimeComplaint = new SimpleStringProperty(timeComplaint);
-		DateComplaint = new SimpleStringProperty(timeComplaint);
-		Status = new SimpleStringProperty(status);
-		Details = new SimpleStringProperty(details);
+		ComplaintID = complaintID;
+		CustomerID = customerID;
+		EmpHandling = empHandling;
+		Topic = topic;
+		TimeComplaint = timeComplaint;
+		DateComplaint = timeComplaint;
+		Status = status;
+		Details = details;
 	}
 
 	public int getComplaintID() {
-		return ComplaintID.getValue();
+		return ComplaintID;
 	}
 
 	public void setComplaintID(int complaintID) {
-		ComplaintID.setValue(complaintID);
+		ComplaintID=complaintID;
 		;
 	}
 
 	public int getCustomerID() {
-		return CustomerID.getValue();
+		return CustomerID;
 	}
 
 	public void setCustomerID(int customerID) {
-		CustomerID.set(customerID);
+		CustomerID=customerID;
 		;
 	}
 
 	public int getEmpHandling() {
-		return EmpHandling.getValue();
+		return EmpHandling;
 	}
 
 	public void setEmpHandling(int empHandling) {
-		EmpHandling.setValue(empHandling);
-		;
+		EmpHandling=empHandling;
 	}
 
 	public String getTopic() {
-		return Topic.getValue();
+		return Topic;
 	}
 
 	public void setTopic(String topic) {
-		Topic.setValue(topic);
+		Topic=topic;
 	}
 
 	public String getTimeComplaint() {
-		return TimeComplaint.getValue();
+		return TimeComplaint;
 	}
 
 	public void setTimeComplaint(String timeComplaint) {
-		TimeComplaint.setValue(timeComplaint);
+		TimeComplaint=timeComplaint;
 	}
 
 	public String getDateComplaint() {
-		return DateComplaint.getValue();
+		return DateComplaint;
 	}
 
 	public void setDateComplaint(String dateComplaint) {
-		DateComplaint.setValue(dateComplaint);
+		DateComplaint=dateComplaint;
 	}
 
 	public String getStatus() {
-		return Status.getValue();
+		return Status;
 	}
 
 	public void setStatus(String status) {
-		Status.setValue(status);
+		Status=status;
 	}
 
 	public void setDetails(String details) {
-		Details.setValue(details);
+		Details=details;
 	}
 
 	public String getDetails() {
-		return Details.getValue();
+		return Details;
 	}
 
 	// setters and getters to support the GUI
@@ -109,9 +108,9 @@ public class complaint implements Serializable {
 	 * private SimpleStringProperty DateComplaint; private SimpleStringProperty
 	 * Status; private SimpleStringProperty Details;
 	 */
-
+/*
 	public Property<String> ComplaintTopicGUIGetter() {
 		return Topic;
 	}
-
+*/
 }

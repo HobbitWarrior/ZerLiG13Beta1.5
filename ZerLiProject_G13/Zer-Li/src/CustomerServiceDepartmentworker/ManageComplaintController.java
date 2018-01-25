@@ -49,7 +49,7 @@ public class ManageComplaintController implements Initializable  {
 			//reset the pressedComplaintIndex
 			CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex=-1;
 			//bind the GUI fields
-			title.textProperty().bindBidirectional(CustomerServiceDepartmentworkerMainWindow.activeComplaints.get(index).ComplaintTopicGUIGetter());
+		//	title.textProperty().bindBidirectional(CustomerServiceDepartmentworkerMainWindow.activeComplaints.get(index).ComplaintTopicGUIGetter());
 		}
 		
 			

@@ -101,11 +101,31 @@ public class ChatClient extends AbstractClient {
 	{
 		
 		
-		
+		System.out.println("complaint got here before instance of");
 		if (msg instanceof Message) 
 		{
 			Message ServerMsg;
 			ServerMsg = (Message) msg;
+			
+			/*complaints list handler*/
+			System.out.println("complaint got here");
+			if(ServerMsg.getMsgType().equals("ComplaintsList"))
+			{
+				System.out.println("i am in the condition");
+				System.out.println("complaint got here2");
+
+				//point the active complains that were retrieved from the server to the arrayList in the 
+				//CustomerServiceDepartmentwokerMainWindow class
+				CustomerServiceDepartmentworkerMainWindow.activeComplaints=(ArrayList<complaint>) ServerMsg.getMsgObject();
+				for(complaint c : CustomerServiceDepartmentworkerMainWindow.activeComplaints)
+				{
+					System.out.print("complaint: " + c.getComplaintID()+" "+c.getCustomerID()+" "+c.getDateComplaint()+" "+c.getEmpHandling()+" "+c.getStatus()+" "+c.getTimeComplaint()+" "+c.getTopic()+"\n");//" "+c.getDetails()+
+					CustomerServiceDepartmentworkerMainWindow.upgradedList.add(new complaintRow("Customer:" +c.getCustomerID()+" Topic: "+c.getTopic()+"  ",CustomerServiceDepartmentworkerMainWindow.activeComplaints.indexOf(c),c.getTimeComplaint(), CustomerServiceDepartmentworkerMainWindow.mainStageReference));
+				}
+				quit();
+				return;
+			}
+			
 			
 			
 			if (ServerMsg.getMsgType().equals("User")) 
@@ -529,21 +549,7 @@ public class ChatClient extends AbstractClient {
 			
 			
 			
-			/*complaints list handler*/
-			
-			if(ServerMsg.getMsgType().equals("ComplaintsList"))
-			{
-				//point the active complains that were retrieved from the server to the arrayList in the 
-				//CustomerServiceDepartmentwokerMainWindow class
-				CustomerServiceDepartmentworkerMainWindow.activeComplaints=(ArrayList<complaint>) ServerMsg.getMsgObject();
-				for(complaint c : CustomerServiceDepartmentworkerMainWindow.activeComplaints)
-				{
-					System.out.print("complaint: " + c.getComplaintID()+" "+c.getCustomerID()+" "+c.getDateComplaint()+" "+c.getEmpHandling()+" "+c.getStatus()+" "+c.getTimeComplaint()+" "+c.getTopic()+"\n");//" "+c.getDetails()+
-					CustomerServiceDepartmentworkerMainWindow.upgradedList.add(new complaintRow("Customer:" +c.getCustomerID()+" Topic: "+c.getTopic()+"  ",c.getTimeComplaint(), CustomerServiceDepartmentworkerMainWindow.mainStageReference));
-				}
-				quit();
-				return;
-			}
+
 			
 			
 			if(ServerMsg.getMsgType().equals("CustomerTransaction"))	//this condition is complicated, if you want to use it, speak with Haim first!! I can give you a chance to deliver your message, trust me!!
