@@ -403,7 +403,7 @@
             </Group>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="148.0" layoutY="359.0" prefHeight="200.0" prefWidth="427.0" visible="false">
+      <AnchorPane fx:id="AnchorPaneNoSurvey" layoutX="148.0" layoutY="359.0" prefHeight="200.0" prefWidth="427.0" visible="false">
          <children>
             <Label layoutX="10.0" layoutY="24.0" text="No surveys found" textFill="RED">
                <font>

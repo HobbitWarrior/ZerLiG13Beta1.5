@@ -56,6 +56,7 @@ public class ChatClient extends AbstractClient {
 	private CustomerMainWindow mainCustomerWindow;
 	private CancelOrderControl cancelWindow;
 	private SurveyAnalayzingControl AnalayzingControl;
+	private FillSurveyControl SurveyControl;
 	private String chooseControl; //choose between CatalogEditControl and CatalogOrderControl   // ************************************** i added
 	// Constructors ****************************************************
 
@@ -80,7 +81,11 @@ public class ChatClient extends AbstractClient {
 	{
 		this.AnalayzingControl=AnalayzingControl;
 	}
-	
+
+	public void setSurveyControl(FillSurveyControl SurveyControl) 
+	{
+		this.SurveyControl=SurveyControl;
+	}
 	
 	public void setCatalogEditControl(CatalogEditControl CatalogEdit)     // ********************* i added
 	{
@@ -152,6 +157,30 @@ public class ChatClient extends AbstractClient {
 				
 				return;
 			}
+			//************************************************************************
+			if (ServerMsg.getMsgType().contains("Answer if step is 0")) 
+			{
+				Boolean ansStepFromServer = (Boolean)  ServerMsg.getMsgObject();
+				SurveyControl.stepAns =ansStepFromServer;
+				
+
+				quit();
+		/*		
+				Platform.runLater(new Runnable() 
+				{
+
+					@Override
+					public void run() 
+					{
+						
+						AnalayzingControl.
+					}
+
+				});
+		*/
+				return;
+			}
+			
 			//************************************************************************
 			if (ServerMsg.getMsgType().contains("Answer if step is 1")) 
 			{
@@ -847,6 +876,32 @@ public class ChatClient extends AbstractClient {
 			System.out.println("Cannot connect to server");
 		}
 	}
+	
+	public void sendRequestToCheckStep0()
+	{
+		try 
+		{
+			this.openConnection();
+		}
+
+		catch (IOException e1) 
+		{
+			System.out.println("Cannot open connection");
+		}
+
+		try 
+		{
+			System.out.println("Send Message to get check if surveys results exist"); //step = 1 in DB
+			String requestToCheckStep0="Please Check if step = 0";
+			sendToServer(requestToCheckStep0);
+		} 
+		catch (IOException e) 
+		{
+			System.out.println("Cannot connect to server");
+		}
+	}
+	
+	
 	
 	public void sendRequestToCheckStep1()
 	{

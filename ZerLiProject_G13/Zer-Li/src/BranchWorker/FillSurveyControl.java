@@ -93,8 +93,9 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 	 public static  ObservableList<Customer> customersList = FXCollections.observableArrayList();
 	 public static ObservableList<Integer> customersIDList= FXCollections.observableArrayList();
 
-	 public static int i=0;  
+	 public static int i=0;   //****************************************************check if need this . if not - delete
 	 private ArrayList<Survey> MyFillSurveyList = new ArrayList<Survey>();
+	 public static boolean stepAns;
 		
 	 
 	 
@@ -188,6 +189,9 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 
 
     @FXML
+    private AnchorPane AnchorPaneNoSurvey;
+    
+    @FXML
     private AnchorPane AnchorPanePickCustomer;
 
     @FXML
@@ -228,6 +232,17 @@ public class FillSurveyControl extends LoginContol implements Initializable {
     @FXML
     void goHome(ActionEvent event) 
     {
+    	btnHome.getScene().getWindow().hide(); //hiding primary window
+	   	Stage primaryStage = new Stage();
+	   	Pane root=null;
+		FillSurveyControl aFrame = new FillSurveyControl();
+		try 
+		{
+			aFrame.start(primaryStage);
+		} catch (IOException e) 
+		{
+			System.out.println("Cannot start branchworker Window");
+		}
 
     }
 
@@ -304,35 +319,47 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 	    @FXML
 	    void AddNewFill(ActionEvent event)
 	    {
-
-	    	if(!(pickCustomerComboBox.getSelectionModel().isEmpty())) //check if we selected customer
+	    	if(stepAns) //stepAns=true , meaning service department created survey - we can fill surveys.
 	    	{
-	    		if(customersList.contains(pickCustomerComboBox.getSelectionModel().getSelectedItem())) // check if we already fill this customer
-	    		{
-	    			AnchorPanePickCustomer.setVisible(false);
-	    			AnchorPaneFillAns.setVisible(true);
-	       		    Survey Surveytemp = new Survey() ; 
+	    		
+	    		AnchorPanePickCustomer.setVisible(false);
+	    		AnchorPaneFillAns.setVisible(true);
+	    		
+		    	if(!(pickCustomerComboBox.getSelectionModel().isEmpty())) //check if we selected customer
+		    	{
+		    		if(customersList.contains(pickCustomerComboBox.getSelectionModel().getSelectedItem())) // check if we already fill this customer
+		    		{
+		    			AnchorPanePickCustomer.setVisible(false);
+		    			AnchorPaneFillAns.setVisible(true);
+		       		    Survey Surveytemp = new Survey() ; 
 
-	          		Surveytemp.setQ1(Combo1.getValue());
-	          		Surveytemp.setQ2(Combo2.getValue());
-	          		Surveytemp.setQ3(Combo3.getValue());
-	          		Surveytemp.setQ4(Combo4.getValue());
-	          		Surveytemp.setQ5(Combo5.getValue());
-	          		Surveytemp.setQ6(Combo6.getValue());
+		          		Surveytemp.setQ1(Combo1.getValue());
+		          		Surveytemp.setQ2(Combo2.getValue());
+		          		Surveytemp.setQ3(Combo3.getValue());
+		          		Surveytemp.setQ4(Combo4.getValue());
+		          		Surveytemp.setQ5(Combo5.getValue());
+		          		Surveytemp.setQ6(Combo6.getValue());
 
 
-	                MyFillSurveyList.add(Surveytemp);
-	                System.out.println(MyFillSurveyList);	  
-	    		}
-	    		else
-	    		{
-	    			//error msg***********************
-	    		}
+		                MyFillSurveyList.add(Surveytemp);
+		                System.out.println(MyFillSurveyList);	  
+		    		}
+		    		else
+		    		{
+		    			//error msg***********************
+		    		}
+		    	}
+		    	else //no selected customer
+		    	{
+		    		//error msg***********************
+		    	}
 	    	}
-	    	else //no selected customer
+	    	else  //stepAns is false (branch worker didn't fill all surveys) we can't see survey result
 	    	{
-	    		//error msg***********************
+	    		AnchorPanePickCustomer.setVisible(false);
+	    		AnchorPaneNoSurvey.setVisible(true);    		
 	    	}
+
 
 	    }
 
@@ -415,8 +442,31 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 	    
 		 
 
+
+		
+		
+	    public void checkIfStep0() //check if branch worker finish to fill surveys (step = 1 in DB table of satisfactionsurvies)
+	    {
+		 	   int port=PORT;
+		 	   String ip=ServerIP;
+		 	   try 
+		 	   {
+		 		 myClient = new ChatClient(ip,port);	//create new client
+		 		 myClient.setSurveyControl(this);
+		 	   } 
+		 	   catch (IOException e) 
+		 	   {
+		 		   System.out.println("Cannot create client");	  
+		 	   }
+		 	   
+		 	   	myClient.sendRequestToCheckStep0(); //send request to change entry in db (server) 	
+		 	   	
+	    }
+		
+	    
 		@Override
-		public void initialize(URL location, ResourceBundle resources) {
+		public void initialize(URL location, ResourceBundle resources) 
+		{
 			for(int i=1;i<11;i++)
 			{
 				ListNumbers.add(i);
@@ -443,8 +493,9 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 			System.out.println(customersIDList);	
 			pickCustomerComboBox.setItems(customersIDList);
 		 
-	    	}
-		 
+	    }
+	    
+	    
 		
 		public void start(Stage primaryStage) throws IOException 
 		{	
@@ -468,7 +519,9 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 			primaryStage.setScene(scene);
 		  	primaryStage.show();
 		   
-		  	  
+		  	 
+		  	checkIfStep0(); //check if branch worker finish to fill surveys (step = 1 in DB table of satisfactionsurvies)
+		  	
 			//Can't close the window without logout
 			primaryStage.setOnCloseRequest( event -> {event.consume();} );
 			

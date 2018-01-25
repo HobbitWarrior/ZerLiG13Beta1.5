@@ -331,6 +331,32 @@ public class EchoServer extends AbstractServer implements Initializable
 			return;
 		}
 		//-----------------------------------------------------------//
+		if ( DiscoverMessage.contains("Please Check if step = 0"))
+		{
+			System.out.println("Check if step =0");
+			boolean ansStep = false;
+			try {
+				ansStep=CheckIfStep1();
+				if(ansStep)
+					System.out.println("ansStep true");
+				else
+					System.out.println("ansStep false");
+			} catch (SQLException e) {
+				System.out.println("fail to get answer: if step = 0");
+			}
+			Message Msg = new Message(ansStep, "Answer if step is 0");
+			
+			this.sendToAllClients(Msg);
+			
+			return;
+		}
+		
+		
+		
+		//-----------------------------------------------------------//
+		
+		
+		
 		if ( DiscoverMessage.contains("Please Check if step = 1"))
 		{
 			System.out.println("Check if step =1");
@@ -976,6 +1002,24 @@ public class EchoServer extends AbstractServer implements Initializable
 	
 	
 	
+	
+	private boolean CheckIfStep0()throws SQLException
+	{
+		Statement st = (Statement) ServerDataBase.createStatement();		
+		ResultSet rs = st.executeQuery("SELECT Step from satisfactionsurvies where Step=0;");
+		
+		while (rs.next())  //there is the same id in DB
+		{
+			return true; //step is 1  , mean the branch worker finish to fill surveys
+		}
+
+		rs.close();
+		st.close();
+	
+	
+		return false;
+	}	
+	//***********************************************************************************************************************************************************************************
 	private boolean CheckIfStep1()throws SQLException
 	{
 		Statement st = (Statement) ServerDataBase.createStatement();		
