@@ -165,13 +165,6 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    	loadPressed=0;
 	    	titleLabel.setText("ADD NEW ITEM");
 	    	AnchorPaneCatalog.setVisible(false);
-	    	/*
-	    	CatalogTable.setVisible(false);
-	    	btnAddItem.setVisible(false);
-	    	btnEditItem.setVisible(false);
-	    	btnDeleteItem.setVisible(false);
-	    	*/
-	    	
 	    	anchorPaneAddItem.setVisible(true);
 	    	
 	    }
@@ -260,13 +253,6 @@ public class CatalogEditControl extends LoginContol implements Initializable
 		    	loadPressed=0;
 		    	titleLabel.setText("EDIT ITEM");
 		    	AnchorPaneCatalog.setVisible(false);
-		    	/*
-		    	CatalogTable.setVisible(false);
-		    	btnAddItem.setVisible(false);
-		    	btnEditItem.setVisible(false);
-		    	btnDeleteItem.setVisible(false);
-		    	*/
-		    	
 		    	ItemIDTextField.setDisable(true); //can't edit ID
 		    	
 		    	anchorPaneAddItem.setVisible(true);
@@ -524,41 +510,6 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    
 	    
 	    //****************************************************************
-/*	        
-	    public void addItemToCatalog(int itemID)
-	    {
-	 	   int port=PORT;
-	 	   String ip=ServerIP;
-	 	   try 
-	 	   {
-	 		 myClient = new ChatClient(ip,port);	//create new client
-	// 		 myClient.setLoginControl(this);
-	 	   } 
-	 	   catch (IOException e) 
-	 	   {
-	 		   System.out.println("Cannot create client");	  
-	 	   }
-	 	   
-	 	   String tempID=ItemIDTextField.getText();
-	 	  int newID = Integer.parseInt(tempID); //convert string id to int id
-	 	   
-	 	   String newName=itemNameTextField.getText();
-	 	   String newpDescription=descriptionTextField.getText();
-	 	   String newType=typeTextField.getText();
-	 	   
-	 	   String tempImageAdress=imageTextField.getText();
-	 	   MyFile newImageFile = createFile(tempImageAdress);
-	 	   
-	 	   
-	 	   String tempPrice=priceTextField.getText();
-	 	   Double newPrice = Double.parseDouble(tempPrice);  //convert string Price to double Price
-	 	   
-	 	   
-	 	   CatalogItem newItem=new CatalogItem(newID,newName,newpDescription,newType,newImageFile ,newPrice);
-	 	  
-	 	   	myClient.sendRequestToAddItem(newItem); //send request to change entry in db (server)
-	    }
-	    */
 	    
 	    
 	    public void AddorEditItems(int itemID)
