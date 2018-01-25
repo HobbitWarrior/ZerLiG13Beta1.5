@@ -2,95 +2,116 @@ package CustomerServiceDepartmentworker;
 
 import java.io.Serializable;
 
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 public class complaint implements Serializable {
 	/*
 	 * This class is the 'complaints' entity it will store a single entry form the
 	 * DB
 	 */
-	private int ComplaintID;
-	private int CustomerID;
-	private int EmpHandling;
-	private String Topic;
-	private String TimeComplaint;
-	private String DateComplaint;
-	private String Status;
-	private String Details;
+	private SimpleIntegerProperty ComplaintID;
+	private SimpleIntegerProperty CustomerID;
+	private SimpleIntegerProperty EmpHandling;
+	private SimpleStringProperty Topic;
+	private SimpleStringProperty TimeComplaint;
+	private SimpleStringProperty DateComplaint;
+	private SimpleStringProperty Status;
+	private SimpleStringProperty Details;
 
-	public complaint(int ComplaintID, int CustomerID, int EmpHandling, String Topic, String TimeComplaint,
-			String DateComplaint, String Status, String Details) {
-		setComplaintID(ComplaintID);
-		setCustomerID(CustomerID);
-		setEmpHandling(EmpHandling);
-		setTopic(Topic);
-		setTimeComplaint(TimeComplaint);
-		setDateComplaint(DateComplaint);
-		setStatus(Status);
-		setDetails(Details);
+	public complaint(int complaintID, int customerID, int empHandling, String topic, String timeComplaint,
+			String dateComplaint, String status, String details) {
+
+		//Generate and instantiate the properties
+		ComplaintID = new SimpleIntegerProperty(complaintID);
+		CustomerID = new SimpleIntegerProperty(customerID);
+		EmpHandling = new SimpleIntegerProperty(empHandling);
+		Topic = new SimpleStringProperty(topic);
+		TimeComplaint = new SimpleStringProperty(timeComplaint);
+		DateComplaint = new SimpleStringProperty(timeComplaint);
+		Status = new SimpleStringProperty(status);
+		Details = new SimpleStringProperty(details);
 	}
 
 	public int getComplaintID() {
-		return ComplaintID;
+		return ComplaintID.getValue();
 	}
 
 	public void setComplaintID(int complaintID) {
-		ComplaintID = complaintID;
+		ComplaintID.setValue(complaintID);
+		;
 	}
 
 	public int getCustomerID() {
-		return CustomerID;
+		return CustomerID.getValue();
 	}
 
 	public void setCustomerID(int customerID) {
-		CustomerID = customerID;
+		CustomerID.set(customerID);
+		;
 	}
 
 	public int getEmpHandling() {
-		return EmpHandling;
+		return EmpHandling.getValue();
 	}
 
 	public void setEmpHandling(int empHandling) {
-		EmpHandling = empHandling;
+		EmpHandling.setValue(empHandling);
+		;
 	}
 
 	public String getTopic() {
-		return Topic;
+		return Topic.getValue();
 	}
 
 	public void setTopic(String topic) {
-		Topic = topic;
+		Topic.setValue(topic);
 	}
 
 	public String getTimeComplaint() {
-		return TimeComplaint;
+		return TimeComplaint.getValue();
 	}
 
 	public void setTimeComplaint(String timeComplaint) {
-		TimeComplaint = timeComplaint;
+		TimeComplaint.setValue(timeComplaint);
 	}
 
 	public String getDateComplaint() {
-		return DateComplaint;
+		return DateComplaint.getValue();
 	}
 
 	public void setDateComplaint(String dateComplaint) {
-		DateComplaint = dateComplaint;
+		DateComplaint.setValue(dateComplaint);
 	}
 
 	public String getStatus() {
-		return Status;
+		return Status.getValue();
 	}
 
 	public void setStatus(String status) {
-		Status = status;
+		Status.setValue(status);
 	}
 
 	public void setDetails(String details) {
-		Details = details;
+		Details.setValue(details);
 	}
-	
-	public String getDetails()
-	{
-		return Details;
+
+	public String getDetails() {
+		return Details.getValue();
+	}
+
+	// setters and getters to support the GUI
+	/*
+	 * private SimpleIntegerProperty ComplaintID; private SimpleIntegerProperty
+	 * CustomerID; private SimpleIntegerProperty EmpHandling; private
+	 * SimpleStringProperty Topic; private SimpleStringProperty TimeComplaint;
+	 * private SimpleStringProperty DateComplaint; private SimpleStringProperty
+	 * Status; private SimpleStringProperty Details;
+	 */
+
+	public Property<String> ComplaintTopicGUIGetter() {
+		return Topic;
 	}
 
 }

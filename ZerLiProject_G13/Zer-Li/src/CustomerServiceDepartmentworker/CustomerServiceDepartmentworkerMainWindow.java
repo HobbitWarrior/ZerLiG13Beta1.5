@@ -57,6 +57,7 @@ public class CustomerServiceDepartmentworkerMainWindow implements Initializable 
 
 	static int iterations;
 
+	public static int pressedComplaintIndex=-1; 
 	// the unique key of the complaint, sent from the caller
 	public static int complaintID;
 	public static int customerServiceID;
@@ -157,11 +158,13 @@ public class CustomerServiceDepartmentworkerMainWindow implements Initializable 
 				button.setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
-						System.out.println(lastItem + " : " + event);
+						System.out.println(lastItem + " : " + event+"complaint index: "+lastItem.ComplaintIndex);
+						pressedComplaintIndex=lastItem.ComplaintIndex;
 						/*
 						 * call the edit button click from the complaintRow instance it will open a new
 						 * window or generate a new stage
 						 */
+						//get the index of the clicked button
 						item.buttonEventHandler();
 
 					}
@@ -181,16 +184,16 @@ public class CustomerServiceDepartmentworkerMainWindow implements Initializable 
 	public void initialize(URL location, ResourceBundle resources) {
 		newComplaint.setText("New Complaint...");
 
-		upgradedList.add(new complaintRow("just adding an item to a static list","13:10", mainStageReference));
+		upgradedList.add(new complaintRow("just adding an item to a static list",-1,"13:10", mainStageReference));
 
 		/*
 		 * new complaintRow("this is a sad"), new complaintRow("about a list "), new
 		 * complaintRow("that its only purpose is"), new
 		 * complaintRow("to store angry customers complaints :("), new complaintRow()
 		 */
-		upgradedList.add(new complaintRow("this is a sad","17:48", mainStageReference));
-		upgradedList.add(new complaintRow("that its only purpose is","17:40", mainStageReference));
-		upgradedList.add(new complaintRow("to store angry customers complaints :(", "15:35",mainStageReference));
+		upgradedList.add(new complaintRow("this is a sad",-1,"17:48", mainStageReference));
+		upgradedList.add(new complaintRow("that its only purpose is",-1,"17:40", mainStageReference));
+		upgradedList.add(new complaintRow("to store angry customers complaints :(",-1, "15:35",mainStageReference));
 		upgradedList.add(new complaintRow(mainStageReference));
 		
 		// point the complaintList to the observable upgradedList
@@ -204,8 +207,4 @@ public class CustomerServiceDepartmentworkerMainWindow implements Initializable 
 		});
 	}
 	
-	public void loadListOfComplaintsFromServer()
-	{
-		
-	}
 }

@@ -23,6 +23,10 @@ public class complaintRow {
 	private int minutes = 0;
 	private int seconds = 0;
 
+	//saves the current location of the complaint the observable list 'upgradedList'
+	public int ComplaintIndex=-1;
+	
+	
 	public complaintRow() {
 		// default Values
 		labelText = new SimpleStringProperty("Guess what? this is a complaint");
@@ -35,8 +39,9 @@ public class complaintRow {
 		seconds = rn.nextInt(60);
 	}
 
-	public complaintRow(String complaintText, String time, Stage stg) {
+	public complaintRow(String complaintText,int complaintIndex, String time, Stage stg) {
 		this(stg);
+		ComplaintIndex=complaintIndex;
 		complaintLabelSetter(complaintText);
 		GetComplaintOpeningTime(time);
 	}
