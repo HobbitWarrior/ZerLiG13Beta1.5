@@ -1316,8 +1316,10 @@ public class ChatClient extends AbstractClient {
 		
 	}
 
+	// ---- Send Request to Server To Save Survey Result
 	public void sendRequestToSaveSurveyResult(satisfactionSurvey surveyAVG) {
 
+		
 		try 
 		{
 			this.openConnection();
