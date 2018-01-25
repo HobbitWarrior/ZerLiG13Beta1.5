@@ -31,6 +31,8 @@ public class ManageComplaintController implements Initializable  {
 	public Button save;
 	@FXML
 	public Label title;
+	
+	public static complaintEntry currentComplaint;
  	
 	public void start(Stage primaryStage) throws Exception {
 		Parent root = FXMLLoader
@@ -48,6 +50,15 @@ public class ManageComplaintController implements Initializable  {
 			int index=CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex;
 			//reset the pressedComplaintIndex
 			CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex=-1;
+			//generate a new complaint:
+			currentComplaint=new complaintEntry(CustomerServiceDepartmentworkerMainWindow.activeComplaints.get(index));
+			//bind the gui fields
+			topicField.textProperty().bindBidirectional(currentComplaint.getTopic());
+			detailsField.textProperty().bindBidirectional(currentComplaint.getDetails());
+			customerIDField.textProperty().bindBidirectional(currentComplaint.getCustomerID());
+			topicField.textProperty().addListener((observable, oldValue, newValue) -> {
+			    System.out.println("textfield changed from " + oldValue + " to " + newValue+"     values in the currentCompliant:"+currentComplaint.getTopic().getValue());
+			});
 			//bind the GUI fields
 		//	title.textProperty().bindBidirectional(CustomerServiceDepartmentworkerMainWindow.activeComplaints.get(index).ComplaintTopicGUIGetter());
 		}

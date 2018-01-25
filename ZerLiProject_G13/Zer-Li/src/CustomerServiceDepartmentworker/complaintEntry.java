@@ -14,7 +14,28 @@ public class complaintEntry {
 	public SimpleStringProperty Status;
 	public SimpleStringProperty details;
 	
-	
+	public complaintEntry(complaint c)
+	{
+		CompliantID=new SimpleIntegerProperty();
+		CustomerID=new SimpleIntegerProperty();
+		EmpHandlingID=new SimpleIntegerProperty();
+		Topic =new SimpleStringProperty();
+		Time=new SimpleStringProperty();
+		Date=new SimpleStringProperty();
+		Status=new SimpleStringProperty();
+		details=new SimpleStringProperty();
+		
+		
+		setCompliantID(c.getComplaintID());
+		setCustomerID(c.getCustomerID());
+		setTime(c.getTimeComplaint());
+		setDate(c.getDateComplaint());
+		setDetails(c.getDetails());
+		setEmpHandlingID(c.getEmpHandling());
+		setStatus(c.getStatus());
+		setTopic(c.getTopic());
+		
+	}
 	
 	
 	
@@ -22,10 +43,10 @@ public class complaintEntry {
 		return CompliantID;
 	}
 	public void setCompliantID(int compliantID) {
-		CompliantID.setValue(compliantID);;
+		CompliantID.setValue(compliantID);
 	}
-	public SimpleIntegerProperty getCustomerID() {
-		return CustomerID;
+	public SimpleStringProperty getCustomerID() {
+		return new SimpleStringProperty(String.valueOf(CustomerID.getValue()));
 	}
 	public void setCustomerID(int customerID) {
 		CustomerID.setValue(customerID);
