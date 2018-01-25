@@ -27,6 +27,7 @@ import BranchManager.SpecialBranchesMessage;
 import BranchManager.catalogitemsofbranch;
 import BranchWorker.Customer;
 import BranchWorker.Survey;
+import BranchWorker.satisfactionSurvey;
 import Catalog.CatalogItem;
 import Customer.BranchShipment;
 import Customer.CatalogItemInOrder;
@@ -443,18 +444,23 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 		// ---------------------------------------instanceof
 		// Survey---------------------------------------------------------
-		if (msg instanceof Survey) {
+		if(msg instanceof satisfactionSurvey)
+		 {
 			System.out.println("yes");
 			System.out.println("Set Survey Info on DB");
-
-			try {
-				SaveSurveyInfo(msg);
-			} catch (SQLException e) {
+			 
+			
+			try 
+			{
+				SavesatisfactionSurveyInfo(msg);
+			} 
+			catch (SQLException e) 
+			{
 				System.out.println("error-can't Set Survey Info on DB");
 				this.sendToAllClients("GetFail");
 			}
 			return;
-		}
+		 }
 		// ---------------------------------------instanceof
 		// Customer---------------------------------------------------------
 		if (msg instanceof Customer) {
@@ -1991,37 +1997,26 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 	// ***********************************************************************************************************************************************************************************
 	// Add Survey Information to the data base
-	public synchronized void SaveSurveyInfo(Object OB) throws SQLException {
-		try {
-			Survey SurveyToSave = (Survey) OB;
-
-			Statement statementquery = (Statement) ServerDataBase.createStatement(); // query to check if table filled
-
-			PreparedStatement ps1 = ServerDataBase.prepareStatement("INSERT INTO Survies VALUES(?,?,?,?,?,?,?,?,?,?)");
-			/*
-			 * ps1.setInt(1,SurveyToSave.getCustomerID());
-			 * ps1.setInt(2,SurveyToSave.getSurviesQuarter()); ps1.setInt(3,
-			 * SurveyToSave.getSurviesYear());
-			 * ps1.setInt(4,SurveyToSave.getBranchWorkerID());
-			 */
-			ps1.setInt(5, SurveyToSave.getQ1());
-			ps1.setInt(6, SurveyToSave.getQ2());
-			ps1.setInt(7, SurveyToSave.getQ3());
-			ps1.setInt(8, SurveyToSave.getQ4());
-			ps1.setInt(9, SurveyToSave.getQ5());
-			ps1.setInt(10, SurveyToSave.getQ6());
-
-			ps1.executeUpdate();
-			ps1.close();
-
-			statementquery.close();
-
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-			System.out.println("Cannot create st");
-		}
-		;
-	}
+	 public synchronized void SavesatisfactionSurveyInfo(Object OB) throws SQLException
+	  { 
+		  satisfactionSurvey mysatSurvey = (satisfactionSurvey)OB;
+		  Statement st=null;		 
+			try 
+			{
+				 st = (Statement) ServerDataBase.createStatement();
+ 
+			     String sql = "update satisfactionsurvies set Step="+1+" , Q1='"+mysatSurvey.getQ1()+"', Q2='"+mysatSurvey.getQ2()+"' ,Q3='"+mysatSurvey.getQ3()+"', Q4='"+mysatSurvey.getQ4()+"' ,Q5="+mysatSurvey.getQ5()+", Q6='"+mysatSurvey.getQ6()+"'  where SurviesYear='"+mysatSurvey.getSurveyYear()+"'  and SurviesQuarter="+mysatSurvey.getQarSurvey()+"  ";
+				 st.executeUpdate(sql);
+			     st.close();
+			} 
+			catch (SQLException e1) 
+			{
+				e1.printStackTrace();
+				System.out.println("Cannot update entry");
+			};
+			
+	  }
+	  
 
 	// ***************************************************
 	protected void serverStarted() {
