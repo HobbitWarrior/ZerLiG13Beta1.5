@@ -200,7 +200,6 @@ public class CustomerServiceDepartmentworkerMainWindow  extends LoginContol impl
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		newComplaint.setText("New Complaint...");
-
 		upgradedList.add(new complaintRow("just adding an item to a static list",-1,"13:10", mainStageReference));
 
 		/*
