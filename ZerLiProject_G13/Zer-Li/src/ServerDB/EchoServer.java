@@ -2009,35 +2009,54 @@ public class EchoServer extends AbstractServer implements Initializable {
 	}
 
 	// ***********************************************************************************************************************************************************************************
+    private static void writeBytesToFileClassic(byte[] bFile, String fileDest) {
+
+        FileOutputStream fileOuputStream = null;
+
+        try {
+            fileOuputStream = new FileOutputStream(fileDest);
+            fileOuputStream.write(bFile);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fileOuputStream != null) {
+                try {
+                    fileOuputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+	// ***********************************************************************************************************************************************************************************
 	public synchronized void addItemInDB(CatalogItem givenItem) {
+		
+		System.out.println("we got here -< addItemDB");
+
+
 		try {
-			// need to delete !!!!!!!*****************
-
-			/*
-			 * Statement statementquery = (Statement) ServerDataBase.createStatement(); //
-			 * query to check if table filled ResultSet rs =
-			 * statementquery.executeQuery("select * from catalogitems ");
-			 * 
-			 * 
-			 * while (rs.next()) // here we check if the table already filled {
-			 * statementquery.close(); rs.close(); // return
-			 * "You already inserted the items to the catalog!\n"; //// message to put in
-			 * the gui }
-			 */
-
 			PreparedStatement ps1 = ServerDataBase.prepareStatement(
 					"insert into catalogitems (ItemID,ItemName,ItemType,Description,Photo,Price) values (?,?,?,?,?,?)");
 
 			// put new row in catalogitems table!!
-
+	
 			ps1.setInt(1, givenItem.getItemID());
 			ps1.setString(2, givenItem.getItemName());
 			ps1.setString(3, givenItem.getItemType());
 			ps1.setString(4, givenItem.getItemDescription());
 			InputStream inputStream = null;
-			String filePath = givenItem.getItemPhoto().getFileName();
+			
+    		byte[] bytes = givenItem.getItemPhoto().mybytearray;
+    		
+    		String userDir = System.getProperty("user.dir");
+			userDir = userDir + "" + "\\ZerLiProject_G13\\Zer-Li\\src\\client\\image\\"+givenItem.getItemID()+".jpg";   		
+    		writeBytesToFileClassic(bytes, userDir);
+			
+			
 			try {
-				inputStream = new FileInputStream(new File(filePath));
+				inputStream = new FileInputStream(new File(userDir));
 				ps1.setBlob(5, inputStream);
 				ps1.setDouble(6, givenItem.getItemPrice());
 
@@ -2060,7 +2079,8 @@ public class EchoServer extends AbstractServer implements Initializable {
 		}
 
 		// return "catalog's item inserted to the catalogItems table successfully!!\n";
-		// //// message
+		
+		
 
 	}
 
