@@ -1166,7 +1166,7 @@ public class ChatClient extends AbstractClient {
 		}
 		try {
 			System.out.println("Asking the server to generate a complaint Progress");
-			sendToServer("AddNewComlaintProgress");
+			sendToServer(cp);
 		} catch (IOException e) {
 			System.out.println("Cannot connect to server in order to generate a new complaint Progress");
 

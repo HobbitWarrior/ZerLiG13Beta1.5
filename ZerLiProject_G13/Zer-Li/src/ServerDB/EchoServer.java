@@ -18,6 +18,8 @@ import com.mysql.jdbc.Blob;
 import com.mysql.jdbc.Statement;
 
 import CustomerServiceDepartmentworker.complaint;
+import CustomerServiceDepartmentworker.complaintProgress;
+import CustomerServiceDepartmentworker.progressComplaintController;
 import BranchManager.BranchManager;
 import BranchManager.PaymentAccount;
 import BranchManager.PercentMSG;
@@ -848,12 +850,44 @@ public class EchoServer extends AbstractServer implements Initializable {
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-						
+
 					}
 				}
 
 			}
 			return;
+		}
+		
+		if (msg instanceof complaintProgress) {
+			complaintProgress cp = (complaintProgress) msg;
+
+			try {
+				System.out.println("inserting a new complaint progress");
+				// insert the data into the table
+				Statement statementquery = (Statement) ServerDataBase.createStatement(); // query to check if
+																							// table
+																							// filled
+
+				PreparedStatement ps1 = ServerDataBase.prepareStatement(
+						"INSERT INTO complaintprogress (complaintID,Topic,Details) VALUES ( ? , ? ,? )");
+
+				// INSERT INTO complaints VALUES (?,?,?,?,?,?,?);
+				// (`ComplaintID`, `CustomerID`, `EmpHendelingID`, `Topic`, `TimeComplaint`,
+				// `DateComplaint`, `Status`) VALUES
+
+				ps1.setInt(1, cp.getComplaintID());
+				ps1.setString(2, cp.getTopic());
+				ps1.setString(3, cp.getDetails());
+				int i=ps1.executeUpdate();
+				System.out.println("added new complaint progress, affected rows: "+i);
+				ps1.close();
+
+				statementquery.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return;
+
 		}
 		// -----------------------------------------------------------//
 

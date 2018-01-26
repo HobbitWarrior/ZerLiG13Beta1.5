@@ -53,38 +53,49 @@ public class progressComplaintController extends LoginContol implements Initiali
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		int index=CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex;
-		pEntry=new progressEntry(CustomerServiceDepartmentworkerMainWindow.activeComplaints.get(index));
-		//reset the pressedComplaintIndex
-		CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex=-1;
+
+		// add Save button click event
+		Save.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					SaveButtonClickHandler(event);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+
+		int index = CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex;
+		pEntry = new progressEntry(CustomerServiceDepartmentworkerMainWindow.activeComplaints.get(index));
+		// reset the pressedComplaintIndex
+		CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex = -1;
 		topic.textProperty().bindBidirectional(pEntry.getTopic());
 		details.textProperty().bindBidirectional(pEntry.getDetails());
-		
-		
-		
-		//remove later just cheking binging AZ
+
+		// remove later just cheking binging AZ
 		topic.textProperty().addListener((observable, oldValue, newValue) -> {
-		    System.out.println("textfield changed from " + oldValue + " to " + newValue+"     values in the currentCompliant:"+pEntry.getTopic().getValue());
+			System.out.println("textfield changed from " + oldValue + " to " + newValue
+					+ "     values in the currentCompliant:" + pEntry.getTopic().getValue());
 		});
 		details.textProperty().addListener((observable, oldValue, newValue) -> {
-		    System.out.println("textfield changed from " + oldValue + " to " + newValue+"     values in the currentCompliant:"+pEntry.getDetails().getValue());
+			System.out.println("textfield changed from " + oldValue + " to " + newValue
+					+ "     values in the currentCompliant:" + pEntry.getDetails().getValue());
 		});
 	}
-	
-	
-	
-	public void SaveButtonClickHandler(ActionEvent event) throws IOException
-	{
-		//save the new data to a new complaintProgress and send it to the server
-		complaintProgress cp=new complaintProgress(ManageComplaintController.currentComplaint.getCompliantID().getValue(), ManageComplaintController.currentComplaint.getEmpHandlingID().getValue(), pEntry.getTopic().getValue(), pEntry.getDetails().getValue());
-		//mark complaint as an edited one
-	
+
+	public void SaveButtonClickHandler(ActionEvent event) throws IOException {
+		// save the new data to a new complaintProgress and send it to the server
+		complaintProgress cp = new complaintProgress(
+				ManageComplaintController.currentComplaint.getCompliantID().getValue(),
+				ManageComplaintController.currentComplaint.getEmpHandlingID().getValue(), pEntry.getTopic().getValue(),
+				pEntry.getDetails().getValue());
+		// mark complaint as an edited one
+
 		int port = LoginContol.PORT;
 		String ip = LoginContol.ServerIP;
 		myClient = new ChatClient(ip, port); // create new client
 		myClient.sendRequestSaveProgress(cp);
 	}
-	
-	
 
 }

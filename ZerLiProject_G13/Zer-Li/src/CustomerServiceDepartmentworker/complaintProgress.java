@@ -1,6 +1,8 @@
 package CustomerServiceDepartmentworker;
 
-public class complaintProgress {
+import java.io.Serializable;
+
+public class complaintProgress implements Serializable {
 
 	/**
 	 * <h1>complaintProgress Fileds</h>
