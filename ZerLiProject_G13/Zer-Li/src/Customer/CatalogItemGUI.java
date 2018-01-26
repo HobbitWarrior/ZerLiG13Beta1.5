@@ -30,7 +30,16 @@ public class CatalogItemGUI extends CatalogItem
 	private String ItemPriceWithCoin;
 	private Label priceItemLabel=null;
 	
-	
+	/**
+	 * constructor of catalog item in tableview (the catalog)
+	 * @param itemID	id of product
+	 * @param itemName	name of product
+	 * @param itemType  type of product
+	 * @param itemDescription  description of product
+	 * @param itemPhoto        image file of the product
+	 * @param Price            price of the product
+	 * @param window           catalog controller class
+	 */
 	public CatalogItemGUI(int itemID, String itemName, String itemType, String itemDescription, MyFile itemPhoto, double Price, CatalogOrderControl window) 
 	{
 		super(itemID, itemName, itemType, itemDescription, itemPhoto, Price);
@@ -61,6 +70,7 @@ public class CatalogItemGUI extends CatalogItem
 	}
 	
 	
+
 	public CatalogItemGUI(int itemID, String itemName, String itemType, String itemDescription, MyFile itemPhoto, double Price, CatalogEditControl window) 
 	{
 		super(itemID, itemName, itemType, itemDescription, itemPhoto, Price);
@@ -85,7 +95,9 @@ public class CatalogItemGUI extends CatalogItem
 	}
 
 
-	
+	/**
+	 * method of dynamic button, that will add a catalog item to the cart (cart = item in order)
+	 */
 	private void AddButtonClicked() 
 	{
 		//System.out.println(""+this.getItemID()+", "+this.getItemName()+", "+this.getItemType()+", "+this.getItemDescription()+", "+this.getItemPrice());
@@ -110,6 +122,9 @@ public class CatalogItemGUI extends CatalogItem
 			
 	}
 
+	/**
+	 * method of dynamic button, that will remove a catalog item to the cart (cart = item in order)
+	 */
 	private void RemoveButtonClicked()
 	{
 		//System.out.println(""+this.getItemID()+", "+this.getItemName()+", "+this.getItemType()+", "+this.getItemDescription()+", "+this.getItemPrice());
@@ -138,54 +153,88 @@ public class CatalogItemGUI extends CatalogItem
 	}
 
 
-	
+	/**
+	 * getter of image file
+	 * @return MyFile class (image), from lab 8
+	 */
 	public ImageView getImg()
 	{
 		return this.img;
 	}
 	
+	/**
+	 * setter of Image
+	 */
 	public void setImg(ImageView iphoto)
 	{
 		this.img = iphoto;
 	}
 	
+	/**
+	 * setter of MyFile class from lab 8
+	 * @param iphoto MyFile class (includes image)
+	 */
 	public void setImg(MyFile iphoto)
 	{
 		this.img= new ImageView(iphoto.getFileName());
 	}
 	
+	/**
+	 * getter of button
+	 * @return adder to cart button
+	 */
 	public Button getPlusBtn()
 	{
 		return this.plusBtn;
 	}
 	
+	/**
+	 * setter of button
+	 */
 	public void setPlusBtn(Button anotherBuyBtn)
 	{
 		this.plusBtn = anotherBuyBtn;
 	}
 	
+	/**
+	 * getter of button
+	 * @return remover from cart button
+	 */
 	public Button getMinusBtn()
 	{
 		return this.minusBtn;
 	}
 	
+	/**
+	 * setter of remover button
+	 * @param anotherEditBtn button that remove item in order
+	 */
 	public void setMinusBtn(Button anotherEditBtn)
 	{
 		this.minusBtn = anotherEditBtn;
 	}
 
-
+	/**
+	 * getter of price with $
+	 * @return string of price with $
+	 */
 	public String getItemPriceWithCoin() 
 	{
 		return ItemPriceWithCoin;
 	}
 
-
+	/**
+	 * getter of label of price
+	 * @return return label of price that will be colored in red if it is a sale price
+	 */
 	public Label getPriceItemLabel() {
 		return priceItemLabel;
 	}
 
-
+	/**
+	 * setter of price label
+	 * @param priceItem label of price amount
+	 */
 	public void setPriceItemLabel(Label priceItem) {
 		this.priceItemLabel = priceItem;
 	}
