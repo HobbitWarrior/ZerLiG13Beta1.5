@@ -5,9 +5,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.io.IOException;
 import java.lang.*;
 import javafx.concurrent.Task;
 import Customer.CatalogItemGUI;
+import Users.LoginContol;
 import client.ChatClient;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -39,7 +41,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.beans.binding.*;
 
-public class CustomerServiceDepartmentworkerMainWindow implements Initializable {
+public class CustomerServiceDepartmentworkerMainWindow  extends LoginContol implements Initializable {
 
 	public static Stage mainStageReference;
 	public static // a version with a complaintRow class instead of a String
@@ -54,6 +56,8 @@ public class CustomerServiceDepartmentworkerMainWindow implements Initializable 
 
 	@FXML
 	private GridPane Griddy;
+	@FXML
+	private Button GenerateNewSurvey;
 
 	static int iterations;
 
@@ -64,7 +68,7 @@ public class CustomerServiceDepartmentworkerMainWindow implements Initializable 
 
 	//create a chatClient instance, for com with the server
 	public ChatClient cClient;
-	public void start(Stage primaryStage) throws Exception {
+	public void start(Stage primaryStage) throws IOException {
 
 		//will be used to track back to the main window
 		mainStageReference = primaryStage;
@@ -178,6 +182,16 @@ public class CustomerServiceDepartmentworkerMainWindow implements Initializable 
 	void KillMe(ActionEvent event) {
 		System.out.print("Life Is shit");
 
+	}
+	
+	@FXML
+	void gerateNewSurvey(ActionEvent event) throws IOException
+	{
+		System.out.println("asking the server to genrate a new survey");
+		int port = LoginContol.PORT;
+		String ip = LoginContol.ServerIP;
+		myClient = new ChatClient(ip, port); // create new client
+		myClient.sendRequestForANewQuarterlySurvey();
 	}
 
 	@Override

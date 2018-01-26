@@ -40,17 +40,21 @@ public class ManageComplaintController extends LoginContol implements Initializa
 	
 	public static complaintEntry currentComplaint;
  	
-	
-	/*
-	public void start(Stage primaryStage) throws Exception {
-		Parent root = FXMLLoader
-				.load(getClass().getResource("/CustomerServiceDepartmentworker/ManageComplaintFrame.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setTitle("Manage Open Complaint"); // name of the title of the window
-		primaryStage.setScene(scene);
-		primaryStage.show();
+	public void start(Stage primaryStage) {
+		Parent root;
+		try {
+			root = FXMLLoader
+					.load(getClass().getResource("/CustomerServiceDepartmentworker/ManageComplaintFrame.fxml"));
+			Scene scene = new Scene(root);
+			primaryStage.setTitle("Manage Open Complaint"); // name of the title of the window
+			primaryStage.setScene(scene);
+			primaryStage.show();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
-	*/
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -62,6 +66,12 @@ public class ManageComplaintController extends LoginContol implements Initializa
 				@Override
 				public void handle(ActionEvent event) {
 				System.out.println("lol that tickles");
+				try {
+					SaveButtonClickHandler(event);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				}
 			});
 
@@ -93,8 +103,11 @@ public class ManageComplaintController extends LoginContol implements Initializa
 	{
 		//save the new data to a new complaint and send it to the server
 		complaint editedComplaint=new complaint(currentComplaint.getCompliantID().getValue(), currentComplaint.getCustomerIDInteger().getValue(), currentComplaint.getEmpHandlingID().getValue(), currentComplaint.getTopic().getValue(), currentComplaint.getTime().getValue(), currentComplaint.getDate().getValue(), currentComplaint.getStatus().getValue(), currentComplaint.getDetails().getValue());
+		//mark complaint as an edited one
+		editedComplaint.newComplaint=false;
 		int port = LoginContol.PORT;
 		String ip = LoginContol.ServerIP;
 		myClient = new ChatClient(ip, port); // create new client
+		myClient.sendRequestUpdateComplaint(editedComplaint);
 	}
 }

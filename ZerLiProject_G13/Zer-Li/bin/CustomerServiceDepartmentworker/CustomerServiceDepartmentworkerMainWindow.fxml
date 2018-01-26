@@ -18,8 +18,9 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="newComplaint" mnemonicParsing="false" onAction="#KillMe" prefHeight="25.0" prefWidth="119.0" text="newComplaint" GridPane.rowIndex="1" />
+            <Button fx:id="newComplaint" mnemonicParsing="false" onAction="#KillMe" prefHeight="25.0" prefWidth="119.0" text="new Complaint" GridPane.rowIndex="1" />
             <ListView fx:id="complaintsList" prefHeight="432.0" prefWidth="750.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2" />
+            <Button fx:id="GenerateNewSurvey" mnemonicParsing="false" onAction="#gerateNewSurvey" text="Generate a New Survey" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>

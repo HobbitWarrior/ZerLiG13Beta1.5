@@ -19,6 +19,7 @@ public class complaint implements Serializable {
 	private String DateComplaint;
 	private String Status;
 	private String Details;
+	public boolean newComplaint;
 
 	public complaint(int complaintID, int customerID, int empHandling, String topic, String timeComplaint,
 			String dateComplaint, String status, String details) {
@@ -29,7 +30,7 @@ public class complaint implements Serializable {
 		EmpHandling = empHandling;
 		Topic = topic;
 		TimeComplaint = timeComplaint;
-		DateComplaint = timeComplaint;
+		DateComplaint = dateComplaint;
 		Status = status;
 		Details = details;
 	}

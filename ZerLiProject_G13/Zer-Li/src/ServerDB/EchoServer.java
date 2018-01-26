@@ -69,7 +69,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 				while (true) {
 					// need to add a condition that checks if its time to generate a new report
 					ReportHandler rp = new ReportHandler();
-					rp.generateQuarterItemsReport(ServerDataBase, 1);
+					rp.generateQuarterItemsReport(serverDataBaseThreadCopy, 1);
 					System.out.println("The thread just generated reports.");
 					// sleep for 24 hours
 					try {
@@ -95,6 +95,102 @@ public class EchoServer extends AbstractServer implements Initializable {
 		if (msg instanceof String) {
 
 			String DiscoverMessage = (String) msg;
+
+			// -----------------------Alex's Changes--------------------------//
+
+			// handle a request to generate quarterly reports
+			if (DiscoverMessage.equals("generateANewQuarterlyReport")) {
+
+				// find the current quarter
+				DateFormat monthFormat = new SimpleDateFormat("MM");
+				java.util.Date date = new java.util.Date();
+				int Month = Integer.parseInt(monthFormat.format(date));
+				DateFormat yearFormat = new SimpleDateFormat("yyyy");
+				int Year = Integer.parseInt(yearFormat.format(date));
+				int quarter;
+				// find out to which quarter the current date belongs
+				if (Month <= 3 && Month >= 1)
+					quarter = 1;
+				else {
+					if (Month <= 6 && Month >= 4)
+						quarter = 2;
+					else {
+						if (Month >= 7 && Month <= 9)
+							quarter = 3;
+						else
+							quarter = 4;
+					}
+				}
+				System.out
+						.print("current month is" + Month + " and the quarter is: " + quarter + "the year is: " + Year);
+				// send a query to the DB to generate a new report
+
+				try {
+					Statement statementquery;
+					statementquery = (Statement) ServerDataBase.createStatement();
+					// query to check if table
+					// filled
+
+					PreparedStatement ps1 = ServerDataBase.prepareStatement(
+							"INSERT INTO satisfactionsurvies VALUES (0,?,?,NULL,NULL,NULL,NULL,NULL,NULL)");
+					ps1.setInt(1, quarter);
+					ps1.setInt(2, Year);
+					ps1.executeUpdate();
+					ps1.close();
+
+					statementquery.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return;
+
+			}
+			// get all the complaints from the DB
+			if (DiscoverMessage.equals("ComplaintsList")) {
+				System.out.println("Dear server will you be so kind to get all the Compliants from the DB?");
+				ArrayList<complaint> Complaints = new ArrayList<complaint>();
+				try {
+					// get the items from the DB
+					Statement st = (Statement) ServerDataBase.createStatement();
+
+					ResultSet rs = st.executeQuery("SELECT * FROM complaints");
+					while (rs.next()) {
+						/*
+						 * String BranchName = "" + rs.getString(1); String BranchAdress = "" +
+						 * rs.getString(2);
+						 */
+						int i = 1;
+						complaint Complaint = new complaint(rs.getInt(i++), rs.getInt(i++), rs.getInt(i++),
+								rs.getString(i++), rs.getString(i++), rs.getString(i++), rs.getString(i), "no details");
+						// 1 2 3 4 5 6 7
+						Complaints.add(Complaint);
+						System.out.print("complaint: " + Complaint.getComplaintID() + " " + Complaint.getCustomerID()
+								+ " " + Complaint.getDateComplaint() + " " + Complaint.getDetails() + " "
+								+ Complaint.getEmpHandling() + "\n");
+					}
+
+					// serialize the array, but the array i already a serializable :O
+					// Message msg = new Message(Complaints, "1");
+					rs.close();
+					st.close();
+					Message Msg = new Message(Complaints, "ComplaintsList");
+					this.sendToAllClients(Msg);
+					System.out.println("sending message to clients from complaints");
+
+				} catch (SQLException e) {
+					System.out.print("Sorry something went wrong with the SQL expression\n");
+					e.printStackTrace();
+				} catch (Exception e) // SQLException
+				{
+					System.out.println("Error, sorry something went wrong, could not get the complaints list");
+					this.sendToAllClients("GetFail");
+				}
+				return;
+			}
+
+			// ------------------------End of Alex's
+			// Changes--------------------------------------------------
 
 			if (DiscoverMessage.equals("Give Me All Branches")) // i changed condition here
 			{
@@ -176,53 +272,6 @@ public class EchoServer extends AbstractServer implements Initializable {
 				}
 				return;
 			}
-
-			// -----------------------------------------------------------//
-
-			// get all the complaints from the DB
-			if (DiscoverMessage.equals("ComplaintsList")) {
-				System.out.println("Dear server will you be so kind to get all the Compliants from the DB?");
-				ArrayList<complaint> Complaints = new ArrayList<complaint>();
-				try {
-					// get the items from the DB
-					Statement st = (Statement) ServerDataBase.createStatement();
-
-					ResultSet rs = st.executeQuery("SELECT * FROM complaints");
-					while (rs.next()) {
-						/*
-						 * String BranchName = "" + rs.getString(1); String BranchAdress = "" +
-						 * rs.getString(2);
-						 */
-						int i = 1;
-						complaint Complaint = new complaint(rs.getInt(i++), rs.getInt(i++), rs.getInt(i++),
-								rs.getString(i++), rs.getString(i++), rs.getString(i++), rs.getString(i), "no details");
-						// 1 2 3 4 5 6 7
-						Complaints.add(Complaint);
-						System.out.print("complaint: " + Complaint.getComplaintID() + " " + Complaint.getCustomerID()
-								+ " " + Complaint.getDateComplaint() + " " + Complaint.getDetails() + " "
-								+ Complaint.getEmpHandling() + "\n");
-					}
-
-					// serialize the array, but the array i already a serializable :O
-					// Message msg = new Message(Complaints, "1");
-					rs.close();
-					st.close();
-					Message Msg = new Message(Complaints, "ComplaintsList");
-					this.sendToAllClients(Msg);
-					System.out.println("sending message to cliens from complaints");
-
-				} catch (SQLException e) {
-					System.out.print("Sorry something went wrong with the SQL expression\n");
-					e.printStackTrace();
-				} catch (Exception e) // SQLException
-				{
-					System.out.println("Error, sorry something went wrong, could not get the complaints list");
-					this.sendToAllClients("GetFail");
-				}
-				return;
-			}
-
-			// -----------------------------------------------------------//
 
 			if ((DiscoverMessage.length()) >= 28) // from here there is a process that check if client asking to change
 													// entry status of userName
@@ -379,27 +428,6 @@ public class EchoServer extends AbstractServer implements Initializable {
 				}
 				return;
 			}
-			// -----------------------------------------------//
-			// get all the complaints from the DB
-
-			if (DiscoverMessage.equals("complaints")) {
-				System.out.println("Dear server will you be so kind to get all the Compliants from the DB?");
-				ArrayList<complaint> Complaints = new ArrayList<complaint>();
-				try {
-					// Complaints = PutOutAllCatalogItems(Complaints);
-
-					Message Msg = new Message(Complaints, "Complaints");
-
-					this.sendToAllClients(Msg);
-
-				} catch (Exception e) // SQLException
-				{
-					System.out.println("error-can't get catalogItems data from db");
-					this.sendToAllClients("GetFail");
-				}
-				return;
-			}
-			// -----------------------------------------------------------//
 
 			if (DiscoverMessage.equals("Give Me All Branches managers")) {
 				System.out.println("Get all Branche managers from DB");
@@ -444,23 +472,18 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 		// ---------------------------------------instanceof
 		// Survey---------------------------------------------------------
-		if(msg instanceof satisfactionSurvey)
-		 {
+		if (msg instanceof satisfactionSurvey) {
 			System.out.println("yes");
 			System.out.println("Set Survey Info on DB");
-			 
-			
-			try 
-			{
+
+			try {
 				SavesatisfactionSurveyInfo(msg);
-			} 
-			catch (SQLException e) 
-			{
+			} catch (SQLException e) {
 				System.out.println("error-can't Set Survey Info on DB");
 				this.sendToAllClients("GetFail");
 			}
 			return;
-		 }
+		}
 		// ---------------------------------------instanceof
 		// Customer---------------------------------------------------------
 		if (msg instanceof Customer) {
@@ -486,48 +509,6 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 			}
 			return;
-		}
-		// ---------------------------------------instance of
-		// Complaints----------------------------------------------------
-
-		// inserts the complaints to the DB
-		if (msg instanceof complaint) {
-			complaint cmp = (complaint) msg;
-			// make sure the data is valid
-			if (cmp.getComplaintID() < 1 || cmp.getCustomerID() < 1 || cmp.getDateComplaint().isEmpty()
-					|| cmp.getEmpHandling() < 1 || cmp.getStatus().isEmpty() || cmp.getTimeComplaint().isEmpty()
-					|| cmp.getTopic().isEmpty() || cmp.getDetails().isEmpty()) {
-				System.out.println("Illegal Complaint record entry\nCould not insert to DB");
-				return;
-			}
-
-			try {
-				// insert the data into the table
-				Statement statementquery = (Statement) ServerDataBase.createStatement(); // query to check if table
-																							// filled
-
-				PreparedStatement ps1 = ServerDataBase
-						.prepareStatement("INSERT INTO complaints VALUES (?,?,?,?,?,?,?)");
-
-				// INSERT INTO complaints VALUES (?,?,?,?,?,?,?);
-				// (`ComplaintID`, `CustomerID`, `EmpHendelingID`, `Topic`, `TimeComplaint`,
-				// `DateComplaint`, `Status`) VALUES
-
-				ps1.setString(1, Integer.toString(cmp.getComplaintID()));
-				ps1.setString(2, Integer.toString(cmp.getCustomerID()));
-				ps1.setString(3, Integer.toString(cmp.getEmpHandling()));
-				ps1.setString(3, cmp.getTopic());
-				ps1.setString(4, cmp.getTimeComplaint());
-				ps1.setString(5, cmp.getDateComplaint());
-				ps1.setString(6, cmp.getStatus());
-				ps1.executeUpdate();
-				ps1.close();
-
-				statementquery.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
 		}
 
 		// ---------------------------------------instanceof
@@ -794,6 +775,87 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 			return;
 		}
+
+		// -----------------------------------------------------------//
+
+		// ---------------------------------------instance of
+		// Complaints----------------------------------------------------
+
+		// inserts a new complaint to the DB
+		if (msg instanceof complaint) {
+			complaint cmp = (complaint) msg;
+			if (cmp.newComplaint) {
+				// make sure the data is valid
+				if (cmp.getComplaintID() < 1 || cmp.getCustomerID() < 1 || cmp.getDateComplaint().isEmpty()
+						|| cmp.getEmpHandling() < 1 || cmp.getStatus().isEmpty() || cmp.getTimeComplaint().isEmpty()
+						|| cmp.getTopic().isEmpty() || cmp.getDetails().isEmpty()) {
+					System.out.println("Illegal Complaint record entry\nCould not insert to DB");
+					return;
+				}
+
+				try {
+					System.out.println("inserting a new complaint");
+					// insert the data into the table
+					Statement statementquery = (Statement) ServerDataBase.createStatement(); // query to check if
+																								// table
+																								// filled
+
+					PreparedStatement ps1 = ServerDataBase
+							.prepareStatement("INSERT INTO complaints VALUES (?,?,?,?,?,?,?)");
+
+					// INSERT INTO complaints VALUES (?,?,?,?,?,?,?);
+					// (`ComplaintID`, `CustomerID`, `EmpHendelingID`, `Topic`, `TimeComplaint`,
+					// `DateComplaint`, `Status`) VALUES
+
+					ps1.setString(1, Integer.toString(cmp.getComplaintID()));
+					ps1.setString(2, Integer.toString(cmp.getCustomerID()));
+					ps1.setString(3, Integer.toString(cmp.getEmpHandling()));
+					ps1.setString(4, cmp.getTopic());
+					ps1.setString(5, cmp.getTimeComplaint());
+					ps1.setString(6, cmp.getDateComplaint());
+					ps1.setString(7, cmp.getStatus());
+					ps1.executeUpdate();
+					ps1.close();
+
+					statementquery.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				return;
+			} else {
+				System.out.println("starting to handle a request for updating a complaint");
+				complaint c = (complaint) msg;
+				if (c != null) {
+
+					try {
+						String selectStatement = "UPDATE complaints SET Topic= ? , Status= ? WHERE ComplaintID= ? AND CustomerID= ? AND EmpHendelingID= ?";
+						// 1 2 3 4 5 6 7
+						PreparedStatement statement = ServerDataBase.prepareStatement(selectStatement);
+						System.out.println("complaint info:" + c.getTopic() + " " + c.getTimeComplaint() + " "
+								+ c.getDateComplaint() + " " + c.getStatus() + " " + c.getComplaintID() + " "
+								+ c.getCustomerID() + " " + c.getEmpHandling());
+						statement.setString(1, c.getTopic());
+						// statement.setString(2, c.getTimeComplaint());
+						// statement.setString(3, c.getDateComplaint());
+						statement.setString(2, c.getStatus());
+						statement.setInt(3, c.getComplaintID());
+						statement.setInt(4, c.getCustomerID());
+						statement.setInt(5, c.getEmpHandling());
+						int i = statement.executeUpdate();
+						System.out.println("Edited " + i + " rows");
+						statement.close();
+						return;
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
+			}
+			return;
+		}
+		// -----------------------------------------------------------//
+
 	} // end of handleMessageFromClient
 
 	private void changeDebtRegistration(TransactionAbort orderCancellation)
@@ -1997,26 +2059,25 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 	// ***********************************************************************************************************************************************************************************
 	// Add Survey Information to the data base
-	 public synchronized void SavesatisfactionSurveyInfo(Object OB) throws SQLException
-	  { 
-		  satisfactionSurvey mysatSurvey = (satisfactionSurvey)OB;
-		  Statement st=null;		 
-			try 
-			{
-				 st = (Statement) ServerDataBase.createStatement();
- 
-			     String sql = "update satisfactionsurvies set Step="+1+" , Q1='"+mysatSurvey.getQ1()+"', Q2='"+mysatSurvey.getQ2()+"' ,Q3='"+mysatSurvey.getQ3()+"', Q4='"+mysatSurvey.getQ4()+"' ,Q5="+mysatSurvey.getQ5()+", Q6='"+mysatSurvey.getQ6()+"'  where SurviesYear='"+mysatSurvey.getSurveyYear()+"'  and SurviesQuarter="+mysatSurvey.getQarSurvey()+"  ";
-				 st.executeUpdate(sql);
-			     st.close();
-			} 
-			catch (SQLException e1) 
-			{
-				e1.printStackTrace();
-				System.out.println("Cannot update entry");
-			};
-			
-	  }
-	  
+	public synchronized void SavesatisfactionSurveyInfo(Object OB) throws SQLException {
+		satisfactionSurvey mysatSurvey = (satisfactionSurvey) OB;
+		Statement st = null;
+		try {
+			st = (Statement) ServerDataBase.createStatement();
+
+			String sql = "update satisfactionsurvies set Step=" + 1 + " , Q1='" + mysatSurvey.getQ1() + "', Q2='"
+					+ mysatSurvey.getQ2() + "' ,Q3='" + mysatSurvey.getQ3() + "', Q4='" + mysatSurvey.getQ4() + "' ,Q5="
+					+ mysatSurvey.getQ5() + ", Q6='" + mysatSurvey.getQ6() + "'  where SurviesYear='"
+					+ mysatSurvey.getSurveyYear() + "'  and SurviesQuarter=" + mysatSurvey.getQarSurvey() + "  ";
+			st.executeUpdate(sql);
+			st.close();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			System.out.println("Cannot update entry");
+		}
+		;
+
+	}
 
 	// ***************************************************
 	protected void serverStarted() {
