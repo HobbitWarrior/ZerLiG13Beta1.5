@@ -41,7 +41,6 @@ import java.util.Vector;
 import javax.swing.ImageIcon;
 
 import BranchManager.BranchManagerMainWindow;
-import BranchWorker.surveyResultControl;
 import ChainManager.ChainManagerMainWindow;
 import ChainWorker.CatalogEditControl;
 import Customer.CustomerMainWindow;

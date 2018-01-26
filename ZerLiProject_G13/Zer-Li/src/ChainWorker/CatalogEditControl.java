@@ -47,92 +47,208 @@ import javafx.scene.layout.AnchorPane;
  */
 public class CatalogEditControl extends LoginContol implements Initializable
 {
-	
+	/**
+	 * catalogList is a list of the catalog details (itemID , itemName , itemType , itemDescription , itemPhoto , Price, orderFromCatalog )
+	 */
 	public static ObservableList<CatalogItemGUI> catalogList= FXCollections.observableArrayList();
 
-	private int loadPressed = 0; // Check if user pressed load already
-	private int pressedBtn = 0;  // flag - check on which button we pressed recently : pressedBtn=1 add item ,  pressedBtn=2 edit item
-	public static Boolean ansUniqueID= false;  //the server return the answer true to ansUniqueID if the given item id is Unique else it return false. 
+	/**
+	 * int variable to Check if user pressed load already
+	 */
+	private int loadPressed = 0;
+	/**
+	 *  int variable use as a flag to check on which button we pressed recently : 
+	 *  pressedBtn=1 add item ,  
+	 *  pressedBtn=2 edit item
+	 */
+	private int pressedBtn = 0;
+	/**
+	 * Boolean variable
+	 * the server return the answer true to ansUniqueID if the given item id is Unique 
+	 * else it return false.
+	 */
+	public static Boolean ansUniqueID= false;
 
 	
 		//on top of the screen:
-	
+		/**
+		 * Button go to home page.
+		 */
     	@FXML
     	private Button btnHome;
+    	/**
+		 * Button to see account
+		 */
 	    @FXML
 	    private Button btnAccount; 
+	    /**
+		 * Button for logout
+		 */
 	    @FXML
 	    private Button btnLogout;
 	    
 	    //content
-	    
+	    /**
+		 * Label with the title of the current page
+		 */
 		@FXML
 		private Label titleLabel;	
+		/**
+		 * 
+		 */
 	    @FXML
 	    private Button btnAddItem;
+	    /**
+		 * 
+		 */
 	    @FXML
 	    private Button btnEditItem;
+	    /**
+		 * 
+		 */
 	    @FXML
 	    private Button btnDeleteItem;   
+	    /**
+		 * 
+		 */
 	    @FXML
 	    private Button btnEditCatalog;
+	    /**
+		 * 
+		 */
 	    @FXML
 	    private TableView<CatalogItemGUI> CatalogTable;
+	    /**
+		 * 
+		 */
 	    @FXML
 	    private TableColumn<CatalogItemGUI, String> CatalogItemDescriptionColumn;
+	    /**
+		 * 
+		 */
 	    @FXML
 	    private TableColumn<CatalogItemGUI, String> CatalogItemTypeColumn;
+	    /**
+		 * 
+		 */
 	    @FXML
 	    private TableColumn<CatalogItemGUI, ImageView> CatalogImageColumn;
+	    /**
+		 * 
+		 */
 	    @FXML
 	    private TableColumn<CatalogItemGUI, String> CatalogPriceColumn;
+	    /**
+		 * 
+		 */
 	    @FXML
 	    private TableColumn<CatalogItemGUI, String> CatalogItemNameColumn;
+	    /**
+		 * 
+		 */
 	    @FXML
 	    private TableColumn<CatalogItemGUI, Integer> CatalogItemIDColumn;
+	    /**
+		 * 
+		 */
 	    @FXML
 	    private AnchorPane AnchorPaneCatalog;
 	    
 
 	    //change contact - add new item
-
+	    /**
+		 * 
+		 */
 	    @FXML
 	    private AnchorPane anchorPaneAddItem;
+	    /**
+		 * 
+		 */
 	    @FXML
 	    private Label ItemIDeLabel;
+	    /**
+	     * 
+	     */
 	    @FXML
 	    private Label itemNameLabel;   
+	    /**
+		 * 
+		 */
 	    @FXML
-	    private Label descriptionLabel;    
+	    private Label descriptionLabel; 
+	    /**
+		 * 
+		 */
 	    @FXML
 	    private Label priceLabel;
+	    /**
+		 * 
+		 */
 	    @FXML
 	    private Label typeLabel;
+	    /**
+		 * 
+		 */
 	    @FXML
 	    private Label pictureLabel;
+	    /**
+		 * 
+		 */
 	    @FXML
 	    private Button saveBtn;
+	    /**
+		 * 
+		 */
 	    @FXML
 	    private Button backBtn;
+	    /**
+		 * 
+		 */
 	    @FXML
 	    private TextField ItemIDTextField;
+	    /**
+		 * 
+		 */
 	    @FXML
 	    private TextField itemNameTextField;
+	    /**
+		 * 
+		 */
 	    @FXML
 	    private TextField descriptionTextField; 
+	    /**
+		 * 
+		 */
 	    @FXML
 	    private TextField typeTextField;
+	    /**
+		 * 
+		 */
 	    @FXML
 	    private TextField priceTextField; 
+	    /**
+		 * 
+		 */
 	    @FXML
 	    private TextField imageTextField; 
+	    /**
+		 * 
+		 */
 	    @FXML
 	    private ImageView newImage;
+	    /**
+		 * 
+		 */
 	    @FXML
 	    private Button loadBtn;
 
 	    
 	    //****************************************************************
+	    /**
+	     * 
+	     * @param event
+	     * @throws IOException
+	     */
 	    @FXML
 	    void logoutEvent(ActionEvent event) throws IOException
 	    {
@@ -149,7 +265,11 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    }
 	    
 	    //****************************************************************
-
+	    /**
+	     * 
+	     * @param event
+	     * @throws IOException
+	     */
 		@FXML
 		void goHome(ActionEvent event) throws IOException 
 		{
@@ -157,7 +277,10 @@ public class CatalogEditControl extends LoginContol implements Initializable
 		}
 		
 		 //****************************************************************
-		
+		/**
+		 * 
+		 * @param event
+		 */
 	    @FXML
 	    void AddItemEvent(ActionEvent event) 
 	    {    	
@@ -170,7 +293,11 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    }
 	    
 	    //****************************************************************
-	    
+	    /**
+	     * 
+	     * @param bFile
+	     * @param fileDest
+	     */
 	    private static void writeBytesToFileClassic(byte[] bFile, String fileDest) {
 
 	        FileOutputStream fileOuputStream = null;
@@ -195,7 +322,12 @@ public class CatalogEditControl extends LoginContol implements Initializable
 
 	    
 	    
-	    
+	    /**
+	     * 
+	     * @param event
+	     * @throws FileNotFoundException
+	     * @throws IOException
+	     */
 	    @FXML
 	    void EditItemEvent(ActionEvent event) throws FileNotFoundException, IOException 
 	    {
@@ -276,6 +408,10 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    
 	    
 	    //****************************************************************
+	    /**
+	     * 
+	     * @param event
+	     */
 	    
 	    @FXML
 	    void DeleteItemEvent(ActionEvent event) 
@@ -301,6 +437,10 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    }
 	    
 	    //****************************************************************
+	    /**
+	     * 
+	     * @param itemID
+	     */
 	    
 	    public void askToDeleteItem(int itemID)
 	    {
@@ -319,6 +459,10 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    }
 	    
 	    //****************************************************************
+	    /**
+	     * 
+	     * @param itemID
+	     */
 	    
 	    public void checkUniqueID(int itemID)
 	    {
@@ -338,6 +482,10 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    }
 	    
 	    //****************************************************************
+	    /**
+	     * 
+	     * @param event
+	     */
 	    @FXML
 	    void saveEvent(ActionEvent event) //input checks and if correct input: add item or edit item depends on what we pressed
 	    {    		
@@ -463,6 +611,11 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    
 	    
 	    //****************************************************************
+	    /**
+	     * 
+	     * @param input
+	     * @return
+	     */
 	    
 	    public static boolean isParsableInt(String input) //check if we can convert the textfield to integer
 	    {
@@ -475,7 +628,11 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	        return parsable;
 	    }
 	    
-	    
+	    /**
+	     * 
+	     * @param input
+	     * @return
+	     */
 	    
 	    public static boolean isDouble(String input) //check if we can convert the textfield to double
 	    {
@@ -490,6 +647,10 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    
 	    
 	    //****************************************************************
+	    /**
+	     * 
+	     * @param itemID
+	     */
 
 	    public void checkUniqueIDResult(int itemID)
 	    {
@@ -510,7 +671,10 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    
 	    
 	    //****************************************************************
-	    
+	    /**
+	     * 
+	     * @param itemID
+	     */
 	    
 	    public void AddorEditItems(int itemID)
 	    {
@@ -572,10 +736,7 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	*/
 	 	   
 	 	   
-	 	   MyFile newImageFile = createFile(tempImageAdress);
-	 	   
-	    	
-	    	
+	 	   MyFile newImageFile = createFile(tempImageAdress);	
 	 	   
 	 	   String tempPrice=priceTextField.getText();
 	 	   Double newPrice = Double.parseDouble(tempPrice);  //convert string Price to double Price
@@ -589,6 +750,11 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    
 	    
 	  //****************************************************************
+	    /**
+	     * 
+	     * @param path
+	     * @return
+	     */
 	    
 		private MyFile createFile(String path) 
 		{
@@ -620,7 +786,11 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    
 
 	    //****************************************************************
-	    
+	    /**
+	     * 
+	     * @param event
+	     * @throws IOException
+	     */
 
 	    @FXML
 	    void backEvent(ActionEvent event) throws IOException 
@@ -663,7 +833,10 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    }
 	   
 	    //****************************************************************
-
+	    /**
+	     * 
+	     * @param event
+	     */
 	    @FXML
 	    void showImage(ActionEvent event) 
 	    {	
@@ -676,7 +849,9 @@ public class CatalogEditControl extends LoginContol implements Initializable
 
 	 
 	    //****************************************************************
-	    
+	    /**
+	     * 
+	     */
 
 		@Override
 		public void initialize(URL location, ResourceBundle resources) 
@@ -694,7 +869,10 @@ public class CatalogEditControl extends LoginContol implements Initializable
 		}
 
 		 //****************************************************************
-	
+		/**
+		 * 
+		 */
+
 	public void start(Stage primaryStage) throws IOException 
 	{		
 		Parent root = FXMLLoader.load(getClass().getResource("/ChainWorker/CatalogEditFrame.fxml"));
