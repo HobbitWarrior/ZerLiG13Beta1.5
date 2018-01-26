@@ -60,7 +60,10 @@ public class CustomerMainWindow extends LoginContol implements Initializable
     @FXML
     private ComboBox<String> comboBranch;
     
-    
+    /**
+     * this method will open cancel order window
+     * @param event of click on a button
+     */
     @FXML
     void btnCancelOrderPressed(ActionEvent event) 
     {
@@ -81,6 +84,10 @@ public class CustomerMainWindow extends LoginContol implements Initializable
     }
     
     
+    /**
+     *  this method closes the current window and open the customize buy window
+     * @param event event of click on button in the menu
+     */
     @FXML
     void btnCustomisePressed(ActionEvent event)
     {
@@ -103,7 +110,10 @@ public class CustomerMainWindow extends LoginContol implements Initializable
     
     
     
-    
+    /**
+     * this method will bring customer to the cart, that will show him items in order, and will give him a chance to create new order
+     * @param event of click on a button
+     */
     @FXML
     void btnCartPressedEvenet(ActionEvent event)
     {
@@ -121,6 +131,10 @@ public class CustomerMainWindow extends LoginContol implements Initializable
  	    	btnCatalog.getScene().getWindow().hide(); //hiding primary window
     }
     
+    /**
+     * this method close all user window and will get him out from the system, it will send message to server to change the flag (that prevent a second login)
+     * @param event	action even of click on button
+     */
     @FXML
     void logoutEvent(ActionEvent event) throws IOException
     {
@@ -135,6 +149,10 @@ public class CustomerMainWindow extends LoginContol implements Initializable
 		
     } 
     
+    /**
+     * this method will open the catalog of specific branch
+     * @param event click  on a button
+     */
     @FXML
     void showCatalog(ActionEvent event) 
     { 	/**this method shows catalog*/
@@ -155,6 +173,10 @@ public class CustomerMainWindow extends LoginContol implements Initializable
 
     }
     
+    /**
+     * this method opens the account details window of the customer, we had no time to write it.....
+     * @param event event type of click on a button
+     */
     @FXML
     void seeAccount(ActionEvent event) 
     {
@@ -174,6 +196,9 @@ public class CustomerMainWindow extends LoginContol implements Initializable
     }   
     
     
+    /**
+     * this method will open the main winow of buying process
+     */
 	public void start(Stage primaryStage) throws IOException  
 	{		
 	  	Pane root = FXMLLoader.load(getClass().getResource("/Customer/customerMainMenuWindow.fxml"));
@@ -194,6 +219,9 @@ public class CustomerMainWindow extends LoginContol implements Initializable
 		primaryStage.setOnCloseRequest( event -> {event.consume();} );
 	} 
 
+	/**
+	 * this method will ask from server to get all branches, it will be called only by responding from server
+	 */
 	public void sendReuestToGetAllBranchesForCustomer()
 	{
 		AllBranches.clear();
@@ -202,7 +230,10 @@ public class CustomerMainWindow extends LoginContol implements Initializable
 	}
 
    
-    
+    /**
+     * this method will check which branch customer chose
+     * @param event click on combo box
+     */
     @FXML
     void PickBranchComboPressed(ActionEvent event) 
     {	/**this method get the id of chosen branch for buying*/
@@ -233,6 +264,9 @@ public class CustomerMainWindow extends LoginContol implements Initializable
     	//this.chosenBranchID
     }
 
+    /**
+     * this method will load branches to combobox, and it will prevent access to everything until he will choose catalog
+     */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) 
 	{/**loading all branches to combobox*/
