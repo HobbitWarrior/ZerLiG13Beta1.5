@@ -39,6 +39,7 @@ public class OwnReportBrowseControl  extends LoginContol  implements Initializab
     @FXML
     private Label ResultLabel;
     @FXML
+    
     private Label ResultLabel1;
     @FXML
     private Label resultLbl;
