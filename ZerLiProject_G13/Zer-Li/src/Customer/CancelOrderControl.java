@@ -85,8 +85,12 @@ public class CancelOrderControl extends LoginContol implements Initializable
 	    @FXML
 	    private Button cancelOrderBtn;
 	    
+	    /**
+	     * this method will be called by client after server confirmation, and will tell customer about his refunds
+	     * @param orderCancellation   kind of message from server that tell about amount of refund and if id updated in db
+	     */
 	    public void actionAfterPositiveAbort(TransactionAbort orderCancellation)
-	    {	/**this method will be called by client after server confirmation, and will tell customer about his refuns*/
+	    {	
 	    	if(orderCancellation.getRefund() == 0)
 	    	{
 	    		Alert alert = new Alert(AlertType.INFORMATION);
@@ -123,6 +127,11 @@ public class CancelOrderControl extends LoginContol implements Initializable
 	    }
 	    
 	    
+	    
+	    /**
+	     * method that work when customer ask to cancel order (press on button)
+	     * @param event click event
+	     */
 	    @FXML
 	    void cancelOrderBtnPressed(ActionEvent event) 
 	    {
@@ -154,6 +163,11 @@ public class CancelOrderControl extends LoginContol implements Initializable
 	    	
 	    }
 	    
+	    /**
+	     * this method calculates the amount of refund, it called automatic but the controller
+	     * @param order this type is a customer order, with some part of the transaction in the database, only data that important will be here, such as orderID, price, date of supply, hour of supply and so on....
+	     * @return kind of message from client to server that tell about amount of refund and it contains a boolean attribute that will tell later about if the update in db been made
+	     */
 	    private TransactionAbort calculateRefund(CustomerTransaction order) 
 	    {
 	    	LocalDateTime now = LocalDateTime.now();
@@ -214,6 +228,10 @@ public class CancelOrderControl extends LoginContol implements Initializable
 	    	return null;
 		}
 
+	    /**
+	     *  this method closes the current window and open the customize buy window
+	     * @param event event of click on button in the menu
+	     */
 		@FXML
 	    void customizeBtnPressed(ActionEvent event) 
 	    {
@@ -233,6 +251,10 @@ public class CancelOrderControl extends LoginContol implements Initializable
 	 				customizeBtn.getScene().getWindow().hide(); //hiding primary window
 	    }
 
+		/**
+		 * this method will close current window, and will open the main window of buying process
+		 * @param event event of click on a button
+		 */
 	    @FXML
 	    void goHome(ActionEvent event) 
 	    {
@@ -247,6 +269,10 @@ public class CancelOrderControl extends LoginContol implements Initializable
 			}
 	    }
 
+	    /**
+	     * this method opens the account details window of the customer, we had no time to write it.....
+	     * @param event event type of click on a button
+	     */
 	    @FXML
 	    void seeAccount(ActionEvent event) 
 	    {
@@ -263,6 +289,10 @@ public class CancelOrderControl extends LoginContol implements Initializable
 			}
 	    }
 
+	    /**
+	     * this method close all user window and will get him out from the system, it will send message to server to change the flag (that prevent a second login)
+	     * @param event	action even of click on button
+	     */
 	    @FXML
 	    void logoutEvent(ActionEvent event) 
 	    {
@@ -282,6 +312,10 @@ public class CancelOrderControl extends LoginContol implements Initializable
 			}
 	    }
 
+	    /**
+	     * this method will bring customer to the cart, that will show him items in order, and will give him a chance to create new order
+	     * @param event of click on a button
+	     */
 	    @FXML
 	    void btnCartPressed(ActionEvent event) 
 	    {
@@ -296,6 +330,10 @@ public class CancelOrderControl extends LoginContol implements Initializable
 			}
 	    }
 
+	    /**
+	     * this method will open the catalog of specific branch
+	     * @param event click  on a button
+	     */
 	    @FXML
 	    void btnCatalogPressed(ActionEvent event) 
 	    {
@@ -317,7 +355,9 @@ public class CancelOrderControl extends LoginContol implements Initializable
 
 	
 
-	
+	/**
+	 * this method will open the cancel of order window
+	 */
 	public void start(Stage primaryStage)  
 	{		
 		Parent root;
@@ -344,6 +384,9 @@ public class CancelOrderControl extends LoginContol implements Initializable
 		
 	}
 
+	/**
+	 * this method will load all previous customer orders that still active (active = not supplied)
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
