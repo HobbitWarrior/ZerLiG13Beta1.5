@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CustomerServiceDepartmentworker.closeComplaintController">
    <children>
       <GridPane layoutX="7.0" prefHeight="242.0" prefWidth="430.0">
         <columnConstraints>
@@ -27,8 +27,8 @@
                </font>
             </Label>
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="470.0" text="Report Details" GridPane.ColumnSpan="2" GridPane.rowIndex="1" />
-            <TextField promptText="Please fill you Report here..." GridPane.ColumnSpan="2" GridPane.rowIndex="2" />
-            <Button alignment="CENTER" mnemonicParsing="false" text="Save and Close" GridPane.ColumnSpan="2" GridPane.rowIndex="3">
+            <TextField fx:id="reportDetails" promptText="Please fill you Report here..." GridPane.ColumnSpan="2" GridPane.rowIndex="2" />
+            <Button fx:id="SaveAndCLose" alignment="CENTER" mnemonicParsing="false" text="Save and Close" GridPane.ColumnSpan="2" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="170.0" right="100.0" />
                </GridPane.margin></Button>

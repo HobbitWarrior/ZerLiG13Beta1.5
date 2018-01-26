@@ -89,7 +89,13 @@ public class ManageComplaintController extends LoginContol implements Initializa
 				
 			});
 
-			
+			closeComplaint.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					closeComplaintButton(event);
+				}
+				
+			});
 			int index=CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex;
 			//generate a new complaint:
 			currentComplaint=new complaintEntry(CustomerServiceDepartmentworkerMainWindow.activeComplaints.get(index));
@@ -143,8 +149,8 @@ public class ManageComplaintController extends LoginContol implements Initializa
 	
 	public void closeComplaintButton(ActionEvent event)
 	{
-		/** open a new edit complaint, opens the "ManageComplaintFrame"*/
-		progressComplaintController editFrame = new progressComplaintController();
+		/** opens a closing complaint report window*/
+		closeComplaintController editFrame = new closeComplaintController();
 		try {
 			editFrame.start(new Stage());
 		} catch (Exception e) {
