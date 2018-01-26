@@ -1,7 +1,11 @@
 package BranchWorker;
 
 import java.io.Serializable;
-
+/**
+ * 
+ * @author Sharon & Elias
+ *
+ */
 public class Customer implements Serializable {
 	int customerID;
 	String customerName;

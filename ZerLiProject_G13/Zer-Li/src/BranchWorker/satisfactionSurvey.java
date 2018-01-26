@@ -2,7 +2,11 @@ package BranchWorker;
 
 import java.io.Serializable;
 import java.time.Year;
-
+/**
+ * 
+ * @author Sharon & Elias
+ *
+ */
 public class satisfactionSurvey  implements Serializable {
 
 
