@@ -10,7 +10,7 @@ public class Flower implements Serializable
 	private String flowerName;
 	private double flowerPrice;
 	private String flowerPriceWIthCoins;
-	
+	// i hate github
 	/**
 	 * deafult constructor
 	 */
