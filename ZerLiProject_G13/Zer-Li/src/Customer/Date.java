@@ -8,6 +8,12 @@ public class Date implements Serializable, Comparable, Cloneable
 	private int mounth;
 	private int day;
 	
+	/**
+	 * constractor
+	 * @param y int years
+	 * @param m int month
+	 * @param d int day of month
+	 */
 	public Date(int y, int m, int d)
 	{
 		this.year = y;
@@ -16,6 +22,9 @@ public class Date implements Serializable, Comparable, Cloneable
 		
 	}
 	
+	/**
+	 * this method allow to copy instances
+	 */
 	@Override
 	public Object clone () throws CloneNotSupportedException
 	{
@@ -23,34 +32,62 @@ public class Date implements Serializable, Comparable, Cloneable
 		
 	}
 	
-	
+	/**
+	 * getter of year
+	 * @return integer of year
+	 */
 	public int getYear() 
 	{
 		return year;
 	}
+	
+	/**
+	 * setter of year
+	 * @param year integer
+	 */
 	public void setYear(int year) 
 	{
 		this.year = year;
 	}
+	
+	/**
+	 * getter of month
+	 * @return
+	 */
 	public int getMounth() 
 	{
 		return mounth;
 	}
+	
+	/**
+	 * setter of month
+	 * @param mounth int
+	 */
 	public void setMounth(int mounth) 
 	{
 		this.mounth = mounth;
 	}
+	
+	/**
+	 * getter of day
+	 * @return int
+	 */
 	public int getDay() 
 	{
 		return day;
 	}
+	
+	/**
+	 * setter of day
+	 * @param day int
+	 */
 	public void setDay(int day) 
 	{
 		this.day = day;
 	}
 
 
-
+	
 
 	@Override
 	public int compareTo(Object someday) 
@@ -89,7 +126,7 @@ public class Date implements Serializable, Comparable, Cloneable
 		return 0;	//this date is later
 	}
 	
-	//tostring method:
+	
 		public String toString()
 		{
 			String str= "";
