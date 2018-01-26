@@ -41,6 +41,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 /**
+ * class for managing catalog items.
  * this class implements Chain worker window - chain worker can delete /edit / add item to catalog.
  * @author Sharon
  * @version 1.0
@@ -155,98 +156,71 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    private AnchorPane AnchorPaneCatalog;
 	    
 
-	    //change contact - add or edit new item
+	    //change contact - add or edit new item screen
 	    /**
 		 * AnchorPane for add or edit item screen
 		 */
 	    @FXML
 	    private AnchorPane anchorPaneAddItem;
+
 	    /**
-		 * 
-		 */
-	    @FXML
-	    private Label ItemIDeLabel;
-	    /**
-	     * 
-	     */
-	    @FXML
-	    private Label itemNameLabel;   
-	    /**
-		 * 
-		 */
-	    @FXML
-	    private Label descriptionLabel; 
-	    /**
-		 * 
-		 */
-	    @FXML
-	    private Label priceLabel;
-	    /**
-		 * 
-		 */
-	    @FXML
-	    private Label typeLabel;
-	    /**
-		 * 
-		 */
-	    @FXML
-	    private Label pictureLabel;
-	    /**
-		 * 
+		 * Button for saving the new item or the edited item in catalog
 		 */
 	    @FXML
 	    private Button saveBtn;
 	    /**
-		 * 
+		 * button to back to the catalog screen
 		 */
 	    @FXML
 	    private Button backBtn;
 	    /**
-		 * 
+		 * TextField for filling ID
 		 */
 	    @FXML
 	    private TextField ItemIDTextField;
 	    /**
-		 * 
+		 * TextField for filling Name
 		 */
 	    @FXML
 	    private TextField itemNameTextField;
 	    /**
-		 * 
+		 * TextField for filling description
 		 */
 	    @FXML
 	    private TextField descriptionTextField; 
 	    /**
-		 * 
+		 * TextField for filling type
 		 */
 	    @FXML
 	    private TextField typeTextField;
 	    /**
-		 * 
+		 * TextField for filling ID
 		 */
 	    @FXML
 	    private TextField priceTextField; 
 	    /**
-		 * 
+		 * TextField for filling image address
 		 */
 	    @FXML
 	    private TextField imageTextField; 
 	    /**
-		 * 
+		 * ImageView to check if the address is correct and to show the chain worker the image he upload 
 		 */
 	    @FXML
 	    private ImageView newImage;
 	    /**
-		 * 
+		 * button to display the picture in the imageview
 		 */
 	    @FXML
 	    private Button loadBtn;
 
 	    
 	    //****************************************************************
+	    
 	    /**
-	     * 
-	     * @param event
+	     * hide current window and go to login window.
+	     * change the entry number to zero - only 1 person with same user can log in.
+	     * @param event pressed on the logout button
 	     * @throws IOException if an I/O error occurs when opening.
 	     */
 	    @FXML
@@ -266,8 +240,8 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    
 	    //****************************************************************
 	    /**
-	     * 
-	     * @param event
+	     * call to backevent function
+	     * @param event pressed on home button
 	     * @throws IOException if an I/O error occurs
 	     */
 		@FXML
@@ -278,8 +252,11 @@ public class CatalogEditControl extends LoginContol implements Initializable
 		
 		 //****************************************************************
 		/**
-		 * 
-		 * @param event
+		 * update the "pressedBtn" flag to 1 - meaning we press on add item
+		 * initialize "loadPressed" flag to zero - meaning user didn't pressed load already
+		 * change the title of the page
+		 * and change the anchorPane to show the add item screen
+		 * @param event pressed on add item button
 		 */
 	    @FXML
 	    void AddItemEvent(ActionEvent event) 
@@ -294,9 +271,9 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    
 	    //****************************************************************
 	    /**
-	     * 
-	     * @param bFile
-	     * @param fileDest
+	     * get the bytes and the destination address and create the file by the given bytes in the destination address.
+	     * @param bFile bytes of the file
+	     * @param fileDest the destination address to put the file.
 	     */
 	    private static void writeBytesToFileClassic(byte[] bFile, String fileDest) {
 
@@ -323,10 +300,16 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    
 	    
 	    /**
-	     * 
-	     * @param event
+	     * edit the selected item.
+	     * put the details of the selected item in the text fields , call to writeBytesToFileClassic function 
+	     * update the "pressedBtn" flag to 2 - meaning we press on edit item
+		 * initialize "loadPressed" flag to zero - meaning user didn't pressed load already
+		 * change the title of the page
+		 * change the anchorPane to show the add item screen
+		 * in case we didn't select item in catalog - show message.
+	     * @param event pressed on edit item button
 	     * @throws FileNotFoundException
-	     * @throws IOException
+	     * @throws IOException if an I/O error occurs.
 	     */
 	    @FXML
 	    void EditItemEvent(ActionEvent event) throws FileNotFoundException, IOException 
@@ -340,48 +323,19 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    		typeTextField.setText(""+itemsInRow.get(0).getItemType());
 	    		priceTextField.setText(""+itemsInRow.get(0).getItemPrice());
 
-//	    		imageTextField.setText(""+itemsInRow.get(0).getItemPhoto().getFileName());
 	    		
-	    		
-	    		//***********************************
-	    		
+	    		//*********************************** create the photo in the computer.
 	    		
 	    		byte[] bytes = itemsInRow.get(0).getItemPhoto().getMybytearray();
 	    		
 	    		String userDir = System.getProperty("user.dir");
 				userDir = userDir + "" + "\\ZerLiProject_G13\\Zer-Li\\src\\ChainWorker\\images\\"+itemsInRow.get(0).getItemID()+".jpg";   		
 	    		writeBytesToFileClassic(bytes, userDir);
+	    		//***********************************
 	    		
-	    		imageTextField.setText(""+userDir);
+	    		imageTextField.setText(""+userDir);   		
 	    		
-	   
-	    		
-	    		
-/* work but we didn't use...
- * 
-	    		String fileName = "file.test";
-
-	    		BufferedOutputStream bs = null;
-//"C:\\"+ itemsInRow.get(0).getItemID()+".jpg"
-	    		try {
-
-	    		    FileOutputStream fs = new FileOutputStream(new File(fileName));
-	    		    bs = new BufferedOutputStream(fs);
-	    		    bs.write(bytes);
-	    		    bs.close();
-	    		    bs = null;
-
-	    		} catch (Exception e) {
-	    		    e.printStackTrace();
-	    		}
-
-	    		if (bs != null) try { bs.close(); } catch (Exception e) {}
-
-*/
-	    		
-	    		
-	    		
-		    	pressedBtn=2; //we pressed on add item
+		    	pressedBtn=2; //we pressed on edit item
 		    	loadPressed=0;
 		    	titleLabel.setText("EDIT ITEM");
 		    	AnchorPaneCatalog.setVisible(false);
@@ -409,8 +363,9 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    
 	    //****************************************************************
 	    /**
-	     * 
-	     * @param event
+	     * delete the selected item from table and call function askToDeleteItem
+	     * if didn't selected item - show message
+	     * @param event clicked on delete item button
 	     */
 	    
 	    @FXML
@@ -438,8 +393,8 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    
 	    //****************************************************************
 	    /**
-	     * 
-	     * @param itemID
+	     * send Request To server to delete item with the given ID
+	     * @param itemID the item ID to delete
 	     */
 	    
 	    public void askToDeleteItem(int itemID)
@@ -460,8 +415,8 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    
 	    //****************************************************************
 	    /**
-	     * 
-	     * @param itemID
+	     * send Request To Check if the given ID Unique
+	     * @param itemID the item ID that need to be check if Unique.
 	     */
 	    
 	    public void checkUniqueID(int itemID)
@@ -483,8 +438,9 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    
 	    //****************************************************************
 	    /**
-	     * 
-	     * @param event
+	     * Performs input tests and if pass all the tests call functions to add item to catalog or to edit depend on the pressedBtn flag.
+	     * if fail input tests show Appropriate message
+	     * @param event pressed the save button
 	     */
 	    @FXML
 	    void saveEvent(ActionEvent event) //input checks and if correct input: add item or edit item depends on what we pressed
@@ -612,12 +568,12 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    
 	    //****************************************************************
 	    /**
-	     * 
-	     * @param input
-	     * @return
+	     * check if we can convert the textfield to integer
+	     * @param input the textfield of the item ID that entered by the user
+	     * @return boolean answer. true if can convert to integer, else false.
 	     */
 	    
-	    public static boolean isParsableInt(String input) //check if we can convert the textfield to integer
+	    public static boolean isParsableInt(String input)
 	    {
 	        boolean parsable = true;
 	        try{
@@ -629,12 +585,12 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    }
 	    
 	    /**
-	     * 
-	     * @param input
-	     * @return
+	     * check if we can convert the textfield to double
+	     * @param input the textfield of the price that entered by the user
+	     * @return boolean answer. true if can convert to integer, else false.
 	     */
 	    
-	    public static boolean isDouble(String input) //check if we can convert the textfield to double
+	    public static boolean isDouble(String input)
 	    {
 	    	boolean isDoublePrice = true;
 	        try{
@@ -648,8 +604,9 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    
 	    //****************************************************************
 	    /**
-	     * 
-	     * @param itemID
+	     * check if the given ID is Unique and if so- go to add item function.
+	     * else show massage -can't add the item with this ID because item with that ID already exist.
+	     * @param itemID the item ID to add
 	     */
 
 	    public void checkUniqueIDResult(int itemID)
@@ -672,8 +629,10 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    
 	    //****************************************************************
 	    /**
-	     * 
-	     * @param itemID
+	     * send request to Add or edit item depend on which function call it.
+	     * if checkUniqueIDResult call this function - it will add new item
+	     * if saveEvent call this function - it will edit new item
+	     * @param itemID item ID to add OR edit.
 	     */
 	    
 	    public void AddorEditItems(int itemID)
@@ -700,42 +659,6 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	 	   
 	 	   
 	 	   
-	 	  
-/*	 	   
-	 	   //move the file to diff location (the project folder)
-	 	   
-	 	   
-	 	  String PhotoNewPath="";
-	    	try{
-
-	     	   File afile =new File(""+tempImageAdress);
-
-	     	   	String userDir = System.getProperty("user.dir");
-				userDir = userDir + "" + "\\ZerLiProject_G13\\Zer-Li\\src\\client\\image";
-				PhotoNewPath = userDir + "\\"+ newID;
-	     	   if(afile.renameTo(new File(""+PhotoNewPath+".jpg")))
-	     	   {
-	     		System.out.println("File is moved successful!");
-	     	   }
-	     	   else{
-	     		System.out.println("File is failed to move!");
-	     	   }
-
-	     	}catch(Exception e){
-	     		e.printStackTrace();
-	     	}
-	 	   
-	 	   
-	 	   
-	    	MyFile newImageFile = createFile(""+PhotoNewPath+".jpg");
-	    	System.out.println(PhotoNewPath); //for check !!!!!!!!!!!!!!!!!!!!!! *****
-	    	
-	    	
-	    	
-	    	
-	*/
-	 	   
-	 	   
 	 	   MyFile newImageFile = createFile(tempImageAdress);	
 	 	   
 	 	   String tempPrice=priceTextField.getText();
@@ -751,9 +674,10 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    
 	  //****************************************************************
 	    /**
-	     * 
-	     * @param path
-	     * @return
+	     * create myfile object from the picture address
+	     * if fail print message to console
+	     * @param path the address of the picture in the computer
+	     * @return myfile object or null if fail to create
 	     */
 	    
 		private MyFile createFile(String path) 
@@ -787,9 +711,9 @@ public class CatalogEditControl extends LoginContol implements Initializable
 
 	    //****************************************************************
 	    /**
-	     * 
-	     * @param event
-	     * @throws IOException
+	     * back to catalog management window
+	     * @param event pressed on back button
+	     * @throws IOException if an I/O error.
 	     */
 
 	    @FXML
@@ -814,12 +738,6 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    	titleLabel.setText("EDIT CATALOG");
 	    	
 	    	AnchorPaneCatalog.setVisible(true);
-	    	/*
-	    	CatalogTable.setVisible(true);
-	    	btnAddItem.setVisible(true);
-	    	btnEditItem.setVisible(true);
-	    	btnDeleteItem.setVisible(true);
-	    	*/
 	    	
 	    	ItemIDTextField.setDisable(false); //can edit ID              //*******************************
 	    	
@@ -834,8 +752,9 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	   
 	    //****************************************************************
 	    /**
-	     * 
-	     * @param event
+	     * show the image in the ImageView by using the address the user entered
+	     * change the loadPressed flag to 1 - meaning load button has been pressed.
+	     * @param event pressed load button
 	     */
 	    @FXML
 	    void showImage(ActionEvent event) 
@@ -850,7 +769,7 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	 
 	    //****************************************************************
 	    /**
-	     * 
+	     * initialize the catalog details.
 	     */
 
 		@Override
@@ -870,7 +789,9 @@ public class CatalogEditControl extends LoginContol implements Initializable
 
 		 //****************************************************************
 		/**
-		 * 
+		 * show the fxml file of the control edit frame on the screen
+		 * Does not allow to close the window by pressing on the x button , we can close window only after logout
+		 * @throws IOException if an I/O error occurs when opening.
 		 */
 
 	public void start(Stage primaryStage) throws IOException 

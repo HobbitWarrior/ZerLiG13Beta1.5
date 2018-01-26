@@ -112,7 +112,7 @@ public class SurveyAnalayzingControl extends LoginContol implements Initializabl
     /**
      * hid current window and go to home page.
      * if fail to start the home page window send message
-     * @param event
+     * @param event pressed the home button
      */
     @FXML
     void goHome(ActionEvent event) 
@@ -131,9 +131,10 @@ public class SurveyAnalayzingControl extends LoginContol implements Initializabl
     }
     
     /**
-     * hid current window and go to login window.
+     * hide current window and go to login window.
      * change the entry number to zero - only 1 person with same user can log in.
-     * @param event
+     * @param event pressed the logout button
+     * @throws IOException if an I/O error occurs when opening.
      */
     @FXML
     void logoutEvent(ActionEvent event) throws IOException 
@@ -214,7 +215,7 @@ public class SurveyAnalayzingControl extends LoginContol implements Initializabl
      * check if stepAns variable is true or false
      * if true call getSurveyResultList function
      * else change AnchorPane and show error massage.
-     * @param event
+     * @param event pressed the see Result button
      */
     
     @FXML
@@ -266,9 +267,10 @@ public class SurveyAnalayzingControl extends LoginContol implements Initializabl
 	
     
 	/**
-	 * show the fxml file on the screan
+	 * show the fxml file on the screen
 	 * call to checkIfStep1 function to check if step = 1 on DB
 	 * Does not allow to close the window by pressing on the x button , we can close window only after logout
+	 * @throws IOException if an I/O error occurs when opening.
 	 */
 	public void start(Stage primaryStage) throws IOException
 	{		

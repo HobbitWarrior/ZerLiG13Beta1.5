@@ -52,93 +52,93 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-
+/**
+ * LoginContol class for user to login the application.
+ * this class send user to his main window by his permission.
+ * @author Sharon
+ * @version 1.0
+ */
 public class LoginContol  
 {
 	/**
-	 * 
+	 * list of all the users 
 	 */
 	public static Vector<User> AllUsers=new Vector<User>();
 	/**
-	 * 
+	 * save the string of the username textbox 
 	 */	
     protected static String UserNameToCheck;
 	/**
-	 * 
+	 * keep the userID for the next windows
 	 */   
-    protected static int userID;		//this is id of role
+    protected static int userID;
 	/**
-	 * 
+	 * keep permition to the next windows
 	 */    
-    protected static String userRole="";	//this is role name
+    protected static String userRole="";	//this is role/ permission name
 	/**
-	 * 
+	 * Variable of type ChatClient for dialog with server
 	 */
 	protected ChatClient myClient;
 	/**
-	 * 
+	 * the IP of the computer where the DB find.
 	 */	
 	protected static String ServerIP = "localhost";
 	/**
-	 * 
+	 * the port for connecting the server
 	 */
 	protected static int PORT = 5555;
 	
 	/**
-	 * 
-	 */
-	@FXML
-    private Label TitleLabel;
-	/**
-	 * 
+	 * button to login the app
 	 */
     @FXML
     private Button LoginBtn;
 	/**
-	 * 
+	 * userName label
 	 */
     @FXML
     private Label UserNameLabel;
 	/**
-	 * 
+	 * the background image of the login
 	 */
     @FXML
     private ImageView ImageZerli;
 	/**
-	 * 
+	 * the password label
 	 */
     @FXML
     private Label Password;
 	/**
-	 * 
+	 * text field to fill the userName
 	 */    
     @FXML
     private TextField txtUserName;
 	/**
-	 * 
+	 * text field to fill the Password
 	 */   
     @FXML
     private PasswordField txtPassword;
 	/**
-	 * 
+	 * exit button
 	 */
     @FXML
     private Button btnExit;
 	/**
-	 * 
+	 * TextField to fill the ServerIP
 	 */
     @FXML
     private TextField txtServerIP;
 	/**
-	 * 
+	 * TextField to fill the port
 	 */
     @FXML
     private TextField txtPORT;
 
     
     /**
-     * 
-     * @param event
+     * exit the Zer-Li application
+     * @param event pressed the exit button
      */
     @FXML
     void Exit(ActionEvent event) 
@@ -151,8 +151,8 @@ public class LoginContol
     
     
     /**
-     * 
-     * @param event
+     * check input test and send Request To system to Get All Users details
+     * @param event pressed on login button
      */
    @FXML
     void ConnectToSystemEvent(ActionEvent event) 
@@ -182,8 +182,7 @@ public class LoginContol
 		   }
 		   
 		   myClient. sendRequestToGetAllUsers()   ;
-		 
-		  // while( myClient.isConnected());	//wait until client (this class) get all users from the db!
+
 		   
 	   }
 		else //port is not integer
@@ -200,11 +199,11 @@ public class LoginContol
 	}
    
    /**
-    * 
-    * @param input
-    * @return
+    * check if it possible to convert the txtPORT to integer
+    * @param input the port
+    * @return boolean answer if possible to convert the txtPORT to integer or not
     */
-   public static boolean isParsableInt(String input) //check if we can convert the txtPORT to integer
+   public static boolean isParsableInt(String input) //
    {
        boolean parsable = true;
        try{
@@ -217,16 +216,13 @@ public class LoginContol
    
    
     /**
-     * 
+     * check if user exist in system
      */
    public void CheckUserExist()
    {
 	   String userPermition="";
-//	   String UserNameToCheck = txtUserName.getText();		//get username from textfield********************************************* need to delete
-	   
-//	   System.out.println("UserNameToCheck: "+UserNameToCheck); //********************************************* need to delete
+
 	   UserNameToCheck = txtUserName.getText();		//get username from textfield
-//	   System.out.println("UserNameToCheck: "+UserNameToCheck); //********************************************* need to delete
 	   
 	   String PasswordToCheck = txtPassword.getText();		//get password from passwordfield (kind of textfield)
 	   int userEntry=1;
@@ -309,21 +305,14 @@ public class LoginContol
 	   txtUserName.clear();
 	   txtPassword.clear();
 	   
-	   //from here we will open new window according to the permition
+	   //from here we will open new window according to the permission
 	   //only 1 user with same username and password can enter
 	   
 	   
-//**********************************************************************************************	   
-	   //for me to check
-//	   System.out.println("user untry: "+userEntry);
-//	   System.out.println("userPermition: "+userEntry);
-//	   System.out.println("UserNameToCheck: "+UserNameToCheck);
-//**********************************************************************************************
 
 	   if( (! userPermition.equals("") )&& userEntry==0 )
 	   {
 		   LoginBtn.getScene().getWindow().hide(); //hiding primary window
-//	   }
 	   Stage primaryStage = new Stage();
 		Pane root=null;
 	   
@@ -441,8 +430,8 @@ public class LoginContol
    
    
    /**
-    * 
-    * @param UserName
+    * send Request To server to change entry of user (in case user login)
+    * @param UserName change the entry of the given username
     */
    public void changeEntry(String UserName)
    {
@@ -463,12 +452,11 @@ public class LoginContol
   
 
    
-   
-   /**
-    * 
-    * @param primaryStage
-    * @throws IOException
-    */
+	/**
+	 * show the fxml file of login frame on the screen
+	 * allow to close the window by pressing on the x window button ,or with the exit button
+	 * @throws IOException if an I/O error occurs when opening.
+	 */
 	public void start(Stage primaryStage) throws IOException  
 	{		
 		Parent root = FXMLLoader.load(getClass().getResource("/Users/LoginWindow.fxml"));
