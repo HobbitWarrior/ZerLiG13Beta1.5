@@ -16,7 +16,12 @@ public abstract class ItemInOrder implements Comparable,Serializable
 	private double itemTotalPrice=0;
 	private String itemTotalPriceWithCoin="";
 
-
+	/**
+	 * constructor of item in order in case order id is unknown
+	 * @param itemId id of item in order (from catalog / customize)
+	 * @param itemName name of item in order (from catalog / customize)
+	 * @param price price of item in order (from catalog / customize)
+	 */
 	public ItemInOrder(int itemId,String itemName, double price)
 	{
 		this.itemID = itemId;
@@ -27,6 +32,13 @@ public abstract class ItemInOrder implements Comparable,Serializable
 		this.itemQty=1;
 	}
 	
+	/**
+	 * constructor of item in order in case order id is known
+	 * @param order id of item in order (from catalog / customize)
+	 * @param itemId id of item in order (from catalog / customize)
+	 * @param itemName name of item in order (from catalog / customize)
+	 * @param price price of item in order (from catalog / customize)
+	 */
 	public ItemInOrder(int orderid, int itemId,String itemName, double price)
 	{
 		this.orderID = new Integer(orderid);
@@ -39,6 +51,9 @@ public abstract class ItemInOrder implements Comparable,Serializable
 		this.itemQty=1;	
 	}
 	
+	/**
+	 * this mathod compare between item in order to another item in order by their id
+	 */
 	@Override
 	public int compareTo(Object anotherItemInOrder) 
 	{
@@ -65,32 +80,55 @@ public abstract class ItemInOrder implements Comparable,Serializable
 		return 0;
 
 	}
-
+	/**
+	 * getter of id of order
+	 * @return int id
+	 */
 	public Integer getOrderID() 
 	{
 		return orderID;
 	}
 
+	/**
+	 * setter of id of order
+	 * @param orderID new id of order
+	 */
 	public void setOrderID(int orderID) 
 	{
 		this.orderID = orderID;
 	}
 
+	/**
+	 * setter of id of item
+	 * @param id new id of item
+	 */
 	public void setItemID(int id) 
 	{
 		this.itemID=id;
 	}
 	
+	/**
+	 * getter of id of item
+	 * @return new id of item
+	 */
 	public int getItemID() 
 	{
 		return itemID;
 	}
 
+	/**
+	 * getter of quantity of item
+	 * @return amount of similar items
+	 */
 	public int getItemQty() 
 	{
 		return itemQty;
 	}
 
+	/**
+	 * setter of quantity of item
+	 * @param itemQty new amount of similar item
+	 */
 	public void setItemQty(int itemQty) 
 	{
 		this.itemQty = itemQty;
@@ -99,22 +137,36 @@ public abstract class ItemInOrder implements Comparable,Serializable
 		this.itemTotalPriceWithCoin=""+this.itemTotalPrice+"$";
 	}
 
+	/**
+	 * getter of price of item
+	 * @return price of item
+	 */
 	public double getItemPrice() 
 	{
 		return itemPrice;
 	}
 	
+	/**
+	 * setter of price of item
+	 * @param itemSinglePrice 
+	 */
 	public void setItemPrice(double itemSinglePrice) 
 	{
 		this.itemPrice=itemSinglePrice;
 		this.itemTotalPrice=this.itemQty*this.itemPrice;
 	}
-	
+	/**
+	 * getter of price of item
+	 * @return double type
+	 */
 	public double getTotalPrice()
 	{
 		return this.itemTotalPrice;
 	}
 	
+	/**
+	 * this method increase in 1 the quantity of this item
+	 */
 	public void incQty()
 	{
 		this.itemQty++;
@@ -122,7 +174,9 @@ public abstract class ItemInOrder implements Comparable,Serializable
 	}
 	
 	
-
+	/**
+	 * this method decrease in 1 the quantity of this item
+	 */
 	public void decQty()
 	{
 		this.itemQty--;
@@ -130,21 +184,35 @@ public abstract class ItemInOrder implements Comparable,Serializable
 
 	}
 
+	/**
+	 * getter of name of item
+	 * @return string name of the item
+	 */
 	public String getItemName() 
 	{
 		return itemName;
 	}
 
+	/**
+	 * setter of item name
+	 * @param itemName new name for item
+	 */
 	public void setItemName(String itemName) 
 	{
 		this.itemName = itemName;
 	}
-
+	/**
+	 * getter price with $
+	 * @return string
+	 */
 	public String getItemTotalPriceWithCoin()
 	{
 		return this.itemTotalPriceWithCoin;
 	}
-	
+	/**
+	 * setter of item price with $
+	 * @param newPrice
+	 */
 	public void setItemTotalPriceWithCoin(String newPrice)
 	{
 		this.itemTotalPriceWithCoin = newPrice;
