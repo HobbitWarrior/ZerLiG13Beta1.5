@@ -35,6 +35,7 @@ public class ReportHandler  extends LoginContol {
 		String endDate;
 		// array to hold all the item sales reports
 		ArrayList<ordersReportEntry> report = new ArrayList<ordersReportEntry>();
+		ArrayList<revenueReport> report1 = new ArrayList<revenueReport>();
 		if (quarterNum == 1) {
 			startDate = Year + "-01-01";
 			endDate = Year + "-03-31";
@@ -87,11 +88,74 @@ public class ReportHandler  extends LoginContol {
 			System.out.print("Sorry something went wrong with the SQL expression\n");
 			e.printStackTrace();
 		}
+		
+		//revenue reports type 1 
+		try {
+			// get the items from the DB
+			String selectStatement = "SELECT OrderID,OrderPrice,BranchID  FROM  customerorders WHERE  CompletedDate between ? AND ? ";
+			PreparedStatement statement = serverDataBase.prepareStatement(selectStatement);
+			statement.setString(1, startDate);
+			statement.setString(2, endDate);
+			ResultSet rs = statement.executeQuery();
+			System.out.println("we are printing the report handling results: " + startDate + " " + endDate);
+			 
+			while (rs.next()) {
+
+				System.out.println(rs.getInt(1) + " " + rs.getInt(2) + "  "+rs.getString(3)+"\n");
+				report1.add(new revenueReport(rs.getInt(1), rs.getFloat(2)));
+				writeToCSV1(report1, quarterNum, Year,rs.getString(3));
+			}
+			
+			//Generate a CSV file
+			//writeToCSV(report, quarterNum, Year);
+			 
+
+			rs.close();
+			statement.close();
+
+		} catch (SQLException e) {
+			System.out.print("Sorry something went wrong with the SQL expression\n");
+			e.printStackTrace();
+		}
 
 	}
 	
 	
 	
+ // create Csv File for revenue report 
+	public void writeToCSV1(ArrayList<revenueReport> report, int quarter, int year, String BranchID) {
+		String FileHeader = "OrderID,OrderPrice\n";
+		String csvFileName =  System.getProperty("user.dir")+"\\ZerLiProject_G13\\Zer-Li\\src\\Reports\\revenue_Report_" + String.valueOf(quarter) + "-" + String.valueOf(year)+ "-" +BranchID+".csv";
+		System.out.println("the set file name plus path is: "+csvFileName);
+		try {
+			FileWriter writer = new FileWriter(csvFileName);
+
+			//append headers
+			writer.append(new StringBuilder(FileHeader).toString());
+			/*add all the existing entries from the DB to the CVS file
+			each field is separated by a comma, new line with '\n'
+			currently the CSV file is saved to the main directory
+			for example C:\\*/
+			for (revenueReport reportEntry : report) {
+				StringBuilder sb = new StringBuilder();
+				sb.append(String.valueOf(reportEntry.getOrderID()));
+				sb.append(",");
+				sb.append(String.valueOf(reportEntry.getOrderPrice()));
+				sb.append("\n");
+				System.out.println("currently appending to csv: " + sb.toString());
+				writer.append(sb.toString());
+			}
+			//force save the CVS to the drive
+			writer.flush();
+			writer.close();
+			addNewReport(1,year+"",quarter,csvFileName,BranchID);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
+	}
+
+
+
 
 	public void writeToCSV(ArrayList<ordersReportEntry> report, int quarter, int year,String BranchID) {
 		String FileHeader = "ItemId,Quantity\n";
