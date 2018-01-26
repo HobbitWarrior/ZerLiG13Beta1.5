@@ -37,6 +37,8 @@ public class ManageComplaintController extends LoginContol implements Initializa
 	public Button save;
 	@FXML
 	public Label title;
+	@FXML
+	public Button UpdateProgress;
 	
 	public static complaintEntry currentComplaint;
  	

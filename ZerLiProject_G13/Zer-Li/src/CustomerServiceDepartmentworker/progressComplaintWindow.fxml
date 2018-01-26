@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CustomerServiceDepartmentworker.progressComplaintController">
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="CustomerServiceDepartmentworker.progressComplaintController">
    <children>
       <GridPane prefHeight="356.0" prefWidth="490.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="286.0" minWidth="10.0" prefWidth="94.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="396.0" minWidth="10.0" prefWidth="396.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="263.0" minHeight="10.0" prefHeight="95.0" vgrow="SOMETIMES" />
@@ -21,35 +21,17 @@
             <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER" mouseTransparent="true" prefHeight="40.0" prefWidth="490.0" text="Update Complaint Progress" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" GridPane.ColumnSpan="2">
+            <Label mouseTransparent="true" prefHeight="17.0" prefWidth="424.0" text="Update Complaint Progress" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" GridPane.ColumnSpan="2">
                <font>
                   <Font size="28.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="294.0" text="Topic" textAlignment="CENTER" GridPane.rowIndex="1" />
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="293.0" text="Details" GridPane.rowIndex="2" />
-            <TextField fx:id="topic" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets right="20.0" />
-               </GridPane.margin></TextField>
-            <TextField fx:id="details" prefHeight="204.0" prefWidth="245.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets right="20.0" />
-               </GridPane.margin></TextField>
-            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <children>
-                  <Button fx:id="CloseComplaint" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" text="Close Complaint">
-                     <HBox.margin>
-                        <Insets right="100.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="Save" mnemonicParsing="false" prefHeight="25.0" prefWidth="93.0" text="Save">
-                     <HBox.margin>
-                        <Insets left="100.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
+            <Label text="Topic" GridPane.rowIndex="1" />
+            <Label text="Details" GridPane.rowIndex="2" />
+            <Button fx:id="Save" mnemonicParsing="false" text="Save" GridPane.rowIndex="3" />
+            <Button fx:id="CloseComplaint" mnemonicParsing="false" text="Close Complaint" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="topic" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="details" prefHeight="204.0" prefWidth="245.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>
