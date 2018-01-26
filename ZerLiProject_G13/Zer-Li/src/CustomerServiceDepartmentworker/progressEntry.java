@@ -38,7 +38,7 @@ public class progressEntry {
 		EmpHandlingId.setValue(empHandlingId);
 	}
 
-	public SimpleSetProperty getTopic() {
+	public SimpleStringProperty getTopic() {
 		return Topic;
 	}
 
