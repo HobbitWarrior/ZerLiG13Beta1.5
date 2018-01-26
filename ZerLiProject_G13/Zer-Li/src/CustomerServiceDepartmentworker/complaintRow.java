@@ -96,10 +96,11 @@ public class complaintRow {
 	
 	
 	
-	// event handler for the button
+	/**<hh1>event handler for the button</h1>
+	 * <p>@author Alex</p>
+	 */
 	public void buttonEventHandler() {
 		// open a new edit complaint, opens the "ManageComplaintFrame"
-		//demi complaint key values
 		ManageComplaintController editFrame = new ManageComplaintController();
 		try {
 			editFrame.start(new Stage());
