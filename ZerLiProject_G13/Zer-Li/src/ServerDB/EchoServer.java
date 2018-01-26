@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
 import com.mysql.jdbc.Blob;
 import com.mysql.jdbc.Statement;
 
+import CustomerServiceDepartmentworker.closingComplaint;
 import CustomerServiceDepartmentworker.complaint;
 import CustomerServiceDepartmentworker.complaintProgress;
 import CustomerServiceDepartmentworker.progressComplaintController;
@@ -888,6 +889,45 @@ public class EchoServer extends AbstractServer implements Initializable {
 			}
 			return;
 
+		}
+		
+		
+		
+		if(msg instanceof closingComplaint)
+		{
+			closingComplaint cc=(closingComplaint)msg;
+			
+			
+
+			try {
+				System.out.println("closing a complaint");
+				// insert the data into the table
+				Statement statementquery = (Statement) ServerDataBase.createStatement(); // query to check if
+																							// table
+																							// filled
+
+				PreparedStatement ps1 = ServerDataBase.prepareStatement(
+						"INSERT INTO complaintclosingreports (ComplaintId, CustomerID,ReportDetails) VALUES (?,?,?)");
+
+				// INSERT INTO complaints VALUES (?,?,?,?,?,?,?);
+				// (`ComplaintID`, `CustomerID`, `EmpHendelingID`, `Topic`, `TimeComplaint`,
+				// `DateComplaint`, `Status`) VALUES
+
+				ps1.setInt(1, cc.getComplaintID());
+				ps1.setInt(2, cc.getCutsomerID());
+				ps1.setString(3, cc.getDetails());
+				int i=ps1.executeUpdate();
+				System.out.println("closed a complaint, affected rows: "+i);
+				ps1.close();
+
+				statementquery.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return;
+			
+			
+			
 		}
 		// -----------------------------------------------------------//
 

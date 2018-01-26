@@ -1193,7 +1193,7 @@ public class ChatClient extends AbstractClient {
 			System.out.println("Cannot open connection");
 		}
 		try {
-			System.out.println("Asking the server to generate a closing complaint report");
+			System.out.println("Asking the server to close a complaint report");
 			sendToServer(cc);
 		} catch (IOException e) {
 			System.out.println("Cannot connect to server in order to generate a closing complaint report");
