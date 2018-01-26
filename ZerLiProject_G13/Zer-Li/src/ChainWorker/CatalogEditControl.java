@@ -94,70 +94,70 @@ public class CatalogEditControl extends LoginContol implements Initializable
 		@FXML
 		private Label titleLabel;	
 		/**
-		 * 
+		 * by click on this Button screen change to add item screen
 		 */
 	    @FXML
 	    private Button btnAddItem;
 	    /**
-		 * 
+		 * by click on this Button screen change to edit item screen
 		 */
 	    @FXML
 	    private Button btnEditItem;
 	    /**
-		 * 
+		 * by click on this Button- delete the item in raw in the table
 		 */
 	    @FXML
 	    private Button btnDeleteItem;   
 	    /**
-		 * 
+		 * by click on this Button screen change to edit item screen
 		 */
 	    @FXML
 	    private Button btnEditCatalog;
 	    /**
-		 * 
+		 * All the catalog table
 		 */
 	    @FXML
 	    private TableView<CatalogItemGUI> CatalogTable;
 	    /**
-		 * 
+		 * The Description Column in the catalog table
 		 */
 	    @FXML
 	    private TableColumn<CatalogItemGUI, String> CatalogItemDescriptionColumn;
 	    /**
-		 * 
+		 * The Type Column in the catalog table
 		 */
 	    @FXML
 	    private TableColumn<CatalogItemGUI, String> CatalogItemTypeColumn;
 	    /**
-		 * 
+		 * The Image Column in the catalog table
 		 */
 	    @FXML
 	    private TableColumn<CatalogItemGUI, ImageView> CatalogImageColumn;
 	    /**
-		 * 
+		 * The Price Column in the catalog table
 		 */
 	    @FXML
 	    private TableColumn<CatalogItemGUI, String> CatalogPriceColumn;
 	    /**
-		 * 
+		 * The Item Name Column in the catalog table
 		 */
 	    @FXML
 	    private TableColumn<CatalogItemGUI, String> CatalogItemNameColumn;
 	    /**
-		 * 
+		 * The Item ID Column in the catalog table
 		 */
 	    @FXML
 	    private TableColumn<CatalogItemGUI, Integer> CatalogItemIDColumn;
 	    /**
-		 * 
+		 * AnchorPane includes the catalog table and the add & edit & delete buttons
 		 */
 	    @FXML
 	    private AnchorPane AnchorPaneCatalog;
 	    
 
-	    //change contact - add new item
+	    //change contact - add or edit new item
 	    /**
-		 * 
+		 * AnchorPane for add or edit item screen
 		 */
 	    @FXML
 	    private AnchorPane anchorPaneAddItem;
@@ -247,7 +247,7 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    /**
 	     * 
 	     * @param event
-	     * @throws IOException
+	     * @throws IOException if an I/O error occurs when opening.
 	     */
 	    @FXML
 	    void logoutEvent(ActionEvent event) throws IOException
@@ -268,7 +268,7 @@ public class CatalogEditControl extends LoginContol implements Initializable
 	    /**
 	     * 
 	     * @param event
-	     * @throws IOException
+	     * @throws IOException if an I/O error occurs
 	     */
 		@FXML
 		void goHome(ActionEvent event) throws IOException 

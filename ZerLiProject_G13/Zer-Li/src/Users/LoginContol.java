@@ -55,53 +55,91 @@ import javafx.fxml.Initializable;
 
 public class LoginContol  
 {
-	
+	/**
+	 * 
+	 */
 	public static Vector<User> AllUsers=new Vector<User>();
-	
+	/**
+	 * 
+	 */	
     protected static String UserNameToCheck;
-    
+	/**
+	 * 
+	 */   
     protected static int userID;		//this is id of role
-    
+	/**
+	 * 
+	 */    
     protected static String userRole="";	//this is role name
-
+	/**
+	 * 
+	 */
 	protected ChatClient myClient;
-	
+	/**
+	 * 
+	 */	
 	protected static String ServerIP = "localhost";
+	/**
+	 * 
+	 */
 	protected static int PORT = 5555;
 	
-	
+	/**
+	 * 
+	 */
 	@FXML
     private Label TitleLabel;
-
+	/**
+	 * 
+	 */
     @FXML
     private Button LoginBtn;
-
+	/**
+	 * 
+	 */
     @FXML
     private Label UserNameLabel;
-
+	/**
+	 * 
+	 */
     @FXML
     private ImageView ImageZerli;
-
+	/**
+	 * 
+	 */
     @FXML
     private Label Password;
-    
+	/**
+	 * 
+	 */    
     @FXML
     private TextField txtUserName;
-    
+	/**
+	 * 
+	 */   
     @FXML
     private PasswordField txtPassword;
-    
+	/**
+	 * 
+	 */
     @FXML
     private Button btnExit;
-    
+	/**
+	 * 
+	 */
     @FXML
     private TextField txtServerIP;
-    
+	/**
+	 * 
+	 */
     @FXML
     private TextField txtPORT;
 
     
-  
+    /**
+     * 
+     * @param event
+     */
     @FXML
     void Exit(ActionEvent event) 
     {
@@ -112,7 +150,10 @@ public class LoginContol
     
     
     
-    
+    /**
+     * 
+     * @param event
+     */
    @FXML
     void ConnectToSystemEvent(ActionEvent event) 
     {
@@ -158,7 +199,11 @@ public class LoginContol
 	   
 	}
    
-   
+   /**
+    * 
+    * @param input
+    * @return
+    */
    public static boolean isParsableInt(String input) //check if we can convert the txtPORT to integer
    {
        boolean parsable = true;
@@ -171,7 +216,9 @@ public class LoginContol
    }
    
    
-    
+    /**
+     * 
+     */
    public void CheckUserExist()
    {
 	   String userPermition="";
@@ -393,7 +440,10 @@ public class LoginContol
    
    
    
-
+   /**
+    * 
+    * @param UserName
+    */
    public void changeEntry(String UserName)
    {
 	   int port=PORT;
@@ -414,7 +464,11 @@ public class LoginContol
 
    
    
-   
+   /**
+    * 
+    * @param primaryStage
+    * @throws IOException
+    */
 	public void start(Stage primaryStage) throws IOException  
 	{		
 		Parent root = FXMLLoader.load(getClass().getResource("/Users/LoginWindow.fxml"));

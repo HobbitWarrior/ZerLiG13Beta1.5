@@ -29,7 +29,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 /**
- * this class implements Chain worker window - chain worker can delete /edit / add item to catalog.
+ * this class implements expert window - expert can analyze the survey result.
  * @author Sharon
  * @version 1.0
  */
