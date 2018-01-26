@@ -411,7 +411,7 @@ public class CustomerTransaction implements Serializable
 	}
 
 	/**
-	 * this method return order details in string
+	 * this method return order details in string type
 	 */
 	@Override
 	public String toString() {
