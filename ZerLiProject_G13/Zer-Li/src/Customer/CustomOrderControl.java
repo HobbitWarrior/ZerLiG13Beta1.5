@@ -136,6 +136,9 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    @FXML
 	    private Button cancelBtn;
 	    
+	    /**
+	     * this method update cart and added all custom items that customer chose in single window
+	     */
 	    private void addBasketToCart()
 	    {
 	    	
@@ -146,6 +149,10 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    	
 	    }
 	    
+	    /**
+	     * this method will open cancel order window
+	     * @param event of click on a button
+	     */
 	    @FXML
 	    void cancelBtnPressed(ActionEvent event) 
 	    {
@@ -167,10 +174,13 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	 				cancelBtn.getScene().getWindow().hide(); //hiding primary window
 
 	    }
-
+	    
+	    /**
+	     * this method remove a custom item from the basket (basket = temporary place to store items)
+	     */
 	    @FXML
 	    void removeBtnCartPressed(ActionEvent event)
-	    {	/**this method remove a custom item from the basket*/
+	    {	
 	    	quantityOfItems--;
 	    	if(this.quantityOfItems>0)
 	    	{
@@ -192,10 +202,13 @@ public class CustomOrderControl extends LoginContol implements Initializable
 
 	    }
 	    
-
+	   /**
+	    * this method take a custom item and put it on the basket, basket=place before cart
+	    * @param event on click
+	    */
 	    @FXML
 	    void addToCartBtnPressed(ActionEvent event)
-	    {	/**this method take a custom item and put it on the basket, basket=place before cart*/
+	    {	
 	    	
 	    	if(this.quantityOfItems==0)
 	    	{
@@ -219,7 +232,10 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    	removeBtnCart.setDisable(false);
 	    }
 
-
+	    /**
+	     * this method will open the catalog of specific branch
+	     * @param event click  on a button
+	     */
 	    @FXML
 	    void btenCatalogPressed(ActionEvent event) 
 	    {
@@ -244,7 +260,10 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    }
 	    
 	    
-	    
+		/**
+		 * this method will close current window, and will open the main window of buying process
+		 * @param event event of click on a button
+		 */
 
 	    @FXML
 	    void goHome(ActionEvent event) 
@@ -265,6 +284,10 @@ public class CustomOrderControl extends LoginContol implements Initializable
 
 	    }
 
+	    /**
+	     * this method opens the account details window of the customer, we had no time to write it.....
+	     * @param event event type of click on a button
+	     */
 	    @FXML
 	    void seeAccount(ActionEvent event) 
 	    {
@@ -274,6 +297,10 @@ public class CustomOrderControl extends LoginContol implements Initializable
 
 	    }
 
+	    /**
+	     * this method close all user window and will get him out from the system, it will send message to server to change the flag (that prevent a second login)
+	     * @param event	action even of click on button
+	     */
 	    @FXML
 	    void logoutEvent(ActionEvent event) throws IOException 
 	    {
@@ -288,6 +315,10 @@ public class CustomOrderControl extends LoginContol implements Initializable
 			aFrame.start(arg0);
 	    }
 
+	    /**
+	     * this method will bring customer to the cart, that will show him items in order, and will give him a chance to create new order
+	     * @param event of click on a button
+	     */
 	    @FXML
 	    void btnCartPressed(ActionEvent event) 
 	    {
@@ -309,6 +340,10 @@ public class CustomOrderControl extends LoginContol implements Initializable
 
 	    }
 
+	    /**
+	     * this method save the choice of type of custom that chosen in combo box
+	     * @param event on click
+	     */
 	    @FXML
 	    void itemTypeComboPressed(ActionEvent event) 
 	    {
@@ -317,6 +352,10 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    	this.quantityOfItems=0;
 	    }
 
+	    /**
+	     * this method save the choice of color of custom that chosen in combo box
+	     * @param event on click
+	     */ 
 	    @FXML
 	    void DominantColorComboPressed(ActionEvent event) 
 	    {
@@ -324,7 +363,11 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	    	shutDownBasket();
 	    	this.quantityOfItems=0;
 	    }
-
+	    
+	    /**
+	     * this method check composition of flowers
+	     * @param event on click
+	     */
 	    @FXML
 	    void createItemBtnPressed(ActionEvent event) 
 	    {
@@ -424,7 +467,11 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	
 	
 	
-	
+	/**
+	 * this method create a composition of flowers according to price range
+	 * @param flowerComposion	empty arrayList of flowers class
+	 * @return full arraylist in flowers (that doesn`t means that is will be ok, it thould contain at least 15 flowers)
+	 */
 	private ArrayList<Flower> createCompositeWithtColor(ArrayList<Flower> flowerComposion) //flowerComposion = basket 
 	{
 		ArrayList<String> colorsInserted = new ArrayList<String>();
@@ -514,6 +561,11 @@ public class CustomOrderControl extends LoginContol implements Initializable
 			return flowerComposion;
 	}
 
+	/**
+	 * this method create a composition of flowers according to price range and color
+	 * @param flowerComposion	empty arrayList of flowers class
+	 * @return full arraylist in flowers (that doesn`t means that is will be ok, it thould contain at least 15 flowers)
+	 */
 	private ArrayList<Flower> createCompositeWithoutAnyColor(ArrayList<Flower> flowerComposion) 
 	{	/**this method give a flower composition, at least 15 flowers at the customer range*/
 		
@@ -589,6 +641,9 @@ public class CustomOrderControl extends LoginContol implements Initializable
 		return flowerComposion; 
 		}
 
+	/**
+	 * this method sort flowers by their price
+	 */
 	private static void sortFlowers()
 	{
 		FXCollections.sort(allFlowers, new Comparator<Flower>()
@@ -612,7 +667,9 @@ public class CustomOrderControl extends LoginContol implements Initializable
 	
 	
 	
-	
+	/**
+	 * this method show the current window
+	 */
 	
 	public void start(Stage primaryStage) throws IOException  
 	{		
@@ -625,6 +682,9 @@ public class CustomOrderControl extends LoginContol implements Initializable
 		primaryStage.setOnCloseRequest( event -> {event.consume();} );
 	}
 
+	/**
+	 * this method load item type and colors to comboboxes
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
@@ -695,6 +755,9 @@ public class CustomOrderControl extends LoginContol implements Initializable
 			branchLabelAtCatalog.setVisible(true);
  
 	}
+	/**
+	 * this method making preparations before exiting from the current window
+	 */
 	private void shutDownBasket()
 	{
 		basketStatusLabel.setVisible(false);
