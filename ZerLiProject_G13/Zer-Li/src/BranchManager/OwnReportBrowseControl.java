@@ -38,7 +38,10 @@ public class OwnReportBrowseControl  extends LoginContol  implements Initializab
 
     @FXML
     private Label ResultLabel;
-
+    @FXML
+    private Label ResultLabel1;
+    @FXML
+    private Label resultLbl;
 	 
     @FXML
     private Button btnBrowseBranchReport;
@@ -90,7 +93,17 @@ public class OwnReportBrowseControl  extends LoginContol  implements Initializab
     void GetCsvFileReportFromTable(MouseEvent event) {
     	 ObservableList<Reports> myselectedrow=tableV.getSelectionModel().getSelectedItems();
     	 ResultLabel.setText(myselectedrow.get(0).getCsvFILE()+"");  
-    	System.out.println("mouse !!!!"); 
+    	System.out.println("mouse !!!!"+myselectedrow.get(0).getReportType()); 
+    	if(myselectedrow.get(0).getReportType() ==1 ) 
+    	{
+    		 
+    		resultLbl.setText(resultLbl.getText()+" \n"+"reveune Report"); 
+    	}
+    	if(myselectedrow.get(0).getReportType()==3 ) 
+    	{
+    		resultLbl.setText(resultLbl.getText()+" \n"+"Order Report"); 
+    	}
+    	
     	ReadCsvReport(myselectedrow.get(0).getCsvFILE());
     }
     
@@ -103,11 +116,25 @@ public class OwnReportBrowseControl  extends LoginContol  implements Initializab
 	    	 String data = null ,ViewReportInfo="" ;
 	    	 Scanner inputStream =new Scanner(file);
 	    	 while(inputStream.hasNext()){
-	    		   data=inputStream.next();
+	    		   data=inputStream.nextLine().split(",")[0];	    		  
 	    		   ViewReportInfo=ViewReportInfo+data+"\n";
 	    		 System.out.println(data+"\n");
 	    		 
 	    	 }
+	    	 
+	    	 resultLbl.setVisible(true);
+	    	 ResultLabel1.setVisible(true);
+	    	 ResultLabel1.setText(ViewReportInfo);
+	    	 ViewReportInfo="";
+	    	 inputStream =new Scanner(file);
+
+	    	 while(inputStream.hasNext()){
+	    		   data=inputStream.nextLine().split(",")[1];	    		  
+	    		   ViewReportInfo=ViewReportInfo+data+"\n";
+	    		 System.out.println(data+"\n");
+	    		 
+	    	 }
+	    	 ResultLabel.setVisible(true);
 	    	 ResultLabel.setText(ViewReportInfo);
 
 	     }
