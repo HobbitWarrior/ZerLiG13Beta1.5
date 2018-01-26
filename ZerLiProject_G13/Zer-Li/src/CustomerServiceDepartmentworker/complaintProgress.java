@@ -39,14 +39,6 @@ public class complaintProgress {
 		EmpHandlingID = empHandlingID;
 	}
 
-	public java.util.Date getDate() {
-		return Date;
-	}
-
-	public void setDate(java.util.Date date) {
-		Date = date;
-	}
-
 	public String getTopic() {
 		return Topic;
 	}
