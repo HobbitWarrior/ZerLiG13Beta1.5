@@ -62,21 +62,22 @@ public class ReportHandler  extends LoginContol {
 		// send the query to the server
 		try {
 			// get the items from the DB
-			String selectStatement = "SELECT CIO.ItemID, CIO.Quantity FROM catalogiteminorder AS CIO, customerorders AS CO WHERE CIO.OrderID=CO.OrderID AND CO.CompletedDate between ? AND ?";
+			String selectStatement = "SELECT CIO.ItemID, CIO.Quantity ,CO.BranchID FROM catalogiteminorder AS CIO, customerorders AS CO WHERE CIO.OrderID=CO.OrderID AND CO.CompletedDate between ? AND ?";
 			PreparedStatement statement = serverDataBase.prepareStatement(selectStatement);
 			statement.setString(1, startDate);
 			statement.setString(2, endDate);
 			ResultSet rs = statement.executeQuery();
 			System.out.println("we are printing the report handling results: " + startDate + " " + endDate);
+			
 			while (rs.next()) {
 
-				System.out.println(rs.getInt(1) + " " + rs.getInt(2) + "\n");
+				System.out.println(rs.getInt(1) + " " + rs.getInt(2) + "  "+rs.getString(3)+"\n");
 				report.add(new ordersReportEntry(rs.getInt(1), rs.getInt(2)));
-
+				writeToCSV(report, quarterNum, Year,rs.getString(3));
 			}
 			
 			//Generate a CSV file
-			writeToCSV(report, quarterNum, Year);
+			//writeToCSV(report, quarterNum, Year);
 			 
 
 			rs.close();
@@ -92,9 +93,9 @@ public class ReportHandler  extends LoginContol {
 	
 	
 
-	public void writeToCSV(ArrayList<ordersReportEntry> report, int quarter, int year) {
+	public void writeToCSV(ArrayList<ordersReportEntry> report, int quarter, int year,String BranchID) {
 		String FileHeader = "ItemId,Quantity\n";
-		String csvFileName =  System.getProperty("user.dir")+"\\ZerLiProject_G13\\Zer-Li\\src\\Reports\\Orders_Report_" + String.valueOf(quarter) + "-" + String.valueOf(year)+".csv";
+		String csvFileName =  System.getProperty("user.dir")+"\\ZerLiProject_G13\\Zer-Li\\src\\Reports\\Orders_Report_" + String.valueOf(quarter) + "-" + String.valueOf(year)+ "-" +BranchID+".csv";
 		System.out.println("the set file name plus path is: "+csvFileName);
 		try {
 			FileWriter writer = new FileWriter(csvFileName);
@@ -117,7 +118,7 @@ public class ReportHandler  extends LoginContol {
 			//force save the CVS to the drive
 			writer.flush();
 			writer.close();
-			addNewReport(3,year+"",quarter,csvFileName,"211");
+			addNewReport(3,year+"",quarter,csvFileName,BranchID);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
