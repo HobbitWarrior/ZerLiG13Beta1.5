@@ -14,7 +14,9 @@ public class complaintEntry {
 	public SimpleStringProperty Status;
 	public SimpleStringProperty details;
 	
-	public complaintEntry(complaint c)
+	
+	
+	public complaintEntry()
 	{
 		CompliantID=new SimpleIntegerProperty();
 		CustomerID=new SimpleIntegerProperty();
@@ -25,6 +27,10 @@ public class complaintEntry {
 		Status=new SimpleStringProperty();
 		details=new SimpleStringProperty();
 		
+	}
+	public complaintEntry(complaint c)
+	{
+		this();
 		
 		setCompliantID(c.getComplaintID());
 		setCustomerID(c.getCustomerID());
