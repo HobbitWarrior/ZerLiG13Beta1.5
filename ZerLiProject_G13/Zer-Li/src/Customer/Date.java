@@ -87,7 +87,9 @@ public class Date implements Serializable, Comparable, Cloneable
 	}
 
 
-	
+	/**
+	 * this method allow to compare between two instances of date class, by who come first
+	 */
 
 	@Override
 	public int compareTo(Object someday) 
@@ -126,7 +128,9 @@ public class Date implements Serializable, Comparable, Cloneable
 		return 0;	//this date is later
 	}
 	
-	
+	/**
+	 * tostring mathod that prints date in sql form
+	 */
 		public String toString()
 		{
 			String str= "";
