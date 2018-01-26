@@ -7,7 +7,12 @@ public class closingComplaint implements Serializable {
 	private int cutsomerID;
 	private String details;
 	
-	
+	closingComplaint(closingComplaintEntry cce)
+	{
+		setComplaintID(cce.getComplaintID().getValue());
+		setCutsomerID(cce.getCustomerID().getValue());
+		setDetails(cce.getDetails().getValue());
+	}
 	
 	
 	

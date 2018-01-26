@@ -42,6 +42,7 @@ import Customer.MessgaeCatalogProduct;
 import Customer.OrdersControl;
 import Customer.TransactionAbort;
 import CustomerServiceDepartmentworker.CustomerServiceDepartmentworkerMainWindow;
+import CustomerServiceDepartmentworker.closingComplaint;
 import CustomerServiceDepartmentworker.complaint;
 import CustomerServiceDepartmentworker.complaintProgress;
 import CustomerServiceDepartmentworker.complaintRow;
@@ -1169,6 +1170,33 @@ public class ChatClient extends AbstractClient {
 			sendToServer(cp);
 		} catch (IOException e) {
 			System.out.println("Cannot connect to server in order to generate a new complaint Progress");
+
+		}
+	}
+	
+	public void sendRequestSaveAndCloseComplaint(closingComplaint cc)
+	{
+		/***
+		 * <h1>send request to add a new progress for a complaint</h1>
+		 * <p>
+		 * this method asks asks to add a new entry in the progress complaint table 
+		 *  @return none  @param complaintProgress @author Alex
+		 * </p>
+		 ***/
+
+		try {
+			this.openConnection();
+			
+		}
+
+		catch (IOException e1) {
+			System.out.println("Cannot open connection");
+		}
+		try {
+			System.out.println("Asking the server to generate a closing complaint report");
+			sendToServer(cc);
+		} catch (IOException e) {
+			System.out.println("Cannot connect to server in order to generate a closing complaint report");
 
 		}
 	}

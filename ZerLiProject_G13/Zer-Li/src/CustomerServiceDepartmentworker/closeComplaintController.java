@@ -5,6 +5,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import Users.LoginContol;
+import client.ChatClient;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,6 +22,8 @@ public class closeComplaintController extends LoginContol implements Initializab
 	public TextField reportDetails;
 	@FXML
 	private Button SaveAndCLose;
+	
+	public static closingComplaintEntry cce;
 
 	
 	public void start(Stage primaryStage) {
@@ -40,8 +45,41 @@ public class closeComplaintController extends LoginContol implements Initializab
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-
+		int index=CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex;
+		//insansiate a new closing complaint entry
+		cce=new closingComplaintEntry(CustomerServiceDepartmentworkerMainWindow.activeComplaints.get(index).getComplaintID(), CustomerServiceDepartmentworkerMainWindow.activeComplaints.get(index).getCustomerID());
+		// reset the pressedComplaintIndex
+		CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex = -1;
+		//bind it to the GUI
+		reportDetails.textProperty().bindBidirectional(cce.getDetails());
+		reportDetails.textProperty().addListener((observable, oldValue, newValue) -> {
+			System.out.println("textfield changed from " + oldValue + " to " + newValue
+					+ "     values in the report:" + cce.getDetails().getValue());
+		});
+		
+		
+		//call the method for a closing complaint from the server
+		SaveAndCLose.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					SaveAndCloseComplaint(event);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
+	public void SaveAndCloseComplaint(ActionEvent event) throws IOException
+	{
+		
+		closingComplaint cc=new closingComplaint(cce);
+		int port = LoginContol.PORT;
+		String ip = LoginContol.ServerIP;
+		myClient = new ChatClient(ip, port); // create new client
+		myClient.sendRequestSaveAndCloseComplaint(cc);
+	}
+	
+	
 }

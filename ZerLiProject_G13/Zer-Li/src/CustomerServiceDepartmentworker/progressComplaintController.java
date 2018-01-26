@@ -68,8 +68,6 @@ public class progressComplaintController extends LoginContol implements Initiali
 
 		int index = CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex;
 		pEntry = new progressEntry(CustomerServiceDepartmentworkerMainWindow.activeComplaints.get(index));
-		// reset the pressedComplaintIndex
-		CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex = -1;
 		topic.textProperty().bindBidirectional(pEntry.getTopic());
 		details.textProperty().bindBidirectional(pEntry.getDetails());
 
@@ -90,7 +88,6 @@ public class progressComplaintController extends LoginContol implements Initiali
 				ManageComplaintController.currentComplaint.getCompliantID().getValue(),
 				ManageComplaintController.currentComplaint.getEmpHandlingID().getValue(), pEntry.getTopic().getValue(),
 				pEntry.getDetails().getValue());
-		// mark complaint as an edited one
 
 		int port = LoginContol.PORT;
 		String ip = LoginContol.ServerIP;

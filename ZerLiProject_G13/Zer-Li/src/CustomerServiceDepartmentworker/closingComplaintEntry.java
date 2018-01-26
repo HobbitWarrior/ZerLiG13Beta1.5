@@ -12,7 +12,7 @@ public class closingComplaintEntry {
 	
 	
 	
-	public closingComplaintEntry(int ComplaintID,int CustomerID,String Details)
+	public closingComplaintEntry(int ComplaintID,int CustomerID)
 	{
 		complaintID=new SimpleIntegerProperty();
 		customerID=new SimpleIntegerProperty();
@@ -20,8 +20,7 @@ public class closingComplaintEntry {
 		
 		setComplaintID(ComplaintID);
 		setCustomerID(CustomerID);
-		setDetails(Details);
-		
+
 		
 	}
 
