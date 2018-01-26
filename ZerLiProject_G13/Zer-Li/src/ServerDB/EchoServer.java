@@ -558,25 +558,31 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 			Reports givenItem = (Reports) msg;
 
-			/*
-			 * try { // insert the data into the table Statement statementquery =
-			 * (Statement) ServerDataBase.createStatement(); // query to check if table //
-			 * filled
-			 * 
-			 * PreparedStatement ps1 = ServerDataBase
-			 * .prepareStatement("INSERT INTO reports VALUES (?,?,?,?,? )");
-			 * 
-			 * 
-			 * ps1.setInt(1, givenItem.getReportType());
-			 * ps1.setString(2,givenItem.getReportYear() ); ps1.setInt(3,
-			 * givenItem.getReportQuarter()); ps1.setString(4, givenItem.getCsvFILE());
-			 * ps1.setString(5, givenItem.getBranchID());
-			 * 
-			 * 
-			 * ps1.executeUpdate(); ps1.close();
-			 * 
-			 * statementquery.close(); } catch (SQLException e) { e.printStackTrace(); }
-			 */
+			 
+			  try { // insert the data into the table
+			    Statement statementquery =(Statement) ServerDataBase.createStatement(); // query to check if table //
+			   
+			  
+			  PreparedStatement ps1 = ServerDataBase.prepareStatement("INSERT INTO reports VALUES (?,?,?,?,? )");
+			    
+			 
+			  ps1.setInt(1, givenItem.getReportType());
+			  ps1.setString(2,givenItem.getReportYear() ); 
+			  ps1.setInt(3,givenItem.getReportQuarter()); 
+			   ps1.setString(4, givenItem.getCsvFILE());
+			  ps1.setString(5, givenItem.getBranchID());
+			  
+			  
+			  ps1.executeUpdate();
+			   ps1.close();
+			  
+			  statementquery.close(); 
+			 } 
+			   catch (SQLException e)
+			   { 
+			   e.printStackTrace(); 
+			   }
+			 
 		}
 
 		// ---------------------------------------instanceof
@@ -1815,10 +1821,10 @@ public class EchoServer extends AbstractServer implements Initializable {
 			String ReportYear = rs.getString(2);
 
 			int ReportQuarter = rs.getInt(3);
-			// Image Permition = rs.getBlob(4);
+			String  CsvFILE = rs.getString(4);
 			String BranchID = rs.getString(5);
 
-			Reports UsersReturnToClient = new Reports(ReportType, ReportYear, ReportQuarter, null, BranchID);
+			Reports UsersReturnToClient = new Reports(ReportType, ReportYear, ReportQuarter, CsvFILE, BranchID);
 			System.out.println(UsersReturnToClient);
 			ReportsFromDB.add(UsersReturnToClient);
 
@@ -1843,10 +1849,10 @@ public class EchoServer extends AbstractServer implements Initializable {
 			String ReportYear = rs.getString(2);
 
 			int ReportQuarter = rs.getInt(3);
-			// Image Permition = rs.getBlob(4);
+			String  CsvFILE = rs.getString(4);
 			String BranchID = rs.getString(5);
 
-			Reports UsersReturnToClient = new Reports(ReportType, ReportYear, ReportQuarter, null, BranchID);
+			Reports UsersReturnToClient = new Reports(ReportType, ReportYear, ReportQuarter, CsvFILE, BranchID);
 			System.out.println(UsersReturnToClient);
 			ReportsFromDB.add(UsersReturnToClient);
 
