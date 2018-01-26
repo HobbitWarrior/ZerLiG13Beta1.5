@@ -59,6 +59,10 @@ public class progressComplaintController extends LoginContol implements Initiali
 		CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex=-1;
 		topic.textProperty().bindBidirectional(pEntry.getTopic());
 		details.textProperty().bindBidirectional(pEntry.getDetails());
+		
+		
+		
+		//remove later just cheking binging AZ
 		topic.textProperty().addListener((observable, oldValue, newValue) -> {
 		    System.out.println("textfield changed from " + oldValue + " to " + newValue+"     values in the currentCompliant:"+pEntry.getTopic().getValue());
 		});
@@ -66,5 +70,21 @@ public class progressComplaintController extends LoginContol implements Initiali
 		    System.out.println("textfield changed from " + oldValue + " to " + newValue+"     values in the currentCompliant:"+pEntry.getDetails().getValue());
 		});
 	}
+	
+	
+	
+	public void SaveButtonClickHandler(ActionEvent event) throws IOException
+	{
+		//save the new data to a new complaintProgress and send it to the server
+		complaintProgress cp=new complaintProgress(ManageComplaintController.currentComplaint.getCompliantID().getValue(), ManageComplaintController.currentComplaint.getEmpHandlingID().getValue(), pEntry.getTopic().getValue(), pEntry.getDetails().getValue());
+		//mark complaint as an edited one
+	
+		int port = LoginContol.PORT;
+		String ip = LoginContol.ServerIP;
+		myClient = new ChatClient(ip, port); // create new client
+		myClient.sendRequestSaveProgress(cp);
+	}
+	
+	
 
 }
