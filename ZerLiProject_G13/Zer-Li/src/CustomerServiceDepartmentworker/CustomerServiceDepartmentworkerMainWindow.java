@@ -59,6 +59,8 @@ public class CustomerServiceDepartmentworkerMainWindow  extends LoginContol impl
 	@FXML
 	private Button GenerateNewSurvey;
 
+	 @FXML
+	    private AnchorPane MainFrame;
 	static int iterations;
 
 	public static int pressedComplaintIndex=-1; 
@@ -220,6 +222,27 @@ public class CustomerServiceDepartmentworkerMainWindow  extends LoginContol impl
 				return new XCell();
 			}
 		});
+		
+		Button logoutBtn = (new Button ("LogoutNow"));
+	    AnchorPane.setTopAnchor (logoutBtn, 10.0); // obviously provide your own constraints
+	    AnchorPane.setRightAnchor(logoutBtn, 130.0);
+	    MainFrame.getChildren().add(logoutBtn);
+	    logoutBtn.setOpacity(0);
+	    logoutBtn.setOnAction(e->BtnLogoutPressed());
 	}
-	
+	private void BtnLogoutPressed()
+	{
+    	changeEntry(UserNameToCheck);
+		System.out.println("return to main menu"); 
+		MainFrame.getScene().getWindow().hide(); //hiding primary window	
+		LoginContol aFrame = new LoginContol(); // create Login Frame
+		Stage arg0 = new Stage();
+		try {
+			aFrame.start(arg0);
+		} catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			System.out.println("Cannot commit logout");
+		}
+	}
 }
