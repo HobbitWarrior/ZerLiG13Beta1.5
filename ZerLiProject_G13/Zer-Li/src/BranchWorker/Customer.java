@@ -3,7 +3,7 @@ package BranchWorker;
 import java.io.Serializable;
 /**
  * 
- * @author Sharon & elias
+ * @author Sharon & Elias
  *
  */
 public class Customer implements Serializable {

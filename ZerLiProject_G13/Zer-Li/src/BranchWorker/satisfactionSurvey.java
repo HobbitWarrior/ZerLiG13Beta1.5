@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.Year;
 /**
  * 
- * @author Sharon & elias
+ * @author Sharon & Elias
  *
  */
 public class satisfactionSurvey  implements Serializable {
