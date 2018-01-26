@@ -20,6 +20,17 @@ public class progressEntry {
 	private SimpleIntegerProperty EmpHandlingId;
 	private SimpleStringProperty Topic;
 	private SimpleStringProperty Details;
+	
+	
+	public progressEntry(complaint c)
+	{
+		ComplaintID=new SimpleIntegerProperty();
+		EmpHandlingId=new SimpleIntegerProperty();
+		Topic=new SimpleStringProperty();
+		Details=new SimpleStringProperty();
+		setComplaintID(c.getComplaintID());
+		setEmpHandlingId(c.getEmpHandling());
+	}
 
 	// setters and getters
 	public SimpleIntegerProperty getComplaintID() {

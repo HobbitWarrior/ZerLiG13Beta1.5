@@ -17,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.beans.binding.*;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import Users.LoginContol;
 
@@ -76,11 +77,18 @@ public class ManageComplaintController extends LoginContol implements Initializa
 				}
 				}
 			});
+			
+			//open a new update progress window on mouse click
+			UpdateProgress.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					UpdateComplaintProgressButton(event);
+				}
+				
+			});
 
 			
 			int index=CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex;
-			//reset the pressedComplaintIndex
-			CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex=-1;
 			//generate a new complaint:
 			currentComplaint=new complaintEntry(CustomerServiceDepartmentworkerMainWindow.activeComplaints.get(index));
 			//bind the gui fields
@@ -112,5 +120,20 @@ public class ManageComplaintController extends LoginContol implements Initializa
 		String ip = LoginContol.ServerIP;
 		myClient = new ChatClient(ip, port); // create new client
 		myClient.sendRequestUpdateComplaint(editedComplaint);
+	}
+	
+	
+	public void UpdateComplaintProgressButton(ActionEvent event)
+	{
+		// open a new edit complaint, opens the "ManageComplaintFrame"
+		progressComplaintController editFrame = new progressComplaintController();
+		try {
+			editFrame.start(new Stage());
+		} catch (Exception e) {
+			System.out.print("Could not open an edit window\n");
+			e.printStackTrace();
+/*			if (mainstage != null)
+				mainstage.toBack();*/
+		}
 	}
 }

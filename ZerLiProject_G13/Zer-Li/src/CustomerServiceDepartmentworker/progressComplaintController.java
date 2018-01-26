@@ -28,13 +28,12 @@ public class progressComplaintController extends LoginContol implements Initiali
 	@FXML
 	private TextField topic;
 	@FXML
-	private	TextField details;
+	private TextField details;
 	@FXML
 	private Button Save;
 	@FXML
 	private Button CloseComplaint;
-
-	public static complaintEntry currentComplaint;
+	public static progressEntry pEntry;
 
 	public void start(Stage primaryStage) {
 		Parent root;
@@ -54,7 +53,18 @@ public class progressComplaintController extends LoginContol implements Initiali
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		int index=CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex;
+		pEntry=new progressEntry(CustomerServiceDepartmentworkerMainWindow.activeComplaints.get(index));
+		//reset the pressedComplaintIndex
+		CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex=-1;
+		topic.textProperty().bindBidirectional(pEntry.getTopic());
+		details.textProperty().bindBidirectional(pEntry.getDetails());
+		topic.textProperty().addListener((observable, oldValue, newValue) -> {
+		    System.out.println("textfield changed from " + oldValue + " to " + newValue+"     values in the currentCompliant:"+pEntry.getTopic().getValue());
+		});
+		details.textProperty().addListener((observable, oldValue, newValue) -> {
+		    System.out.println("textfield changed from " + oldValue + " to " + newValue+"     values in the currentCompliant:"+pEntry.getDetails().getValue());
+		});
 	}
 
 }
