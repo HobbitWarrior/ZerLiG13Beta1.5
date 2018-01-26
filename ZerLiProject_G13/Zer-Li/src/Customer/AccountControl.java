@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 
 public class AccountControl  extends LoginContol 
 {
+	
     @FXML
     private Button btnAccount;
 
@@ -37,6 +38,12 @@ public class AccountControl  extends LoginContol
     @FXML
     private Button btnCustomise;
 
+    
+    /**
+    * Logout event, when user click on logout button
+    * @param Action event
+   
+    */
     @FXML
     void logoutEvent(ActionEvent event) throws IOException
     {
@@ -51,6 +58,11 @@ public class AccountControl  extends LoginContol
     }
     
     
+    /**
+    * Method that colse current window and open home main window
+    * @param handler event
+    * @return This text should describe the return type and permissible range of values
+    */
     @FXML
     void goHome(ActionEvent event) 
     {
@@ -66,6 +78,11 @@ public class AccountControl  extends LoginContol
 			}
     }
     
+    
+    /**
+    * Description of the function include the var of the function
+    * @param Method that opens the current window
+    */
 	public void start(Stage primaryStage) throws IOException  
 	{		
 	  	Pane root = FXMLLoader.load(getClass().getResource("/Customer/AccountFrame.fxml"));
