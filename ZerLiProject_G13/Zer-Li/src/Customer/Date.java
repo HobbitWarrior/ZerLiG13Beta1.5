@@ -78,7 +78,7 @@ public class Date implements Serializable, Comparable, Cloneable
 	}
 	
 	/**
-	 * setter of day
+	 * setter of day in month
 	 * @param day int
 	 */
 	public void setDay(int day) 

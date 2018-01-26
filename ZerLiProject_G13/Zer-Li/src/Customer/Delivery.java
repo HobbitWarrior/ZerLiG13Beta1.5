@@ -76,7 +76,7 @@ public abstract class Delivery implements Serializable, Cloneable
 	
 	/**
 	 * getter of price of the order
-	 * @return double
+	 * @return double type price
 	 */
 	public double getPrice() 
 	{
