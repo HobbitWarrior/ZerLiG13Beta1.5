@@ -29,7 +29,7 @@
                      <padding>
                         <Insets left="20.0" />
                      </padding></Label>
-                  <TextField fx:id="topicField" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <TextField fx:id="topicField" promptText="Enter Topic Here.." GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets right="15.0" />
                      </GridPane.margin></TextField>
@@ -41,7 +41,7 @@
                      <padding>
                         <Insets left="20.0" />
                      </padding></Label>
-                  <TextField fx:id="customerIDField" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <TextField fx:id="customerIDField" promptText="Enter  A Valid Customer ID" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets right="15.0" />
                      </GridPane.margin></TextField>
@@ -49,25 +49,16 @@
                      <GridPane.margin>
                         <Insets right="15.0" />
                      </GridPane.margin></TextField>
-                  <Label fx:id="title" alignment="CENTER" prefHeight="51.0" prefWidth="437.0" text="Edit A Complaint" GridPane.ColumnSpan="2" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0">
+                  <Label fx:id="title" alignment="CENTER" prefHeight="51.0" prefWidth="437.0" text="Create A New Complaint" GridPane.ColumnSpan="2" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0">
                      <font>
                         <Font size="35.0" />
                      </font></Label>
                   <HBox prefHeight="100.0" prefWidth="200.0" GridPane.ColumnSpan="2" GridPane.rowIndex="5">
                      <children>
-                        <Button fx:id="save" mnemonicParsing="false" prefHeight="25.0" prefWidth="124.0" text="Save">
+                        <Button fx:id="save" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" text="Save">
                            <HBox.margin>
-                              <Insets right="20.0" />
+                              <Insets left="140.0" />
                            </HBox.margin></Button>
-                        <Button fx:id="UpdateProgress" mnemonicParsing="false" prefHeight="25.0" prefWidth="123.0" text="Update Progress">
-                           <HBox.margin>
-                              <Insets right="20.0" />
-                           </HBox.margin>
-                           <padding>
-                              <Insets right="20.0" />
-                           </padding>
-                        </Button>
-                        <Button fx:id="closeComplaint" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Close Complaint" />
                      </children>
                      <padding>
                         <Insets left="15.0" right="15.0" />

@@ -1121,6 +1121,38 @@ public class ChatClient extends AbstractClient {
 
 	}
 
+	
+	
+	
+	public void SendARequestForANewComplaint(complaint c) {
+		/***
+		 * <h1>send a request to update a complaint</h1>
+		 * <p>
+		 * sends a request to the server to update a complaint entry
+		 * 
+		 * @author Alex
+		 *         </p>
+		 **/
+
+		try {
+			this.openConnection();
+		}
+
+		catch (IOException e1) {
+			System.out.println("Cannot open connection");
+		}
+		try {
+			System.out.println("Asking the server to save a new complaint a complaint");
+			sendToServer(c);
+		} catch (IOException e) {
+			System.out.println("Cannot connect to server in order to save a complaint entry");
+
+		}
+
+	}
+	
+	
+	
 	public void sendRequestForANewQuarterlySurvey() {
 		/***
 		 * <h1>send request for a new quarterly report</h1>
