@@ -108,6 +108,10 @@ public class CatalogOrderControl extends LoginContol implements Initializable
     @FXML
     private Label branchLabelAtCatalog; //I added this label
     
+    /**
+     *  this method closes the current window and open the customize buy window
+     * @param event event of click on button in the menu
+     */
     @FXML
     void btnCustomisePressed(ActionEvent event)
     {
@@ -128,6 +132,11 @@ public class CatalogOrderControl extends LoginContol implements Initializable
 
     }
   
+    
+    /**
+     * this method close all user window and will get him out from the system, it will send message to server to change the flag (that prevent a second login)
+     * @param event	action even of click on button
+     */
 	@FXML
 	void logoutEvent(ActionEvent event) throws IOException 
 	{
@@ -144,6 +153,10 @@ public class CatalogOrderControl extends LoginContol implements Initializable
 		aFrame.start(arg0);
 	}
 
+	/**
+	 * this method will close current window, and will open the main window of buying process
+	 * @param event event of click on a button
+	 */
 	@FXML
 	void goHome(ActionEvent event) {
 		btnHome.getScene().getWindow().hide(); // hiding primary window
@@ -158,6 +171,10 @@ public class CatalogOrderControl extends LoginContol implements Initializable
 		}
 	}
 
+	 /**
+     * this method opens the account details window of the customer, we had no time to write it.....
+     * @param event event type of click on a button
+     */
 	@FXML
 	void seeAccount(ActionEvent event) {
 		btnAccount.getScene().getWindow().hide(); // hiding primary window
@@ -173,6 +190,10 @@ public class CatalogOrderControl extends LoginContol implements Initializable
 
 	}
 
+	 /**
+     * this method will bring customer to the cart, that will show him items in order, and will give him a chance to create new order
+     * @param event of click on a button
+     */
 	@FXML
     void btnCartPressed(ActionEvent event) 
     {
@@ -187,12 +208,17 @@ public class CatalogOrderControl extends LoginContol implements Initializable
 		}
     }
 	
+	
 	@FXML
 	void CustomiseBtnPressed(ActionEvent event) 
 	{
 	
 	}
 
+	 /**
+     * this method will open cancel order window
+     * @param event of click on a button
+     */
 	@FXML
 	void CancelOrderBtnPressed(ActionEvent event) 
 	{
@@ -216,7 +242,10 @@ public class CatalogOrderControl extends LoginContol implements Initializable
 	
 
 	
-
+	/**
+	 * this method will add the items to the table
+	 * @param allCatalogProduct ArrayList of CatalogItem class
+	 */
 	public void loadAllCatalogItems(ArrayList<CatalogItem> allCatalogProduct) // this method will add the items to the
 																				// table
 	{
@@ -225,7 +254,10 @@ public class CatalogOrderControl extends LoginContol implements Initializable
 	}
 
 
-
+	/**
+	 * getter of label that tells amount of items in order
+	 * @return label
+	 */
 	
 	public Label getAddToCartLabel()
 	{
@@ -233,10 +265,13 @@ public class CatalogOrderControl extends LoginContol implements Initializable
 	}
 	
 	
-	
+	/**
+	 * this method create a status label about how many items we want to buy and the total price
+	 * @param event click event on a button
+	 */
 	  @FXML
 	    void orderDetailsBtnPressed(ActionEvent event) 
-	  {/**this method create a status label about how many items we want to buy and the total price*/
+	  {
 		  OrdersControl.calculateTotalPriceAndQuantity();
 		  double totalPrice = OrdersControl.getTotalPrice();
 		  int totalQuantity = OrdersControl.getTotalQuantity();
@@ -249,7 +284,9 @@ public class CatalogOrderControl extends LoginContol implements Initializable
 	
 
 	  
-	  
+	  /**
+	   * method tat load catalog items into table view
+	   */
 	  
 		@Override
 		public void initialize(URL location, ResourceBundle resources) 	
