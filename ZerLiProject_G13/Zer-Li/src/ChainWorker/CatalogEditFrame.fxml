@@ -37,27 +37,27 @@
                <effect>
                   <DropShadow />
                </effect></Rectangle>
-            <Label fx:id="itemNameLabel" layoutX="15.0" layoutY="73.0" text="Item name:">
+            <Label layoutX="15.0" layoutY="73.0" text="Item name:">
                <font>
                   <Font name="System Bold Italic" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="descriptionLabel" layoutX="15.0" layoutY="132.0" text="Description:">
+            <Label layoutX="15.0" layoutY="132.0" text="Description:">
                <font>
                   <Font name="System Bold Italic" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="priceLabel" layoutX="14.0" layoutY="336.0" text="Price:">
+            <Label layoutX="14.0" layoutY="336.0" text="Price:">
                <font>
                   <Font name="System Bold Italic" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="typeLabel" layoutX="14.0" layoutY="266.0" text="Type:">
+            <Label layoutX="14.0" layoutY="266.0" text="Type:">
                <font>
                   <Font name="System Bold Italic" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="pictureLabel" layoutX="14.0" layoutY="398.0" text="Picture address:">
+            <Label layoutX="14.0" layoutY="398.0" text="Picture address:">
                <font>
                   <Font name="System Bold Italic" size="20.0" />
                </font>
@@ -76,7 +76,7 @@
                   <Font name="System Bold Italic" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="ItemIDeLabel" layoutX="15.0" layoutY="20.0" text="Item ID:">
+            <Label layoutX="15.0" layoutY="20.0" text="Item ID:">
                <font>
                   <Font name="System Bold Italic" size="20.0" />
                </font>
