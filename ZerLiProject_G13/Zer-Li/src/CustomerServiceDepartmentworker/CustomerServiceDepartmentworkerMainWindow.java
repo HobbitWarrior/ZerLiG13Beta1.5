@@ -129,6 +129,7 @@ public class CustomerServiceDepartmentworkerMainWindow  extends LoginContol impl
 
 	// listview cell personalization
 	static class XCell extends ListCell<complaintRow> {
+		
 		HBox hbox = new HBox();
 
 		// probably all of this is redundant (AZ)

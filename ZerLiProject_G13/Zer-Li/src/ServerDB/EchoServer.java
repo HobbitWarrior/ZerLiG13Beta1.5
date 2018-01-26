@@ -848,6 +848,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+						
 					}
 				}
 

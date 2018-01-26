@@ -1130,6 +1130,7 @@ public class ChatClient extends AbstractClient {
 
 		try {
 			this.openConnection();
+			
 		}
 
 		catch (IOException e1) {
