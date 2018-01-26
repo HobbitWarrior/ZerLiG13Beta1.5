@@ -40,6 +40,8 @@ public class ManageComplaintController extends LoginContol implements Initializa
 	public Label title;
 	@FXML
 	public Button UpdateProgress;
+	@FXML
+	public Button closeComplaint;
 	
 	public static complaintEntry currentComplaint;
  	
@@ -125,7 +127,23 @@ public class ManageComplaintController extends LoginContol implements Initializa
 	
 	public void UpdateComplaintProgressButton(ActionEvent event)
 	{
-		// open a new edit complaint, opens the "ManageComplaintFrame"
+		/** open a new edit complaint, opens the "ManageComplaintFrame"*/
+		progressComplaintController editFrame = new progressComplaintController();
+		try {
+			editFrame.start(new Stage());
+		} catch (Exception e) {
+			System.out.print("Could not open an edit window\n");
+			e.printStackTrace();
+/*			if (mainstage != null)
+				mainstage.toBack();*/
+		}
+	}
+	
+	
+	
+	public void closeComplaintButton(ActionEvent event)
+	{
+		/** open a new edit complaint, opens the "ManageComplaintFrame"*/
 		progressComplaintController editFrame = new progressComplaintController();
 		try {
 			editFrame.start(new Stage());
