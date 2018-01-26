@@ -1,9 +1,12 @@
 package BranchManager;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.time.Year;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 import java.util.Vector;
 
 import Users.LoginContol;
@@ -19,10 +22,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import BranchManager.Reports;
 import Customer.CatalogItemGUI;
@@ -30,6 +35,10 @@ import client.ChatClient;
 
 public class OwnReportBrowseControl  extends LoginContol  implements Initializable
 {
+
+    @FXML
+    private Label ResultLabel;
+
 	 
     @FXML
     private Button btnBrowseBranchReport;
@@ -68,12 +77,47 @@ public class OwnReportBrowseControl  extends LoginContol  implements Initializab
     private   TableColumn<Reports, Integer> ReportQuarterCol;
 
     @FXML
-    private   TableColumn<Reports, Image> ImageCol;
+    private   TableColumn<Reports, String> ImageCol;
+    
     @FXML
      private   TableColumn<Reports, String> BranchIDCol;
 
 	public static ObservableList<Reports> ReportList= FXCollections.observableArrayList();
 
+	
+
+    @FXML
+    void GetCsvFileReportFromTable(MouseEvent event) {
+    	 ObservableList<Reports> myselectedrow=tableV.getSelectionModel().getSelectedItems();
+    	 ResultLabel.setText(myselectedrow.get(0).getCsvFILE()+"");  
+    	System.out.println("mouse !!!!"); 
+    	ReadCsvReport(myselectedrow.get(0).getCsvFILE());
+    }
+    
+    void ReadCsvReport(String ReportCsvFile)
+    {
+    	String filename =    ReportCsvFile;
+
+	     File file =new File(filename);
+	     try {
+	    	 String data = null ,ViewReportInfo="" ;
+	    	 Scanner inputStream =new Scanner(file);
+	    	 while(inputStream.hasNext()){
+	    		   data=inputStream.next();
+	    		   ViewReportInfo=ViewReportInfo+data+"\n";
+	    		 System.out.println(data+"\n");
+	    		 
+	    	 }
+	    	 ResultLabel.setText(ViewReportInfo);
+
+	     }
+	     catch(FileNotFoundException e)
+	     {
+   		 System.out.println("Src File Error");
+
+	     }
+    }
+	
 	 @FXML 
     void BrowseBranchReport(ActionEvent event) {
     	
@@ -160,13 +204,11 @@ public class OwnReportBrowseControl  extends LoginContol  implements Initializab
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
 		
-		
-
-		// TODO Auto-generated method stub
+		 
 		 ReportTypeCol.setCellValueFactory(new PropertyValueFactory<Reports, Integer>("ReportType"));
 	       ReportYearCol.setCellValueFactory(new PropertyValueFactory<Reports, Year>("ReportYear"));
 	      ReportQuarterCol.setCellValueFactory(new PropertyValueFactory<Reports, Integer>("ReportQuarter"));
-	    //  ImageCol.setCellValueFactory(new PropertyValueFactory<Reports, Image>("Image"));
+	     ImageCol.setCellValueFactory(new PropertyValueFactory<Reports, String>("Image"));
 	     BranchIDCol.setCellValueFactory(new PropertyValueFactory<Reports, String>("BranchID")); 
 	     tableV.setItems(ReportList);
 	}

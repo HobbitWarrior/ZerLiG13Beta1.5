@@ -47,7 +47,7 @@
       <Button fx:id="btnHome" layoutX="745.0" layoutY="15.0" mnemonicParsing="false" onAction="#goHome" opacity="0.01" prefHeight="38.0" prefWidth="82.0" text="btnHome" />
       <Button fx:id="btnAccount" layoutX="563.0" layoutY="15.0" mnemonicParsing="false" opacity="0.01" prefHeight="38.0" prefWidth="87.0" text="btnAccount" />
       <Button fx:id="btnLogout" layoutX="539.0" layoutY="14.0" mnemonicParsing="false" onAction="#logoutEvent" opacity="0.01" prefHeight="38.0" prefWidth="97.0" text="btnLogout" />
-      <TableView fx:id="tableV" layoutX="106.0" layoutY="358.0" prefHeight="229.0" prefWidth="407.0">
+      <TableView fx:id="tableV" layoutX="106.0" layoutY="358.0" onMouseClicked="#GetCsvFileReportFromTable" prefHeight="229.0" prefWidth="407.0">
         <columns>
           <TableColumn fx:id="ReportTypeCol" prefWidth="75.0" text="ReportType" />
           <TableColumn fx:id="ReportYearCol" prefWidth="89.0" text="ReportYear" />
@@ -57,5 +57,6 @@
         </columns>
       </TableView>
       <Button fx:id="btnCart" layoutX="660.0" layoutY="17.0" mnemonicParsing="false" opacity="0.01" prefHeight="38.0" prefWidth="75.0" text="btnCart" />
+      <Label fx:id="ResultLabel" layoutX="636.0" layoutY="383.0" text="Label" />
    </children>
 </AnchorPane>
