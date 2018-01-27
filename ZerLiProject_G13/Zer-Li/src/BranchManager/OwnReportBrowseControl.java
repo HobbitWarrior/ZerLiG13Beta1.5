@@ -168,11 +168,21 @@ public class OwnReportBrowseControl  extends LoginContol  implements Initializab
     void GetBranchReports(ActionEvent event) {
 
     }
-
+    
+    /**
+    * Method that colse current window and open home main window
+    * @param handler event
+    * @return This text should describe the return type and permissible range of values
+    */
     @FXML
     void goHome(ActionEvent event) {
 
     }
+
+    /**
+     * Logout event, when user click on logout button
+     * @param Action event   
+     */
 
     @FXML
     void logoutEvent(ActionEvent event) throws IOException
@@ -186,6 +196,10 @@ public class OwnReportBrowseControl  extends LoginContol  implements Initializab
 		aFrame.start(arg0);
 		
     }
+    /**
+     * Description of the function include the var of the function
+     * @param Method that opens the current window
+     */
 	public void start(Stage primaryStage) throws  IOException 
 	{		
 	   	 int port=PORT ;

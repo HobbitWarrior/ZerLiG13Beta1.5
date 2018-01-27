@@ -284,10 +284,21 @@ public class CreatePaymentAccountController extends LoginContol implements Initi
 	   
     }
 
+    
+    /**
+    * Method that colse current window and open home main window
+    * @param handler event
+    * @return This text should describe the return type and permissible range of values
+    */
     @FXML
     void goHome(ActionEvent event) {
 
     }
+
+    /**
+     * Logout event, when user click on logout button
+     * @param Action event   
+     */
 
     @FXML
     void logoutEvent(ActionEvent event) throws IOException
@@ -301,7 +312,10 @@ public class CreatePaymentAccountController extends LoginContol implements Initi
 		aFrame.start(arg0);
 		
     }
-    
+    /**
+     * Description of the function include the var of the function
+     * @param Method that opens the current window
+     */
 	public void start(Stage primaryStage) throws IOException 
 	{		
 		Parent root = FXMLLoader.load(getClass().getResource("/BranchManager/NewPaymentAccountFrame.fxml"));
