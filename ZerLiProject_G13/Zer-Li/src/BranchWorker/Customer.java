@@ -14,6 +14,18 @@ public class Customer implements Serializable {
 	String  address;
 	String  email;
 	int  phoneNumber;
+	
+	public Customer(int customerID, String customerName, String customerlastName, String address, String email,
+			int phoneNumber) {
+		super();
+		this.customerID = customerID;
+		this.customerName = customerName;
+		this.customerlastName = customerlastName;
+		this.address = address;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+	}
+	
 	public int getCustomerID() {
 		return customerID;
 	}
@@ -50,16 +62,7 @@ public class Customer implements Serializable {
 	public void setPhoneNumber(int phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	public Customer(int customerID, String customerName, String customerlastName, String address, String email,
-			int phoneNumber) {
-		super();
-		this.customerID = customerID;
-		this.customerName = customerName;
-		this.customerlastName = customerlastName;
-		this.address = address;
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-	}
+
 	@Override
 	public String toString() {
 		return "Customer [customerID=" + customerID + ", customerName=" + customerName + ", customerlastName="
