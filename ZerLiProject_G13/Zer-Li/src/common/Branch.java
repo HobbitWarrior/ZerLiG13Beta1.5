@@ -16,7 +16,7 @@ public class Branch implements Serializable
 	 * constructor of branch
 	 * @param branchID id of branch
 	 * @param branchName name of branch
-	 * @param brancAdress adress of branch
+	 * @param brancAdress address of branch
 	 */
 	public Branch(String branchID, String branchName, String brancAdress)
 	{
@@ -52,7 +52,7 @@ public class Branch implements Serializable
 	}
 	/**
 	 * setter of address of branch
-	 * @param brancAdress string new adress  
+	 * @param brancAdress string new address  
 	 */
 	public void setBrancAdress(String brancAdress) {
 		this.brancAdress = brancAdress;
