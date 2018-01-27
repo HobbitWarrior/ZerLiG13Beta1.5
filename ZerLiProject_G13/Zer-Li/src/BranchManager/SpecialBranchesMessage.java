@@ -13,7 +13,7 @@ public class SpecialBranchesMessage implements Serializable {
 	private ArrayList<Branch> allBranches = new ArrayList<Branch>();
 	private ArrayList<BranchManager> allBranchManagers = new ArrayList<BranchManager>();
 
-	public SpecialBranchesMessage() {
+	public SpecialBranchesMessage() { 
 
 	}
 /** a getter method that returns all the current branches.
