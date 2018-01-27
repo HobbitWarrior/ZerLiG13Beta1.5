@@ -1296,8 +1296,12 @@ public class EchoServer extends AbstractServer implements Initializable {
 	}
 
 	// *****************************************************************************************************************************************************************************
+	/** this methods responsible on saving data in catalog/custom item tables
+	 * 
+	 * @param myOrder
+	 */
 	private void saveItemInOrderOnCatalogCustomProducts(CustomerTransaction myOrder) // this method will be continued
-	{ /** this methods responsible on saving data in catalog/custom item tables */
+	{ 
 		System.out.println("Server prepare to save on CustomerOrderTable");
 		int OrderID = myOrder.getOrderID();
 		int customerID = myOrder.getCustomerID();
@@ -1360,7 +1364,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 				int ItemID = rs.getInt(1);
 				Integer itemID_db = new Integer(ItemID);
-				allCustomItemsID.add(itemID_db); // here we get all itemsId in order to preven duplicant id
+				allCustomItemsID.add(itemID_db); // here we get all itemsId in order to prevent duplications of the id
 			}
 
 			rs.close();
@@ -1723,8 +1727,10 @@ public class EchoServer extends AbstractServer implements Initializable {
 	}
 
 	// ***********************************************************************************************************************************************************************************
+	/*** this method return prices for item in specific branch
+	 *  */
 	private ArrayList<CatalogItem> PutOutAllBranchCatalogItems(ArrayList<CatalogItem> catalogItemsFromDB,
-			String branchID) { /** this method return prices for item in specific branch */
+			String branchID) { 
 		Statement st = null;
 
 		try {
@@ -1809,7 +1815,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 	// ***********************************************************************************************************************************************************************************
 
-	// this method get all information from the DB and sent it to the comboBox of
+	// this method get all information from the DB and sends it to the comboBox of
 	// the clientGUI
 	private ArrayList<User> PutOutAllUsers(ArrayList<User> UsersFromDB) throws SQLException {
 
@@ -2414,6 +2420,13 @@ public class EchoServer extends AbstractServer implements Initializable {
 	}
 
 	// ***********************************************************************************************************************************************************************************
+	/**connect To the database Method
+	 * 
+	 * @param UserName
+	 * @param Password
+	 * @param DataBaseName
+	 * @return	 Connection on success
+	 */
 	protected Connection connectToDB(String UserName, String Password, String DataBaseName) {
 		Connection ServerDataBase = null;
 		try {
