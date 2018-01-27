@@ -837,72 +837,96 @@ public class EchoServer extends AbstractServer implements Initializable {
 		// Complaints----------------------------------------------------
 
 		// inserts a new complaint into the DB
-		if (msg instanceof complaint) {
-			complaint cmp = (complaint) msg;
-			if (cmp.newComplaint) {
+				if (msg instanceof complaint) {
+					complaint cmp = (complaint) msg;
+					if (cmp.newComplaint) {
 
-				try {
-					System.out.println("inserting a new complaint");
-					System.out.println("complaintID" +cmp.getComplaintID()+" "+cmp.getCustomerID()+" "+cmp.getDateComplaint()+" "+cmp.getDetails()+" "+cmp.getEmpHandling()+" "+cmp.getStatus()+" "+cmp.getTimeComplaint()+" "+cmp.getTopic());
-					// insert the data into the table
-					Statement statementquery = (Statement) ServerDataBase.createStatement(); // query to check if
-																								// table
-																								// filled
+						try {
+							System.out.println("inserting a new complaint");
 
-					PreparedStatement ps1 = ServerDataBase
-							.prepareStatement("INSERT INTO complaints VALUES (?,?,?,?,?,?,?)");
+							/*
+							 * generate a new complaint ID, it extracts the current complaint ids, and
+							 * increments tha id counter by 1 and sets it to be the new id
+							 */
+							Statement complaintIDsQuery = (Statement) ServerDataBase.createStatement(); // query to check if
+							// table
+							// filled
 
-					//generate random complaint number, whithin the range of 999-99999
-					Random rn = new Random();
-					int randomComplaintID = rn.nextInt(9999-999) + 999;
-					ps1.setInt(1, randomComplaintID);
-					ps1.setString(2, Integer.toString(cmp.getCustomerID()));
-					ps1.setString(3, Integer.toString(cmp.getEmpHandling()));
-					ps1.setString(4, cmp.getTopic());
-					ps1.setString(5, cmp.getTimeComplaint());
-					ps1.setString(6, cmp.getDateComplaint());
-					ps1.setString(7, cmp.getStatus());
-					ps1.executeUpdate();
-					ps1.close();
+							PreparedStatement idsQuery = ServerDataBase.prepareStatement("SELECT ComplaintID FROM complaints");
+							ResultSet rs = idsQuery.executeQuery();
+							ArrayList<Integer> ids = new ArrayList<Integer>();
+							while (rs.next())
+								ids.add(rs.getInt(1));
+							// get the id with the max id value
+							int max = Collections.max(ids);
+							int newID = ++max;
+							// get current date and time, to record the complaints opening timestamp:
+							DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+							java.util.Date date = new java.util.Date();
+							DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+							java.util.Date time = new java.util.Date();
+							System.out.println("the new ID is: " + newID + "the current date is: " + dateFormat.format(date)
+									+ timeFormat.format(time));
 
-					statementquery.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-				return;
-			} else {
-				System.out.println("starting to handle a request for updating a complaint");
-				complaint c = (complaint) msg;
-				if (c != null) {
+							System.out.println("complaintID" + newID + " " + cmp.getCustomerID() + " " + dateFormat.format(time)
+							+ " " + cmp.getDetails() + " " + cmp.getEmpHandling() + " " + cmp.getStatus() + " "
+							+ timeFormat.format(date) + " " + cmp.getTopic());
+							// insert the data into the table
+							Statement statementquery = (Statement) ServerDataBase.createStatement(); // query to check if
+										 																// table
+																										// filled
 
-					try {
-						String selectStatement = "UPDATE complaints SET Topic= ? , Status= ? WHERE ComplaintID= ? AND CustomerID= ? AND EmpHendelingID= ?";
-						// 1 2 3 4 5 6 7
-						PreparedStatement statement = ServerDataBase.prepareStatement(selectStatement);
-						System.out.println("complaint info:" + c.getTopic() + " " + c.getTimeComplaint() + " "
-								+ c.getDateComplaint() + " " + c.getStatus() + " " + c.getComplaintID() + " "
-								+ c.getCustomerID() + " " + c.getEmpHandling());
-						statement.setString(1, c.getTopic());
-						// statement.setString(2, c.getTimeComplaint());
-						// statement.setString(3, c.getDateComplaint());
-						statement.setString(2, c.getStatus());
-						statement.setInt(3, c.getComplaintID());
-						statement.setInt(4, c.getCustomerID());
-						statement.setInt(5, c.getEmpHandling());
-						int i = statement.executeUpdate();
-						System.out.println("Edited " + i + " rows");
-						statement.close();
+							PreparedStatement ps1 = ServerDataBase
+									.prepareStatement("INSERT INTO complaints VALUES (?,?,?,?,?,?,?)");
+							ps1.setInt(1, newID);
+							ps1.setString(2, Integer.toString(cmp.getCustomerID()));
+							ps1.setString(3, Integer.toString(cmp.getEmpHandling()));
+							ps1.setString(4, cmp.getTopic());
+							ps1.setString(5, timeFormat.format(date));
+							ps1.setString(6, dateFormat.format(time));
+							ps1.setString(7, "open");
+							ps1.executeUpdate();
+
+							ps1.close();
+
+							statementquery.close();
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
 						return;
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					} else {
+						System.out.println("starting to handle a request for updating a complaint");
+						complaint c = (complaint) msg;
+						if (c != null) {
+
+							try {
+								String selectStatement = "UPDATE complaints SET Topic= ? , Status= ? WHERE ComplaintID= ? AND CustomerID= ? AND EmpHendelingID= ?";
+								// 1 2 3 4 5 6 7
+								PreparedStatement statement = ServerDataBase.prepareStatement(selectStatement);
+								System.out.println("complaint info:" + c.getTopic() + " " + c.getTimeComplaint() + " "
+										+ c.getDateComplaint() + " " + c.getStatus() + " " + c.getComplaintID() + " "
+										+ c.getCustomerID() + " " + c.getEmpHandling());
+								statement.setString(1, c.getTopic());
+								// statement.setString(2, c.getTimeComplaint());
+								// statement.setString(3, c.getDateComplaint());
+								statement.setString(2, c.getStatus());
+								statement.setInt(3, c.getComplaintID());
+								statement.setInt(4, c.getCustomerID());
+								statement.setInt(5, c.getEmpHandling());
+								int i = statement.executeUpdate();
+								System.out.println("Edited " + i + " rows");
+								statement.close();
+								return;
+							} catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+
+							}
+						}
 
 					}
+					return;
 				}
-
-			}
-			return;
-		}
 		
 		if (msg instanceof complaintProgress) {
 			complaintProgress cp = (complaintProgress) msg;
