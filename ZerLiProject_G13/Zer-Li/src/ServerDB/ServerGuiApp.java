@@ -36,7 +36,11 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
-
+/**
+ * main class that run server
+ * @author team 13
+ *
+ */
 public class ServerGuiApp extends Application
 {
 
