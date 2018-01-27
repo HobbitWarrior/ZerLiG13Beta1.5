@@ -793,16 +793,10 @@ public class EchoServer extends AbstractServer implements Initializable {
 		if (msg instanceof complaint) {
 			complaint cmp = (complaint) msg;
 			if (cmp.newComplaint) {
-				// make sure the data is valid
-				if (cmp.getComplaintID() < 1 || cmp.getCustomerID() < 1 || cmp.getDateComplaint().isEmpty()
-						|| cmp.getEmpHandling() < 1 || cmp.getStatus().isEmpty() || cmp.getTimeComplaint().isEmpty()
-						|| cmp.getTopic().isEmpty() || cmp.getDetails().isEmpty()) {
-					System.out.println("Illegal Complaint record entry\nCould not insert to DB");
-					return;
-				}
 
 				try {
 					System.out.println("inserting a new complaint");
+					System.out.println("complaintID" +cmp.getComplaintID()+" "+cmp.getCustomerID()+" "+cmp.getDateComplaint()+" "+cmp.getDetails()+" "+cmp.getEmpHandling()+" "+cmp.getStatus()+" "+cmp.getTimeComplaint()+" "+cmp.getTopic());
 					// insert the data into the table
 					Statement statementquery = (Statement) ServerDataBase.createStatement(); // query to check if
 																								// table
