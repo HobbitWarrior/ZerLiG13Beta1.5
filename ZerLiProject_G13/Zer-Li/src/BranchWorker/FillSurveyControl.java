@@ -91,7 +91,8 @@ import BranchManager.ordersReportEntry;
  * contains filling customer satisfaction survey
  * @author Sharon & Elias
  */
-public class FillSurveyControl extends LoginContol implements Initializable {
+public class FillSurveyControl extends LoginContol implements Initializable 
+{
 	 private static final satisfactionSurvey NULL = null;
 	 public static ObservableList<Integer> ListNumbers= FXCollections.observableArrayList();
 	 
