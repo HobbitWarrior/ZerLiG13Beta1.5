@@ -66,6 +66,10 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import BranchManager.PaymentAccount;
 
+/**
+ * this class show window of creation of new payment account
+ * @author Elias qubety
+ */
 public class CreatePaymentAccountController extends LoginContol implements Initializable
 {
 	public static ObservableList<String> PaymentType= FXCollections.observableArrayList();
@@ -178,6 +182,10 @@ public class CreatePaymentAccountController extends LoginContol implements Initi
     	
     }
 
+    /***
+     * this method save new payment account on database
+     * @param event ActionEvent click on button
+     */
     @FXML
     void SaveOnDB(ActionEvent event) {
    //  System.out.println("aaaa");
@@ -309,6 +317,11 @@ public class CreatePaymentAccountController extends LoginContol implements Initi
      * @param Action event   
      */
 
+    /**
+     * this method making logout from the system
+     * @param event ActionEvent click on button
+     * @throws IOException when loading of login window failed
+     */
     @FXML
     void logoutEvent(ActionEvent event) throws IOException
     {
