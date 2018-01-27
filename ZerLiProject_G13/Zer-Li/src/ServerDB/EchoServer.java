@@ -894,9 +894,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 			return;
 
 		}
-		
-		
-		
+
 		if(msg instanceof closingComplaint)
 		{
 			closingComplaint cc=(closingComplaint)msg;
@@ -933,6 +931,42 @@ public class EchoServer extends AbstractServer implements Initializable {
 			
 			
 		}
+		
+		if(msg instanceof expertReport)
+		{
+			expertReport er=(expertReport)msg;
+			try {
+				System.out.println("Inserting a new expert report");
+				// insert the data into the table
+				Statement statementquery = (Statement) ServerDataBase.createStatement(); // query to check if
+																							// table
+																							// filled
+
+				PreparedStatement ps1 = ServerDataBase.prepareStatement(
+						"INSERT INTO expertsreports (ExpertID, SurveyQarter, SurveyYear, SurveyReport) VALUES (? , ? , ? , ? )");
+
+				// INSERT INTO complaints VALUES (?,?,?,?,?,?,?);
+				// (`ComplaintID`, `CustomerID`, `EmpHendelingID`, `Topic`, `TimeComplaint`,
+				// `DateComplaint`, `Status`) VALUES
+
+				ps1.setInt(1, er.getExpertID());
+				ps1.setInt(2, er.getQuarter());
+				ps1.setInt(3, er.getYear());
+				ps1.setString(4, er.getReport());
+				int i=ps1.executeUpdate();
+				System.out.println("save a new report, rows affected: "+i);
+				ps1.close();
+
+				statementquery.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return;
+			
+			
+			
+		}
+	
 		// -----------------------------------------------------------//
 
 	} // end of handleMessageFromClient
