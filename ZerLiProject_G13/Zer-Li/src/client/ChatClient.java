@@ -51,6 +51,14 @@ import Expert.SurveyAnalayzingControl;
 import Users.LoginContol;
 import Users.User;
 
+/**
+ * the following class represents the client, All the requests and responses to
+ * the server are handled here. The core communication of the client side
+ * application is done here.
+ * 
+ * @author Sharon,Haim,Elias and Alex
+ *
+ */
 public class ChatClient extends AbstractClient {
 	// Instance variables **********************************************
 	private LoginContol login;
@@ -121,7 +129,7 @@ public class ChatClient extends AbstractClient {
 				quit();
 				return;
 			}
-
+			// handle a User resposne from the server
 			if (ServerMsg.getMsgType().equals("User")) {
 				ArrayList<User> AllUsersFromServer = (ArrayList<User>) ServerMsg.getMsgObject();
 				for (int i = 0; i < AllUsersFromServer.size(); i++) {
@@ -878,7 +886,7 @@ public class ChatClient extends AbstractClient {
 	}
 
 	public void sendRequestToGetAllCatalogItemsOfBranch(
-			String chosenBranchID) { /** this method ask from server to get all catalog items of branch */
+			String chosenBranchID) { /** this method asks from server to get all catalog items of branch */
 		MessgaeCatalogProduct getCatalog = new MessgaeCatalogProduct(chosenBranchID);
 
 		try {
@@ -981,13 +989,6 @@ public class ChatClient extends AbstractClient {
 		}
 	}
 
-	/**
-	 * the following method will request from the server to send all the current
-	 * active complaints from the DB
-	 * 
-	 * @param customerMainWindow
-	 */
-
 	public void setMainCustomerControler(CustomerMainWindow customerMainWindow) {
 		this.mainCustomerWindow = customerMainWindow;
 	}
@@ -1075,7 +1076,11 @@ public class ChatClient extends AbstractClient {
 
 	}
 
-	// ---- Send Request to Server To Save Survey Result
+	/**
+	 * Send Request to Server To Save Survey Result
+	 * 
+	 * @param surveyAVG
+	 */
 	public void sendRequestToSaveSurveyResult(satisfactionSurvey surveyAVG) {
 
 		try {
@@ -1095,15 +1100,16 @@ public class ChatClient extends AbstractClient {
 
 	}
 
+	/***
+	 * <h1>send a request to update a complaint</h1>
+	 * <p>
+	 * sends a request to the server to update a complaint entry
+	 * 
+	 * @author Alex
+	 *         </p>
+	 **/
+
 	public void sendRequestUpdateComplaint(complaint c) {
-		/***
-		 * <h1>send a request to update a complaint</h1>
-		 * <p>
-		 * sends a request to the server to update a complaint entry
-		 * 
-		 * @author Alex
-		 *         </p>
-		 **/
 
 		try {
 			this.openConnection();
@@ -1122,17 +1128,15 @@ public class ChatClient extends AbstractClient {
 
 	}
 
-	
-	public void sendREquestForANewReport(expertReport er)
-	{
-		/***
-		 * <h1>send a request to create a new report filled by an expert</h1>
-		 * <p>
-		 * 
-		 * 
-		 * @author Alex
-		 *         </p>
-		 **/
+	/***
+	 * <h1>send a request to create a new report filled by an expert</h1>
+	 * <p>
+	 * 
+	 * 
+	 * @author Alex
+	 *         </p>
+	 **/
+	public void sendREquestForANewReport(expertReport er) {
 
 		try {
 			this.openConnection();
@@ -1150,17 +1154,18 @@ public class ChatClient extends AbstractClient {
 		}
 
 	}
-	
-	public void SendARequestForANewComplaint(complaint c) {
-		/***
-		 * <h1>send a request to update a complaint</h1>
-		 * <p>
-		 * sends a request to the server to update a complaint entry
-		 * 
-		 * @author Alex
-		 *         </p>
-		 **/
 
+	/***
+	 * <h1>send a request to update a complaint</h1>
+	 * <p>
+	 * sends a request to the server to update a complaint entry
+	 * 
+	 * @author Alex
+	 * @param complaint
+	 *            c
+	 *            </p>
+	 **/
+	public void SendARequestForANewComplaint(complaint c) {
 		try {
 			this.openConnection();
 		}
@@ -1177,21 +1182,20 @@ public class ChatClient extends AbstractClient {
 		}
 
 	}
-	
-	
-	
+
+	/***
+	 * <h1>send request for a new quarterly report</h1>
+	 * <p>
+	 * this method asks the survey to generate a new quarterly report no @param
+	 * none @return none @author Alex
+	 * </p>
+	 ***/
+
 	public void sendRequestForANewQuarterlySurvey() {
-		/***
-		 * <h1>send request for a new quarterly report</h1>
-		 * <p>
-		 * this method asks the survey to generate a new quarterly report no @param
-		 * none @return none @author Alex
-		 * </p>
-		 ***/
 
 		try {
 			this.openConnection();
-			
+
 		}
 
 		catch (IOException e1) {
@@ -1206,19 +1210,21 @@ public class ChatClient extends AbstractClient {
 		}
 
 	}
-	public void sendRequestSaveProgress(complaintProgress cp)
-	{
-		/***
-		 * <h1>send request to add a new progress for a complaint</h1>
-		 * <p>
-		 * this method asks asks to add a new entry in the progress complaint table 
-		 *  @return none  @param complaintProgress @author Alex
-		 * </p>
-		 ***/
+
+	/***
+	 * <h1>send request to add a new progress for a complaint</h1>
+	 * <p>
+	 * this method asks asks to add a new entry in the progress complaint table
+	 * 
+	 * @return none @param complaintProgress @author Alex
+	 *         </p>
+	 ***/
+
+	public void sendRequestSaveProgress(complaintProgress cp) {
 
 		try {
 			this.openConnection();
-			
+
 		}
 
 		catch (IOException e1) {
@@ -1232,20 +1238,20 @@ public class ChatClient extends AbstractClient {
 
 		}
 	}
-	
-	public void sendRequestSaveAndCloseComplaint(closingComplaint cc)
-	{
-		/***
-		 * <h1>send request to add a new progress for a complaint</h1>
-		 * <p>
-		 * this method asks asks to add a new entry in the progress complaint table 
-		 *  @return none  @param complaintProgress @author Alex
-		 * </p>
-		 ***/
+
+	/***
+	 * <h1>send request to add a new progress for a complaint</h1>
+	 * <p>
+	 * this method asks asks to add a new entry in the progress complaint table
+	 * 
+	 * @return none @param complaintProgress @author Alex
+	 *         </p>
+	 ***/
+	public void sendRequestSaveAndCloseComplaint(closingComplaint cc) {
 
 		try {
 			this.openConnection();
-			
+
 		}
 
 		catch (IOException e1) {
@@ -1259,6 +1265,5 @@ public class ChatClient extends AbstractClient {
 
 		}
 	}
-
 
 }
