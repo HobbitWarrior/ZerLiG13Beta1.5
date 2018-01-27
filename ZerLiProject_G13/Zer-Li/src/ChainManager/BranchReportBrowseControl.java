@@ -44,7 +44,7 @@ public class BranchReportBrowseControl  extends LoginContol  implements Initiali
 	  
 	public static ObservableList<Reports> ReportList= FXCollections.observableArrayList();
 	Series<Object, Object> set1;
-	private static float  q1=1,q2=2,q3=3,q4=4,q5=5,q6=6;
+	private static float  q1=0,q2=0,q3=0,q4=0,q5=5,q6=0;
 	   @FXML
 	    private BarChart<Object, Object> SurveyAVG;
 
@@ -105,7 +105,7 @@ public class BranchReportBrowseControl  extends LoginContol  implements Initiali
      * Method that get the selection row from the
      * report table and get the csv file path and 
      * send it to ReadCsvReport function.
-     * @param MouseEvent    that describe click mouse action
+     * @param event    that describe click mouse action
       */
     @FXML
     void GetCsvFileReportFromTable(MouseEvent event) {
