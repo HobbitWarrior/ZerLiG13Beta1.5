@@ -62,7 +62,11 @@ public class complaintEntry {
 	public void setCustomerID(int customerID) {
 		CustomerID.setValue(customerID);
 	}
-	public SimpleIntegerProperty getEmpHandlingID() {
+	public SimpleStringProperty getEmpHandlingIDString() {
+		return new SimpleStringProperty(String.valueOf(EmpHandlingID.getValue()));
+	}
+	public SimpleIntegerProperty getEmpHandlingID()
+	{
 		return EmpHandlingID;
 	}
 	public void setEmpHandlingID(int empHandlingID) {

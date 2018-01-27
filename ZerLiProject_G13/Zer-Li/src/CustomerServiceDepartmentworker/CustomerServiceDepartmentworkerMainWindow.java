@@ -41,7 +41,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.beans.binding.*;
 
-public class CustomerServiceDepartmentworkerMainWindow  extends LoginContol implements Initializable {
+public class CustomerServiceDepartmentworkerMainWindow extends LoginContol implements Initializable {
 
 	public static Stage mainStageReference;
 	public static // a version with a complaintRow class instead of a String
@@ -59,23 +59,26 @@ public class CustomerServiceDepartmentworkerMainWindow  extends LoginContol impl
 	@FXML
 	private Button GenerateNewSurvey;
 
-	 @FXML
-	    private AnchorPane MainFrame;
+	@FXML
+	private AnchorPane MainFrame;
+@FXML
+private Button FileANewReportButton;
 	static int iterations;
 
-	public static int pressedComplaintIndex=-1; 
+	public static int pressedComplaintIndex = -1;
 	// the unique key of the complaint, sent from the caller
 	public static int complaintID;
 	public static int customerServiceID;
 
-	//create a chatClient instance, for com with the server
+	// create a chatClient instance, for com with the server
 	public ChatClient cClient;
+
 	public void start(Stage primaryStage) throws IOException {
 
-		//will be used to track back to the main window
+		// will be used to track back to the main window
 		mainStageReference = primaryStage;
-		
-		ChatClient cClient=new ChatClient("localhost",5555);
+
+		ChatClient cClient = new ChatClient("localhost", 5555);
 		cClient.sendRequestForComplaintsList();
 
 		Parent root = FXMLLoader.load(getClass()
@@ -131,7 +134,7 @@ public class CustomerServiceDepartmentworkerMainWindow  extends LoginContol impl
 
 	// listview cell personalization
 	static class XCell extends ListCell<complaintRow> {
-		
+
 		HBox hbox = new HBox();
 
 		// probably all of this is redundant (AZ)
@@ -165,13 +168,13 @@ public class CustomerServiceDepartmentworkerMainWindow  extends LoginContol impl
 				button.setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
-						System.out.println(lastItem + " : " + event+"complaint index: "+lastItem.ComplaintIndex);
-						pressedComplaintIndex=lastItem.ComplaintIndex;
+						System.out.println(lastItem + " : " + event + "complaint index: " + lastItem.ComplaintIndex);
+						pressedComplaintIndex = lastItem.ComplaintIndex;
 						/*
 						 * call the edit button click from the complaintRow instance it will open a new
 						 * window or generate a new stage
 						 */
-						//get the index of the clicked button
+						// get the index of the clicked button
 						item.buttonEventHandler();
 
 					}
@@ -181,37 +184,22 @@ public class CustomerServiceDepartmentworkerMainWindow  extends LoginContol impl
 		}
 	}
 
-	@FXML
-	void KillMe(ActionEvent event) {
-		System.out.print("Life Is shit");
-
-	}
-	
-	@FXML
-	void gerateNewSurvey(ActionEvent event) throws IOException
-	{
-		System.out.println("asking the server to genrate a new survey");
-		int port = LoginContol.PORT;
-		String ip = LoginContol.ServerIP;
-		myClient = new ChatClient(ip, port); // create new client
-		myClient.sendRequestForANewQuarterlySurvey();
-	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		newComplaint.setText("New Complaint...");
-		upgradedList.add(new complaintRow("just adding an item to a static list",-1,"13:10", mainStageReference));
+		upgradedList.add(new complaintRow("just adding an item to a static list", -1, "13:10", mainStageReference));
 
 		/*
 		 * new complaintRow("this is a sad"), new complaintRow("about a list "), new
 		 * complaintRow("that its only purpose is"), new
 		 * complaintRow("to store angry customers complaints :("), new complaintRow()
 		 */
-		upgradedList.add(new complaintRow("this is a sad",-1,"17:48", mainStageReference));
-		upgradedList.add(new complaintRow("that its only purpose is",-1,"17:40", mainStageReference));
-		upgradedList.add(new complaintRow("to store angry customers complaints :(",-1, "15:35",mainStageReference));
+		upgradedList.add(new complaintRow("this is a sad", -1, "17:48", mainStageReference));
+		upgradedList.add(new complaintRow("that its only purpose is", -1, "17:40", mainStageReference));
+		upgradedList.add(new complaintRow("to store angry customers complaints :(", -1, "15:35", mainStageReference));
 		upgradedList.add(new complaintRow(mainStageReference));
-		
+
 		// point the complaintList to the observable upgradedList
 		complaintsList.setItems(upgradedList);
 		// define the cell style
@@ -221,27 +209,62 @@ public class CustomerServiceDepartmentworkerMainWindow  extends LoginContol impl
 				return new XCell();
 			}
 		});
-		
-		Button logoutBtn = (new Button ("LogoutNow"));
-	    AnchorPane.setTopAnchor (logoutBtn, 10.0); // obviously provide your own constraints
-	    AnchorPane.setRightAnchor(logoutBtn, 130.0);
-	    MainFrame.getChildren().add(logoutBtn);
-	    logoutBtn.setOpacity(0);
-	    logoutBtn.setOnAction(e->BtnLogoutPressed());
+
+		Button logoutBtn = (new Button("LogoutNow"));
+		AnchorPane.setTopAnchor(logoutBtn, 10.0); 
+		AnchorPane.setRightAnchor(logoutBtn, 130.0);
+		MainFrame.getChildren().add(logoutBtn);
+		logoutBtn.setOpacity(0);
+		logoutBtn.setOnAction(e -> BtnLogoutPressed());
+
 	}
-	private void BtnLogoutPressed()
-	{
-    	changeEntry(UserNameToCheck);
-		System.out.println("return to main menu"); 
-		MainFrame.getScene().getWindow().hide(); //hiding primary window	
+
+	@FXML
+	private void BtnLogoutPressed() {
+		changeEntry(UserNameToCheck);
+		System.out.println("return to main menu");
+		MainFrame.getScene().getWindow().hide(); // hiding primary window
 		LoginContol aFrame = new LoginContol(); // create Login Frame
 		Stage arg0 = new Stage();
 		try {
 			aFrame.start(arg0);
-		} catch (IOException e) 
-		{
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Cannot commit logout");
+		}
+	}
+
+	@FXML
+	private void openNewComlaintWindow(ActionEvent event) {
+		OpenComplaintController editFrame = new OpenComplaintController();
+		try {
+			editFrame.start(new Stage());
+		} catch (Exception e) {
+			System.out.print("Could not open an edit window\n");
+			e.printStackTrace();
+		}
+	}
+	
+	
+
+	@FXML
+	void gerateNewSurvey(ActionEvent event) throws IOException {
+		System.out.println("asking the server to genrate a new survey");
+		int port = LoginContol.PORT;
+		String ip = LoginContol.ServerIP;
+		myClient = new ChatClient(ip, port); // create new client
+		myClient.sendRequestForANewQuarterlySurvey();
+	}
+	@FXML
+	void OpenFileNewReportWindow(ActionEvent event)
+	{
+		// open a new Report window, opens the "reportController"
+		reportController editFrame = new reportController();
+		try {
+			editFrame.start(new Stage());
+		} catch (Exception e) {
+			System.out.print("Could not open an edit window\n");
+			e.printStackTrace();
 		}
 	}
 }

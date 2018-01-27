@@ -2,6 +2,9 @@ package CustomerServiceDepartmentworker;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import Users.LoginContol;
@@ -21,7 +24,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import Users.LoginContol;
 
-public class OpenComplaintController extends LoginContol implements Initializable  {
+public class OpenComplaintController extends LoginContol implements Initializable {
 	@FXML
 	public Label topic;
 	@FXML
@@ -36,17 +39,19 @@ public class OpenComplaintController extends LoginContol implements Initializabl
 	public TextField customerIDField;
 	@FXML
 	public Button create;
+	@FXML
+	public Label EmplHandlingIDLabel;
+	@FXML
+	public TextField EmpHandlingIDField;
 
-	
 	public static complaintEntry currentComplaint;
- 	
+
 	public void start(Stage primaryStage) {
 		Parent root;
 		try {
-			root = FXMLLoader
-					.load(getClass().getResource("/CustomerServiceDepartmentworker/ManageComplaintFrame.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/CustomerServiceDepartmentworker/NewComplaintsFrame.fxml"));
 			Scene scene = new Scene(root);
-			primaryStage.setTitle("Manage Open Complaint"); // name of the title of the window
+			primaryStage.setTitle("Open a Complaint"); // name of the title of the window
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (IOException e) {
@@ -58,86 +63,84 @@ public class OpenComplaintController extends LoginContol implements Initializabl
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		if(CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex!=-1)
-		{
 
-			//attach an event to the save button
-			create.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent event) {
-				System.out.println("lol that tickles");
+		// attach an event to the save button
+		create.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
 				try {
 					SaveButtonClickHandler(event);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				}
-			});
-			
+			}
+		});
 
-			int index=CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex;
-			//generate a new complaint:
-			currentComplaint=new complaintEntry();
-			//bind the gui fields
-			topicField.textProperty().bindBidirectional(currentComplaint.getTopic());
-			detailsField.textProperty().bindBidirectional(currentComplaint.getDetails());
-			customerIDField.textProperty().bindBidirectional(currentComplaint.getCustomerID());
-			topicField.textProperty().addListener((observable, oldValue, newValue) -> {
-			    System.out.println("textfield changed from " + oldValue + " to " + newValue+"     values in the currentCompliant:"+currentComplaint.getTopic().getValue());
-			});
-			//bind the GUI fields
-		//	title.textProperty().bindBidirectional(CustomerServiceDepartmentworkerMainWindow.activeComplaints.get(index).ComplaintTopicGUIGetter());
-		}
-		
-			
-			
+		int index = CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex;
+		// generate a new complaint:
+		currentComplaint = new complaintEntry();
+		// bind the gui fields
+		topicField.textProperty().bindBidirectional(currentComplaint.getTopic());
+		detailsField.textProperty().bindBidirectional(currentComplaint.getDetails());
+		customerIDField.textProperty().bindBidirectional(currentComplaint.getCustomerID());
+		EmpHandlingIDField.textProperty().bindBidirectional(currentComplaint.getEmpHandlingIDString());
+		topicField.textProperty().addListener((observable, oldValue, newValue) -> {
+			System.out.println("textfield changed from " + oldValue + " to " + newValue
+					+ "     values in the currentCompliant:" + currentComplaint.getTopic().getValue());
+		});
+		// bind the GUI fields
+		// title.textProperty().bindBidirectional(CustomerServiceDepartmentworkerMainWindow.activeComplaints.get(index).ComplaintTopicGUIGetter());
 
 	}
-	
-	
-	
-	public void SaveButtonClickHandler(ActionEvent event) throws IOException
-	{
-		//save the new data to a new complaint and send it to the server
-		complaint editedComplaint=new complaint(currentComplaint.getCompliantID().getValue(), currentComplaint.getCustomerIDInteger().getValue(), currentComplaint.getEmpHandlingID().getValue(), currentComplaint.getTopic().getValue(), currentComplaint.getTime().getValue(), currentComplaint.getDate().getValue(), currentComplaint.getStatus().getValue(), currentComplaint.getDetails().getValue());
-		//mark complaint as an edited one
-		editedComplaint.newComplaint=false;
-		
+
+	public void SaveButtonClickHandler(ActionEvent event) throws IOException {
+		// get current date and time for the new complaint
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		Date date = new Date();
+		System.out.println(dateFormat.format(date));
+		// Time
+		DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+		Date time = new Date();
+		// save the new data to a new complaint and send it to the server
+		complaint editedComplaint = new complaint(currentComplaint.getCompliantID().getValue(),
+				currentComplaint.getCustomerIDInteger().getValue(), currentComplaint.getEmpHandlingID().getValue(),
+				currentComplaint.getTopic().getValue(), timeFormat.format(time), dateFormat.format(date),
+				currentComplaint.getStatus().getValue(), currentComplaint.getDetails().getValue());
+		// mark complaint as a new one
+		editedComplaint.newComplaint = true;
+
 		int port = LoginContol.PORT;
 		String ip = LoginContol.ServerIP;
 		myClient = new ChatClient(ip, port); // create new client
-		myClient.sendRequestUpdateComplaint(editedComplaint);
+		myClient.SendARequestForANewComplaint(editedComplaint);
 	}
-	
-	
-	public void UpdateComplaintProgressButton(ActionEvent event)
-	{
-		/** open a new edit complaint, opens the "ManageComplaintFrame"*/
+
+	public void UpdateComplaintProgressButton(ActionEvent event) {
+		/** open a new edit complaint, opens the "ManageComplaintFrame" */
 		progressComplaintController editFrame = new progressComplaintController();
 		try {
 			editFrame.start(new Stage());
 		} catch (Exception e) {
 			System.out.print("Could not open an edit window\n");
 			e.printStackTrace();
-/*			if (mainstage != null)
-				mainstage.toBack();*/
+			/*
+			 * if (mainstage != null) mainstage.toBack();
+			 */
 		}
 	}
-	
-	
-	
-	public void closeComplaintButton(ActionEvent event)
-	{
-		/** opens a closing complaint report window*/
+
+	public void closeComplaintButton(ActionEvent event) {
+		/** opens a closing complaint report window */
 		closeComplaintController editFrame = new closeComplaintController();
 		try {
 			editFrame.start(new Stage());
 		} catch (Exception e) {
 			System.out.print("Could not open an edit window\n");
 			e.printStackTrace();
-/*			if (mainstage != null)
-				mainstage.toBack();*/
+			/*
+			 * if (mainstage != null) mainstage.toBack();
+			 */
 		}
 	}
 }
