@@ -65,6 +65,7 @@ public class BranchReportBrowseControl  extends LoginContol  implements Initiali
     @FXML
     private TableColumn<Reports, String> BranchIDCol;
 
+    
     @FXML
     private Button btnCart;
 
