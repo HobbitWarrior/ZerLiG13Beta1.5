@@ -87,7 +87,7 @@ public class BranchManager implements Serializable
 	}
 
 	/**
-	 * to string method, print all details of branch manager 
+	 * to string method, print all important details of branch manager 
 	 */
 	@Override
 	public String toString() {
