@@ -1132,7 +1132,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 	/**
 	 * this method bring all active survies of quarter
 	 * @param Survey empty arraylist of survies
-	 * @return full arraylist of survies
+	 * @return full array list of survies
 	 * @throws SQLException when reading of table failed
 	 */
 	private Survey getSurveyDetails(Survey surveyExist) throws SQLException //only if step = 0 
