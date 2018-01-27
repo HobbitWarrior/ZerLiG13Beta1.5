@@ -29,6 +29,7 @@ import BranchManager.Reports;
 import BranchManager.SpecialBranchesMessage;
 import BranchManager.catalogitemsofbranch;
 import BranchWorker.Customer;
+import BranchWorker.Survey;
 import BranchWorker.satisfactionSurvey;
 import Catalog.CatalogItem;
 import Customer.BranchShipment;
@@ -345,19 +346,31 @@ public class EchoServer extends AbstractServer implements Initializable {
 				return;
 			}
 			// -----------------------------------------------------------//
-			if (DiscoverMessage.contains("Please Check if step = 0")) {
+			if (DiscoverMessage.contains("Please Check if step = 0")) 
+			{
 				System.out.println("Check if step =0");
+				Survey surveyExist = new Survey();
 				boolean ansStep = false;
 				try {
 					ansStep = CheckIfStep0();
 					if (ansStep)
+					{
 						System.out.println("ansStep true");
+						surveyExist = getSurveyDetails(surveyExist);
+						System.out.println(surveyExist);
+					}
+						
+					
 					else
+					{
 						System.out.println("ansStep false");
+						surveyExist.setansStep(false);
+					}
+						
 				} catch (SQLException e) {
 					System.out.println("fail to get answer: if step = 0");
 				}
-				Message Msg = new Message(ansStep, "Answer if step is 0");
+				Message Msg = new Message(surveyExist, "Answer if step is 0");
 
 				this.sendToAllClients(Msg);
 
@@ -1087,11 +1100,31 @@ public class EchoServer extends AbstractServer implements Initializable {
 	// ********************************************************************************************************************************************************************
 	// ***********************************************************************************************************************************************************************************
 
+	private Survey getSurveyDetails(Survey surveyExist) throws SQLException //only if step = 0 
+	{
+		surveyExist.setansStep(true);
+		Statement st = (Statement) ServerDataBase.createStatement();
+		ResultSet rs = st.executeQuery("SELECT SurviesQuarter,SurviesYear from satisfactionsurvies where Step=0;");
+		while (rs.next())
+		{
+			surveyExist.setQarSurvey(rs.getInt(1));
+			surveyExist.setSurveyYear(rs.getString(2));
+		}
+		
+		System.out.println("im in getSurveyDetails func the result : " + surveyExist);
+
+		rs.close();
+		st.close();
+		
+		return surveyExist;
+	}
+	// ***********************************************************************************************************************************************************************************
+	
 	private boolean CheckIfStep0() throws SQLException {
 		Statement st = (Statement) ServerDataBase.createStatement();
 		ResultSet rs = st.executeQuery("SELECT Step from satisfactionsurvies where Step=0;");
 
-		while (rs.next()) // there is the same id in DB
+		while (rs.next())
 		{
 			return true; // step is 1 , mean the branch worker finish to fill surveys
 		}

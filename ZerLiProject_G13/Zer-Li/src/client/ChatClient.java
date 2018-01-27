@@ -27,6 +27,7 @@ import BranchManager.SpecialBranchesMessage;
 import BranchManager.catalogitemsofbranch;
 import BranchWorker.Customer;
 import BranchWorker.FillSurveyControl;
+import BranchWorker.Survey;
 import BranchWorker.satisfactionSurvey;
 import Catalog.CatalogItem;
 import ChainManager.BranchReportBrowseControl;
@@ -177,19 +178,22 @@ public class ChatClient extends AbstractClient {
 			// ************************************************************************
 			if (ServerMsg.getMsgType().contains("Answer if step is 0")) 
 			{
-				Boolean ansStepFromServer = (Boolean) ServerMsg.getMsgObject();
-				SurveyControl.stepAns = ansStepFromServer;
+				Survey ansStepQarYerFromServer = (Survey) ServerMsg.getMsgObject();
+				
+				if (ansStepQarYerFromServer.getansStep()) //there is new survey by the service department - there is step= 0  in DB
+				{
+					SurveyControl.stepAns = true;
+					SurveyControl.QarSurvey = ansStepQarYerFromServer.getQarSurvey();
+					SurveyControl.surveyYear = ansStepQarYerFromServer.getSurveyYear();					
+				}
+				else //service department did not create new survey
+				{
+					SurveyControl.stepAns = false;
+				}
+				
 
 				quit();
-				/*
-				 * Platform.runLater(new Runnable() {
-				 * 
-				 * @Override public void run() {
-				 * 
-				 * AnalayzingControl. }
-				 * 
-				 * });
-				 */
+				
 				return;
 			}
 
@@ -829,7 +833,7 @@ public class ChatClient extends AbstractClient {
 		}
 
 		try {
-			System.out.println("Send Message to get check if surveys results exist"); // step = 1 in DB
+			System.out.println("Send Message to check if surveys results exist"); // step = 1 in DB
 			String requestToCheckStep0 = "Please Check if step = 0";
 			sendToServer(requestToCheckStep0);
 		} catch (IOException e) {
