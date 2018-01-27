@@ -2119,7 +2119,12 @@ public class EchoServer extends AbstractServer implements Initializable {
 	}
 
 	// ***********************************************************************************************************************************************************************************
-    private static void writeBytesToFileClassic(byte[] bFile, String fileDest) {
+   /**
+    * this method write  a file to server hard disk
+    * @param bFile array bytes
+    * @param fileDest the path on server hard disk
+    */
+	private static void writeBytesToFileClassic(byte[] bFile, String fileDest) {
 
         FileOutputStream fileOuputStream = null;
 
@@ -2141,7 +2146,11 @@ public class EchoServer extends AbstractServer implements Initializable {
 
     }
 	// ***********************************************************************************************************************************************************************************
-	public synchronized void addItemInDB(CatalogItem givenItem) {
+	/**
+	 * this method add new catalog item to catalog table in database
+	 * @param givenItem class catalog item
+	 */
+    public synchronized void addItemInDB(CatalogItem givenItem) {
 		
 		System.out.println("we got here -< addItemDB");
 
@@ -2196,6 +2205,10 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 	// ***********************************************************************************************************************************************************************************
 
+	/**
+	 * this method edit item in catalog, first deletes its row, and then inserts the updated row
+	 * @param givenItem class catalogItem
+	 */
 	public synchronized void editItemInDB(CatalogItem givenItem) {
 
 		deleteItemInDB(givenItem.getItemID());
@@ -2204,6 +2217,11 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 	// ***********************************************************************************************************************************************************************************
 
+	/**
+	 * check if specific catalog item id exit in catalog table
+	 * @param ItemID id of product
+	 * @return boolean false = there is no similar id, true = there is a similar id
+	 */
 	public synchronized boolean checkUniqueIDInDB(int ItemID) {
 		Statement st = null;
 
@@ -2234,6 +2252,11 @@ public class EchoServer extends AbstractServer implements Initializable {
 	// ***********************************************************************************************************************************************************************************
 
 	// Add New Payment Account to the data base
+	/**
+	 * method that create new row in databse at table of payment account
+	 * @param PA1 payment account class
+	 * @throws SQLException error if connection/insertion to database failed
+	 */
 	public synchronized void AddNewPaymentAccount(Object PA1) throws SQLException {
 		try {
 			PaymentAccount PA = (PaymentAccount) PA1;
@@ -2290,12 +2313,18 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 	}
 
+	/**
+	 *console message about connection of server
+	 */
 	// ***************************************************
 	protected void serverStarted() {
 		System.out.println("Server listening for connections on port " + getPort());
 	}
 
 	// ***************************************************
+	/**
+	 *console message about abort of server
+	 */
 	protected void serverStopped() {
 		System.out.println("Server has stopped listening for connections.");
 	}
@@ -2355,12 +2384,20 @@ public class EchoServer extends AbstractServer implements Initializable {
 		// TODO Auto-generated method stub
 
 	}
-
+	/**
+	 * getter of successful / unsuccessful connection to database
+	 * @return boolean  true = successful connection , false = unsuccessful connection
+	 */
 	public boolean getStatusDBLogin() {
 		return this.DB_ACCOUNT;
 	}
 
 	// ***********************************************************************************************************************************************************************************
+	
+	/**
+	 * prepare default catalog
+	 * @return string confirmation to server text area
+	 */
 	public String prepareCatlog() {
 		// here we prepare to take the images from their directory, it is not important
 		// where the project located, the code will find the images anyway
@@ -2471,7 +2508,11 @@ public class EchoServer extends AbstractServer implements Initializable {
 	}
 
 	// ***********************************************************************************************************************************************************************************
-
+	/**
+	 * create a file of any format
+	 * @param path the path to to file on hard disk 
+	 * @return MyFile class, contains byte array
+	 */
 	private MyFile createFile(String path) {
 		MyFile fileToCreate = new MyFile(path);
 
