@@ -5,6 +5,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * we had no time to implements this class
+ * @author team 13
+ *
+ */
 public class ManagmentControl 
 {
 	public void start(Stage primaryStage) throws Exception 
