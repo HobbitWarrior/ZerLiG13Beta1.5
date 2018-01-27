@@ -52,7 +52,7 @@ public class Branch implements Serializable
 	}
 	/**
 	 * setter of address of branch
-	 * @param brancAdress string
+	 * @param brancAdress string new adress 
 	 */
 	public void setBrancAdress(String brancAdress) {
 		this.brancAdress = brancAdress;
