@@ -28,6 +28,14 @@ import client.Message;
  */
 public class ReportHandler  extends LoginContol {
  
+	
+	/** 
+	 * Method that generate reports in the quarter[1 or 2 or 3 or 4]
+	 * reports type[1-revenue | 2-complaint | 3-order | 4-survey]
+	 * @author Elias, Alex
+	 *
+	 */
+	
 	@SuppressWarnings("deprecation")
 	public void generateQuarterItemsReport(Connection serverDataBase, int quarterNum) {
 
