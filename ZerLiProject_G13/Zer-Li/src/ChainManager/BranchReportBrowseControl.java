@@ -105,7 +105,7 @@ public class BranchReportBrowseControl  extends LoginContol  implements Initiali
      * Method that get the selection row from the
      * report table and get the csv file path and 
      * send it to ReadCsvReport function.
-     * @param event    that describe click mouse action
+     * @param event that describe click mouse action
       */
     @FXML
     void GetCsvFileReportFromTable(MouseEvent event) {
@@ -131,6 +131,14 @@ public class BranchReportBrowseControl  extends LoginContol  implements Initiali
     		}
     	
      }
+	
+	/**
+     * Method that read the csvFile column 
+     * by column and get the average of 
+     * survey questions and insert the values 
+     * into the graph 
+     * @param csvFILE that describe path of Csv File 
+      */
     private void ReadCsvReportToGraph(String csvFILE) {
     	String filename =    csvFILE;
       
@@ -193,10 +201,11 @@ public class BranchReportBrowseControl  extends LoginContol  implements Initiali
 	     SurveyAVG.getData().addAll(set1);
 		
 	}
-	/**
-     * Method that get CsvFile path and read it
-     * line by line and view the report into [SelfBrowseReportFrame.fxml]  
-     * @param String that describe the Csv file source
+    /**
+     * Method that read the csvFile row
+     * by row and get the report[csvfile]
+     * results and view it in the current windows
+     * @param ReportCsvFile that describe path of Csv File 
       */
     void ReadCsvReport(String ReportCsvFile)
     {
@@ -265,6 +274,7 @@ public class BranchReportBrowseControl  extends LoginContol  implements Initiali
 		aFrame.start(arg0);
 		
     }
+    
 	public void start(Stage primaryStage) throws  IOException 
 	{		
 	   	 int port=PORT ;
