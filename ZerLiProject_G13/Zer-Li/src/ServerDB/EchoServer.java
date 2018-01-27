@@ -2377,7 +2377,11 @@ public class EchoServer extends AbstractServer implements Initializable {
 	}
 
 	// ***********************************************************************************************************************************************************************************
-	// Add Survey Information to the data base
+	/**
+	 * Add Survey Information to the data base
+	 * @param OB object of satisfactionSurvey -includs the details of the survey
+	 * @throws SQLException error if connection/insertion to database failed
+	 */
 	public synchronized void SavesatisfactionSurveyInfo(Object OB) throws SQLException {
 		satisfactionSurvey mysatSurvey = (satisfactionSurvey) OB;
 		Statement st = null;
@@ -2414,53 +2418,6 @@ public class EchoServer extends AbstractServer implements Initializable {
 		System.out.println("Server has stopped listening for connections.");
 	}
 
-	// ***********************************************************************************************************************************************************************************
-
-	/*
-	 * !!!!!!! this are methoods from the prototype !!!!!!!!
-	 * 
-	 * 
-	 * 
-	 * public synchronized PreparedStatement parsingTheData(Connection dbh,
-	 * ArrayList<String> List) { PreparedStatement ps = null; try { ps =
-	 * dbh.prepareStatement(" UPDATE Product SET ProductID=? WHERE ProductName=?;");
-	 * ps.setString(1, List.get(1)); ps.setString(2, List.get(0));
-	 * 
-	 * ps.executeUpdate();
-	 * 
-	 * ps =
-	 * dbh.prepareStatement(" UPDATE Product SET ProductName=? WHERE ProductName=?;"
-	 * ); ps.setString(1, List.get(2)); ps.setString(2, List.get(0));
-	 * 
-	 * ps.executeUpdate();
-	 * 
-	 * ps =
-	 * dbh.prepareStatement(" UPDATE Product SET ProductType=? WHERE ProductName=?;"
-	 * ); ps.setString(1, List.get(3)); ps.setString(2, List.get(0));
-	 * 
-	 * ps.executeUpdate();
-	 * 
-	 * }
-	 * 
-	 * catch (SQLException ex) { System.out.
-	 * print("Sorry we had  problem, could not save changes to Database\n");
-	 * this.sendToAllClients("UpdateFail"); }
-	 * this.sendToAllClients("UpdateSuccess"); return ps; }
-	 * 
-	 * 
-	 * 
-	 * 
-	 * protected void saveUserToDB(PreparedStatement ps) { try { ps.executeUpdate();
-	 * } catch (SQLException ex) {
-	 * System.out.print("Sorry we had a problem, Could not save in Database\n");
-	 * this.sendToAllClients("UpdateFail"); } this.sendToAllClients("UpdateSucces");
-	 * }
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 */
 
 	// ***********************************************************************************************************************************************************************************
 
