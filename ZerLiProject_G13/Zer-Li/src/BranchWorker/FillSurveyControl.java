@@ -224,7 +224,6 @@ public class FillSurveyControl extends LoginContol implements Initializable
   		Surveytemp.setQ6(Combo6.getValue());
   		
   		
-
         MyFillSurveyList.add(Surveytemp);
         System.out.println(""+MyFillSurveyList);
 
