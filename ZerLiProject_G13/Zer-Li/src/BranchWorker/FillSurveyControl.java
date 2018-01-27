@@ -161,7 +161,10 @@ public class FillSurveyControl extends LoginContol implements Initializable
     
     //events:
     
-    
+    /**
+     * method that show main window
+     * @param event ActionEvent click on button
+     */
     @FXML
     void goHome(ActionEvent event) 
     {
@@ -183,7 +186,11 @@ public class FillSurveyControl extends LoginContol implements Initializable
 
     }
 
-    
+    /**
+     * method that make logout from the system
+     * @param event ActionEvent click on button 
+     * @throws IOException error in opening new window
+     */
     @FXML
     void logoutEvent(ActionEvent event) throws IOException 
     {
@@ -201,7 +208,10 @@ public class FillSurveyControl extends LoginContol implements Initializable
     
 	    
 	    
-	    
+	    /**
+	     * this method prepare to save survive result on database
+	     * @param event ActionEvent of click on button
+	     */
 	    
 	    @FXML
 	    void nextFill(ActionEvent event) 
@@ -255,7 +265,10 @@ public class FillSurveyControl extends LoginContol implements Initializable
 	//  	getCustomerIdList();
 	    }
 	    
-	    
+	    /**
+	     * that method show the survie screen
+	     * @param event ActionEvent of click on button
+	     */
 	    @FXML
 	    void AddNewFill(ActionEvent event)
 	    {
@@ -293,7 +306,10 @@ public class FillSurveyControl extends LoginContol implements Initializable
 
 	    }
 
-
+	    /**
+	     * this method save the new result of current filling and merge it with other results
+	     * @param event ActionEvent click on button
+	     */
 	    @FXML
 	    void SaveOnDB(ActionEvent event) 
 	    {
@@ -359,7 +375,9 @@ public class FillSurveyControl extends LoginContol implements Initializable
 	    
 		 
 
-
+	    /**
+	     * this method checks if branch worker finish to fill surveys (step = 1 in DB table of satisfactionsurvies)
+	     */
 		
 		
 	    public void checkIfStep0() //check if branch worker finish to fill surveys (step = 1 in DB table of satisfactionsurvies)
@@ -380,7 +398,9 @@ public class FillSurveyControl extends LoginContol implements Initializable
 		 	   	
 	    }
 		
-	    
+	    /**
+	     * this method load valuse of 1 to 10 in comboboxes of answers of questions
+	     */
 		@Override
 		public void initialize(URL location, ResourceBundle resources) 
 		{
@@ -422,6 +442,16 @@ public class FillSurveyControl extends LoginContol implements Initializable
 		 
 	    }
 	    
+		
+		/**
+		 * this method add all the existing entries from the DB to the CVS file
+				each field is separated by a comma, new line with '\n'
+				currently the CSV file is saved to the main directory
+				for example C:\\
+		 * @param satisfaction satisfactionSurvey class with all answers
+		 * @param quarter integer quarter of year
+		 * @param year integer year
+		 */
 		public void writeToCSV(satisfactionSurvey satisfaction, int quarter, int year) {
 			String FileHeader = "Q1,Q2,Q3,Q4,Q5,Q6\n";
 			String csvFileName =  System.getProperty("user.dir")+"\\ZerLiProject_G13\\Zer-Li\\src\\Reports\\satisfactionSurvey_Report_" + String.valueOf(quarter) + "-" + String.valueOf(year)+".csv";
@@ -464,7 +494,14 @@ public class FillSurveyControl extends LoginContol implements Initializable
 		}
 		
 		
-		
+		/***
+		 * this method add new report to database
+		 * @param reporttype integer type of report
+		 * @param year string year
+		 * @param qar integer quarter in year
+		 * @param csvFile name of file
+		 * @param branchid id of branch
+		 */
 		public void addNewReport(int reporttype, String year ,int qar,String csvFile,String branchid )
 		{
 			Reports newReport=new Reports(reporttype,year,qar,csvFile,branchid);
@@ -485,7 +522,9 @@ public class FillSurveyControl extends LoginContol implements Initializable
 
 		}
 	
-		
+		/**
+		 * method that opent the current window
+		 */
 		public void start(Stage primaryStage) throws IOException 
 		{	
 			 
