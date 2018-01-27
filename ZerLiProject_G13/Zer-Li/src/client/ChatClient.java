@@ -533,8 +533,10 @@ public class ChatClient extends AbstractClient {
 					int currentIDtable= DiscountingOnItemsControl.catalogitemsofbranchlist.get(i).getItemID();
 					if(currentIDtable == curretnSale.getItemID())
 					{
-						DiscountingOnItemsControl.catalogitemsofbranchlist.get(i).setPrice(curretnSale.getPrice());
-						return;
+						DiscountingOnItemsControl.catalogitemsofbranchlist.remove(i);
+						//DiscountingOnItemsControl.catalogitemsofbranchlist.get(i).setPrice(curretnSale.getPrice());
+						//return;
+						break;
 					}
 				}
 				DiscountingOnItemsControl.catalogitemsofbranchlist.add(curretnSale);
