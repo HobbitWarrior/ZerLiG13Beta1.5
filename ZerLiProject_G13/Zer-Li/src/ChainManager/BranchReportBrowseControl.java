@@ -246,6 +246,7 @@ public class BranchReportBrowseControl  extends LoginContol  implements Initiali
     }
     
     
+    
     @FXML
     void BrowseReport(ActionEvent event) {
 
