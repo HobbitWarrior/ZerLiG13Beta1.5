@@ -11,7 +11,7 @@ public class CompliantReport
 	/**
 	 * constructor of complaint reports
 	 * @param countOfCompliants  integer amount of complaints
-	 * @param branchID string id of branch
+	 * @param branchID string id of  branch
 	 */
 	public CompliantReport(int countOfCompliants, String branchID) 
 	{
