@@ -339,7 +339,14 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 	    void nextFill(ActionEvent event) {
 	    	AnchorPanePickCustomer.setVisible(true);
     		AnchorPaneFillAns.setVisible(false);
-   // 		ListNumbers.clear();
+    		
+    		// set default value in comboBox
+    		Combo1.getSelectionModel().selectFirst(); 
+			Combo2.getSelectionModel().selectFirst(); 
+			Combo3.getSelectionModel().selectFirst(); 
+			Combo4.getSelectionModel().selectFirst(); 
+			Combo5.getSelectionModel().selectFirst(); 
+			Combo6.getSelectionModel().selectFirst(); 
     		
     		satisfactionSurvey Surveytemp = new satisfactionSurvey() ; 
          
@@ -506,12 +513,22 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 				customersIDList.add(customersList.get(i).getCustomerID());
 				 
 			}
-			 
-			 
+
+			
  			System.out.println(customersList);	
 
 			System.out.println(customersIDList);	
 			pickCustomerComboBox.setItems(customersIDList);
+			
+			// set default value in comboBox
+			Combo1.getSelectionModel().selectFirst(); 
+			Combo2.getSelectionModel().selectFirst(); 
+			Combo3.getSelectionModel().selectFirst(); 
+			Combo4.getSelectionModel().selectFirst(); 
+			Combo5.getSelectionModel().selectFirst(); 
+			Combo6.getSelectionModel().selectFirst(); 
+			
+			pickCustomerComboBox.getSelectionModel().selectFirst();
 		 
 	    }
 	    
