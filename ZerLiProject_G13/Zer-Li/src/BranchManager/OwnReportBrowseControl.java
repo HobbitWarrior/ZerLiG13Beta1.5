@@ -89,7 +89,12 @@ public class OwnReportBrowseControl  extends LoginContol  implements Initializab
 	public static ObservableList<Reports> ReportList= FXCollections.observableArrayList();
 
 	
-
+	/**
+     * Method that get the selection row from the
+     * report table and get the csv file path and 
+     * send it to ReadCsvReport function.
+     * @param MouseEvent    that describe click mouse action
+      */
     @FXML
     void GetCsvFileReportFromTable(MouseEvent event) {
     	 ObservableList<Reports> myselectedrow=tableV.getSelectionModel().getSelectedItems();
@@ -107,7 +112,11 @@ public class OwnReportBrowseControl  extends LoginContol  implements Initializab
     	
     	ReadCsvReport(myselectedrow.get(0).getCsvFILE());
     }
-    
+    /**
+     * Method that get CsvFile path and read it
+     * line by line and view the report into [SelfBrowseReportFrame.fxml]  
+     * @param String that describe the Csv file source
+      */
     void ReadCsvReport(String ReportCsvFile)
     {
     	String filename =    ReportCsvFile;
@@ -170,10 +179,10 @@ public class OwnReportBrowseControl  extends LoginContol  implements Initializab
     }
     
     /**
-    * Method that colse current window and open home main window
-    * @param handler event
-    * @return This text should describe the return type and permissible range of values
-    */
+     * Method that colse current window and open home main window
+     * @param handler event
+     * @return This text should describe the return type and permissible range of values
+     */
     @FXML
     void goHome(ActionEvent event) {
 
