@@ -187,18 +187,9 @@ private Button FileANewReportButton;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		newComplaint.setText("New Complaint...");
-		upgradedList.add(new complaintRow("just adding an item to a static list", -1, "13:10", mainStageReference));
+		newComplaint.setText("New Complaint");
 
-		/*
-		 * new complaintRow("this is a sad"), new complaintRow("about a list "), new
-		 * complaintRow("that its only purpose is"), new
-		 * complaintRow("to store angry customers complaints :("), new complaintRow()
-		 */
-		upgradedList.add(new complaintRow("this is a sad", -1, "17:48", mainStageReference));
-		upgradedList.add(new complaintRow("that its only purpose is", -1, "17:40", mainStageReference));
-		upgradedList.add(new complaintRow("to store angry customers complaints :(", -1, "15:35", mainStageReference));
-		upgradedList.add(new complaintRow(mainStageReference));
+		
 
 		// point the complaintList to the observable upgradedList
 		complaintsList.setItems(upgradedList);
@@ -229,7 +220,6 @@ private Button FileANewReportButton;
 		try {
 			aFrame.start(arg0);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.out.println("Cannot commit logout");
 		}
 	}

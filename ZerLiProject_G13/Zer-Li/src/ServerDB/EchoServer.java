@@ -11,6 +11,7 @@ import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -837,72 +838,96 @@ public class EchoServer extends AbstractServer implements Initializable {
 		// Complaints----------------------------------------------------
 
 		// inserts a new complaint into the DB
-		if (msg instanceof complaint) {
-			complaint cmp = (complaint) msg;
-			if (cmp.newComplaint) {
+				if (msg instanceof complaint) {
+					complaint cmp = (complaint) msg;
+					if (cmp.newComplaint) {
 
-				try {
-					System.out.println("inserting a new complaint");
-					System.out.println("complaintID" +cmp.getComplaintID()+" "+cmp.getCustomerID()+" "+cmp.getDateComplaint()+" "+cmp.getDetails()+" "+cmp.getEmpHandling()+" "+cmp.getStatus()+" "+cmp.getTimeComplaint()+" "+cmp.getTopic());
-					// insert the data into the table
-					Statement statementquery = (Statement) ServerDataBase.createStatement(); // query to check if
-																								// table
-																								// filled
+						try {
+							System.out.println("inserting a new complaint");
 
-					PreparedStatement ps1 = ServerDataBase
-							.prepareStatement("INSERT INTO complaints VALUES (?,?,?,?,?,?,?)");
+							/*
+							 * generate a new complaint ID, it extracts the current complaint ids, and
+							 * increments tha id counter by 1 and sets it to be the new id
+							 */
+							Statement complaintIDsQuery = (Statement) ServerDataBase.createStatement(); // query to check if
+							// table
+							// filled
 
-					//generate random complaint number, whithin the range of 999-99999
-					Random rn = new Random();
-					int randomComplaintID = rn.nextInt(9999-999) + 999;
-					ps1.setInt(1, randomComplaintID);
-					ps1.setString(2, Integer.toString(cmp.getCustomerID()));
-					ps1.setString(3, Integer.toString(cmp.getEmpHandling()));
-					ps1.setString(4, cmp.getTopic());
-					ps1.setString(5, cmp.getTimeComplaint());
-					ps1.setString(6, cmp.getDateComplaint());
-					ps1.setString(7, cmp.getStatus());
-					ps1.executeUpdate();
-					ps1.close();
+							PreparedStatement idsQuery = ServerDataBase.prepareStatement("SELECT ComplaintID FROM complaints");
+							ResultSet rs = idsQuery.executeQuery();
+							ArrayList<Integer> ids = new ArrayList<Integer>();
+							while (rs.next())
+								ids.add(rs.getInt(1));
+							// get the id with the max id value
+							int max = Collections.max(ids);
+							int newID = ++max;
+							// get current date and time, to record the complaints opening timestamp:
+							DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+							java.util.Date date = new java.util.Date();
+							DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+							java.util.Date time = new java.util.Date();
+							System.out.println("the new ID is: " + newID + "the current date is: " + dateFormat.format(date)
+									+ timeFormat.format(time));
 
-					statementquery.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-				return;
-			} else {
-				System.out.println("starting to handle a request for updating a complaint");
-				complaint c = (complaint) msg;
-				if (c != null) {
+							System.out.println("complaintID" + newID + " " + cmp.getCustomerID() + " " + dateFormat.format(time)
+							+ " " + cmp.getDetails() + " " + cmp.getEmpHandling() + " " + cmp.getStatus() + " "
+							+ timeFormat.format(date) + " " + cmp.getTopic());
+							// insert the data into the table
+							Statement statementquery = (Statement) ServerDataBase.createStatement(); // query to check if
+										 																// table
+																										// filled
 
-					try {
-						String selectStatement = "UPDATE complaints SET Topic= ? , Status= ? WHERE ComplaintID= ? AND CustomerID= ? AND EmpHendelingID= ?";
-						// 1 2 3 4 5 6 7
-						PreparedStatement statement = ServerDataBase.prepareStatement(selectStatement);
-						System.out.println("complaint info:" + c.getTopic() + " " + c.getTimeComplaint() + " "
-								+ c.getDateComplaint() + " " + c.getStatus() + " " + c.getComplaintID() + " "
-								+ c.getCustomerID() + " " + c.getEmpHandling());
-						statement.setString(1, c.getTopic());
-						// statement.setString(2, c.getTimeComplaint());
-						// statement.setString(3, c.getDateComplaint());
-						statement.setString(2, c.getStatus());
-						statement.setInt(3, c.getComplaintID());
-						statement.setInt(4, c.getCustomerID());
-						statement.setInt(5, c.getEmpHandling());
-						int i = statement.executeUpdate();
-						System.out.println("Edited " + i + " rows");
-						statement.close();
+							PreparedStatement ps1 = ServerDataBase
+									.prepareStatement("INSERT INTO complaints VALUES (?,?,?,?,?,?,?)");
+							ps1.setInt(1, newID);
+							ps1.setString(2, Integer.toString(cmp.getCustomerID()));
+							ps1.setString(3, Integer.toString(cmp.getEmpHandling()));
+							ps1.setString(4, cmp.getTopic());
+							ps1.setString(5, timeFormat.format(date));
+							ps1.setString(6, dateFormat.format(time));
+							ps1.setString(7, "open");
+							ps1.executeUpdate();
+
+							ps1.close();
+
+							statementquery.close();
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
 						return;
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					} else {
+						System.out.println("starting to handle a request for updating a complaint");
+						complaint c = (complaint) msg;
+						if (c != null) {
+
+							try {
+								String selectStatement = "UPDATE complaints SET Topic= ? , Status= ? WHERE ComplaintID= ? AND CustomerID= ? AND EmpHendelingID= ?";
+								// 1 2 3 4 5 6 7
+								PreparedStatement statement = ServerDataBase.prepareStatement(selectStatement);
+								System.out.println("complaint info:" + c.getTopic() + " " + c.getTimeComplaint() + " "
+										+ c.getDateComplaint() + " " + c.getStatus() + " " + c.getComplaintID() + " "
+										+ c.getCustomerID() + " " + c.getEmpHandling());
+								statement.setString(1, c.getTopic());
+								// statement.setString(2, c.getTimeComplaint());
+								// statement.setString(3, c.getDateComplaint());
+								statement.setString(2, c.getStatus());
+								statement.setInt(3, c.getComplaintID());
+								statement.setInt(4, c.getCustomerID());
+								statement.setInt(5, c.getEmpHandling());
+								int i = statement.executeUpdate();
+								System.out.println("Edited " + i + " rows");
+								statement.close();
+								return;
+							} catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+
+							}
+						}
 
 					}
+					return;
 				}
-
-			}
-			return;
-		}
 		
 		if (msg instanceof complaintProgress) {
 			complaintProgress cp = (complaintProgress) msg;
@@ -1672,10 +1697,15 @@ public class EchoServer extends AbstractServer implements Initializable {
 	}
 
 	// ***********************************************************************************************************************************************************************************
-	private CustomerTransaction saveOrderInDB(CustomerTransaction myOrder) {/**
-																			 * saveOrderInDB method responsible to save
-																			 * order information on 7 tables in db
-																			 */
+	/**
+	 * saveOrderInDB method responsible to put order id and delivery id on customer transaction
+	 * @param myOrder CustomerTransaction type with all details of order
+	 * @return CustomerTransaction with id to order and to delivery
+	 */
+	
+	
+	private CustomerTransaction saveOrderInDB(CustomerTransaction myOrder) 
+	{
 		try {
 			int randomOrderID = getRandomOrderIdFromDB();
 			System.out.println("Your random orderID: " + randomOrderID);
@@ -1703,7 +1733,13 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 	// ***********************************************************************************************************************************************************************************
 
-	private int getRandomDeliveryIdFromDB() throws SQLException {
+	/**
+	 * this method create a random id of delivery of order that not found in order table
+	 * @return int, unique delivery id
+	 * @throws SQLException if reading of the table failed
+	 */
+	private int getRandomDeliveryIdFromDB() throws SQLException 
+	{
 		Statement st = (Statement) ServerDataBase.createStatement();
 		ArrayList<Integer> allDeliveryID = new ArrayList<Integer>();
 		ResultSet rs = st.executeQuery("select * from customerorders ");
@@ -1725,6 +1761,12 @@ public class EchoServer extends AbstractServer implements Initializable {
 	}
 
 	// ***********************************************************************************************************************************************************************************
+	
+	/**
+	 * this method create a random id of order that not found in orders table
+	 * @return int, unique order id
+	 * @throws SQLException if reading of the table failed
+	 */
 	private int getRandomOrderIdFromDB() throws SQLException {
 		Statement st = (Statement) ServerDataBase.createStatement();
 		ArrayList<Integer> allOrdersID = new ArrayList<Integer>();
@@ -1747,6 +1789,16 @@ public class EchoServer extends AbstractServer implements Initializable {
 	}
 
 	// ***********************************************************************************************************************************************************************************
+	/**
+	 * this method check if account exist and if the branch id compatible between the one in database to the chosen one that customer picked
+	 * @param myOrder customerTransaction order
+	 * @param pA_userName username of payment account
+	 * @param pA_Password password of payment account
+	 * @param branchID id of branch that chosen
+	 * @param dateOfOrder current date to check if the account not expired
+	 * @return CustomerTransaction with message to client
+	 * @throws SQLException if reading of payment account table failed
+	 */
 	private CustomerTransaction checkIfAccountOK(CustomerTransaction myOrder, String pA_userName, String pA_Password,
 			String branchID, Date dateOfOrder)
 			throws SQLException { /** this method check if payment account of order is ok */
@@ -1814,7 +1866,11 @@ public class EchoServer extends AbstractServer implements Initializable {
 		return myOrder;
 	}
 	// ***********************************************************************************************************************************************************************************
-
+	/**
+	 * this method converts sql time to our project time class called MyTime
+	 * @param time sql time type
+	 * @return MyTime class
+	 */
 	private MyTime convertSqlTimeToTimeOfHaim(Time time) {
 		String someTime = "" + time;
 		String hour = someTime.substring(0, 2);
@@ -1823,9 +1879,13 @@ public class EchoServer extends AbstractServer implements Initializable {
 		MyTime haimTime = new MyTime(hour, minute, seconds);
 		return haimTime;
 	}
-
-	private Date convertSqlDateToDateOfHaim(
-			java.sql.Date myDate) { /*
+	/**
+	 * this method converts sql date type to our project date class
+	 * @param myDate sql type
+	 * @return date class of our project
+	 */
+	private Date convertSqlDateToDateOfHaim(java.sql.Date myDate) 
+	{ /*
 									 * this method responsible for convert sql date type to our project date type
 									 **/
 		String someDate = "" + myDate;
@@ -1837,8 +1897,12 @@ public class EchoServer extends AbstractServer implements Initializable {
 	}
 
 	// ***********************************************************************************************************************************************************************************
-	/*** this method return prices for item in specific branch
-	 *  */
+	/**
+	 * this method return all catalog products on sale of specific branch
+	 * @param catalogItemsFromDB empty arraylist of a branch
+	 * @param branchID id of branch
+	 * @return full array list of products on sale
+	 */
 	private ArrayList<CatalogItem> PutOutAllBranchCatalogItems(ArrayList<CatalogItem> catalogItemsFromDB,
 			String branchID) { 
 		Statement st = null;

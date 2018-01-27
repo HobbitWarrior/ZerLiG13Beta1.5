@@ -29,6 +29,9 @@ import Users.LoginContol;
  * complaint.
  * 
  * @author Alex
+ * 
+ * @extends LoginControl
+ * @implements Initializable
  *
  */
 public class OpenComplaintController extends LoginContol implements Initializable {

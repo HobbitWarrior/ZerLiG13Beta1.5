@@ -29,7 +29,7 @@ public class complaintRow {
 	
 	public complaintRow() {
 		// default Values
-		labelText = new SimpleStringProperty("Guess what? this is a complaint");
+		labelText = new SimpleStringProperty(" ");
 		timerText = new SimpleStringProperty("00:20");
 
 		// generate random time, demi values for demo

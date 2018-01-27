@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 /**closeComplaint Gui Controller class, handles all the data manipulation and display of
@@ -26,6 +27,10 @@ public class closeComplaintController extends LoginContol implements Initializab
 	public TextField reportDetails;
 	@FXML
 	private Button SaveAndCLose;
+	@FXML
+	private CheckBox compensation;
+	@FXML
+	private TextField amount;
 
 	public static closingComplaintEntry cce;
 
