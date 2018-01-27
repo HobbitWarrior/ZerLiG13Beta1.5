@@ -44,7 +44,7 @@ public class BranchReportBrowseControl  extends LoginContol  implements Initiali
 	  
 	public static ObservableList<Reports> ReportList= FXCollections.observableArrayList();
 	Series<Object, Object> set1;
-	private static float  q1=1,q2=2,q3=3,q4=4,q5=5,q6=6;
+	private static float  q1=0,q2=0,q3=0,q4=0,q5=5,q6=0;
 	   @FXML
 	    private BarChart<Object, Object> SurveyAVG;
 
@@ -105,7 +105,7 @@ public class BranchReportBrowseControl  extends LoginContol  implements Initiali
      * Method that get the selection row from the
      * report table and get the csv file path and 
      * send it to ReadCsvReport function.
-     * @param MouseEvent    that describe click mouse action
+     * @param event that describe click mouse action
       */
     @FXML
     void GetCsvFileReportFromTable(MouseEvent event) {
@@ -131,6 +131,14 @@ public class BranchReportBrowseControl  extends LoginContol  implements Initiali
     		}
     	
      }
+	
+	/**
+     * Method that read the csvFile column 
+     * by column and get the average of 
+     * survey questions and insert the values 
+     * into the graph 
+     * @param csvFILE that describe path of Csv File 
+      */
     private void ReadCsvReportToGraph(String csvFILE) {
     	String filename =    csvFILE;
       
@@ -189,14 +197,14 @@ public class BranchReportBrowseControl  extends LoginContol  implements Initiali
 	     set1.getData().add(new Data<Object, Object>("q4",q4)); 
 	     set1.getData().add(new Data<Object, Object>("q5",q5));
 	     set1.getData().add(new Data<Object, Object>("q6",q6));
-
 	     SurveyAVG.getData().addAll(set1);
 		
 	}
-	/**
-     * Method that get CsvFile path and read it
-     * line by line and view the report into [SelfBrowseReportFrame.fxml]  
-     * @param String that describe the Csv file source
+    /**
+     * Method that read the csvFile row
+     * by row and get the report[csvfile]
+     * results and view it in the current windows
+     * @param ReportCsvFile that describe path of Csv File 
       */
     void ReadCsvReport(String ReportCsvFile)
     {
@@ -237,6 +245,7 @@ public class BranchReportBrowseControl  extends LoginContol  implements Initiali
     }
     
     
+    
     @FXML
     void BrowseReport(ActionEvent event) {
 
@@ -265,6 +274,7 @@ public class BranchReportBrowseControl  extends LoginContol  implements Initiali
 		aFrame.start(arg0);
 		
     }
+    
 	public void start(Stage primaryStage) throws  IOException 
 	{		
 	   	 int port=PORT ;
