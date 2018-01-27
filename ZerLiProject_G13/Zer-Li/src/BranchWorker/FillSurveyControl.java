@@ -106,35 +106,12 @@ public class FillSurveyControl extends LoginContol implements Initializable
 	 public static int QarSurvey;
 	 public static String surveyYear;
 		
-	 
-	
-	 
-	 @FXML
-	 private Button FillSurveyBtn;
-	 @FXML
-	    private Label qes1;
-
-	    @FXML
-	    private Label qes2;
-
-	    @FXML
-	    private Label qes3;
-
-	    @FXML
-	    private Label qes4;
-
-	    @FXML
-	    private Label qes5;
-
-	    @FXML
-	    private Label qes6;
-
 
 	 @FXML
 	 private Button NextBtn;
 
 	@FXML
-    private Button FillSurvey;
+    private Button FillSurveyBtn;
 
     @FXML
     private Button btnHome;
@@ -144,74 +121,6 @@ public class FillSurveyControl extends LoginContol implements Initializable
 
     @FXML
     private Button btnLogout;
-
-    @FXML
-    private Button btnCart;
-
-    @FXML
-    private Label UserNameLabel;
-
-    @FXML
-    private Label Password;
-
-    @FXML
-    private Button ConnectBtn;
-
-    @FXML
-    private Label UserNameLabel1;
-
-    @FXML
-    private Label UserNameLabel2;
-
-    @FXML
-    private Label UserNameLabel3;
-
-    @FXML
-    private Label UserNameLabel4;
-
-    @FXML
-    private Label UserNameLabel5;
-
-    @FXML
-    private Label UserNameLabel6;
-
-    @FXML
-    private Label UserNameLabel7;
-
-    @FXML
-    private TextField txtf1;
-
-    @FXML
-    private TextField txtf2;
-
-    @FXML
-    private TextField txtf4;
-
-    @FXML
-    private TextField txtf3;
-
-    @FXML
-    private Label UserNameLabel71;
-
-    @FXML
-    private TextField txtf5;
-
-    @FXML
-    private TextField txtf6;
-
-    @FXML
-    private TextField txtf7;
-
-    @FXML
-    private TextField txtf8;
-
-    @FXML
-    private TextField txtf9;
-
-    @FXML
-    private TextField txtf10;
-    
-    
 
 
     @FXML
@@ -245,10 +154,6 @@ public class FillSurveyControl extends LoginContol implements Initializable
     @FXML
     private ComboBox<Integer> pickCustomerComboBox;
 
-
-
-    @FXML
-    private Button PlusBtn;
 
 
     
@@ -294,46 +199,8 @@ public class FillSurveyControl extends LoginContol implements Initializable
     }
     
     
-    
-    
-  
-
-	    @FXML
-	    void Q1ComboSet(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void Q2ComboSet(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void Q3ComboSet(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void Q4ComboSet(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void Q5ComboSet(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void Q6ComboSet(ActionEvent event) {
-
-	    }
 	    
 	    
-	    
-	    @FXML
-	    void FillSurvey(ActionEvent event) {
-
-	    }
 	    
 	    
 	    @FXML
@@ -341,17 +208,10 @@ public class FillSurveyControl extends LoginContol implements Initializable
 	    	AnchorPanePickCustomer.setVisible(true);
     		AnchorPaneFillAns.setVisible(false);
     		
-    		// set default value in comboBox
-    		Combo1.getSelectionModel().selectFirst(); 
-			Combo2.getSelectionModel().selectFirst(); 
-			Combo3.getSelectionModel().selectFirst(); 
-			Combo4.getSelectionModel().selectFirst(); 
-			Combo5.getSelectionModel().selectFirst(); 
-			Combo6.getSelectionModel().selectFirst(); 
-    		
+
     		satisfactionSurvey Surveytemp = new satisfactionSurvey() ; 
          
- //  		 Surveytemp.setCustomerID(pickCustomerComboBox.getValue());
+   		 Surveytemp.setCustomerID(pickCustomerComboBox.getValue());
    		Surveytemp.setStep(1);
    		Surveytemp.setQarSurvey(QarSurvey);
    		Surveytemp.setSurveyYear(surveyYear);
@@ -361,15 +221,22 @@ public class FillSurveyControl extends LoginContol implements Initializable
   		Surveytemp.setQ4(Combo4.getValue());
   		Surveytemp.setQ5(Combo5.getValue());
   		Surveytemp.setQ6(Combo6.getValue());
+  		
+  		
 
         MyFillSurveyList.add(Surveytemp);
-        System.out.println(MyFillSurveyList);
+        System.out.println(""+MyFillSurveyList);
 
+		// set default value in comboBox
+		Combo1.getSelectionModel().selectFirst(); 
+		Combo2.getSelectionModel().selectFirst(); 
+		Combo3.getSelectionModel().selectFirst(); 
+		Combo4.getSelectionModel().selectFirst(); 
+		Combo5.getSelectionModel().selectFirst(); 
+		Combo6.getSelectionModel().selectFirst(); 
+		
         customersIDList.remove(pickCustomerComboBox.getValue());
     	
-     
-		 
-         	
 	    	
 	    	
 	    }

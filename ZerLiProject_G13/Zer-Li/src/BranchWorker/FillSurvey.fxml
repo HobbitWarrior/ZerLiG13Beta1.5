@@ -28,7 +28,6 @@
             <Image url="@images/empty_background.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="FillSurvey" layoutX="416.0" layoutY="177.0" mnemonicParsing="false" onAction="#FillSurvey" opacity="0.0" prefHeight="38.0" prefWidth="103.0" text="btnCreatePaymentAccount" />
       <Label layoutX="745.0" layoutY="188.0" text="Fill Survey" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="18.0" />
@@ -37,17 +36,7 @@
       <Button fx:id="btnHome" layoutX="745.0" layoutY="15.0" mnemonicParsing="false" onAction="#goHome" opacity="0.01" prefHeight="38.0" prefWidth="82.0" text="btnHome" />
       <Button fx:id="btnAccount" layoutX="563.0" layoutY="15.0" mnemonicParsing="false" opacity="0.01" prefHeight="38.0" prefWidth="87.0" text="btnAccount" />
       <Button fx:id="btnLogout" layoutX="539.0" layoutY="14.0" mnemonicParsing="false" onAction="#logoutEvent" opacity="0.01" prefHeight="38.0" prefWidth="97.0" text="btnLogout" />
-      <Button fx:id="btnCart" layoutX="648.0" layoutY="17.0" mnemonicParsing="false" opacity="0.01" prefHeight="38.0" prefWidth="87.0" text="btnCart" />
-      <Label fx:id="UserNameLabel" layoutX="44.0" layoutY="364.0" text="SurviesQuarter" textFill="RED" visible="false">
-         <font>
-            <Font size="22.0" />
-         </font>
-      </Label>
-      <Label fx:id="UserNameLabel5" layoutX="49.0" layoutY="398.0" text="SurviesYear" textFill="RED" visible="false">
-         <font>
-            <Font size="22.0" />
-         </font>
-      </Label>
+      <Button fx:id="btnAccount" layoutX="648.0" layoutY="17.0" mnemonicParsing="false" opacity="0.01" prefHeight="38.0" prefWidth="87.0" text="btnCart" />
       <TextField fx:id="txtf2" layoutX="297.0" layoutY="367.0" visible="false" />
       <TextField fx:id="txtf3" layoutX="297.0" layoutY="402.0" visible="false" />
       
