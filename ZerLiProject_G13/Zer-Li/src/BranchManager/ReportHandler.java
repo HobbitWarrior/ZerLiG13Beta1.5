@@ -294,7 +294,7 @@ public class ReportHandler  extends LoginContol {
 		System.out.println(newReport);
 		 int port=PORT ;
 	 	   String ip=ServerIP ;
- 	 	   try 
+ 	 	   try  
 	 	   {
 	 		myClient = new ChatClient(ip,port);	//create new client to get all users in db (server)
 	 		myClient.setLoginControl(this); 
