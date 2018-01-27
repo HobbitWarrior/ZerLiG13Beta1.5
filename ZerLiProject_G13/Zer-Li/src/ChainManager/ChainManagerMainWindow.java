@@ -28,7 +28,12 @@ import BranchManager.CreatePaymentAccountController;
 import BranchManager.Reports;
 import Customer.CatalogItemGUI;
 import client.ChatClient;
-
+/*** the chain manager main menu window.
+ * from this class its possible browse reports and compare between reports.
+ * 
+ * @author Elias
+ *
+ */
 public class ChainManagerMainWindow  extends LoginContol  implements Initializable
 {
 	  
@@ -68,7 +73,10 @@ public class ChainManagerMainWindow  extends LoginContol  implements Initializab
 
     @FXML
     private Button btnCart;
-
+/**a btnBrowseReport event handler, the emthod opens a new window to browse 
+ * reports of a specific branch. 
+ * @param event type of ActionEvent
+ */
     @FXML
     void BrowseReport(ActionEvent event) {
     	btnBrowseReport.getScene().getWindow().hide(); //hiding primary window
@@ -84,7 +92,11 @@ public class ChainManagerMainWindow  extends LoginContol  implements Initializab
 
     	
     }
-
+/**A CompareReportsBtn click even handler,
+ * the method opens a new window in which its possible to 
+ * compare between reports.
+ * @param event
+ */
     @FXML
     void CompareReports(ActionEvent event) {
     	CompareReportsBtn.getScene().getWindow().hide(); //hiding primary window
@@ -105,7 +117,11 @@ public class ChainManagerMainWindow  extends LoginContol  implements Initializab
 
     }
 
-    
+   /**logout button event handler
+    *  
+    * @param event
+    * @throws IOException
+    */
     @FXML
     void logoutEvent(ActionEvent event) throws IOException
     {
@@ -118,6 +134,9 @@ public class ChainManagerMainWindow  extends LoginContol  implements Initializab
 		aFrame.start(arg0);
 		
     }
+    /** the chain manager main window starter.
+     * @param primaryStage type of Stage
+     */
 	public void start(Stage primaryStage) throws  IOException 
 	{		
 	    
