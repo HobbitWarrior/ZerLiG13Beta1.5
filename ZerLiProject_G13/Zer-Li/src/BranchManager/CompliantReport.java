@@ -8,6 +8,7 @@ public class CompliantReport
 	int CountOfCompliants;
 	String branchID;
 	
+	
 	/**
 	 * constructor of complaint reports
 	 * @param countOfCompliants  integer amount of complaints
