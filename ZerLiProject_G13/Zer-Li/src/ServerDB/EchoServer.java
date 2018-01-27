@@ -1450,7 +1450,6 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 				System.out.println("Data saved in branchShipment table!!");
 
-				// dd
 			}
 
 			catch (SQLException e) {
@@ -1486,7 +1485,6 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 				System.out.println("Data saved in branchShipment table!!");
 
-				// dd
 			}
 
 			catch (SQLException e) {
@@ -1739,7 +1737,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 	 * this method responsible to add new sales of catalog products
 	 * @param OB class that contains id of branch, idd of product and amount of discount
 	 * @param oldPrice original price of the product
-	 * @return
+	 * @return catalogitemsofbranch
 	 */
 	private catalogitemsofbranch editItemPriceInDB(PercentMSG OB, double oldPrice) 
 	{
@@ -1913,6 +1911,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 	}
 
 	// ***********************************************************************************************************************************************************************************
+	
 	/**
 	 * this method check if account exist and if the branch id compatible between the one in database to the chosen one that customer picked
 	 * @param myOrder customerTransaction order
@@ -2265,8 +2264,8 @@ public class EchoServer extends AbstractServer implements Initializable {
 	/**
 	 * method that put out all data about catalog products from catalog table
 	 * @param CatalogItemsFromDB empty arraylist of 
-	 * @return
-	 * @throws SQLException
+	 * @return CatalogItemsFromDB
+	 * @throws SQLException exception when sql fail
 	 */
 	private ArrayList<CatalogItem> PutOutAllCatalogItems(ArrayList<CatalogItem> CatalogItemsFromDB)
 			throws SQLException {
@@ -2769,10 +2768,9 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 	// ***********************************************************************************************************************************************************************************
 	/**connect To the database Method
-	 * 
-	 * @param UserName
-	 * @param Password
-	 * @param DataBaseName
+	 * @param UserName userName to enter mysql
+	 * @param Password password to enter mysql
+	 * @param DataBaseName the database name
 	 * @return	 Connection on success
 	 */
 	protected Connection connectToDB(String UserName, String Password, String DataBaseName) {
