@@ -536,7 +536,7 @@ public class ChatClient extends AbstractClient {
 						DiscountingOnItemsControl.catalogitemsofbranchlist.remove(i);
 						//DiscountingOnItemsControl.catalogitemsofbranchlist.get(i).setPrice(curretnSale.getPrice());
 						//return;
-						break;
+						break; //new
 					}
 				}
 				DiscountingOnItemsControl.catalogitemsofbranchlist.add(curretnSale);
