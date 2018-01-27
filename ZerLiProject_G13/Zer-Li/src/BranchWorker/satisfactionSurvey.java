@@ -10,16 +10,35 @@ import java.time.Year;
 public class satisfactionSurvey  implements Serializable {
 
 
-	int customerID;
-	int step;
-	int QarSurvey;
-	String surveyYear;
-	float  Q1  ;
-	float Q2  ;
-	float Q3  ; 
-	float Q4   ; 
-	float Q5   ; 
-	float Q6   ;
+	private int customerID;
+	private int step;
+	private int QarSurvey;
+	private String surveyYear;
+	private float  Q1  ;
+	private float Q2  ;
+	private float Q3  ; 
+	private float Q4   ; 
+	private float Q5   ; 
+	private float Q6   ;
+	
+	public satisfactionSurvey(int customerID, int step, int qarSurvey, String surveyYear, float q1, float q2, float q3, float q4,
+			float q5, float q6) {
+		super();
+		this.customerID = customerID;
+		this.step = step;
+		QarSurvey = qarSurvey;
+		this.surveyYear = surveyYear;
+		Q1 = q1;
+		Q2 = q2;
+		Q3 = q3;
+		Q4 = q4;
+		Q5 = q5;
+		Q6 = q6;
+	}
+	
+	
+	
+	
 	public int getCustomerID() {
 		return customerID;
 	}
@@ -80,23 +99,11 @@ public class satisfactionSurvey  implements Serializable {
 	public void setQ6(float q6) {
 		Q6 = q6;
 	}
-	public satisfactionSurvey(int customerID, int step, int qarSurvey, String surveyYear, float q1, float q2, float q3, float q4,
-			float q5, float q6) {
-		super();
-		this.customerID = customerID;
-		this.step = step;
-		QarSurvey = qarSurvey;
-		this.surveyYear = surveyYear;
-		Q1 = q1;
-		Q2 = q2;
-		Q3 = q3;
-		Q4 = q4;
-		Q5 = q5;
-		Q6 = q6;
-	}
+
 	public satisfactionSurvey() {
 		super();
 	}
+	
 	@Override
 	public String toString() {
 		return "Survey [customerID=" + customerID + ", step=" + step + ", QarSurvey=" + QarSurvey + ", surveyYear="
@@ -104,11 +111,5 @@ public class satisfactionSurvey  implements Serializable {
 				+ "]";
 	}
 	
-	 
-	
-	
-	
-	
-	
- 
+	  
 }

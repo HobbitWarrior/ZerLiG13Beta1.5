@@ -102,6 +102,8 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 	 public static int i=0;
 	 private ArrayList<satisfactionSurvey> MyFillSurveyList = new ArrayList<satisfactionSurvey>();
 	 public static boolean stepAns;
+	 public static int QarSurvey;
+	 public static String surveyYear;
 		
 	 
 	
@@ -341,10 +343,10 @@ public class FillSurveyControl extends LoginContol implements Initializable {
     		
     		satisfactionSurvey Surveytemp = new satisfactionSurvey() ; 
          
-   		 Surveytemp.setCustomerID(pickCustomerComboBox.getValue());
+ //  		 Surveytemp.setCustomerID(pickCustomerComboBox.getValue());
    		Surveytemp.setStep(1);
-   		Surveytemp.setQarSurvey(1);
-   		Surveytemp.setSurveyYear("2018");
+   		Surveytemp.setQarSurvey(QarSurvey);
+   		Surveytemp.setSurveyYear(surveyYear);
    		Surveytemp.setQ1(Combo1.getValue());
   		Surveytemp.setQ2(Combo2.getValue());
   		Surveytemp.setQ3(Combo3.getValue());
@@ -376,32 +378,18 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 	    @FXML
 	    void AddNewFill(ActionEvent event)
 	    {
+	    	
+	    	System.out.println("check the result in AddNewFill func: "+stepAns);
+	    	
 	    	if(stepAns) //stepAns=true , meaning service department created survey - we can fill surveys.
 	    	{
-	    		ListNumbers.clear();
+	//    		ListNumbers.clear();
 	    		AnchorPanePickCustomer.setVisible(false);
 	    		AnchorPaneFillAns.setVisible(true);
 	    		
 		    	if(!(pickCustomerComboBox.getSelectionModel().isEmpty())) //check if we selected customer
 		    	{
-	//	    		if(customersList.contains(pickCustomerComboBox.getSelectionModel().getSelectedItem())) // check if we already fill this customer
-	//	    		{    
-		       		    
-		    			for(int i=1;i<11;i++)
-		    			{
-		    				ListNumbers.add(i);
-		     			}
-		    			Combo1.setItems(ListNumbers);
-		    			Combo2.setItems(ListNumbers);
-		    			Combo3.setItems(ListNumbers);
-		    			Combo4.setItems(ListNumbers);
-		    			Combo5.setItems(ListNumbers);
-		    			Combo6.setItems(ListNumbers);
-	//	    		}
-	//	    		else
-	//	    		{
-		    			//error msg***********************
-	//	    		}
+
 		    	}
 		    	else //no selected customer
 		    	{
@@ -460,7 +448,7 @@ public class FillSurveyControl extends LoginContol implements Initializable {
   	         myClient.sendRequestToSaveSurveyResult(SurveyAVG); 
   	         
   	          
-  	       writeToCSV(SurveyAVG, SurveyAVG.getQarSurvey()  ,Integer.parseInt(SurveyAVG.getSurveyYear()) );
+  //	       writeToCSV(SurveyAVG, SurveyAVG.getQarSurvey()  ,Integer.parseInt(SurveyAVG.getSurveyYear()) );
   	         
   	         
   	         
@@ -469,65 +457,6 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 	    		System.out.println("No Fills !");	 
 	    		
 	    	}
-	  /* 	int NumberOfCustomers =DBcustomersList.size();
-	    	int NumberOfSurveiesFilled = customersList.size();
-	    	if(NumberOfSurveiesFilled==NumberOfCustomers)
-	    	{
-		     System.out.println("aaaa");   // to delete this !!*******************************
-		     
-		     
-		     int port=PORT;
-			   String ip=ServerIP;
-			   try 
-			   {
-					myClient = new ChatClient(ip,port);	//create new client to get all users in db (server)
-					myClient.setLoginControl(this); //**********************************************************to check if need this ??!
-			   } 
-			   catch (IOException e) 
-			   {
-				   System.out.println("Cannot create client");	  
-			   }
-			   int sumQ1=0,sumQ2=0,sumQ3=0,sumQ4=0,sumQ5=0,sumQ6=0;
-			   for(int j=0;j<MyFillSurveyList.size();j++)
-			   {
-				    
-				   sumQ1+=MyFillSurveyList.get(j).getQ1();
-				   sumQ2+=MyFillSurveyList.get(j).getQ2();	 
-			       sumQ3+=MyFillSurveyList.get(j).getQ3();
-				   sumQ4+=MyFillSurveyList.get(j).getQ4();
-				   sumQ5+=MyFillSurveyList.get(j).getQ5();
-				   sumQ6+=MyFillSurveyList.get(j).getQ6();
-			   }
-		   
-			   
-			   Survey SurveyResult = new Survey() ; 
-			   
-
-	//		   SurveyInfo.setBranchWorkerID(LoginContol.userID);
-			   SurveyResult.setQ1(sumQ1/MyFillSurveyList.size());
-			   SurveyResult.setQ2(sumQ2/MyFillSurveyList.size());
-			   SurveyResult.setQ3(sumQ3/MyFillSurveyList.size());
-			   SurveyResult.setQ4(sumQ4/MyFillSurveyList.size());
-			   SurveyResult.setQ5(sumQ5/MyFillSurveyList.size());
-			   SurveyResult.setQ6(sumQ6/MyFillSurveyList.size());
-			   
-			   
-			   System.out.println(sumQ1/MyFillSurveyList.size());	  
-	
-			   System.out.println(sumQ1);	 
-			   System.out.println(sumQ2);	
-			   System.out.println(sumQ3);	
-	
-			   System.out.println(SurveyResult);	  
-	*/
-		// 	   myClient.sendRequestToSaveObjectOnDB(SurveyResult); //send request to get all users from db (server)
-	       
-			  // while( myClient.isConnected());	//wait until client (this class) get all users from the db!
-	    /*	}
-	    	else
-	    	{
-	    		//error msg -you didn't finish to fill all customers 
-	    	}*/
 			  
 	    }
 	    
@@ -558,7 +487,7 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 		@Override
 		public void initialize(URL location, ResourceBundle resources) 
 		{
-			/*
+	     
 			for(int i=1;i<11;i++)
 			{
 				ListNumbers.add(i);
@@ -569,8 +498,7 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 			Combo4.setItems(ListNumbers);
 			Combo5.setItems(ListNumbers);
 			Combo6.setItems(ListNumbers);
-			 */
-	     
+			
 			for(int i=0;i<customersList.size();i++)
 			{
 				System.out.println(customersList.get(i).getCustomerID());	
@@ -627,6 +555,9 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 				e.printStackTrace();
 			}
 		}
+		
+		
+		
 		public void addNewReport(int reporttype, String year ,int qar,String csvFile,String branchid )
 		{
 			Reports newReport=new Reports(reporttype,year,qar,csvFile,branchid);
@@ -645,11 +576,9 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 		 	    
 	 	 	 myClient.AddNewReportToDB(newReport); 
 
-			
-			
-			
-			
 		}
+	
+		
 		public void start(Stage primaryStage) throws IOException 
 		{	
 			 
@@ -677,12 +606,7 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 		  	
 			//Can't close the window without logout
 			primaryStage.setOnCloseRequest( event -> {event.consume();} );
-			
-			
-		 	 
+ 
 		}
-		
-
-
 	
 }
