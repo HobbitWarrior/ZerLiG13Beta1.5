@@ -62,6 +62,9 @@ import Users.User;
  */
 public class ChatClient extends AbstractClient {
 	// Instance variables **********************************************
+	/**
+	 * LoginContol variavle 
+	 */
 	private LoginContol login;
 	private CatalogOrderControl orderFromCatalog;
 	private CatalogEditControl editCatalog; // ************************************************* i added
