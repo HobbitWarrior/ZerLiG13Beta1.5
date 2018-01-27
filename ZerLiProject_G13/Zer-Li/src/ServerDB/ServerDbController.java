@@ -98,6 +98,11 @@ public class ServerDbController
     @FXML
     private Button CatalogCreateBtn;
     
+    /**
+     * this method connet user to database
+     * @param event click on button
+     * @throws IOException error when connecting to database failed
+     */
     @FXML
     void btnConnectPressed(ActionEvent event) throws IOException
     {
@@ -159,7 +164,12 @@ public class ServerDbController
 
     }
    
-    
+    /**
+     * method that close connection to database
+     * @param event click on button
+     * @throws SQLException when disconnecting from database failed
+     * @throws IOException some error
+     */
     @FXML
     void btnDisconnectPressed(ActionEvent event) throws SQLException, IOException 
     {
@@ -195,7 +205,11 @@ public class ServerDbController
 	    }
 	    
     }
-    
+    /**
+     * this method shows server window
+     * @param primaryStage
+     * @throws Exception
+     */
 	public void start(Stage primaryStage) throws Exception 
 	{		
 	
@@ -218,7 +232,10 @@ public class ServerDbController
 		
 	}
 
-	
+	/**
+	 * emergency disconnet from server
+	 * @throws IOException some error
+	 */
 	private void CrashDisconnect() throws IOException
 	{
 		myServer.close();
@@ -235,7 +252,10 @@ public class ServerDbController
 
 
 	}
-	
+	/**
+	 * this method create defult cataolg in database
+	 * @param event
+	 */
 	 @FXML
 	    void UploadToCatalogBtnPressed(ActionEvent event) 
 	    {
