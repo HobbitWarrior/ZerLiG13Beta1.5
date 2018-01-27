@@ -34,6 +34,11 @@ public class closeComplaintController extends LoginContol implements Initializab
 
 	public static closingComplaintEntry cce;
 	public int index;
+	
+	
+	/**opens  the close complaint menu window 
+	 * @param Stage primaryStage
+	 */
 	public void start(Stage primaryStage) {
 		Parent root;
 		try {
@@ -49,7 +54,9 @@ public class closeComplaintController extends LoginContol implements Initializab
 		}
 
 	}
-
+/** a method that is called on the start up of the window.
+ * 
+ */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		index = CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex;
