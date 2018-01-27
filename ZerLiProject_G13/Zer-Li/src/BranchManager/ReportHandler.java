@@ -21,7 +21,11 @@ import CustomerServiceDepartmentworker.complaint;
 import Users.LoginContol;
 import client.ChatClient;
 import client.Message;
-
+/** the following class gets an orders quarterly report, and saves it
+ * to a CSV file.
+ * @author Elias, Alex
+ *
+ */
 public class ReportHandler  extends LoginContol {
  
 	@SuppressWarnings("deprecation")
@@ -154,7 +158,15 @@ public class ReportHandler  extends LoginContol {
 	}
 	
 
-	 // create Csv File for revenue report 
+	 /**A method that creates CSV File for revenue report.
+	  * It separates each field with a comma, and new line for each row,
+	  * and appends it all to a single file
+	  *  
+	  * @param report
+	  * @param quarter
+	  * @param year
+	  * @param BranchID
+	  */
 		public void writeToCSV2(ArrayList<CompliantReport> report, int quarter, int year, String BranchID) {
 			String FileHeader = "NumberOfCompliants,BranchID\n";
 			String csvFileName =  System.getProperty("user.dir")+"\\ZerLiProject_G13\\Zer-Li\\src\\Reports\\Compliant_Report_" + String.valueOf(quarter) + "-" + String.valueOf(year)+ "-" +BranchID+".csv";
@@ -188,6 +200,15 @@ public class ReportHandler  extends LoginContol {
 
 	
  // create Csv File for revenue report 
+		 /**A method that creates CSV File for revenue report. 
+		  * It separates each field with a comma, and new line for each row, 
+		  * and appends it all to a single file
+		  * @param report ArrayList<revenueReport>
+		  * @param quarter int 
+		  * @param year int 
+		  * @param BranchID String
+		  */
+
 	public void writeToCSV1(ArrayList<revenueReport> report, int quarter, int year, String BranchID) {
 		String FileHeader = "OrderID,OrderPrice\n";
 		String csvFileName =  System.getProperty("user.dir")+"\\ZerLiProject_G13\\Zer-Li\\src\\Reports\\revenue_Report_" + String.valueOf(quarter) + "-" + String.valueOf(year)+ "-" +BranchID+".csv";
@@ -220,7 +241,14 @@ public class ReportHandler  extends LoginContol {
 	}
 
 
-
+	 /**A method that creates CSV File for revenue report. 
+	  * It separates each field with a comma, and new line for each row, 
+	  * and appends it all to a single file
+	  * @param report ArrayList<revenueReport>
+	  * @param quarter int 
+	  * @param year int 
+	  * @param BranchID String
+	  */
 
 	public void writeToCSV(ArrayList<ordersReportEntry> report, int quarter, int year,String BranchID) {
 		String FileHeader = "ItemId,Quantity\n";
@@ -252,7 +280,14 @@ public class ReportHandler  extends LoginContol {
 			e.printStackTrace();
 		}
 	}
-	
+	/**A method that sends a request from the Server to save a new Report into the Database
+	 * 
+	 * @param reporttype
+	 * @param year
+	 * @param qar
+	 * @param csvFile
+	 * @param branchid
+	 */
 	public void addNewReport(int reporttype, String year ,int qar,String csvFile,String branchid )
 	{
 		Reports newReport=new Reports(reporttype,year,qar,csvFile,branchid);
