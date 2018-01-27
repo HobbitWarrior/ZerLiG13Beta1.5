@@ -1450,7 +1450,6 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 				System.out.println("Data saved in branchShipment table!!");
 
-				// dd
 			}
 
 			catch (SQLException e) {
@@ -1486,7 +1485,6 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 				System.out.println("Data saved in branchShipment table!!");
 
-				// dd
 			}
 
 			catch (SQLException e) {
