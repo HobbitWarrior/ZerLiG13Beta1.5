@@ -1091,7 +1091,12 @@ public class EchoServer extends AbstractServer implements Initializable {
 		st.close();
 
 	}
-
+	/**
+	 * 
+	 * @param customersFromDB
+	 * @return
+	 * @throws SQLException
+	 */
 	private ArrayList<Customer> PutOutAllCustomers(ArrayList<Customer> customersFromDB) throws SQLException {
 
 		Statement st = (Statement) ServerDataBase.createStatement();
@@ -1124,7 +1129,12 @@ public class EchoServer extends AbstractServer implements Initializable {
 	// Class methods
 	// ********************************************************************************************************************************************************************
 	// ***********************************************************************************************************************************************************************************
-
+	/**
+	 * this method bring all active survies of quarter
+	 * @param Survey empty arraylist of survies
+	 * @return full arraylist of survies
+	 * @throws SQLException when reading of table failed
+	 */
 	private Survey getSurveyDetails(Survey surveyExist) throws SQLException //only if step = 0 
 	{
 		surveyExist.setansStep(true);
@@ -1177,7 +1187,15 @@ public class EchoServer extends AbstractServer implements Initializable {
 	}
 
 	// ***********************************************************************************************************************************************************************************
-	private ArrayList<Float> PutAllSatSurveyResults(ArrayList<Float> SatSurveyResults) throws SQLException {
+	
+	/**
+	 * this method bring all survies
+	 * @param SatSurveyResults empty arraylist of survies
+	 * @return full  arraylist of survies
+	 * @throws SQLException when reading of table failed
+	 */
+	private ArrayList<Float> PutAllSatSurveyResults(ArrayList<Float> SatSurveyResults) throws SQLException 
+	{
 
 		Statement st = (Statement) ServerDataBase.createStatement();
 		ResultSet rs = st.executeQuery("SELECT q1,q2,q3,q4,q5,q6 from satisfactionsurvies where Step=1;");
@@ -1204,11 +1222,20 @@ public class EchoServer extends AbstractServer implements Initializable {
 		return SatSurveyResults;
 
 	}
-
+	
+	/**
+	 * this method will return all active orders of specific customer
+	 * @param allCustomerOrders empty arraylist of all customer orders
+	 * @param orderbranchID specific branch id
+	 * @param branchName specific branch name
+	 * @param customerID id of customer	
+	 * @return full array list of customer orders
+	 * @throws SQLException when reading of table failed
+	 */
 	// ***********************************************************************************************************************************************************************************
 	private ArrayList<CustomerTransaction> PutOutAllCustomerOrders(ArrayList<CustomerTransaction> allCustomerOrders,
-			String orderbranchID, String branchName, int customerID)
-			throws SQLException { /** this method will return all active orders of specific customer */
+			String orderbranchID, String branchName, int customerID) throws SQLException 
+	{ 
 		Statement st = null;
 
 		st = (Statement) ServerDataBase.createStatement();
@@ -1242,7 +1269,12 @@ public class EchoServer extends AbstractServer implements Initializable {
 	}
 
 	// ***********************************************************************************************************************************************************************************
-	
+	/**
+	 * this method responsible to get all flowers from flowers table
+	 * @param allFlowersFromDB empty arraylist of flowers
+	 * @return full array list of flowers
+	 * @throws SQLException if read from table failed
+	 */
 	private ArrayList<Flower> putOutAllFlowers(ArrayList<Flower> allFlowersFromDB)
 			throws SQLException { /** this method responsible to put out all of the flowers in the db */
 		Statement st = (Statement) ServerDataBase.createStatement();
