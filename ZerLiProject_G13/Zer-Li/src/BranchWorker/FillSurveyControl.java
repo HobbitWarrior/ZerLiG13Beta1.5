@@ -204,7 +204,8 @@ public class FillSurveyControl extends LoginContol implements Initializable
 	    
 	    
 	    @FXML
-	    void nextFill(ActionEvent event) {
+	    void nextFill(ActionEvent event) 
+	    {
 	    	AnchorPanePickCustomer.setVisible(true);
     		AnchorPaneFillAns.setVisible(false);
     		
@@ -237,7 +238,13 @@ public class FillSurveyControl extends LoginContol implements Initializable
 		
         customersIDList.remove(pickCustomerComboBox.getValue());
     	
-	    	
+        Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Thank you");
+		alert.setHeaderText("The survie inserted succefully");
+		alert.setContentText("Please press on finish button to merge result on database.");
+
+		alert.showAndWait();
+
 	    	
 	    }
 	    
@@ -253,7 +260,14 @@ public class FillSurveyControl extends LoginContol implements Initializable
 	    @FXML
 	    void AddNewFill(ActionEvent event)
 	    {
-	    	
+	    	if(pickCustomerComboBox.getValue()==null)
+	    	{
+	    		Alert alert = new Alert(AlertType.ERROR);
+	    		alert.setTitle("You did not picked any customer");
+	    		alert.setHeaderText("Please pick a customer");
+	    		alert.showAndWait();
+	    		return;
+	    	}
 	    	System.out.println("check the result in AddNewFill func: "+stepAns);
 	    	
 	    	if(stepAns) //stepAns=true , meaning service department created survey - we can fill surveys.
@@ -321,7 +335,12 @@ public class FillSurveyControl extends LoginContol implements Initializable
 			   System.out.println("Cannot create client");	  
 		   }
   	         myClient.sendRequestToSaveSurveyResult(SurveyAVG); 
-  	         
+  	       Alert alert = new Alert(AlertType.INFORMATION);
+    	     alert.setTitle("Servie updated in database");
+    	     alert.setHeaderText(null);
+    	     alert.setContentText("your survie inserted to database and merged with \nother surives successfully!");
+
+    	     alert.showAndWait();
   	          
   //	       writeToCSV(SurveyAVG, SurveyAVG.getQarSurvey()  ,Integer.parseInt(SurveyAVG.getSurveyYear()) );
   	         
@@ -330,7 +349,11 @@ public class FillSurveyControl extends LoginContol implements Initializable
 	    	}
 	    	else {
 	    		System.out.println("No Fills !");	 
-	    		
+	    		Alert alert = new Alert(AlertType.ERROR);
+	    		alert.setTitle("You did not insereted result");
+	    		alert.setHeaderText("Please insert result");
+
+	    		alert.showAndWait();
 	    	}
 			  
 	    }
