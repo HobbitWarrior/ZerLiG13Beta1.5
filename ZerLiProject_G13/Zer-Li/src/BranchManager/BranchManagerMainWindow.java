@@ -21,7 +21,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-
+/**a controller class foe the branchManager GUI in JavaFX
+ * generates all the necessary elemnts for the GUI, and their interactions. 
+ * 
+ * @author Elias
+ *
+ */
 public class BranchManagerMainWindow extends LoginContol implements Initializable
 {
 	public static ObservableList<Branch> allBranches= FXCollections.observableArrayList();
@@ -50,9 +55,9 @@ public class BranchManagerMainWindow extends LoginContol implements Initializabl
 
     
     /**
-     * Method that hide the current frame 
-     * and view the selected frame  ,
-     * when user click on [btnBrowseBranchReport] button.
+     * Method that hides the current frame 
+     * and view of the selected frame,
+     * when the user clicks on [btnBrowseBranchReport] button.
      * @param Action event   
      */
     @FXML
@@ -94,8 +99,8 @@ public class BranchManagerMainWindow extends LoginContol implements Initializabl
 				
     }
     /**
-     * Method that hide the current frame 
-     * and view the selected frame  ,
+     * Method that hides the current frame 
+     * and shows the selected frame,
      * when user click on [btnDiscountingOnItem] button.
      * @param Action event   
      */
@@ -121,7 +126,7 @@ btnCreatePaymentAccount.getScene().getWindow().hide(); //hiding primary window
     }  
     
     /**
-    * Logout event, when user click on logout button
+    * Logout event, when user click on the logout button
     * @param Action event   
     */
 
@@ -139,9 +144,9 @@ btnCreatePaymentAccount.getScene().getWindow().hide(); //hiding primary window
     }
     
     /**
-    * Method that colse current window and open home main window
+    * Method that closes the current window and opens the home main window
     * @param handler event
-    * @return This text should describe the return type and permissible range of values
+    * 
     */
     @FXML
     void goHome(ActionEvent event) 
@@ -149,9 +154,8 @@ btnCreatePaymentAccount.getScene().getWindow().hide(); //hiding primary window
 
     }
     
-    /**
-     * Description of the function include the var of the function
-     * @param Method that opens the current window
+    /**A method that starts the window
+     * @param Stage
      */
 	public void start(Stage primaryStage) throws IOException  
 	{		

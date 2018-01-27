@@ -102,6 +102,7 @@ public class ChatClient extends AbstractClient {
 	private String chooseControl; // choose between CatalogEditControl and CatalogOrderControl //
 
 	// Constructors ****************************************************
+	//*************************************************************************************************************************************************************
 	/**
 	 * Constructor 
 	 * initialize host (server IP) and port by uperclass constructor
@@ -115,6 +116,7 @@ public class ChatClient extends AbstractClient {
 
 
 	// Instance methods ************************************************
+	//*************************************************************************************************************************************************************
 /**
  * 	setter for LoginContol variable
  * @param login variable from type LoginContol
@@ -122,6 +124,7 @@ public class ChatClient extends AbstractClient {
 	public void setLoginControl(LoginContol login) {
 		this.login = login;
 	}
+	//*************************************************************************************************************************************************************
 /**
  * setter for CatalogOrderControl variable
  * @param CatalogOrder variable from type CatalogOrderControl
@@ -129,6 +132,7 @@ public class ChatClient extends AbstractClient {
 	public void setCatalogOrderControl(CatalogOrderControl CatalogOrder) {
 		this.orderFromCatalog = CatalogOrder;
 	}
+	//*************************************************************************************************************************************************************
 /**
  * setter for SurveyAnalayzingControl variable
  * @param AnalayzingControl variable from type SurveyAnalayzingControl
@@ -136,6 +140,7 @@ public class ChatClient extends AbstractClient {
 	public void setAnalayzingControl(SurveyAnalayzingControl AnalayzingControl) {
 		this.AnalayzingControl = AnalayzingControl;
 	}
+	//*************************************************************************************************************************************************************
 /**
  * setter for FillSurveyControl variable
  * @param SurveyControl the current object from FillSurveyControl
@@ -143,6 +148,7 @@ public class ChatClient extends AbstractClient {
 	public void setSurveyControl(FillSurveyControl SurveyControl) {
 		this.SurveyControl = SurveyControl;
 	}
+	//*************************************************************************************************************************************************************
 /**
  * setter for CatalogEditControl variable
  * @param CatalogEdit the current CatalogEditControl
@@ -151,6 +157,7 @@ public class ChatClient extends AbstractClient {
 	{
 		this.editCatalog = CatalogEdit;
 	}
+	//*************************************************************************************************************************************************************
 /**
  * setter for chooseControl variable
  * @param Control variable of CatalogEditControl or CatalogOrderControl
@@ -159,10 +166,10 @@ public class ChatClient extends AbstractClient {
 	{
 		this.chooseControl = Control;
 	}
+	//*************************************************************************************************************************************************************
 /**
  * handle Messages From Server
  */
-
 	public void handleMessageFromServer(Object msg) 
 	{
 		if (msg instanceof Message) 
@@ -683,6 +690,9 @@ public class ChatClient extends AbstractClient {
 		}
 
 	} // end of handle message from server
+	//*************************************************************************************************************************************************************
+	//*************************************************************************************************************************************************************
+	//*************************************************************************************************************************************************************
 	/**
 	 * send Request To server to Get All Users from DB
 	 */
@@ -711,6 +721,7 @@ public class ChatClient extends AbstractClient {
 		}
 
 	}
+	//*************************************************************************************************************************************************************
 	/**
 	 * send Request To Change Entry (user login or logout) 
 	 * @param UserName
@@ -739,6 +750,7 @@ public class ChatClient extends AbstractClient {
 		}
 		quit();
 	}
+	//*************************************************************************************************************************************************************
 	/**
 	 * send Request To Get All CatalogItems from DB
 	 */
@@ -767,6 +779,7 @@ public class ChatClient extends AbstractClient {
 		}
 
 	}
+	//*************************************************************************************************************************************************************
 	/**
 	 * send Request To Delete Item in DB
 	 * @param itemID
@@ -793,6 +806,7 @@ public class ChatClient extends AbstractClient {
 		}
 		quit();
 	}
+	//*************************************************************************************************************************************************************
 	/**
 	 * send Request To Check if the given ID is Unique ID.
 	 * @param itemID
@@ -819,7 +833,7 @@ public class ChatClient extends AbstractClient {
 			System.out.println("Cannot connect to server");
 		}
 	}
-
+	//*************************************************************************************************************************************************************
 	/**
 	 * send Request To Add Or Edit Item in catalog
 	 * @param newItem the item to change
@@ -847,7 +861,7 @@ public class ChatClient extends AbstractClient {
 		quit();
 	}
 
-
+	//*************************************************************************************************************************************************************
 	/**
 	 * send Request To Get Satisfaction Survey Result from DB
 	 */
@@ -869,6 +883,7 @@ public class ChatClient extends AbstractClient {
 			System.out.println("Cannot connect to server");
 		}
 	}
+	//*************************************************************************************************************************************************************
 	/**
 	 * send Request To Check if exist new survey by service department in DB (Step =0 )
 	 */
@@ -890,6 +905,7 @@ public class ChatClient extends AbstractClient {
 			System.out.println("Cannot connect to server");
 		}
 	}
+	//*************************************************************************************************************************************************************
 	/**
 	 * send Request To Check if exist survey results in DB (Step =1 )
 	 */
@@ -911,6 +927,7 @@ public class ChatClient extends AbstractClient {
 			System.out.println("Cannot connect to server");
 		}
 	}
+	//*************************************************************************************************************************************************************
 	/**
 	 * send Request To Get All Reports from DB
 	 * @param msg
@@ -935,6 +952,7 @@ public class ChatClient extends AbstractClient {
 		}
 
 	}
+	//*************************************************************************************************************************************************************
 	/**
 	 * close connection with server
 	 */
@@ -947,6 +965,7 @@ public class ChatClient extends AbstractClient {
 			System.out.println("Cannot close connection");
 		}
 	}
+	//*************************************************************************************************************************************************************
 	/**
 	 * send Request To Save survey in DB
 	 * @param OB the survey
@@ -969,7 +988,7 @@ public class ChatClient extends AbstractClient {
 		}
 
 	}
-
+	//*************************************************************************************************************************************************************
 	/**
 	 * (AZ) this method requests all the active complaints from the server
 	 */
@@ -989,6 +1008,7 @@ public class ChatClient extends AbstractClient {
 			e.printStackTrace();
 		}
 	}
+	//*************************************************************************************************************************************************************
 	/**
 	 * send Request To Get All Branches from DB
 	 */
@@ -1010,6 +1030,7 @@ public class ChatClient extends AbstractClient {
 
 		}
 	}
+	//*************************************************************************************************************************************************************
 	/**
 	 * send Request To Get All Branch Managers from DB
 	 */
@@ -1032,6 +1053,7 @@ public class ChatClient extends AbstractClient {
 		}
 
 	}
+	//*************************************************************************************************************************************************************
 	/**
 	 * send Request To server to Get All Catalog Items Of Branch
 	 * @param chosenBranchID the specific branch ID that we want his items
@@ -1057,6 +1079,7 @@ public class ChatClient extends AbstractClient {
 
 		}
 	}
+	//*************************************************************************************************************************************************************
 	/**
 	 * send Request To Save Customer Order in DB
 	 * @param newDeal the Customer order
@@ -1080,6 +1103,7 @@ public class ChatClient extends AbstractClient {
 
 		}
 	}
+	//*************************************************************************************************************************************************************
 	/**
 	 * send Request To Get All BranchManagers And Branches from server
 	 * @param branchMessage message
@@ -1102,6 +1126,7 @@ public class ChatClient extends AbstractClient {
 
 		}
 	}
+	//*************************************************************************************************************************************************************
 	/**
 	 * send Request To server to Update Price
 	 * @param perMSG message with the Percent to change the price
@@ -1125,6 +1150,7 @@ public class ChatClient extends AbstractClient {
 		}
 
 	}
+	//*************************************************************************************************************************************************************
 	/**
 	 * setter for ordersControl
 	 * @param ordersControl the new ordersControl
@@ -1132,6 +1158,7 @@ public class ChatClient extends AbstractClient {
 	public void setOrderControlOfBuyningProcess(OrdersControl ordersControl) {
 		this.buyingProcess = ordersControl;
 	}
+	//*************************************************************************************************************************************************************
 	/**
 	 * send Request To server to Get All Flowers
 	 */
@@ -1153,6 +1180,7 @@ public class ChatClient extends AbstractClient {
 
 		}
 	}
+	//*************************************************************************************************************************************************************
 	/**
 	 * getter for the customerMainWindow
 	 * @param customerMainWindow the new customerMainWindow
@@ -1160,6 +1188,7 @@ public class ChatClient extends AbstractClient {
 	public void setMainCustomerControler(CustomerMainWindow customerMainWindow) {
 		this.mainCustomerWindow = customerMainWindow;
 	}
+	//*************************************************************************************************************************************************************
 	/**
 	 * send Request To server to Get All Customer Order from DB
 	 * @param userID customer ID
@@ -1188,6 +1217,7 @@ public class ChatClient extends AbstractClient {
 
 		}
 	}
+	//*************************************************************************************************************************************************************
 	/**
 	 * send Request to Server To get all customer from DB
 	 */
@@ -1209,6 +1239,7 @@ public class ChatClient extends AbstractClient {
 
 		}
 	}
+	//*************************************************************************************************************************************************************
 	/**
 	 * setter for cancelOrderControl
 	 * @param cancelOrderControl the new cancelOrderControl
@@ -1216,6 +1247,7 @@ public class ChatClient extends AbstractClient {
 	public void setCancelControl(CancelOrderControl cancelOrderControl) {
 		this.cancelWindow = cancelOrderControl;
 	}
+	//*************************************************************************************************************************************************************
 	/**
 	 * Send Request  to Server to cancel order
 	 * @param cancelOrderthe the order to cancel 
@@ -1237,6 +1269,7 @@ public class ChatClient extends AbstractClient {
 
 		}
 	}
+	//*************************************************************************************************************************************************************
 	/**
 	 * Send Request to Server To Add New Report
 	 * @param newReport the new report
@@ -1259,7 +1292,7 @@ public class ChatClient extends AbstractClient {
 		}
 
 	}
-
+	//*************************************************************************************************************************************************************
 	/**
 	 * Send Request to Server To Save Survey Result
 	 * 
@@ -1283,7 +1316,7 @@ public class ChatClient extends AbstractClient {
 		}
 
 	}
-
+	//*************************************************************************************************************************************************************
 	/***
 	 * <h1>send a request to update a complaint</h1>
 	 * <p>
@@ -1311,7 +1344,7 @@ public class ChatClient extends AbstractClient {
 		}
 
 	}
-
+	//*************************************************************************************************************************************************************
 	/***
 	 * <h1>send a request to create a new report filled by an expert</h1>
 	 * <p>
@@ -1338,7 +1371,7 @@ public class ChatClient extends AbstractClient {
 		}
 
 	}
-
+	//*************************************************************************************************************************************************************
 	/***
 	 * <h1>send a request to update a complaint</h1>
 	 * <p>
@@ -1366,7 +1399,7 @@ public class ChatClient extends AbstractClient {
 		}
 
 	}
-
+	//*************************************************************************************************************************************************************
 	/***
 	 * <h1>send request for a new quarterly report</h1>
 	 * <p>
@@ -1394,7 +1427,7 @@ public class ChatClient extends AbstractClient {
 		}
 
 	}
-
+	//*************************************************************************************************************************************************************
 	/***
 	 * <h1>send request to add a new progress for a complaint</h1>
 	 * <p>
@@ -1422,7 +1455,7 @@ public class ChatClient extends AbstractClient {
 
 		}
 	}
-
+	//*************************************************************************************************************************************************************
 	/***
 	 * <h1>send request to close a complaint</h1>
 	 * <p>
@@ -1449,6 +1482,10 @@ public class ChatClient extends AbstractClient {
 
 		}
 	}
+	
+	
+	
+	//*************************************************************************************************************************************************************
 	/***
 	 * <h1>send request to give a client a compensation</h1>
 	 * <p>
