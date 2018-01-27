@@ -102,7 +102,11 @@ btnCreatePaymentAccount.getScene().getWindow().hide(); //hiding primary window
     {
 
     }  
-
+    
+    /**
+    * Logout event, when user click on logout button
+    * @param Action event   
+    */
 
     @FXML
     void logoutEvent(ActionEvent event) throws IOException
@@ -117,13 +121,21 @@ btnCreatePaymentAccount.getScene().getWindow().hide(); //hiding primary window
 		
     }
     
+    /**
+    * Method that colse current window and open home main window
+    * @param handler event
+    * @return This text should describe the return type and permissible range of values
+    */
     @FXML
     void goHome(ActionEvent event) 
     {
 
     }
     
-    
+    /**
+     * Description of the function include the var of the function
+     * @param Method that opens the current window
+     */
 	public void start(Stage primaryStage) throws IOException  
 	{		
 	  	Pane root = FXMLLoader.load(getClass().getResource("/BranchManager/BranchManagerMainFrame.fxml"));
@@ -174,7 +186,14 @@ btnCreatePaymentAccount.getScene().getWindow().hide(); //hiding primary window
 		return branchIDtoReturn;
 	}
 	
-	
+
+    /**
+    * Method that initialize current window after its root element has been completely processed.
+    * @param URL             The location used to resolve relative paths for the root object.
+    * @param ResourceBundle  The resources used to localize the root object.
+    * 
+    */
+
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
