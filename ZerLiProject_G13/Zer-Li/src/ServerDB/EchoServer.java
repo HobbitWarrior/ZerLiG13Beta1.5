@@ -2770,7 +2770,6 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 	// ***********************************************************************************************************************************************************************************
 	/**connect To the database Method
-	 * 
 	 * @param UserName userName to enter mysql
 	 * @param Password password to enter mysql
 	 * @param DataBaseName the database name
