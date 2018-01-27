@@ -219,7 +219,10 @@ public class OrdersControl extends LoginContol implements Initializable
     private Label totalPriceResult;			//screen 3
 
     
-    
+    /**
+     * this methos return to deliver screen from payment screen
+     * @param event on click
+     */
     @FXML
     void backToDeliveryBtnPressed(ActionEvent event) 
     {
@@ -227,7 +230,10 @@ public class OrdersControl extends LoginContol implements Initializable
 
     }
     
-    
+    /**
+     * this method transfer transaction details to server in order to approve the order
+     * @param event on click
+     */
     @FXML
     void payButtonPressed(ActionEvent event) 
     {	/**this method responsible to prepare the order to be saved on the db, it will send also the details of payment account to commit verification*/
@@ -332,7 +338,11 @@ public class OrdersControl extends LoginContol implements Initializable
     
     
     
-    
+    /**
+     * this method convert observableList to array list
+     * @param itemsToBuy all item that customer want to buy (custom/catalog)
+     * @return items in order at arraylist
+     */
     private ArrayList<ItemInOrder> fillInItemsToBuy(ArrayList<ItemInOrder> itemsToBuy) 
     {
     	for(int i=0; i<this.ItemsInOrderList.size() ; i++)
@@ -352,7 +362,10 @@ public class OrdersControl extends LoginContol implements Initializable
     }
     
 
-    
+    /**
+     * this method allow textbox when customer pick a first digits of phone from combobox
+     * @param event on click on combobox
+     */
     @FXML
     void KidometChosen(ActionEvent event) 
     {
@@ -361,6 +374,10 @@ public class OrdersControl extends LoginContol implements Initializable
     
     }
     
+    /**
+     * this method prepare screen to insert branch shipment when radio button picked
+     * @param event on pick of radio button
+     */
     @FXML
     void branchRadioChosen(ActionEvent event) //if customer chose a self arrival delivery
     {
@@ -379,6 +396,10 @@ public class OrdersControl extends LoginContol implements Initializable
     	
     }
 
+    /**
+     * this method prepare screen to insert private shipment when radio button picked
+     * @param event on pick of radio button
+     */
     @FXML
     void privateAdressRadioChosen(ActionEvent event) 
     {
@@ -396,7 +417,10 @@ public class OrdersControl extends LoginContol implements Initializable
     	
     }
     
-    
+    /**
+     *  this method load time to combobox when date picked
+     * @param event datepicker click
+     */
     @FXML
     void comboBoxDatePressed(ActionEvent event) 
     {	/**this method responsible for screen of checkout*/
@@ -438,7 +462,10 @@ public class OrdersControl extends LoginContol implements Initializable
 
     }
     
-    
+    /**
+     * this method save customer coice about hour from combobx
+     * @param event click on combobox
+     */
     
     @FXML
     void comboBoxHourPressed(ActionEvent event) 
@@ -450,7 +477,10 @@ public class OrdersControl extends LoginContol implements Initializable
     }
     
     
-    
+    /**
+     * this method show screen of payment in order process
+     * @param event on click even of button
+     */
     @FXML
     void goToCheckoutBtnPressed(ActionEvent event) 
     {	/**this method show screen 3 and prepare important data to load customer order table*/
@@ -591,12 +621,21 @@ public class OrdersControl extends LoginContol implements Initializable
     	
     	}
     
+    /**
+     * this method bring back to the delivery screen from payment screen
+     * @param event
+     */
     @FXML
     void BackToCartBtnPressed(ActionEvent event) 
     {
     
     	ShowScreenONE();
     }
+    
+    /**
+     * this method show screen of delivery from first screen of invoice
+     * @param event on click event
+     */
     
     @FXML
     void goToDeliveryPressed(ActionEvent event) 
@@ -606,7 +645,10 @@ public class OrdersControl extends LoginContol implements Initializable
     	
     }
     
-    
+    /**
+     * this method opens the account details window of the customer, we had no time to write it.....
+     * @param event event type of click on a button
+     */
     @FXML
     void AccountBtnPressed(ActionEvent event) 
     {
@@ -625,7 +667,10 @@ public class OrdersControl extends LoginContol implements Initializable
 
     }
     
-    
+    /**
+     * this method close all user window and will get him out from the system, it will send message to server to change the flag (that prevent a second login)
+     * @param event	action even of click on button
+     */
     @FXML
     void logoutPressed(ActionEvent event)throws IOException 
 	{
@@ -641,6 +686,11 @@ public class OrdersControl extends LoginContol implements Initializable
 
 	}
 
+    /**
+	 * this method will close current window, and will open the main window of buying process
+	 * @param event event of click on a button
+	 */ 
+    
     @FXML
     void HomePresssed(ActionEvent event) 
     {
@@ -668,7 +718,10 @@ public class OrdersControl extends LoginContol implements Initializable
     }
     
     
-    
+    /**
+     * this method enable text area for customer to insert greeting
+     * @param event on click event
+     */
     @FXML
     void ChkBoxPressed(ActionEvent event) 
     {
@@ -701,7 +754,9 @@ public class OrdersControl extends LoginContol implements Initializable
     	}
     }
 	
-	
+	/**
+	 * this method show cart window
+	 */
 	public void start(Stage primaryStage) throws IOException 
 	{
 		Pane root = FXMLLoader.load(getClass().getResource("/Customer/OrderrsControl.fxml"));
@@ -717,7 +772,9 @@ public class OrdersControl extends LoginContol implements Initializable
 		});
 	} 
 
-	
+	/**
+	 * this method calculate total price of all chosen items (single price * quantity * number of items)
+	 */
 	public static void calculateTotalPriceAndQuantity()
 	{
 		int amountItems = 0;
@@ -733,7 +790,11 @@ public class OrdersControl extends LoginContol implements Initializable
 		  
 	}
 	
-	
+	/**
+	 * this method cut double number in string up to two digits after point
+	 * @param num total price
+	 * @return string that contains double number up to 2 digits after point
+	 */
 	  public static String CutDoubleNumUpToTwoDigitAfterPoint(double num)
 	  {
 		  String cutDoubleNum = "" +num;
@@ -764,7 +825,9 @@ public class OrdersControl extends LoginContol implements Initializable
 		  return result;
 	  }
 
-
+	  /**
+	   * this method prepare firt screen of cart
+	   */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
@@ -841,27 +904,45 @@ public class OrdersControl extends LoginContol implements Initializable
 	}
 
 	
-	
+	/**
+	 * getter total quantity of items in order
+	 * @return int
+	 */
 	public static int getTotalQuantity() 
 	{
 		return totalQuantity;
 	}
 
+	/**
+	 * setter that put new value of quantity of item in order
+	 * @param totalQuantity new int
+	 */
 	public static void setTotalQuantity(int totalQuantity) 
 	{
 		OrdersControl.totalQuantity = totalQuantity;
 	}
 
+	/**
+	 * getter of total price
+	 * @return double
+	 */
 	public static double getTotalPrice() 
 	{
 		return totalPrice;
 	}
 
+	/**
+	 * setter of total price
+	 * @param totalPrice new total price
+	 */
 	public static void setTotalPrice(double totalPrice) 
 	{
 		OrdersControl.totalPrice = totalPrice;
 	}
 	
+	/**
+	 * this method show screen one of invoice and greeting on cart frame
+	 */
 	private void ShowScreenONE()
 	{
 		goToDelivery.setVisible(true);
@@ -900,6 +981,9 @@ public class OrdersControl extends LoginContol implements Initializable
     	//end of screen 2 = delivery
 	}
 	
+	/**
+	 * this method show screen two of delivery  on cart frame
+	 */
 	private void ShowScreenTWO()
 	{	/**this method show screen 2 of delivery, no matta where you come from*/
 		goToDelivery.setVisible(false);
@@ -953,7 +1037,9 @@ public class OrdersControl extends LoginContol implements Initializable
     	//end of screen 2 = delivery
     	
 	}
-	
+	/**
+	 * this method show screen three of payment on cart frame
+	 */
 	
 	private void ShowScreenThree()
 	{	/**this method show screen 2 of delivery, no matta where you come from*/
@@ -999,6 +1085,9 @@ public class OrdersControl extends LoginContol implements Initializable
     	
 	}
 	
+	/**
+	 * this method restart buying process when payment approved
+	 */
 	public void endBuyingProcess()
 	{	/**this method finish the buying process and return to main menu screen*/
 		 this.ItemsInOrderList.clear();
