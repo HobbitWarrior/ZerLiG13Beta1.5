@@ -113,9 +113,10 @@ public class OpenComplaintController extends LoginContol implements Initializabl
 		// Time
 		DateFormat timeFormat = new SimpleDateFormat("HH:mm");
 		Date time = new Date();
+		System.out.println("current value in customerID field: "+Integer.parseInt(customerIDField.textProperty().getValue())+" emp: "+Integer.parseInt(EmpHandlingIDField.textProperty().getValue()));
 		// save the new data to a new complaint and send it to the server
 		complaint newComplaint = new complaint(currentComplaint.getCompliantID().getValue(),
-				currentComplaint.getCustomerIDInteger().getValue(), currentComplaint.getEmpHandlingID().getValue(),
+				Integer.parseInt(customerIDField.textProperty().getValue()), Integer.parseInt(EmpHandlingIDField.textProperty().getValue()),
 				currentComplaint.getTopic().getValue(), timeFormat.format(time), dateFormat.format(date),
 				currentComplaint.getStatus().getValue(), currentComplaint.getDetails().getValue());
 		// mark complaint as a new one

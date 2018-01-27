@@ -33,7 +33,7 @@ public class closeComplaintController extends LoginContol implements Initializab
 	private TextField amount;
 
 	public static closingComplaintEntry cce;
-
+	public int index;
 	public void start(Stage primaryStage) {
 		Parent root;
 		try {
@@ -52,7 +52,7 @@ public class closeComplaintController extends LoginContol implements Initializab
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		int index = CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex;
+		index = CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex;
 		// instantiate a new closing complaint entry
 		cce = new closingComplaintEntry(
 				CustomerServiceDepartmentworkerMainWindow.activeComplaints.get(index).getComplaintID(),
@@ -90,6 +90,20 @@ public class closeComplaintController extends LoginContol implements Initializab
 		String ip = LoginContol.ServerIP;
 		myClient = new ChatClient(ip, port); // create new client
 		myClient.sendRequestSaveAndCloseComplaint(cc);
+		if(compensation.isSelected())
+		{
+			//add compensations if selected
+			System.out.println("you just chose to compensate");
+			compensation c=new compensation();
+			c.setCustomerID(cc.getCutsomerID());
+			c.setCompensationID(cc.getCutsomerID()*100+CustomerServiceDepartmentworkerMainWindow.activeComplaints.get(index).getEmpHandling());
+			c.setCsde_id(CustomerServiceDepartmentworkerMainWindow.activeComplaints.get(index).getEmpHandling());
+			c.setCompensationAmount(Double.parseDouble(amount.textProperty().getValue()));
+			c.setIsPaid("false");
+			myClient = new ChatClient(ip, port); // create new client
+			myClient.sendRequestToCompensate(c);
+			
+		}
 	}
 
 }

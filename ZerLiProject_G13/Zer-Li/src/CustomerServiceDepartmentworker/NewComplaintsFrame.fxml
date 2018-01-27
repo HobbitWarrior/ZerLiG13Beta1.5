@@ -70,7 +70,10 @@
                         <Insets left="20.0" />
                      </padding>
                   </Label>
-                  <TextField fx:id="EmpHandlingIDField" promptText="Please Enter the Handling Employee ID" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="EmpHandlingIDField" prefHeight="25.0" prefWidth="0.0" promptText="Please Enter the Handling Employee ID" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets right="15.0" />
+                     </GridPane.margin></TextField>
                </children>
             </GridPane>
          </children>
