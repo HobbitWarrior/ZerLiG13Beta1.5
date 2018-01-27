@@ -46,6 +46,7 @@ import CustomerServiceDepartmentworker.closingComplaint;
 import CustomerServiceDepartmentworker.complaint;
 import CustomerServiceDepartmentworker.complaintProgress;
 import CustomerServiceDepartmentworker.complaintRow;
+import CustomerServiceDepartmentworker.expertReport;
 import Expert.SurveyAnalayzingControl;
 import Users.LoginContol;
 import Users.User;
@@ -1122,7 +1123,33 @@ public class ChatClient extends AbstractClient {
 	}
 
 	
-	
+	public void sendREquestForANewReport(expertReport er)
+	{
+		/***
+		 * <h1>send a request to create a new report filled by an expert</h1>
+		 * <p>
+		 * 
+		 * 
+		 * @author Alex
+		 *         </p>
+		 **/
+
+		try {
+			this.openConnection();
+		}
+
+		catch (IOException e1) {
+			System.out.println("Cannot open connection");
+		}
+		try {
+			System.out.println("Asking the server to update a comlaint");
+			sendToServer(er);
+		} catch (IOException e) {
+			System.out.println("Cannot connect to server in order to update a complaint entry");
+
+		}
+
+	}
 	
 	public void SendARequestForANewComplaint(complaint c) {
 		/***
@@ -1232,5 +1259,6 @@ public class ChatClient extends AbstractClient {
 
 		}
 	}
+
 
 }
