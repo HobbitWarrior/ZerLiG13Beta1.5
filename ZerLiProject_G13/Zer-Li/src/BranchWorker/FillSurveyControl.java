@@ -209,7 +209,6 @@ public class FillSurveyControl extends LoginContol implements Initializable
     		AnchorPaneFillAns.setVisible(false);
     		
 
-    		
     		satisfactionSurvey Surveytemp = new satisfactionSurvey() ; 
          
    		 Surveytemp.setCustomerID(pickCustomerComboBox.getValue());
