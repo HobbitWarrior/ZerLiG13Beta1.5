@@ -240,7 +240,12 @@ public class OwnReportBrowseControl  extends LoginContol  implements Initializab
 
  
 
-
+	    /**
+	    * Method that initialize current window after its root element has been completely processed.
+	    * @param URL             The location used to resolve relative paths for the root object.
+	    * @param ResourceBundle  The resources used to localize the root object.
+	    * 
+	    */
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
