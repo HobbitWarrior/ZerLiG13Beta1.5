@@ -80,7 +80,7 @@ public class ChatClient extends AbstractClient {
 	}
 
 	// Instance methods ************************************************
-
+	
 	public void setLoginControl(LoginContol login) {
 		this.login = login;
 	}
@@ -670,7 +670,10 @@ public class ChatClient extends AbstractClient {
 		}
 
 	}
-
+/**
+ * 
+ * @param UserName
+ */
 	public void sendRequestToChangeEntry(String UserName) 
 	{
 		System.out.println("server got request to change entry");
@@ -695,7 +698,9 @@ public class ChatClient extends AbstractClient {
 		}
 		quit();
 	}
-
+/**
+ * 
+ */
 	public void sendRequestToGetAllCatalogItems() 
 	{
 		try 
@@ -721,7 +726,10 @@ public class ChatClient extends AbstractClient {
 		}
 
 	}
-
+/**
+ * 
+ * @param itemID
+ */
 	public void sendRequestToDeleteItem(int itemID) 
 	{
 		try 
@@ -768,17 +776,10 @@ public class ChatClient extends AbstractClient {
 		}
 	}
 
-	// ****************************************check!!!!!! giboi
-	/*
-	 * public void sendRequestToAddItem(CatalogItem newItem) { try {
-	 * this.openConnection(); }
-	 * 
-	 * catch (IOException e1) { System.out.println("Cannot open connection"); }
-	 * 
-	 * try { sendToServer(newItem); } catch (IOException e) {
-	 * System.out.println("Cannot connect to server"); } quit(); }
-	 */
-
+/**
+ * 
+ * @param newItem
+ */
 	public void sendRequestToAddOrEditItem(CatalogItem newItem) 
 	{
 		try 
@@ -803,7 +804,9 @@ public class ChatClient extends AbstractClient {
 	}
 
 	// **************************************** end check
-
+/**
+ * 
+ */
 	public void sendRequestToGetSatisfactionSurveyResult() 
 	{
 		try {
@@ -822,7 +825,9 @@ public class ChatClient extends AbstractClient {
 			System.out.println("Cannot connect to server");
 		}
 	}
-
+/**
+ * 
+ */
 	public void sendRequestToCheckStep0() 
 	{
 		try {
@@ -841,7 +846,9 @@ public class ChatClient extends AbstractClient {
 			System.out.println("Cannot connect to server");
 		}
 	}
-
+/**
+ * 
+ */
 	public void sendRequestToCheckStep1() 
 	{
 		try {
@@ -860,7 +867,10 @@ public class ChatClient extends AbstractClient {
 			System.out.println("Cannot connect to server");
 		}
 	}
-
+/**
+ * 
+ * @param msg
+ */
 	public void sendRequestToGetAllReports(String msg) 
 	{
 		try {
@@ -881,7 +891,9 @@ public class ChatClient extends AbstractClient {
 		}
 
 	}
-
+/**
+ * close connection
+ */
 	public void quit() 
 	{
 		try 
@@ -891,7 +903,10 @@ public class ChatClient extends AbstractClient {
 			System.out.println("Cannot close connection");
 		}
 	}
-
+	/**
+	 * 
+	 * @param OB
+	 */
 	public void sendRequestToSaveObjectOnDB(Object OB) {
 
 		try {
@@ -911,7 +926,7 @@ public class ChatClient extends AbstractClient {
 
 	}
 
-	/*
+	/**
 	 * (AZ) this method requests all the active complaints from the server
 	 */
 	public void sendRequestForComplaintsList() {
@@ -930,7 +945,9 @@ public class ChatClient extends AbstractClient {
 			e.printStackTrace();
 		}
 	}
-
+/**
+ * 
+ */
 	public void sendRequestToGetAllBranches() {
 		try {
 			this.openConnection();
@@ -949,7 +966,9 @@ public class ChatClient extends AbstractClient {
 
 		}
 	}
-
+/**
+ * 
+ */
 	public void sendRequestToGetAllBranchManagers() {
 		try {
 			this.openConnection();
@@ -969,7 +988,10 @@ public class ChatClient extends AbstractClient {
 		}
 
 	}
-
+/**
+ * 
+ * @param chosenBranchID
+ */
 	public void sendRequestToGetAllCatalogItemsOfBranch(
 			String chosenBranchID) { /** this method asks from server to get all catalog items of branch */
 		MessgaeCatalogProduct getCatalog = new MessgaeCatalogProduct(chosenBranchID);
@@ -991,7 +1013,10 @@ public class ChatClient extends AbstractClient {
 
 		}
 	}
-
+/**
+ * 
+ * @param newDeal
+ */
 	public void sendRequestToSaveCustomerOrder(CustomerTransaction newDeal) {
 		newDeal.setMsgToServer("Save this order in db");
 		try {
@@ -1011,7 +1036,10 @@ public class ChatClient extends AbstractClient {
 
 		}
 	}
-
+/**
+ * 
+ * @param branchMessage
+ */
 	public void sendRequestToGetAllBranchManagersAndBranches(SpecialBranchesMessage branchMessage) {
 		try {
 			this.openConnection();
@@ -1030,7 +1058,10 @@ public class ChatClient extends AbstractClient {
 
 		}
 	}
-
+/**
+ * 
+ * @param perMSG
+ */
 	public void sendRequestToUpdatePrice(PercentMSG perMSG) {
 		try {
 			this.openConnection();
@@ -1050,11 +1081,16 @@ public class ChatClient extends AbstractClient {
 		}
 
 	}
-
+/**
+ * 
+ * @param ordersControl
+ */
 	public void setOrderControlOfBuyningProcess(OrdersControl ordersControl) {
 		this.buyingProcess = ordersControl;
 	}
-
+/**
+ * 
+ */
 	public void sendRequestToGetAllFlowers() {
 		try {
 			this.openConnection();
@@ -1073,11 +1109,19 @@ public class ChatClient extends AbstractClient {
 
 		}
 	}
-
+/**
+ * 
+ * @param customerMainWindow
+ */
 	public void setMainCustomerControler(CustomerMainWindow customerMainWindow) {
 		this.mainCustomerWindow = customerMainWindow;
 	}
-
+/**
+ * 
+ * @param userID
+ * @param chosenBranchID
+ * @param chosenBranchName
+ */
 	public void sendRequestToGetAllCustomerOrder(int userID, String chosenBranchID, String chosenBranchName) {
 		CustomerTransaction myOrder = new CustomerTransaction();
 		myOrder.setCustomerID(userID);
@@ -1100,7 +1144,9 @@ public class ChatClient extends AbstractClient {
 
 		}
 	}
-
+	/**
+	 * 
+	 */
 	public void sendRequestToGetAllCustomer() {
 		try {
 			this.openConnection();
@@ -1119,11 +1165,17 @@ public class ChatClient extends AbstractClient {
 
 		}
 	}
-
+	/**
+	 * 
+	 * @param cancelOrderControl
+	 */
 	public void setCancelControl(CancelOrderControl cancelOrderControl) {
 		this.cancelWindow = cancelOrderControl;
 	}
-
+	/**
+	 * 
+	 * @param cancelOrder
+	 */
 	public void sendRequestToCancelOrder(TransactionAbort cancelOrder) {
 
 		try {
@@ -1141,7 +1193,10 @@ public class ChatClient extends AbstractClient {
 
 		}
 	}
-
+	/**
+	 * 
+	 * @param newReport
+	 */
 	public void AddNewReportToDB(Reports newReport) {
 
 		try {
