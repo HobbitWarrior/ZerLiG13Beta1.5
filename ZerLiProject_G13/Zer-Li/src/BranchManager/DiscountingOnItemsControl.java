@@ -32,10 +32,12 @@ import BranchManager.Reports;
 import Customer.CatalogItemGUI;
 import client.ChatClient;
 
+/**
+ * window of adding new sale to catalog item in specific branch
+ * @author Elias qubety
+ */
 public class DiscountingOnItemsControl  extends LoginContol  implements Initializable
 {
-	 
-
     @FXML
     private Button selectbtn;
 
@@ -85,7 +87,10 @@ public class DiscountingOnItemsControl  extends LoginContol  implements Initiali
 
 
 	  
-
+	 /**
+	  * this method save/update new sale in database, according to the branch id that manager belong to
+	  * @param event ActionEvent on click of a button
+	  */
     @FXML
     void DisCountingPercent(ActionEvent event) {
  	   
@@ -144,7 +149,10 @@ public class DiscountingOnItemsControl  extends LoginContol  implements Initiali
     	   
     }
     
- 
+    /**
+     * this method shows window of reports browsing
+     * @param event ActionEvent  click on button
+     */
     @FXML
     void BrowseBranchReport(ActionEvent event) {
 
@@ -161,7 +169,10 @@ public class DiscountingOnItemsControl  extends LoginContol  implements Initiali
 
     }
 
-    
+    /**
+     * this method shows window of creating payment account
+     * @param event ActionEvent  click on button
+     */
     @FXML
     void CreatePaymentAccount(ActionEvent event)
     {
@@ -178,7 +189,10 @@ public class DiscountingOnItemsControl  extends LoginContol  implements Initiali
 
 				
     }
-
+    /**
+     * this method shows window of adding new product to sales
+     * @param event ActionEvent click on button
+     */
     @FXML
     void DiscountingOnItem(ActionEvent event) {
 	btnCreatePaymentAccount.getScene().getWindow().hide(); //hiding primary window
