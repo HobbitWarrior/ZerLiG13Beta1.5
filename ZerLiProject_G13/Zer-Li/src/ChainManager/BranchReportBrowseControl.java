@@ -60,7 +60,7 @@ public class BranchReportBrowseControl  extends LoginContol  implements Initiali
 	    /**
 		 *  static float parameters the describe report result 
 		 */
-	private static float  q1=0,q2=0,q3=0,q4=0,q5=5,q6=0;
+	private static float  q1=0,q2=0,q3=0,q4=0,q5=0,q6=0;
 	 /**
 	 * BarChart that view average Reports results  
 	 */
