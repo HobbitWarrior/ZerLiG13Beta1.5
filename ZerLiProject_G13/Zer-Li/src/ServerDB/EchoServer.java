@@ -49,7 +49,14 @@ import common.Branch;
 import common.MyFile;
 import javafx.fxml.Initializable;
 import ocsf.server.*;
-
+/**The following class represents the Server in the Server-client communication.
+ * it handles all the requests from the client. In addition, it communicates with
+ * the Database. 
+ * 
+ * 
+ * @author Sharon, Haim, Elias and Alex
+ *
+ */
 public class EchoServer extends AbstractServer implements Initializable {
 	// Class attributes *************************************************
 
@@ -69,7 +76,6 @@ public class EchoServer extends AbstractServer implements Initializable {
 				java.util.Date date = new java.util.Date();
 				Connection serverDataBaseThreadCopy = connectToDB(UserName, Password, DataBaseName);
 				while (true) {
-					// need to add a condition that checks if its time to generate a new report
 					ReportHandler rp = new ReportHandler();
 					rp.generateQuarterItemsReport(serverDataBaseThreadCopy, 1);
 					System.out.println("The thread just generated reports.");
@@ -87,9 +93,12 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 	}
 
-	// handle Messages From Client
-	// *****************************************************************************************************************************************************
-
+/**Handles Messages from the client.
+ * <p>The method get the msg as an object from the client, and discovers its original form,
+ * and performs the needed operation on it in accordance</p>
+ * @param msg sent from the client as Object
+ * @param ConnectionToClient client
+ */
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) {
 
 		// ------------------------------------instanceof
@@ -123,16 +132,12 @@ public class EchoServer extends AbstractServer implements Initializable {
 							quarter = 4;
 					}
 				}
-				System.out
-						.print("current month is" + Month + " and the quarter is: " + quarter + "the year is: " + Year);
+				System.out.print("current month is" + Month + " and the quarter is: " + quarter + "the year is: " + Year);
 				// send a query to the DB to generate a new report
 
 				try {
 					Statement statementquery;
 					statementquery = (Statement) ServerDataBase.createStatement();
-					// query to check if table
-					// filled
-
 					PreparedStatement ps1 = ServerDataBase.prepareStatement(
 							"INSERT INTO satisfactionsurvies VALUES (0,?,?,NULL,NULL,NULL,NULL,NULL,NULL)");
 					ps1.setInt(1, quarter);
@@ -142,7 +147,6 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 					statementquery.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				return;
@@ -150,7 +154,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 			}
 			// get all the complaints from the DB
 			if (DiscoverMessage.equals("ComplaintsList")) {
-				System.out.println("Dear server will you be so kind to get all the Compliants from the DB?");
+				System.out.println("requesting all the active complaints from the database");
 				ArrayList<complaint> Complaints = new ArrayList<complaint>();
 				try {
 					// get the items from the DB
@@ -158,25 +162,18 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 					ResultSet rs = st.executeQuery("SELECT * FROM complaints");
 					while (rs.next()) {
-						/*
-						 * String BranchName = "" + rs.getString(1); String BranchAdress = "" +
-						 * rs.getString(2);
-						 */
 						int i = 1;
 						complaint Complaint = new complaint(rs.getInt(i++), rs.getInt(i++), rs.getInt(i++),
 								rs.getString(i++), rs.getString(i++), rs.getString(i++), rs.getString(i), "no details");
-						// 1 2 3 4 5 6 7
 						Complaints.add(Complaint);
 						System.out.print("complaint: " + Complaint.getComplaintID() + " " + Complaint.getCustomerID()
 								+ " " + Complaint.getDateComplaint() + " " + Complaint.getDetails() + " "
 								+ Complaint.getEmpHandling() + "\n");
 					}
-
-					// serialize the array, but the array i already a serializable :O
-					// Message msg = new Message(Complaints, "1");
 					rs.close();
 					st.close();
 					Message Msg = new Message(Complaints, "ComplaintsList");
+					//send the result back to the client
 					this.sendToAllClients(Msg);
 					System.out.println("sending message to clients from complaints");
 
@@ -456,6 +453,10 @@ public class EchoServer extends AbstractServer implements Initializable {
 			}
 
 		} // end of if (msg instanceof String)
+		
+		
+		
+		/**Checking if the msg is an instance of objects other than Strings*/
 
 		// -----------------------------------instanceof
 		// PaymentAccount-------------------------------------------------------
@@ -587,7 +588,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 		// ---------------------------------------instanceof
 		// MessgaeCatalogProduct----------------------------------------------------
 		if (msg instanceof MessgaeCatalogProduct) {/***
-													 * this method will give client all catalog items of a specific
+													 * this if condition will give the client all the catalog items of a specific
 													 * branch
 													 */
 			System.out.println("Get all CatalogItems of a branch from DB");
@@ -624,8 +625,8 @@ public class EchoServer extends AbstractServer implements Initializable {
 		}
 
 		if (msg instanceof CustomerTransaction) { /**
-													 * this part responsible on check if payment account ok and save
-													 * later the data of orders in db
+													 * this part responsible to check if payment account valid and save
+													 * later the data of orders in the db
 													 */
 			System.out.println("server got request to save order");
 
@@ -789,7 +790,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 		// ---------------------------------------instance of
 		// Complaints----------------------------------------------------
 
-		// inserts a new complaint to the DB
+		// inserts a new complaint into the DB
 		if (msg instanceof complaint) {
 			complaint cmp = (complaint) msg;
 			if (cmp.newComplaint) {
@@ -804,10 +805,6 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 					PreparedStatement ps1 = ServerDataBase
 							.prepareStatement("INSERT INTO complaints VALUES (?,?,?,?,?,?,?)");
-
-					// INSERT INTO complaints VALUES (?,?,?,?,?,?,?);
-					// (`ComplaintID`, `CustomerID`, `EmpHendelingID`, `Topic`, `TimeComplaint`,
-					// `DateComplaint`, `Status`) VALUES
 
 					//generate random complaint number, whithin the range of 999-99999
 					Random rn = new Random();
