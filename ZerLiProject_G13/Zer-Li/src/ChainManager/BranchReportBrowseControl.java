@@ -1,9 +1,12 @@
 package ChainManager;
  
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.time.Year;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 import java.util.Vector;
 
 import Users.LoginContol;
@@ -19,10 +22,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import BranchManager.Reports;
 import Customer.CatalogItemGUI;
@@ -32,6 +37,15 @@ public class BranchReportBrowseControl  extends LoginContol  implements Initiali
 {
 	  
 	public static ObservableList<Reports> ReportList= FXCollections.observableArrayList();
+
+    @FXML
+    private Label ResultLabel;
+    @FXML
+    
+    private Label ResultLabel1;
+    @FXML
+    private Label resultLbl;
+	 
 	@FXML
     private Button btnBrowseReport;
 
@@ -69,6 +83,75 @@ public class BranchReportBrowseControl  extends LoginContol  implements Initiali
     @FXML
     private Button btnCart;
 
+    
+	
+	/**
+     * Method that get the selection row from the
+     * report table and get the csv file path and 
+     * send it to ReadCsvReport function.
+     * @param MouseEvent    that describe click mouse action
+      */
+    @FXML
+    void GetCsvFileReportFromTable(MouseEvent event) {
+    	 ObservableList<Reports> myselectedrow=tableV.getSelectionModel().getSelectedItems();
+    	 ResultLabel.setText(myselectedrow.get(0).getCsvFILE()+"");  
+    	System.out.println("mouse !!!!"+myselectedrow.get(0).getReportType()); 
+    	if(myselectedrow.get(0).getReportType() ==1 ) 
+    	{
+    		 
+    		resultLbl.setText(resultLbl.getText()+" \n"+"reveune Report"); 
+    	}
+    	if(myselectedrow.get(0).getReportType()==3 ) 
+    	{
+    		resultLbl.setText(resultLbl.getText()+" \n"+"Order Report"); 
+    	}
+    	
+    	ReadCsvReport(myselectedrow.get(0).getCsvFILE());
+    }
+    /**
+     * Method that get CsvFile path and read it
+     * line by line and view the report into [SelfBrowseReportFrame.fxml]  
+     * @param String that describe the Csv file source
+      */
+    void ReadCsvReport(String ReportCsvFile)
+    {
+    	String filename =    ReportCsvFile;
+
+	     File file =new File(filename);
+	     try {
+	    	 String data = null ,ViewReportInfo="" ;
+	    	 Scanner inputStream =new Scanner(file);
+	    	 while(inputStream.hasNext()){
+	    		   data=inputStream.nextLine().split(",")[0];	    		  
+	    		   ViewReportInfo=ViewReportInfo+data+"\n";
+	    		 System.out.println(data+"\n");
+	    		 
+	    	 }
+	    	 
+	    	 resultLbl.setVisible(true);
+	    	 ResultLabel1.setVisible(true);
+	    	 ResultLabel1.setText(ViewReportInfo);
+	    	 ViewReportInfo="";
+	    	 inputStream =new Scanner(file);
+
+	    	 while(inputStream.hasNext()){
+	    		   data=inputStream.nextLine().split(",")[1];	    		  
+	    		   ViewReportInfo=ViewReportInfo+data+"\n";
+	    		 System.out.println(data+"\n");
+	    		 
+	    	 }
+	    	 ResultLabel.setVisible(true);
+	    	 ResultLabel.setText(ViewReportInfo);
+
+	     }
+	     catch(FileNotFoundException e)
+	     {
+   		 System.out.println("Src File Error");
+
+	     }
+    }
+    
+    
     @FXML
     void BrowseReport(ActionEvent event) {
 
