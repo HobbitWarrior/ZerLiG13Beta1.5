@@ -1697,10 +1697,15 @@ public class EchoServer extends AbstractServer implements Initializable {
 	}
 
 	// ***********************************************************************************************************************************************************************************
-	private CustomerTransaction saveOrderInDB(CustomerTransaction myOrder) {/**
-																			 * saveOrderInDB method responsible to save
-																			 * order information on 7 tables in db
-																			 */
+	/**
+	 * saveOrderInDB method responsible to put order id and delivery id on customer transaction
+	 * @param myOrder CustomerTransaction type with all details of order
+	 * @return CustomerTransaction with id to order and to delivery
+	 */
+	
+	
+	private CustomerTransaction saveOrderInDB(CustomerTransaction myOrder) 
+	{
 		try {
 			int randomOrderID = getRandomOrderIdFromDB();
 			System.out.println("Your random orderID: " + randomOrderID);
@@ -1728,7 +1733,13 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 	// ***********************************************************************************************************************************************************************************
 
-	private int getRandomDeliveryIdFromDB() throws SQLException {
+	/**
+	 * this method create a random id of delivery of order that not found in order table
+	 * @return int, unique delivery id
+	 * @throws SQLException if reading of the table failed
+	 */
+	private int getRandomDeliveryIdFromDB() throws SQLException 
+	{
 		Statement st = (Statement) ServerDataBase.createStatement();
 		ArrayList<Integer> allDeliveryID = new ArrayList<Integer>();
 		ResultSet rs = st.executeQuery("select * from customerorders ");
