@@ -1242,6 +1242,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 	}
 
 	// ***********************************************************************************************************************************************************************************
+	
 	private ArrayList<Flower> putOutAllFlowers(ArrayList<Flower> allFlowersFromDB)
 			throws SQLException { /** this method responsible to put out all of the flowers in the db */
 		Statement st = (Statement) ServerDataBase.createStatement();
@@ -1265,10 +1266,13 @@ public class EchoServer extends AbstractServer implements Initializable {
 	}
 
 	// ***********************************************************************************************************************************************************************************
-	private CustomerTransaction SaveOrderInDB(CustomerTransaction myOrder) {/**
-																			 * saveOrderInDB method responsible to save
-																			 * order information on 7 tables in db
-																			 */
+	
+	/**
+	 * saveOrderInDB method responsible to save order information on 7 tables in db
+	 * @param myOrder CustomerTransaction with no order id and delivery id
+	 * @return CustomerTransaction with message to customer
+	 */
+	private CustomerTransaction SaveOrderInDB(CustomerTransaction myOrder) {
 
 		try {
 			int randomDeliveryID = getRandomDeliveryIdFromDB();
@@ -1306,13 +1310,13 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 		return myOrder;
 	}
-
+	/**
+	 * this methods responsible on saving delivery data in branchShipment/privateShipment tables
+	 * @param myOrder CustomerTransaction that contains delivery details class
+	 */
 	// ***********************************************************************************************************************************************************************************
-	private void saveDeliveryOfCustomerOrder(
-			CustomerTransaction myOrder) { /**
-											 * this methods responsible on saving delivery data in
-											 * branchShipment/privateShipment tables
-											 */
+	private void saveDeliveryOfCustomerOrder(CustomerTransaction myOrder) 
+	{ 										
 		Delivery orderDelivery = myOrder.getOrderCustomerDelivery();
 		BranchShipment orderBranchShipment;
 		PrivateShipment orderPrivateShipment;
@@ -1388,8 +1392,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 	// *****************************************************************************************************************************************************************************
 	/** this methods responsible on saving data in catalog/custom item tables
-	 * 
-	 * @param myOrder
+	 * @param myOrder CustomerTransaction that contains all products in order
 	 */
 	private void saveItemInOrderOnCatalogCustomProducts(CustomerTransaction myOrder) // this method will be continued
 	{ 
@@ -1466,8 +1469,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 			e.printStackTrace();
 		} // OrderID
 		try {
-			PreparedStatement ps2 = ServerDataBase.prepareStatement(
-					"insert into customeiteminorder (OrderID,ItemID,CustomerID,Quantity,ItemPrice,itemtype,DominantColor) values (?,?,?,?,?,?,?)");
+			PreparedStatement ps2 = ServerDataBase.prepareStatement("insert into customeiteminorder (OrderID,ItemID,CustomerID,Quantity,ItemPrice,itemtype,DominantColor) values (?,?,?,?,?,?,?)");
 			for (int k = 0; k < allCustomItems.size(); k++) // we will give random itemID to customItems
 			{
 				Random rand = new Random();
