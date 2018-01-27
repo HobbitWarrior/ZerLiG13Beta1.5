@@ -62,8 +62,13 @@ import ocsf.server.*;
  */
 public class EchoServer extends AbstractServer implements Initializable {
 	// Class attributes *************************************************
-
+	/**
+	 * Connection to DB
+	 */
 	private Connection ServerDataBase;
+	/**
+	 * boolean Connection with account Succeeded 
+	 */
 	private boolean DB_ACCOUNT;
 
 	// Constructors ****************************************************
