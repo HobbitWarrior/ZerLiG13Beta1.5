@@ -158,8 +158,8 @@ public class BranchReportBrowseControl  extends LoginContol  implements Initiali
     
 	
 	/**
-     * Method that get the selection row from the
-     * report table and get the csv file path and 
+     * Method that gets the selection row from the
+     * report table and gets the csv file path and 
      * send it to ReadCsvReport function.
      * @param event that describe click mouse action
       */
@@ -190,7 +190,7 @@ public class BranchReportBrowseControl  extends LoginContol  implements Initiali
 	
 	/**
      * Method that read the csvFile column 
-     * by column and get the average of 
+     * by column and gets the average of 
      * survey questions and insert the values 
      * into the graph 
      * @param csvFILE that describe path of Csv File 
