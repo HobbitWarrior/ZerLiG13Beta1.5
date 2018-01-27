@@ -197,7 +197,6 @@ public class BranchReportBrowseControl  extends LoginContol  implements Initiali
 	     set1.getData().add(new Data<Object, Object>("q4",q4)); 
 	     set1.getData().add(new Data<Object, Object>("q5",q5));
 	     set1.getData().add(new Data<Object, Object>("q6",q6));
-
 	     SurveyAVG.getData().addAll(set1);
 		
 	}
