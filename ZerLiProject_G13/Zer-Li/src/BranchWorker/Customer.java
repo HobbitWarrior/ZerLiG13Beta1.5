@@ -2,7 +2,8 @@ package BranchWorker;
 
 import java.io.Serializable;
 /**
- * 
+ * class for the user details.
+ * the branch worker use this class to pick customer detail in the combobox.
  * @author Sharon & Elias
  *
  */

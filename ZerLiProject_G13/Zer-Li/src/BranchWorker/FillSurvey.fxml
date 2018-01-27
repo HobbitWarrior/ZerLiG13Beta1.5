@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -13,7 +21,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="923.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BranchWorker.FillSurveyControl">
+<AnchorPane prefHeight="923.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BranchWorker.FillSurveyControl">
    <children>
       <ImageView fitHeight="923.0" fitWidth="850.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -277,7 +285,7 @@
                <children>
                   <ImageView fitHeight="115.0" fitWidth="87.0" layoutX="668.0" layoutY="493.0" rotate="-90.3">
                      <image>
-                        <Image url="@../../../../../../Desktop/project/zerli-Design/arrow-236-xxl.png" />
+                        <Image url="@images/arrow-236-xxl.png" />
                      </image>
                   </ImageView>
                   <Label layoutX="701.0" layoutY="538.0" text="Next" textFill="WHITE">
@@ -386,12 +394,12 @@
                         <Font name="System Bold Italic" size="10.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="Combo1" layoutX="318.0" layoutY="69.0" prefHeight="25.0" prefWidth="59.0" />
-                  <ComboBox fx:id="Combo2" layoutX="318.0" layoutY="169.0" prefHeight="25.0" prefWidth="55.0" />
-                  <ComboBox fx:id="Combo3" layoutX="318.0" layoutY="277.0" prefHeight="25.0" prefWidth="56.0" />
-                  <ComboBox fx:id="Combo4" layoutX="318.0" layoutY="370.0" prefHeight="25.0" prefWidth="55.0" />
-                  <ComboBox fx:id="Combo5" layoutX="318.0" layoutY="468.0" prefHeight="25.0" prefWidth="54.0" />
-                  <ComboBox fx:id="Combo6" layoutX="318.0" layoutY="557.0" prefHeight="25.0" prefWidth="53.0" />
+                  <ComboBox fx:id="Combo1" layoutX="318.0" layoutY="69.0" prefHeight="25.0" prefWidth="64.0" />
+                  <ComboBox fx:id="Combo2" layoutX="318.0" layoutY="169.0" prefHeight="25.0" prefWidth="62.0" />
+                  <ComboBox fx:id="Combo3" layoutX="318.0" layoutY="277.0" prefHeight="25.0" prefWidth="63.0" />
+                  <ComboBox fx:id="Combo4" layoutX="318.0" layoutY="370.0" prefHeight="25.0" prefWidth="61.0" />
+                  <ComboBox fx:id="Combo5" layoutX="318.0" layoutY="468.0" prefHeight="25.0" prefWidth="63.0" />
+                  <ComboBox fx:id="Combo6" layoutX="318.0" layoutY="557.0" prefHeight="25.0" prefWidth="64.0" />
                </children>
                <effect>
                   <DropShadow />

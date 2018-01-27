@@ -3,7 +3,7 @@ package BranchWorker;
 import java.io.Serializable;
 import java.time.Year;
 /**
- * 
+ * class for satisfaction survey details.
  * @author Sharon & Elias
  *
  */

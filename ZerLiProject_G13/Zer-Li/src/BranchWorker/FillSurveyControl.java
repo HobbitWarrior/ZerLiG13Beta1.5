@@ -87,9 +87,9 @@ import BranchManager.PaymentAccount;
 import BranchManager.Reports;
 import BranchManager.ordersReportEntry;
 /**
- * 
+ * class for branch worker window.
+ * contains filling customer satisfaction survey
  * @author Sharon & Elias
- *
  */
 public class FillSurveyControl extends LoginContol implements Initializable {
 	 private static final satisfactionSurvey NULL = null;
@@ -99,7 +99,7 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 	 public static  ObservableList<Customer> customersList = FXCollections.observableArrayList();
 	 public static ObservableList<Integer> customersIDList= FXCollections.observableArrayList();
 
-	 public static int i=0;   //****************************************************check if need this . if not - delete
+	 public static int i=0;
 	 private ArrayList<satisfactionSurvey> MyFillSurveyList = new ArrayList<satisfactionSurvey>();
 	 public static boolean stepAns;
 		
@@ -260,6 +260,9 @@ public class FillSurveyControl extends LoginContol implements Initializable {
     	
     	btnHome.getScene().getWindow().hide(); //hiding primary window
 	   	Stage primaryStage = new Stage();
+	   	customersIDList.clear();
+	   	customersList.clear();
+	   	
 	   	Pane root=null;
 		FillSurveyControl aFrame = new FillSurveyControl();
 		try 
@@ -277,6 +280,8 @@ public class FillSurveyControl extends LoginContol implements Initializable {
     void logoutEvent(ActionEvent event) throws IOException 
     {
     	changeEntry(UserNameToCheck);
+	   	customersIDList.clear();
+	   	customersList.clear();
     	
 		System.out.println("return to main menu");
 		((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window	
@@ -332,6 +337,7 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 	    void nextFill(ActionEvent event) {
 	    	AnchorPanePickCustomer.setVisible(true);
     		AnchorPaneFillAns.setVisible(false);
+   // 		ListNumbers.clear();
     		
     		satisfactionSurvey Surveytemp = new satisfactionSurvey() ; 
          
@@ -372,21 +378,30 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 	    {
 	    	if(stepAns) //stepAns=true , meaning service department created survey - we can fill surveys.
 	    	{
-	    		
+	    		ListNumbers.clear();
 	    		AnchorPanePickCustomer.setVisible(false);
 	    		AnchorPaneFillAns.setVisible(true);
 	    		
 		    	if(!(pickCustomerComboBox.getSelectionModel().isEmpty())) //check if we selected customer
 		    	{
-		    		if(customersList.contains(pickCustomerComboBox.getSelectionModel().getSelectedItem())) // check if we already fill this customer
-		    		{    
+	//	    		if(customersList.contains(pickCustomerComboBox.getSelectionModel().getSelectedItem())) // check if we already fill this customer
+	//	    		{    
 		       		    
- 	  
-		    		}
-		    		else
-		    		{
+		    			for(int i=1;i<11;i++)
+		    			{
+		    				ListNumbers.add(i);
+		     			}
+		    			Combo1.setItems(ListNumbers);
+		    			Combo2.setItems(ListNumbers);
+		    			Combo3.setItems(ListNumbers);
+		    			Combo4.setItems(ListNumbers);
+		    			Combo5.setItems(ListNumbers);
+		    			Combo6.setItems(ListNumbers);
+	//	    		}
+	//	    		else
+	//	    		{
 		    			//error msg***********************
-		    		}
+	//	    		}
 		    	}
 		    	else //no selected customer
 		    	{
@@ -543,6 +558,7 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 		@Override
 		public void initialize(URL location, ResourceBundle resources) 
 		{
+			/*
 			for(int i=1;i<11;i++)
 			{
 				ListNumbers.add(i);
@@ -553,7 +569,7 @@ public class FillSurveyControl extends LoginContol implements Initializable {
 			Combo4.setItems(ListNumbers);
 			Combo5.setItems(ListNumbers);
 			Combo6.setItems(ListNumbers);
-			 
+			 */
 	     
 			for(int i=0;i<customersList.size();i++)
 			{
