@@ -28,7 +28,6 @@ public class Message implements Serializable
 		this.obj=array;
 		this.type=msgType;
 	}
-	
 	/**
 	 * get the object
 	 * @return Object - can be from any class
