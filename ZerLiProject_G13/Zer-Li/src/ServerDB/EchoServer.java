@@ -56,7 +56,6 @@ import ocsf.server.*;
  * it handles all the requests from the client. In addition, it communicates with
  * the Database. 
  * 
- * 
  * @author Sharon, Haim, Elias and Alex
  *
  */
