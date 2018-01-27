@@ -240,8 +240,8 @@ public class FillSurveyControl extends LoginContol implements Initializable
     	
         Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Thank you");
-		alert.setHeaderText("The survie inserted succefully");
-		alert.setContentText("Please press on finish button to merge result on database.");
+		alert.setHeaderText("The survey inserted succefully");
+		alert.setContentText("Please Continue to fill surveys for the other customers\nWhen you finish press 'finish' button.");
 
 		alert.showAndWait();
 
