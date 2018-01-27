@@ -1,7 +1,11 @@
 package Customer;
 
 import java.io.Serializable;
-
+/**
+ * this class of message from customer to get all catalog product by a branch
+ * @author haim hadad
+ *
+ */
 public class MessgaeCatalogProduct implements Serializable	
 {
 	private final String msg = "Give Me All CatalogItems";

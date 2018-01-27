@@ -2,6 +2,11 @@ package Customer;
 
 import java.io.Serializable;
 
+/**
+ * class of date time of our project
+ * @author éhaim hadad
+ *
+ */
 public class Date implements Serializable, Comparable, Cloneable
 {
 	private int year;

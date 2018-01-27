@@ -3,6 +3,11 @@ package Customer;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * class of custom product in order
+ * @author haim hadad
+ *
+ */
 public class CustomItemInOrder extends ItemInOrder implements Serializable
 {
 	private String itemType;

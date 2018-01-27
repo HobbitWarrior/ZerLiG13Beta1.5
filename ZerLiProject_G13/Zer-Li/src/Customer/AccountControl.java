@@ -14,6 +14,10 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+/**
+ *  controller of account, not implemented because we had no time 
+ * @author Haim hadad
+ */
 public class AccountControl  extends LoginContol 
 {
 	

@@ -1,7 +1,10 @@
 package Customer;
 
 import java.io.Serializable;
-
+/**
+ * abstract class of delivery with common details to all delivery
+ * @author haim hadad
+ */
 public abstract class Delivery implements Serializable, Cloneable
 {
 	private int OrderID;

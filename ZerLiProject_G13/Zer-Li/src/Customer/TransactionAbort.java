@@ -1,7 +1,11 @@
 package Customer;
 
 import java.io.Serializable;
-
+/**
+ * class of cancel order request
+ * @author haim hadad
+ *
+ */
 public class TransactionAbort implements Serializable
 {
 	private int orderID;

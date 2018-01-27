@@ -20,6 +20,11 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ * class of visual catalog item, inserted to table view
+ * @author haim hadad
+ *
+ */
 public class CatalogItemGUI extends CatalogItem
 {
 	private Button plusBtn;

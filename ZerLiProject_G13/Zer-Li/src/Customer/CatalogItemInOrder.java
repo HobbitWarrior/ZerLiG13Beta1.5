@@ -2,6 +2,11 @@ package Customer;
 
 import java.io.Serializable;
 
+/**
+ * class of catalog items that customer want to buy
+ * @author Haim hadad
+ *
+ */
 public class CatalogItemInOrder extends ItemInOrder implements Serializable
 {		
 	/**

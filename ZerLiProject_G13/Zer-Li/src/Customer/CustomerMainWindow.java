@@ -25,7 +25,11 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-
+/**
+ * this main window of customer
+ * @author haim hadad
+ *
+ */
 public class CustomerMainWindow extends LoginContol implements Initializable
 {
 	public static ObservableList<Branch> AllBranches= FXCollections.observableArrayList();

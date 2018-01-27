@@ -35,6 +35,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
+/**
+ * window of custom order of customer
+ * @author haim hadad
+ *
+ */
 public class CustomOrderControl extends LoginContol implements Initializable
 {
 	public static ObservableList<Flower> allFlowers= FXCollections.observableArrayList();

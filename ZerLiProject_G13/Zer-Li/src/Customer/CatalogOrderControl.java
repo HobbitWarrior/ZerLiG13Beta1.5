@@ -37,6 +37,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
+/**
+ * this controller is the catalog in customer permition
+ * @author haim hadad
+ *
+ */
 public class CatalogOrderControl extends LoginContol implements Initializable
 {
 

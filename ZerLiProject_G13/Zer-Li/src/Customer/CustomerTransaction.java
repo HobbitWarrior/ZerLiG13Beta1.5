@@ -3,6 +3,11 @@ package Customer;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * clas of customer order
+ * @author haim hadad
+ *
+ */
 public class CustomerTransaction implements Serializable
 {	/**this class is responsible for the customer order, and check if payment account exist in table*/
 	private int OrderID;

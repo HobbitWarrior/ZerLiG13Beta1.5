@@ -1,7 +1,11 @@
 package Customer;
 
 import java.io.Serializable;
-
+/**
+ * class of customer delivery to specific address
+ * @author haim hadad
+ *
+ */
 public class PrivateShipment extends Delivery implements Serializable
 {
 	

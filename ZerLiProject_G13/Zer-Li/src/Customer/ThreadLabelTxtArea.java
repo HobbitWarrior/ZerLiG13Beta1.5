@@ -3,7 +3,11 @@ package Customer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-
+/**
+ * thread that print label
+ * @author haim hadad
+ *
+ */
 public class ThreadLabelTxtArea extends Thread
 {
     @FXML

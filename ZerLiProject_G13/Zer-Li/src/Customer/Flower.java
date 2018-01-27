@@ -3,6 +3,11 @@ package Customer;
 import java.io.Serializable;
 import java.util.Comparator;
 
+/**
+ * class of flower that custom product contains
+ * @author haim hadad
+ *
+ */
 public class Flower implements Serializable
 {	
 	private int flowerID;

@@ -28,7 +28,10 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-
+/**
+ * this is controller of cancel window
+ * @author haim hadad
+ */
 public class CancelOrderControl extends LoginContol implements Initializable
 {
 	public static ObservableList<CustomerTransaction> allCustomerOrder= FXCollections.observableArrayList();

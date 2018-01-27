@@ -1,7 +1,11 @@
 package Customer;
 
 import java.io.Serializable;
-
+/**
+ * class of time
+ * @author haim hadad
+ *
+ */
 public class MyTime implements Serializable, Comparable,Cloneable
 {
 	private String hour;

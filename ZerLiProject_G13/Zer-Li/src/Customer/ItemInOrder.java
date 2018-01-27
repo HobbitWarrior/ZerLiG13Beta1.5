@@ -6,6 +6,11 @@ import java.util.Comparator;
 
 import javafx.collections.ObservableList;
 
+/**
+ * abstract of custom/catalog product in order
+ * @author haim hadad
+ *
+ */
 public abstract class ItemInOrder implements Comparable,Serializable
 {
 	private Integer orderID= null;

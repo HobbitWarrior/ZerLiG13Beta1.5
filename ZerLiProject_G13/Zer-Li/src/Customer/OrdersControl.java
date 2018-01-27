@@ -41,7 +41,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
-
+/**
+ * window of creating customer order
+ * @author haim hadad
+ *
+ */
 public class OrdersControl extends LoginContol implements Initializable
 {
 	public static ObservableList<ItemInOrder> ItemsInOrderList= FXCollections.observableArrayList();

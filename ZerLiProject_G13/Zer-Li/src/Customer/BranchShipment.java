@@ -2,6 +2,11 @@ package Customer;
 
 import java.io.Serializable;
 
+/**
+ *  class of self arrival delivery
+ * @author haim hadad
+ *
+ */
 public class BranchShipment extends Delivery implements Serializable
 {
 	private String BranchID;
