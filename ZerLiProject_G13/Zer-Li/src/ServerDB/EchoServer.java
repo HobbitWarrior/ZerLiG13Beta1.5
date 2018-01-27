@@ -2266,8 +2266,8 @@ public class EchoServer extends AbstractServer implements Initializable {
 	/**
 	 * method that put out all data about catalog products from catalog table
 	 * @param CatalogItemsFromDB empty arraylist of 
-	 * @return
-	 * @throws SQLException
+	 * @return CatalogItemsFromDB
+	 * @throws SQLException exception when sql fail
 	 */
 	private ArrayList<CatalogItem> PutOutAllCatalogItems(ArrayList<CatalogItem> CatalogItemsFromDB)
 			throws SQLException {
