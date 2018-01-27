@@ -1750,6 +1750,12 @@ public class EchoServer extends AbstractServer implements Initializable {
 	}
 
 	// ***********************************************************************************************************************************************************************************
+	
+	/**
+	 * this method create a random id of order that not found in orders table
+	 * @return int, unique order id
+	 * @throws SQLException if reading of the table failed
+	 */
 	private int getRandomOrderIdFromDB() throws SQLException {
 		Statement st = (Statement) ServerDataBase.createStatement();
 		ArrayList<Integer> allOrdersID = new ArrayList<Integer>();
@@ -1772,6 +1778,16 @@ public class EchoServer extends AbstractServer implements Initializable {
 	}
 
 	// ***********************************************************************************************************************************************************************************
+	/**
+	 * this method check if account exist and if the branch id compatible between the one in database to the chosen one that customer picked
+	 * @param myOrder customerTransaction order
+	 * @param pA_userName username of payment account
+	 * @param pA_Password password of payment account
+	 * @param branchID id of branch that chosen
+	 * @param dateOfOrder current date to check if the account not expired
+	 * @return CustomerTransaction with message to client
+	 * @throws SQLException if reading of payment account table failed
+	 */
 	private CustomerTransaction checkIfAccountOK(CustomerTransaction myOrder, String pA_userName, String pA_Password,
 			String branchID, Date dateOfOrder)
 			throws SQLException { /** this method check if payment account of order is ok */
@@ -1839,7 +1855,11 @@ public class EchoServer extends AbstractServer implements Initializable {
 		return myOrder;
 	}
 	// ***********************************************************************************************************************************************************************************
-
+	/**
+	 * this method converts sql time to our project time class called MyTime
+	 * @param time sql time type
+	 * @return MyTime class
+	 */
 	private MyTime convertSqlTimeToTimeOfHaim(Time time) {
 		String someTime = "" + time;
 		String hour = someTime.substring(0, 2);
@@ -1848,9 +1868,13 @@ public class EchoServer extends AbstractServer implements Initializable {
 		MyTime haimTime = new MyTime(hour, minute, seconds);
 		return haimTime;
 	}
-
-	private Date convertSqlDateToDateOfHaim(
-			java.sql.Date myDate) { /*
+	/**
+	 * this method converts sql date type to our project date class
+	 * @param myDate sql type
+	 * @return date class of our project
+	 */
+	private Date convertSqlDateToDateOfHaim(java.sql.Date myDate) 
+	{ /*
 									 * this method responsible for convert sql date type to our project date type
 									 **/
 		String someDate = "" + myDate;
@@ -1862,8 +1886,12 @@ public class EchoServer extends AbstractServer implements Initializable {
 	}
 
 	// ***********************************************************************************************************************************************************************************
-	/*** this method return prices for item in specific branch
-	 *  */
+	/**
+	 * this method return all catalog products on sale of specific branch
+	 * @param catalogItemsFromDB empty arraylist of a branch
+	 * @param branchID id of branch
+	 * @return full array list of products on sale
+	 */
 	private ArrayList<CatalogItem> PutOutAllBranchCatalogItems(ArrayList<CatalogItem> catalogItemsFromDB,
 			String branchID) { 
 		Statement st = null;
