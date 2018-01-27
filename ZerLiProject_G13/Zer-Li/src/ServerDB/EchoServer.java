@@ -68,6 +68,13 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 	// Constructors ****************************************************
 
+	/**
+	 * Constructor of database control
+	 * @param port port number from text box
+	 * @param UserName user name of database in mySql
+	 * @param Password password of database in mySql
+	 * @param DataBaseName name of database in mySql
+	 */
 	public EchoServer(int port, String UserName, String Password, String DataBaseName) {
 		super(port);
 		ServerDataBase = connectToDB(UserName, Password, DataBaseName);
