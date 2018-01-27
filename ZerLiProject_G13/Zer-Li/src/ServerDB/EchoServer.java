@@ -809,7 +809,10 @@ public class EchoServer extends AbstractServer implements Initializable {
 					// (`ComplaintID`, `CustomerID`, `EmpHendelingID`, `Topic`, `TimeComplaint`,
 					// `DateComplaint`, `Status`) VALUES
 
-					ps1.setString(1, Integer.toString(cmp.getComplaintID()));
+					//generate random complaint number, whithin the range of 999-99999
+					Random rn = new Random();
+					int randomComplaintID = rn.nextInt(9999-999) + 999;
+					ps1.setInt(1, randomComplaintID);
 					ps1.setString(2, Integer.toString(cmp.getCustomerID()));
 					ps1.setString(3, Integer.toString(cmp.getEmpHandling()));
 					ps1.setString(4, cmp.getTopic());
