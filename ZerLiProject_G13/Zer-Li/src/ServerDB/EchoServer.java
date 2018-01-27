@@ -19,6 +19,7 @@ import com.mysql.jdbc.Blob;
 import com.mysql.jdbc.Statement;
 
 import CustomerServiceDepartmentworker.closingComplaint;
+import CustomerServiceDepartmentworker.compensation;
 import CustomerServiceDepartmentworker.complaint;
 import CustomerServiceDepartmentworker.complaintProgress;
 import CustomerServiceDepartmentworker.expertReport;
@@ -975,15 +976,23 @@ public class EchoServer extends AbstractServer implements Initializable {
 																							// filled
 
 				PreparedStatement ps1 = ServerDataBase.prepareStatement(
-						"INSERT INTO complaintclosingreports (ComplaintId, CustomerID,ReportDetails) VALUES (?,?,?)");
+						"INSERT INTO complaintclosingreports VALUES (?,?,?,?,?)");
 
 				// INSERT INTO complaints VALUES (?,?,?,?,?,?,?);
 				// (`ComplaintID`, `CustomerID`, `EmpHendelingID`, `Topic`, `TimeComplaint`,
 				// `DateComplaint`, `Status`) VALUES
 
+				// get current date and time, to record the complaints opening timestamp:
+				DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				java.util.Date date = new java.util.Date();
+				DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+				java.util.Date time = new java.util.Date();
+				
 				ps1.setInt(1, cc.getComplaintID());
 				ps1.setInt(2, cc.getCutsomerID());
-				ps1.setString(3, cc.getDetails());
+				ps1.setString(3, dateFormat.format(date));
+				ps1.setString(4, timeFormat.format(date));
+				ps1.setString(5, cc.getDetails());
 				int i=ps1.executeUpdate();
 				System.out.println("closed a complaint, affected rows: "+i);
 				ps1.close();
@@ -1031,6 +1040,48 @@ public class EchoServer extends AbstractServer implements Initializable {
 			
 			
 			
+		}
+		
+		if(msg instanceof compensation)
+		{
+			compensation c=(compensation)msg;
+			
+			
+			
+			
+			try {
+				System.out.println("Inserting a compensation");
+				// insert the data into the table
+				Statement statementquery = (Statement) ServerDataBase.createStatement(); // query to check if
+																							// table
+																							// filled
+
+				PreparedStatement ps1 = ServerDataBase.prepareStatement(
+						"INSERT INTO compensations VALUES ( ? , ? , ? , ? , ? )");
+
+				// INSERT INTO complaints VALUES (?,?,?,?,?,?,?);
+				// (`ComplaintID`, `CustomerID`, `EmpHendelingID`, `Topic`, `TimeComplaint`,
+				// `DateComplaint`, `Status`) VALUES
+
+				ps1.setInt(1, c.getCompensationID());
+				ps1.setInt(2, c.getCustomerID());
+				ps1.setInt(3, c.getCsde_id());
+				ps1.setDouble(4, c.getCompensationAmount());
+				ps1.setString(5, c.getIsPaid());
+				int i=ps1.executeUpdate();
+				System.out.println("save a compensation, rows affected: "+i);
+				ps1.close();
+
+				statementquery.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			
+			
+			
+			
+			return;
 		}
 	
 		// -----------------------------------------------------------//
