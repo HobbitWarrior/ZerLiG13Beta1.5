@@ -1845,6 +1845,13 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 	// ****************************************************************************************************************************
 
+	/**
+	 * bring out all branch managers
+	 * @param branchManagersFromDB empty array list of branch managers
+	 * @return full array list of branch managers
+	 * @throws SQLException SQLException if read from table failed
+
+	 */
 	private ArrayList<BranchManager> PutOutAllBranchManagers(ArrayList<BranchManager> branchManagersFromDB)
 			throws SQLException {
 		Statement st = (Statement) ServerDataBase.createStatement();
@@ -1869,6 +1876,12 @@ public class EchoServer extends AbstractServer implements Initializable {
 		return branchManagersFromDB;
 	}
 
+	/**
+	 * method bring out all users branches
+	 * @param branchesFromDB empty array list of branches
+	 * @return full array list of branches
+	 * @throws SQLException SQLException if read from table failed
+	 */
 	private ArrayList<Branch> PutOutAllBranches(ArrayList<Branch> branchesFromDB) throws SQLException {
 		Statement st = (Statement) ServerDataBase.createStatement();
 
@@ -1894,6 +1907,12 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 	// this method get all information from the DB and sends it to the comboBox of
 	// the clientGUI
+	/**
+	 * this method bring out all users account 
+	 * @param UsersFromDB empty array list of users
+	 * @return full array list of users
+	 * @throws SQLException if read from table failed
+	 */
 	private ArrayList<User> PutOutAllUsers(ArrayList<User> UsersFromDB) throws SQLException {
 
 		Statement st = (Statement) ServerDataBase.createStatement();
@@ -1920,6 +1939,12 @@ public class EchoServer extends AbstractServer implements Initializable {
 	}
 
 	// ***********************************************************************************************************************************************************************************
+	/**
+	 * this method finds all report in a table regardless to any branch
+	 * @param ReportsFromDB empty arraylist of report clas
+	 *@return full arraylist (if report exist)
+	 * @throws SQLException error if read from table failed
+	 */
 	private ArrayList<Reports> PutOutAllReports(ArrayList<Reports> ReportsFromDB) throws SQLException {
 
 		Statement st = (Statement) ServerDataBase.createStatement();
@@ -1946,6 +1971,13 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 	}
 
+	/**
+	 * this method finds all report in a table of specific branch
+	 * @param ReportsFromDB empty arraylist of report class
+	 * @param mybranchid id of specifi branch
+	 * @return full arraylist (if report exist)
+	 * @throws SQLException error if read from table failed
+	 */
 	// ***********************************************************************************************************************************************************************************
 	private ArrayList<Reports> PutOutAllBranchReports(ArrayList<Reports> ReportsFromDB, String mybranchid)
 			throws SQLException {
@@ -1975,6 +2007,13 @@ public class EchoServer extends AbstractServer implements Initializable {
 	}
 
 	// ***********************************************************************************************************************************************************************************
+	/**
+	 * this method bring out all catalog products of specific branch that on sale 
+	 * @param catalogitemsofbranchFromDB empty arraylist of catalog products
+	 * @param mybranchid id of specific branch
+	 * @return not empty array list (in case of exist products) of products on sale
+	 * @throws SQLException if the read from the table failed
+	 */
 	private ArrayList<catalogitemsofbranch> PutOutAllCatalogItemsOfBranch(
 			ArrayList<catalogitemsofbranch> catalogitemsofbranchFromDB, String mybranchid) throws SQLException {
 
@@ -2002,6 +2041,12 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 	// ***********************************************************************************************************************************************************************************
 
+	/**
+	 * method that put out all data about catalog products from catalog table
+	 * @param CatalogItemsFromDB empty arraylist of 
+	 * @return
+	 * @throws SQLException
+	 */
 	private ArrayList<CatalogItem> PutOutAllCatalogItems(ArrayList<CatalogItem> CatalogItemsFromDB)
 			throws SQLException {
 
@@ -2064,7 +2109,10 @@ public class EchoServer extends AbstractServer implements Initializable {
 	}
 
 	// ***********************************************************************************************************************************************************************************
-
+	/**
+	 * this method change flag of users, and making to server to not allow simultaneously login of user account
+	 * @param userName string user name account
+	 */
 	public synchronized void changeEntryInDB(String userName) {
 		Statement st = null;
 
@@ -2101,6 +2149,10 @@ public class EchoServer extends AbstractServer implements Initializable {
 	}
 
 	// ***********************************************************************************************************************************************************************************
+	/**
+	 * method that delete row in catalog table
+	 * @param ItemID specific id of product
+	 */
 	public synchronized void deleteItemInDB(int ItemID) {
 		Statement st = null;
 
