@@ -1828,7 +1828,6 @@ public class EchoServer extends AbstractServer implements Initializable {
 	 * @param myOrder CustomerTransaction type with all details of order
 	 * @return CustomerTransaction with id to order and to delivery
 	 */
-	
 	private CustomerTransaction saveOrderInDB(CustomerTransaction myOrder) 
 	{
 		try {
