@@ -2004,6 +2004,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 	}
 
+	// ***********************************************************************************************************************************************************************************
 	/**
 	 * this method finds all report in a table of specific branch
 	 * @param ReportsFromDB empty arraylist of report class
@@ -2011,7 +2012,6 @@ public class EchoServer extends AbstractServer implements Initializable {
 	 * @return full arraylist (if report exist)
 	 * @throws SQLException error if read from table failed
 	 */
-	// ***********************************************************************************************************************************************************************************
 	private ArrayList<Reports> PutOutAllBranchReports(ArrayList<Reports> ReportsFromDB, String mybranchid)
 			throws SQLException {
 
