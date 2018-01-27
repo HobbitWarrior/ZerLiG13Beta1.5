@@ -69,7 +69,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 	// Constructors ****************************************************
 
 	/**
-	 * Constructor of database control
+	 * Constructor of database controller
 	 * @param port port number from text box
 	 * @param UserName user name of database in mySql
 	 * @param Password password of database in mySql
