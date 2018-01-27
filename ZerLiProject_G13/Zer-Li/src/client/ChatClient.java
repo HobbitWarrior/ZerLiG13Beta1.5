@@ -44,6 +44,7 @@ import Customer.OrdersControl;
 import Customer.TransactionAbort;
 import CustomerServiceDepartmentworker.CustomerServiceDepartmentworkerMainWindow;
 import CustomerServiceDepartmentworker.closingComplaint;
+import CustomerServiceDepartmentworker.compensation;
 import CustomerServiceDepartmentworker.complaint;
 import CustomerServiceDepartmentworker.complaintProgress;
 import CustomerServiceDepartmentworker.complaintRow;
@@ -1380,11 +1381,11 @@ public class ChatClient extends AbstractClient {
 	}
 
 	/***
-	 * <h1>send request to add a new progress for a complaint</h1>
+	 * <h1>send request to close a complaint</h1>
 	 * <p>
-	 * this method asks asks to add a new entry in the progress complaint table
+	 * this method closes the current complaint
 	 * 
-	 * @return none @param complaintProgress @author Alex
+	 * @return none @param closingComplaint @author Alex
 	 *         </p>
 	 ***/
 	public void sendRequestSaveAndCloseComplaint(closingComplaint cc) {
@@ -1402,6 +1403,34 @@ public class ChatClient extends AbstractClient {
 			sendToServer(cc);
 		} catch (IOException e) {
 			System.out.println("Cannot connect to server in order to generate a closing complaint report");
+
+		}
+	}
+	/***
+	 * <h1>send request to give a client a compensation</h1>
+	 * <p>
+	 * this method asks from te server to record a compensation request for the costumer
+	 * 
+	 * @return none @param compensation @author Alex
+	 *         </p>
+	 ***/	
+	
+	public void sendRequestToCompensate(compensation c)
+	{
+
+		try {
+			this.openConnection();
+
+		}
+
+		catch (IOException e1) {
+			System.out.println("Cannot open connection");
+		}
+		try {
+			System.out.println("Asking the server to give a compensation");
+			sendToServer(c);
+		} catch (IOException e) {
+			System.out.println("Cannot connect to server in order to generate a compensation");
 
 		}
 	}
