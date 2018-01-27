@@ -285,8 +285,17 @@ public class CreatePaymentAccountController extends LoginContol implements Initi
     }
 
     @FXML
-    void goHome(ActionEvent event) {
-
+    void goHome(ActionEvent event) 
+    {
+    	btnHome.getScene().getWindow().hide(); // hiding primary window
+		Stage primaryStage = new Stage();
+		BranchManagerMainWindow aFrame = new BranchManagerMainWindow();
+		try 
+		{
+			aFrame.start(primaryStage);
+		} catch (IOException e) {
+			System.out.println("Cannot start Customer main Window");
+		}
     }
 
     @FXML

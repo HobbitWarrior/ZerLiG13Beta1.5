@@ -543,12 +543,45 @@ public class EchoServer extends AbstractServer implements Initializable {
 		}
 		// ---------------------------------------instanceof
 		// PercentMSG----------------------------------------------------
-		if (msg instanceof PercentMSG) {
+		if (msg instanceof PercentMSG) 
+		{
 
-			PercentMSG givenItem = (PercentMSG) msg;
+			System.out.println("server know to add sale!!!!!!!!!!!!!!");
+			System.out.println("server know to add sale!!!!!!!!!!!!!!");
+			System.out.println("server know to add sale!!!!!!!!!!!!!!");
+			System.out.println("server know to add sale!!!!!!!!!!!!!!");
 
-			editItemPriceInDB(givenItem);
-			System.out.println("Editing item with id: " + givenItem.getItemId());
+			PercentMSG salenItem = (PercentMSG) msg;
+			double oldPrice=0;
+			Integer itemID = new Integer(salenItem.getItemId());
+			ArrayList<CatalogItem> allCatalogItems = new ArrayList<CatalogItem>();
+			try 
+			{
+				allCatalogItems = this.PutOutAllCatalogItems(allCatalogItems);
+			} 
+			catch (SQLException e) 
+			{
+				System.out.println("Cannot get all catalog items to make a sale");
+
+			}
+			for ( int i =0 ; i<allCatalogItems.size(); i++ )
+			{
+				if(itemID == allCatalogItems.get(i).getItemID())
+				{
+					oldPrice = allCatalogItems.get(i).getItemPrice();
+				}
+			}
+			
+			catalogitemsofbranch currenSale;
+			currenSale = editItemPriceInDB(salenItem, oldPrice);
+			Message saleMsg = new Message (currenSale , "Sale added");
+			try {
+				client.sendToClient(saleMsg);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("Editing item with id: " + salenItem.getItemId());
 			return;
 
 		}
@@ -1526,38 +1559,82 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 	// ***********************************************************************************************************************************************************************************
 
-	private void editItemPriceInDB(PercentMSG OB) {
+	private catalogitemsofbranch editItemPriceInDB(PercentMSG OB, double oldPrice) 
+	{
 
-		int tempid = Integer.parseInt(OB.getItemId());
-		double tempPrice = Double.parseDouble(OB.getPercent());
+		int tempItemid = Integer.parseInt(OB.getItemId());
+		double percent = Double.parseDouble(OB.getPercent());
+		percent=percent/100;
+		double newPrice = oldPrice - percent * oldPrice;
+		String branchIDold=OB.getBranchID();
+		boolean editOrAdd=false; // edit= true, add = false
+		ArrayList<catalogitemsofbranch> catalogitemsofbranchFromDB = new ArrayList<catalogitemsofbranch>();
+		try 
+		{
+			catalogitemsofbranchFromDB = PutOutAllCatalogItemsOfBranch(catalogitemsofbranchFromDB, branchIDold);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for ( int i=0; i< catalogitemsofbranchFromDB.size() ; i++)
+		{
+			if (catalogitemsofbranchFromDB.get(i).getBranchID().equals(branchIDold) && tempItemid == catalogitemsofbranchFromDB.get(i).getItemID() )
+			{
+				editOrAdd=true;
+				break;
+			}
+		}
+		if ( editOrAdd == false) //we will add
+		{
 
-		Statement st = null;
-		try {
-			st = (Statement) ServerDataBase.createStatement();
-			ResultSet rs = st.executeQuery("select * from catalogitemsofbranch ");
+			try 
+			{
 
-			while (rs.next()) {
+				PreparedStatement ps1 = ServerDataBase.prepareStatement("insert into catalogitemsofbranch (ItemID,BranchID,Price) values (?,?,?)");
+				ps1.setInt(1, tempItemid);
+				ps1.setString(2, branchIDold);
+				ps1.setDouble(3, newPrice); // totalPrice
 
-				int ItemID = rs.getInt(1);
-				System.out.println(ItemID);
-				if (ItemID == tempid) {
-					tempPrice = rs.getDouble(3) - (tempPrice / 100) * rs.getDouble(3);
-					System.out.println(tempPrice);
-
-					rs.close();
-					break;
-				}
+				ps1.executeUpdate();
+				ps1.close();
 
 			}
 
-			String sql = "UPDATE catalogitemsofbranch SET Price='" + tempPrice + "' WHERE ItemID = '" + tempid + "'";
-			st.executeUpdate(sql);
-			st.close();
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-			System.out.println("Cannot update entry");
+			catch (SQLException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("Cannot add to table of catalogitemsofbranch");
+
+			} // OrderID
+
+
 		}
-		;
+		else	//we will edit
+		{
+			try 
+			{
+				Statement st = null;
+				st = (Statement) ServerDataBase.createStatement();
+				
+
+				String sql = "UPDATE catalogitemsofbranch SET Price='" + newPrice + "' WHERE ItemID = '" + tempItemid + "' AND BranchID ='"+ branchIDold+ "'";
+				st.executeUpdate(sql);
+				st.close();
+			} 
+			catch (SQLException e1) {
+				e1.printStackTrace();
+				System.out.println("Cannot update sale");
+			}
+		}
+		
+		
+		catalogitemsofbranch currentSale = new catalogitemsofbranch(tempItemid, branchIDold, newPrice);
+		return currentSale;
+		
+		
 
 	}
 

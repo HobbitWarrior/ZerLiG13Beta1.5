@@ -94,10 +94,18 @@ public class DiscountingOnItemsControl  extends LoginContol  implements Initiali
     	 percent = Integer.parseInt( percenttxt.getText());
    if(!IDItemtext.getText().isEmpty() && percent>0 && percent <100   ) 
    {
-	   
+	   String branchID="";
+	   int branchManagerID=LoginContol.userID;
+	  for(int i =0 ; i< BranchManagerMainWindow.allBrancheManagers.size() ; i++)
+	  {
+		  if(branchManagerID == BranchManagerMainWindow.allBrancheManagers.get(i).getBranchManagerID())
+		  {
+			  branchID = BranchManagerMainWindow.allBrancheManagers.get(i).getBranchID();
+		  }
+	  }
 	   
 	    
-		PercentMSG PerMSG =new PercentMSG(IDItemtext.getText(), percenttxt.getText());
+		PercentMSG PerMSG =new PercentMSG(IDItemtext.getText(), percenttxt.getText(),branchID);
 	   System.out.println(PerMSG);	  
 
 	 
@@ -192,8 +200,17 @@ public class DiscountingOnItemsControl  extends LoginContol  implements Initiali
     }
 
     @FXML
-    void goHome(ActionEvent event) {
-
+    void goHome(ActionEvent event) 
+    {
+    	btnHome.getScene().getWindow().hide(); // hiding primary window
+		Stage primaryStage = new Stage();
+		BranchManagerMainWindow aFrame = new BranchManagerMainWindow();
+		try 
+		{
+			aFrame.start(primaryStage);
+		} catch (IOException e) {
+			System.out.println("Cannot start Customer main Window");
+		}
     }
 
      @FXML
@@ -268,7 +285,9 @@ public class DiscountingOnItemsControl  extends LoginContol  implements Initiali
 	     PriceCol.setCellValueFactory(new PropertyValueFactory<catalogitemsofbranch, Double>("Price"));
 	     BranchIDCol.setCellValueFactory(new PropertyValueFactory<catalogitemsofbranch, String>("BranchID"));
 	     MyTableV.setItems(catalogitemsofbranchlist); 
-	 
+	     ItemIDCol.setStyle( "-fx-alignment: CENTER;");
+	     PriceCol.setStyle( "-fx-alignment: CENTER;");
+	     BranchIDCol.setStyle( "-fx-alignment: CENTER;");
 	   
 	     
 	}

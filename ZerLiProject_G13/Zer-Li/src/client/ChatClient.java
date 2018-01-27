@@ -105,13 +105,16 @@ public class ChatClient extends AbstractClient {
 		this.chooseControl = Control;
 	}
 
-	public void handleMessageFromServer(Object msg) {
-		if (msg instanceof Message) {
+	public void handleMessageFromServer(Object msg) 
+	{
+		if (msg instanceof Message) 
+		{
 			Message ServerMsg;
 			ServerMsg = (Message) msg;
 
 			/* complaints list handler */
-			if (ServerMsg.getMsgType().equals("ComplaintsList")) {
+			if (ServerMsg.getMsgType().equals("ComplaintsList")) 
+			{
 				// point the active complains that were retrieved from the server to the
 				// arrayList in the
 				// CustomerServiceDepartmentwokerMainWindow class
@@ -130,7 +133,8 @@ public class ChatClient extends AbstractClient {
 				return;
 			}
 			// handle a User resposne from the server
-			if (ServerMsg.getMsgType().equals("User")) {
+			if (ServerMsg.getMsgType().equals("User")) 
+			{
 				ArrayList<User> AllUsersFromServer = (ArrayList<User>) ServerMsg.getMsgObject();
 				for (int i = 0; i < AllUsersFromServer.size(); i++) {
 					// System.out.println(""+AllUsersFromServer.get(i));
@@ -150,7 +154,8 @@ public class ChatClient extends AbstractClient {
 			}
 
 			// ************************************************************************
-			if (ServerMsg.getMsgType().equals("Satisfaction Survey list")) {
+			if (ServerMsg.getMsgType().equals("Satisfaction Survey list")) 
+			{
 				ArrayList<Float> AllSurveyResults = (ArrayList<Float>) ServerMsg.getMsgObject();
 				for (int i = 0; i < AllSurveyResults.size(); i++) {
 					// System.out.println(""+AllUsersFromServer.get(i));
@@ -170,7 +175,8 @@ public class ChatClient extends AbstractClient {
 				return;
 			}
 			// ************************************************************************
-			if (ServerMsg.getMsgType().contains("Answer if step is 0")) {
+			if (ServerMsg.getMsgType().contains("Answer if step is 0")) 
+			{
 				Boolean ansStepFromServer = (Boolean) ServerMsg.getMsgObject();
 				SurveyControl.stepAns = ansStepFromServer;
 
@@ -188,7 +194,8 @@ public class ChatClient extends AbstractClient {
 			}
 
 			// ************************************************************************
-			if (ServerMsg.getMsgType().contains("Answer if step is 1")) {
+			if (ServerMsg.getMsgType().contains("Answer if step is 1")) 
+			{
 				Boolean ansStepFromServer = (Boolean) ServerMsg.getMsgObject();
 				SurveyAnalayzingControl.stepAns = ansStepFromServer;
 
@@ -206,7 +213,8 @@ public class ChatClient extends AbstractClient {
 			}
 
 			// ************************************************************************
-			if (ServerMsg.getMsgType().contains("Answer if Unique item ID: ")) {
+			if (ServerMsg.getMsgType().contains("Answer if Unique item ID: ")) 
+			{
 				Boolean ans = (Boolean) ServerMsg.getMsgObject();
 				CatalogEditControl.ansUniqueID = ans;
 
@@ -229,7 +237,8 @@ public class ChatClient extends AbstractClient {
 				return;
 			}
 
-			if (ServerMsg.getMsgType().equals("CatalogItem")) {
+			if (ServerMsg.getMsgType().equals("CatalogItem")) 
+			{
 				System.out.println("ServerMsg.getMsgType().equals catalogItem");
 
 				ArrayList<CatalogItem> AllCatalogItems = (ArrayList<CatalogItem>) ServerMsg.getMsgObject();
@@ -290,7 +299,9 @@ public class ChatClient extends AbstractClient {
 				 */
 
 				return;
-			} else if (ServerMsg.getMsgType().equals("AllReports")) {
+			} 
+			else if (ServerMsg.getMsgType().equals("AllReports")) 
+			{
 
 				System.out.println("**Back");
 
@@ -309,7 +320,9 @@ public class ChatClient extends AbstractClient {
 
 				return;
 
-			} else if (ServerMsg.getMsgType().equals("AllBranchReport")) {
+			} 
+			else if (ServerMsg.getMsgType().equals("AllBranchReport")) 
+			{
 
 				System.out.println("-Back-");
 
@@ -332,7 +345,9 @@ public class ChatClient extends AbstractClient {
 
 				return;
 
-			} else if (ServerMsg.getMsgType().equals("AllBranchReportE")) {
+			} 
+			else if (ServerMsg.getMsgType().equals("AllBranchReportE")) 
+			{
 
 				System.out.println("-Back-");
 
@@ -355,7 +370,9 @@ public class ChatClient extends AbstractClient {
 
 				return;
 
-			} else if (ServerMsg.getMsgType().equals("all Customer")) {
+			} 
+			else if (ServerMsg.getMsgType().equals("all Customer")) 
+			{
 
 				ArrayList<Customer> allCustomerFromServer = (ArrayList<Customer>) ServerMsg.getMsgObject();
 
@@ -377,7 +394,9 @@ public class ChatClient extends AbstractClient {
 
 				return;
 
-			} else if (ServerMsg.getMsgType().equals("AllBranchReport")) {
+			} 
+			else if (ServerMsg.getMsgType().equals("AllBranchReport")) 
+			{
 
 				System.out.println("-BBack-");
 
@@ -402,7 +421,9 @@ public class ChatClient extends AbstractClient {
 
 				return;
 
-			} else if (ServerMsg.getMsgType().equals("catalog items of branch")) {
+			} 
+			else if (ServerMsg.getMsgType().equals("catalog items of branch")) 
+			{
 
 				System.out.println("-Back-");
 
@@ -427,7 +448,8 @@ public class ChatClient extends AbstractClient {
 				return;
 
 			}
-			if (ServerMsg.getMsgType().equals("Branch")) {
+			if (ServerMsg.getMsgType().equals("Branch")) 
+			{
 				ArrayList<Branch> AllBranchesFromServer = (ArrayList<Branch>) ServerMsg.getMsgObject();
 				Platform.runLater(new Runnable() {
 
@@ -451,9 +473,9 @@ public class ChatClient extends AbstractClient {
 				return;
 			}
 
-			if (ServerMsg.getMsgType().equals("BranchManager")) {
-				ArrayList<BranchManager> AllBranchManagersFromServer = (ArrayList<BranchManager>) ServerMsg
-						.getMsgObject();
+			if (ServerMsg.getMsgType().equals("BranchManager")) 
+			{
+				ArrayList<BranchManager> AllBranchManagersFromServer = (ArrayList<BranchManager>) ServerMsg.getMsgObject();
 				Platform.runLater(new Runnable() {
 					@Override
 					public void run() {
@@ -502,9 +524,26 @@ public class ChatClient extends AbstractClient {
 						// controllers!!!!!!!!!!
 			}
 
+			
+			if (ServerMsg.getMsgType().equals("Sale added")) 
+			{
+				catalogitemsofbranch curretnSale = (catalogitemsofbranch)ServerMsg.getMsgObject();
+				for(int i = 0 ; i< DiscountingOnItemsControl.catalogitemsofbranchlist.size() ; i++)
+				{
+					int currentIDtable= DiscountingOnItemsControl.catalogitemsofbranchlist.get(i).getItemID();
+					if(currentIDtable == curretnSale.getItemID())
+					{
+						DiscountingOnItemsControl.catalogitemsofbranchlist.get(i).setPrice(curretnSale.getPrice());
+						return;
+					}
+				}
+				DiscountingOnItemsControl.catalogitemsofbranchlist.add(curretnSale);
+				return;
+			}
 		} // end of Message type
 
-		if (msg instanceof CustomerTransaction) {
+		if (msg instanceof CustomerTransaction) 
+		{
 
 			CustomerTransaction yourOrder = (CustomerTransaction) msg;
 			boolean isAccountApproved = yourOrder.isApproved();
@@ -525,7 +564,8 @@ public class ChatClient extends AbstractClient {
 
 			}
 
-			else {
+			else 
+			{
 				System.out.println("client got approval");
 				Platform.runLater(new Runnable() {
 
@@ -545,7 +585,8 @@ public class ChatClient extends AbstractClient {
 
 		}
 
-		if (msg instanceof SpecialBranchesMessage) {
+		if (msg instanceof SpecialBranchesMessage) 
+		{
 			System.out.println(
 					"client got special message of elias!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			SpecialBranchesMessage branchesAndManagers = (SpecialBranchesMessage) msg;
@@ -574,7 +615,8 @@ public class ChatClient extends AbstractClient {
 			return;
 		}
 
-		if (msg instanceof TransactionAbort) {
+		if (msg instanceof TransactionAbort) 
+		{
 			TransactionAbort orderCancellation = (TransactionAbort) msg;
 			if (orderCancellation.isCommit() == false) {
 				Alert alert = new Alert(AlertType.ERROR);
@@ -596,12 +638,15 @@ public class ChatClient extends AbstractClient {
 
 	} // end of handle message from server
 
-	public void sendRequestToGetAllUsers() {
-		try {
+	public void sendRequestToGetAllUsers() 
+	{
+		try 
+		{
 			this.openConnection();
 		}
 
-		catch (IOException e1) {
+		catch (IOException e1) 
+		{
 			System.out.println("Cannot open connection");
 		}
 
@@ -619,7 +664,8 @@ public class ChatClient extends AbstractClient {
 
 	}
 
-	public void sendRequestToChangeEntry(String UserName) {
+	public void sendRequestToChangeEntry(String UserName) 
+	{
 		System.out.println("server got request to change entry");
 
 		try {
@@ -630,38 +676,49 @@ public class ChatClient extends AbstractClient {
 			System.out.println("Cannot open connection");
 		}
 
-		try {
+		try 
+		{
 			String requestToChangeEntry = "Please change Entry of user: " + UserName;
 			sendToServer(requestToChangeEntry);
-		} catch (IOException e) {
+		} 
+		catch (IOException e) 
+		{
 			System.out.println("Cannot connect to server");
 
 		}
 		quit();
 	}
 
-	public void sendRequestToGetAllCatalogItems() {
-		try {
+	public void sendRequestToGetAllCatalogItems() 
+	{
+		try 
+		{
 			this.openConnection();
 		}
 
-		catch (IOException e1) {
+		catch (IOException e1) 
+		{
 			System.out.println("Cannot open connection");
 		}
 
-		try {
+		try 
+		{
 			System.out.println("Send Message to get all catalogItems");
 
 			sendToServer("Give Me All CatalogItems");
-		} catch (IOException e) {
+		} 
+		catch (IOException e) 
+		{
 			System.out.println("Cannot connect to server to get CatalogItems");
 
 		}
 
 	}
 
-	public void sendRequestToDeleteItem(int itemID) {
-		try {
+	public void sendRequestToDeleteItem(int itemID) 
+	{
+		try 
+		{
 			this.openConnection();
 		}
 
@@ -669,28 +726,37 @@ public class ChatClient extends AbstractClient {
 			System.out.println("Cannot open connection");
 		}
 
-		try {
+		try 
+		{
 			String requestToDeleteItem = "Please delete item with ID: " + itemID;
 			sendToServer(requestToDeleteItem);
-		} catch (IOException e) {
+		} 
+		catch (IOException e) 
+		{
 			System.out.println("Cannot connect to server");
 		}
 		quit();
 	}
 
-	public void sendRequestToCheckUniqueID(int itemID) {
-		try {
+	public void sendRequestToCheckUniqueID(int itemID) 
+	{
+		try 
+		{
 			this.openConnection();
 		}
 
-		catch (IOException e1) {
+		catch (IOException e1) 
+		{
 			System.out.println("Cannot open connection");
 		}
 
-		try {
+		try 
+		{
 			String requestToCheckUniqueID = "Please Check if Unique ID:  " + itemID;
 			sendToServer(requestToCheckUniqueID);
-		} catch (IOException e) {
+		} 
+		catch (IOException e) 
+		{
 			System.out.println("Cannot connect to server");
 		}
 	}
@@ -706,18 +772,24 @@ public class ChatClient extends AbstractClient {
 	 * System.out.println("Cannot connect to server"); } quit(); }
 	 */
 
-	public void sendRequestToAddOrEditItem(CatalogItem newItem) {
-		try {
+	public void sendRequestToAddOrEditItem(CatalogItem newItem) 
+	{
+		try 
+		{
 			this.openConnection();
 		}
 
-		catch (IOException e1) {
+		catch (IOException e1) 
+		{
 			System.out.println("Cannot open connection");
 		}
 
-		try {
+		try 
+		{
 			sendToServer(newItem);
-		} catch (IOException e) {
+		} 
+		catch (IOException e) 
+		{
 			System.out.println("Cannot connect to server");
 		}
 		quit();
@@ -725,7 +797,8 @@ public class ChatClient extends AbstractClient {
 
 	// **************************************** end check
 
-	public void sendRequestToGetSatisfactionSurveyResult() {
+	public void sendRequestToGetSatisfactionSurveyResult() 
+	{
 		try {
 			this.openConnection();
 		}
@@ -743,7 +816,8 @@ public class ChatClient extends AbstractClient {
 		}
 	}
 
-	public void sendRequestToCheckStep0() {
+	public void sendRequestToCheckStep0() 
+	{
 		try {
 			this.openConnection();
 		}
@@ -761,7 +835,8 @@ public class ChatClient extends AbstractClient {
 		}
 	}
 
-	public void sendRequestToCheckStep1() {
+	public void sendRequestToCheckStep1() 
+	{
 		try {
 			this.openConnection();
 		}
@@ -779,7 +854,8 @@ public class ChatClient extends AbstractClient {
 		}
 	}
 
-	public void sendRequestToGetAllReports(String msg) {
+	public void sendRequestToGetAllReports(String msg) 
+	{
 		try {
 			this.openConnection();
 		}
@@ -799,8 +875,10 @@ public class ChatClient extends AbstractClient {
 
 	}
 
-	public void quit() {
-		try {
+	public void quit() 
+	{
+		try 
+		{
 			closeConnection();
 		} catch (IOException e) {
 			System.out.println("Cannot close connection");
