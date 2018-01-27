@@ -48,6 +48,13 @@ public class BranchManagerMainWindow extends LoginContol implements Initializabl
     @FXML
     private Button btnLogout;
 
+    
+    /**
+     * Method that hide the current frame 
+     * and view the selected frame  ,
+     * when user click on [btnBrowseBranchReport] button.
+     * @param Action event   
+     */
     @FXML
     void BrowseBranchReport(ActionEvent event) {
 
@@ -63,7 +70,12 @@ public class BranchManagerMainWindow extends LoginContol implements Initializabl
 				}
 
     }
-
+    /**
+     * Method that hide the current frame 
+     * and view the selected frame  ,
+     * when user click on [btnCreatePaymentAccount] button.
+     * @param Action event   
+     */
     
     @FXML
     void CreatePaymentAccount(ActionEvent event)
@@ -81,7 +93,12 @@ public class BranchManagerMainWindow extends LoginContol implements Initializabl
 
 				
     }
-
+    /**
+     * Method that hide the current frame 
+     * and view the selected frame  ,
+     * when user click on [btnDiscountingOnItem] button.
+     * @param Action event   
+     */
     @FXML
     void DiscountingOnItem(ActionEvent event) {
 btnCreatePaymentAccount.getScene().getWindow().hide(); //hiding primary window
