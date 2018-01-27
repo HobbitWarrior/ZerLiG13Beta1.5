@@ -61,8 +61,8 @@ public class CustomerServiceDepartmentworkerMainWindow extends LoginContol imple
 
 	@FXML
 	private AnchorPane MainFrame;
-@FXML
-private Button FileANewReportButton;
+	@FXML
+	private Button FileANewReportButton;
 	static int iterations;
 
 	public static int pressedComplaintIndex = -1;
@@ -184,12 +184,9 @@ private Button FileANewReportButton;
 		}
 	}
 
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		newComplaint.setText("New Complaint");
-
-		
 
 		// point the complaintList to the observable upgradedList
 		complaintsList.setItems(upgradedList);
@@ -202,7 +199,7 @@ private Button FileANewReportButton;
 		});
 
 		Button logoutBtn = (new Button("LogoutNow"));
-		AnchorPane.setTopAnchor(logoutBtn, 10.0); 
+		AnchorPane.setTopAnchor(logoutBtn, 10.0);
 		AnchorPane.setRightAnchor(logoutBtn, 130.0);
 		MainFrame.getChildren().add(logoutBtn);
 		logoutBtn.setOpacity(0);
@@ -234,8 +231,6 @@ private Button FileANewReportButton;
 			e.printStackTrace();
 		}
 	}
-	
-	
 
 	@FXML
 	void gerateNewSurvey(ActionEvent event) throws IOException {
@@ -245,9 +240,9 @@ private Button FileANewReportButton;
 		myClient = new ChatClient(ip, port); // create new client
 		myClient.sendRequestForANewQuarterlySurvey();
 	}
+
 	@FXML
-	void OpenFileNewReportWindow(ActionEvent event)
-	{
+	void OpenFileNewReportWindow(ActionEvent event) {
 		// open a new Report window, opens the "reportController"
 		reportController editFrame = new reportController();
 		try {

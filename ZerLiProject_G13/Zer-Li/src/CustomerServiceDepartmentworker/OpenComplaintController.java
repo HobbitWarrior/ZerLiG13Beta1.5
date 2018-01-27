@@ -93,10 +93,6 @@ public class OpenComplaintController extends LoginContol implements Initializabl
 		detailsField.textProperty().bindBidirectional(currentComplaint.getDetails());
 		customerIDField.textProperty().bindBidirectional(currentComplaint.getCustomerID());
 		EmpHandlingIDField.textProperty().bindBidirectional(currentComplaint.getEmpHandlingIDString());
-		topicField.textProperty().addListener((observable, oldValue, newValue) -> {
-			System.out.println("textfield changed from " + oldValue + " to " + newValue
-					+ "     values in the currentCompliant:" + currentComplaint.getTopic().getValue());
-		});
 	}
 
 	/**

@@ -61,11 +61,6 @@ public class closeComplaintController extends LoginContol implements Initializab
 		CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex = -1;
 		// bind it to the GUI
 		reportDetails.textProperty().bindBidirectional(cce.getDetails());
-		reportDetails.textProperty().addListener((observable, oldValue, newValue) -> {
-			System.out.println("textfield changed from " + oldValue + " to " + newValue + "     values in the report:"
-					+ cce.getDetails().getValue());
-		});
-
 		// call the method for a closing complaint from the server
 		SaveAndCLose.setOnAction(new EventHandler<ActionEvent>() {
 			@Override

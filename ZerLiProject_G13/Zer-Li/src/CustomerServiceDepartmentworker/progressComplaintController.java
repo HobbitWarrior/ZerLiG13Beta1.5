@@ -70,16 +70,6 @@ public class progressComplaintController extends LoginContol implements Initiali
 		pEntry = new progressEntry(CustomerServiceDepartmentworkerMainWindow.activeComplaints.get(index));
 		topic.textProperty().bindBidirectional(pEntry.getTopic());
 		details.textProperty().bindBidirectional(pEntry.getDetails());
-
-		// remove later just cheking binging AZ
-		topic.textProperty().addListener((observable, oldValue, newValue) -> {
-			System.out.println("textfield changed from " + oldValue + " to " + newValue
-					+ "     values in the currentCompliant:" + pEntry.getTopic().getValue());
-		});
-		details.textProperty().addListener((observable, oldValue, newValue) -> {
-			System.out.println("textfield changed from " + oldValue + " to " + newValue
-					+ "     values in the currentCompliant:" + pEntry.getDetails().getValue());
-		});
 	}
 
 	public void SaveButtonClickHandler(ActionEvent event) throws IOException {

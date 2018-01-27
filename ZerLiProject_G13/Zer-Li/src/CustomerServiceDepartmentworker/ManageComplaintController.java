@@ -110,9 +110,6 @@ public class ManageComplaintController extends LoginContol implements Initializa
 			topicField.textProperty().bindBidirectional(currentComplaint.getTopic());
 			detailsField.textProperty().bindBidirectional(currentComplaint.getDetails());
 			customerIDField.textProperty().bindBidirectional(currentComplaint.getCustomerID());
-			topicField.textProperty().addListener((observable, oldValue, newValue) -> {
-			    System.out.println("textfield changed from " + oldValue + " to " + newValue+"     values in the currentCompliant:"+currentComplaint.getTopic().getValue());
-			});
 		}
 		
 			
