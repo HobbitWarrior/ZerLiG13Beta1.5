@@ -178,7 +178,7 @@ public class complaintEntry {
 	public SimpleStringProperty getDetails() {
 		return details;
 	}
-	/** a setter of the details
+	/** a setter of the details 
 	 * 
 	 * @param details
 	 */
