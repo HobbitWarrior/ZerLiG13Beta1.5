@@ -1219,7 +1219,11 @@ public class EchoServer extends AbstractServer implements Initializable {
 		return surveyExist;
 	}
 	// ***********************************************************************************************************************************************************************************
-	
+	/**
+	 * check if service department worker create new survey.
+	 * @return boolean answer if step = 0 in DB (meaning the service department worker create new survey)
+	 * @throws SQLException when sql script failed
+	 */
 	private boolean CheckIfStep0() throws SQLException {
 		Statement st = (Statement) ServerDataBase.createStatement();
 		ResultSet rs = st.executeQuery("SELECT Step from satisfactionsurvies where Step=0;");
@@ -1236,6 +1240,11 @@ public class EchoServer extends AbstractServer implements Initializable {
 	}
 
 	// ***********************************************************************************************************************************************************************************
+	/**
+	 * check if branch worker finish to fill surveys and results exist in the DB
+	 * @return boolean answer if step = 1 in DB (meaning the branch worker finish to fill surveys and results exist in the DB)
+	 * @throws SQLException when sql script failed
+	 */
 	private boolean CheckIfStep1() throws SQLException {
 		Statement st = (Statement) ServerDataBase.createStatement();
 		ResultSet rs = st.executeQuery("SELECT Step from satisfactionsurvies where Step=1;");
@@ -1288,6 +1297,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 	}
 	
+	// ***********************************************************************************************************************************************************************************
 	/**
 	 * this method will return all active orders of specific customer
 	 * @param allCustomerOrders empty arraylist of all customer orders
@@ -1297,7 +1307,6 @@ public class EchoServer extends AbstractServer implements Initializable {
 	 * @return full array list of customer orders
 	 * @throws SQLException when reading of table failed
 	 */
-	// ***********************************************************************************************************************************************************************************
 	private ArrayList<CustomerTransaction> PutOutAllCustomerOrders(ArrayList<CustomerTransaction> allCustomerOrders,
 			String orderbranchID, String branchName, int customerID) throws SQLException 
 	{ 
@@ -1407,11 +1416,12 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 		return myOrder;
 	}
+	// ***********************************************************************************************************************************************************************************
 	/**
 	 * this methods responsible on saving delivery data in branchShipment/privateShipment tables
 	 * @param myOrder CustomerTransaction that contains delivery details class
 	 */
-	// ***********************************************************************************************************************************************************************************
+	
 	private void saveDeliveryOfCustomerOrder(CustomerTransaction myOrder) 
 	{ 										
 		Delivery orderDelivery = myOrder.getOrderCustomerDelivery();
