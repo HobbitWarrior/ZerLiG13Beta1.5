@@ -60,7 +60,7 @@ public class BranchReportBrowseControl  extends LoginContol  implements Initiali
     private TableColumn<Reports, Integer> ReportQuarterCol;
 
     @FXML
-    private TableColumn<Reports, Image> ImageCol;
+    private TableColumn<Reports, String> ImageCol;
 
     @FXML
     private TableColumn<Reports, String> BranchIDCol;
@@ -142,7 +142,7 @@ public class BranchReportBrowseControl  extends LoginContol  implements Initiali
 		 ReportTypeCol.setCellValueFactory(new PropertyValueFactory<Reports, Integer>("ReportType"));
 	       ReportYearCol.setCellValueFactory(new PropertyValueFactory<Reports, Year>("ReportYear"));
 	      ReportQuarterCol.setCellValueFactory(new PropertyValueFactory<Reports, Integer>("ReportQuarter"));
-	    //  ImageCol.setCellValueFactory(new PropertyValueFactory<Reports, Image>("Image"));
+	       ImageCol.setCellValueFactory(new PropertyValueFactory<Reports, String>("Image"));
 	     BranchIDCol.setCellValueFactory(new PropertyValueFactory<Reports, String>("BranchID")); 
 	     tableV.setItems(ReportList);
 	}
