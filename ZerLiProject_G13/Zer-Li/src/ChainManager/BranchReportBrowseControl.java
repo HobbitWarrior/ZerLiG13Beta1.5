@@ -1,6 +1,7 @@
 package ChainManager;
  
-import java.io.File;
+import java.io.File; 
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
@@ -39,63 +40,118 @@ import BranchManager.Reports;
 import Customer.CatalogItemGUI;
 import client.ChatClient;
 import javafx.scene.chart.*;
+
+
+/**
+ * class for managing Reports.
+ * this class implements Chain Manager window - chain Manager can  Browse all reports.
+ * @author Elias
+ * @version 1.0
+ */
 public class BranchReportBrowseControl  extends LoginContol  implements Initializable
 {
+	/**
+	 * ReportList is a list of the Reports details Reports( reportType,   reportYear, reportQuarter,   csvFILE, branchID)  
+	 */
 	  
 	public static ObservableList<Reports> ReportList= FXCollections.observableArrayList();
 	Series<Object, Object> set1;
+	
+	    /**
+		 *  static float parameters the describe report result 
+		 */
 	private static float  q1=0,q2=0,q3=0,q4=0,q5=5,q6=0;
+	 /**
+	 * BarChart that view average Reports results  
+	 */
 	   @FXML
 	    private BarChart<Object, Object> SurveyAVG;
-
+	   /**
+		 * CategoryAxis that view row in the graph(BarChart)  
+		 */
 	    @FXML
 	    private CategoryAxis qes;
-
+	    /**
+		 * NumberAxis that view column in the graph(BarChart)  
+		 */
 	    @FXML
 	    private NumberAxis avg;
-
+	        /**
+	 		 * Label that view report title 
+	 		 */
     @FXML
     private Label ResultLabel;
+         /**
+		 * Label that view report column [0]
+		 */
     @FXML
     
     private Label ResultLabel1;
+    /**
+	 * Label that view report column [1]
+	 */
     @FXML
     private Label resultLbl;
-	 
+
+	/**
+	 * Button go to BrowseReport page.
+	 */
 	@FXML
     private Button btnBrowseReport;
 
+	/**
+	 * Button go to CompareReports page.
+	 */
     @FXML
     private Button CompareReportsBtn;
 
+	/**
+	 * Button go to home page.
+	 */
     @FXML
     private Button btnHome;
-
+    /**
+	 * Button to see account
+	 */
     @FXML
     private Button btnAccount;
-
+    /**
+	 * Button for logout
+	 */
     @FXML
     private Button btnLogout;
 
     @FXML
     private TableView<Reports> tableV;
-
+    /**
+	 * The  Report Type Column in the Reports table
+	 */
     @FXML
     private TableColumn<Reports, Integer> ReportTypeCol;
-
+    /**
+	 * The Report Year Column in the Reports table
+	 */
     @FXML
     private TableColumn<Reports, Year> ReportYearCol;
-
+    /**
+	 * The Report Quarter Column in the Reports table
+	 */
     @FXML
     private TableColumn<Reports, Integer> ReportQuarterCol;
-
+    /**
+	 * The csvfile Column in the Reports table
+	 */
     @FXML
     private TableColumn<Reports, String> ImageCol;
-
+    /**
+	 * The Branch ID Column in the Reports table
+	 */
     @FXML
     private TableColumn<Reports, String> BranchIDCol;
 
-    
+    /**
+	 * by click on this Button screen change to add item screen
+	 */
     @FXML
     private Button btnCart;
 
@@ -260,7 +316,13 @@ public class BranchReportBrowseControl  extends LoginContol  implements Initiali
     void goHome(ActionEvent event) {
 
     }
-
+    
+    /**
+     * hide current window and go to login window.
+     * change the entry number to zero - only 1 person with same user can log in.
+     * @param event pressed on the logout button
+     * @throws IOException if an I/O error occurs when opening.
+     */
     
     @FXML
     void logoutEvent(ActionEvent event) throws IOException
@@ -275,6 +337,13 @@ public class BranchReportBrowseControl  extends LoginContol  implements Initiali
 		
     }
     
+    
+    /**
+	 * Method that show the fxml file of the [BranchReportBrowseControl] frame on the screen
+	 * Does not allow to close the window by pressing on the x button , we can close window only after logout
+	 * the Method send request to the Client to get all reports 
+	 * @throws IOException if an I/O error occurs when opening.
+	 */
 	public void start(Stage primaryStage) throws  IOException 
 	{		
 	   	 int port=PORT ;
@@ -308,7 +377,12 @@ public class BranchReportBrowseControl  extends LoginContol  implements Initiali
 	}
 
  
-
+	/**
+	    * Method that initialize current window after its root element has been completely processed.
+	    * @param URL             The location used to resolve relative paths for the root object.
+	    * @param ResourceBundle  The resources used to localize the root object.
+	    * 
+	    */
 
 
 	@Override
