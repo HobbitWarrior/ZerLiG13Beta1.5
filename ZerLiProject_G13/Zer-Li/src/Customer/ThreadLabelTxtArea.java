@@ -11,7 +11,11 @@ public class ThreadLabelTxtArea extends Thread
     @FXML
     private Label messageAfterGreeting;
 
-    
+    /**
+     * constructor of thread
+     * @param txtGreeting text ares
+     * @param messageAfterGreeting label to show on frame
+     */
     public ThreadLabelTxtArea(TextArea txtGreeting, Label messageAfterGreeting)
     {
     	this.txtGreeting=txtGreeting;
@@ -19,6 +23,9 @@ public class ThreadLabelTxtArea extends Thread
     	
     }
 
+    /**
+     * the method print label on frame at the first letter in thext area
+     */
     public void run()
     {
     	while(txtGreeting.getText().equals(""));
