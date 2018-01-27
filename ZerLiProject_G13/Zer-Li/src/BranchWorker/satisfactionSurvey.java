@@ -230,7 +230,7 @@ public class satisfactionSurvey  implements Serializable {
 
 	
 	/**
-	 * tostring method that return all answers of specific survie
+	 * tostring method that return all answers of specific Survey
 	 */
 	@Override
 	public String toString() {
