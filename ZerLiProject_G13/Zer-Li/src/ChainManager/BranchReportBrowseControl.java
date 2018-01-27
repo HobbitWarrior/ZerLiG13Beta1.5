@@ -21,6 +21,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Data;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -32,11 +38,21 @@ import javafx.stage.Stage;
 import BranchManager.Reports;
 import Customer.CatalogItemGUI;
 import client.ChatClient;
-
+import javafx.scene.chart.*;
 public class BranchReportBrowseControl  extends LoginContol  implements Initializable
 {
 	  
 	public static ObservableList<Reports> ReportList= FXCollections.observableArrayList();
+	Series<Object, Object> set1;
+	private static float  q1=1,q2=2,q3=3,q4=4,q5=5,q6=6;
+	   @FXML
+	    private BarChart<Object, Object> SurveyAVG;
+
+	    @FXML
+	    private CategoryAxis qes;
+
+	    @FXML
+	    private NumberAxis avg;
 
     @FXML
     private Label ResultLabel;
@@ -93,22 +109,91 @@ public class BranchReportBrowseControl  extends LoginContol  implements Initiali
       */
     @FXML
     void GetCsvFileReportFromTable(MouseEvent event) {
+	  
+	    
     	 ObservableList<Reports> myselectedrow=tableV.getSelectionModel().getSelectedItems();
     	 ResultLabel.setText(myselectedrow.get(0).getCsvFILE()+"");  
     	System.out.println("mouse !!!!"+myselectedrow.get(0).getReportType()); 
-    	if(myselectedrow.get(0).getReportType() ==1 ) 
+    	if(myselectedrow.get(0).getReportType() ==4 ) 
     	{
-    		 
-    		resultLbl.setText(resultLbl.getText()+" \n"+"reveune Report"); 
+    		ReadCsvReportToGraph(myselectedrow.get(0).getCsvFILE());
+    		SurveyAVG.setVisible(true);
+    		resultLbl.setVisible(false);
+	    	 ResultLabel1.setVisible(false);
+	    	 ResultLabel.setVisible(false);
+	     
+    	     
     	}
-    	if(myselectedrow.get(0).getReportType()==3 ) 
+    	else 
     	{
-    		resultLbl.setText(resultLbl.getText()+" \n"+"Order Report"); 
-    	}
+    		ReadCsvReport(myselectedrow.get(0).getCsvFILE());  
+    		SurveyAVG.setVisible(false);
+    		}
     	
-    	ReadCsvReport(myselectedrow.get(0).getCsvFILE());
-    }
-    /**
+     }
+    private void ReadCsvReportToGraph(String csvFILE) {
+    	String filename =    csvFILE;
+      
+	     File file =new File(filename);
+	     try {
+	    	 String data = null ,ViewReportInfo="" ;
+	    	 Scanner inputStream =new Scanner(file);
+	    	 for(int i=0;i<6;i++){
+	    	 while(inputStream.hasNext()){
+	    		 inputStream.nextLine();
+	    		   data=inputStream.nextLine().split(",")[i];	    		  
+	    	    	System.out.println( "my/////....."+data); 
+	    	    	if(i==0)
+	    	    	{
+	    	    		 q1=Float.parseFloat(data);
+	    	    	}
+	    	    	else if(i==1)
+	    	    	{
+	    	    		 q2=Float.parseFloat(data);
+	    	    	}
+	    	    	else if (i==2)
+	    	    	{
+	    	    		 q3=Float.parseFloat(data);
+	    	    	}
+	    	    	 
+	    	         else if(i==3)
+	    	         {
+	    	        	 q4=Float.parseFloat(data);
+	    	    	 }
+	    	         else if(i==4) {
+	    	        	 q5=Float.parseFloat(data);
+	    	    	 
+	    	         }
+	    	         else{
+	    	        	 q6=Float.parseFloat(data);
+	    	         }
+	    	    		
+	    	    	}
+	    	 inputStream =new Scanner(file);
+	    	 }
+	    	  
+	    	 resultLbl.setVisible(false);
+	    	 ResultLabel1.setVisible(false);
+	    	 ResultLabel1.setText(ViewReportInfo);
+	     
+	    	  
+	     }
+	     catch(FileNotFoundException e)
+	     {
+  		 System.out.println("Src File Error");
+
+	     }
+	     set1.getData().add(new Data<Object, Object>("q1",q1));
+	     set1.getData().add(new Data<Object, Object>("q2",q2));
+	     set1.getData().add(new Data<Object, Object>("q3",q3));
+	     set1.getData().add(new Data<Object, Object>("q4",q4)); 
+	     set1.getData().add(new Data<Object, Object>("q5",q5));
+	     set1.getData().add(new Data<Object, Object>("q6",q6));
+
+	     SurveyAVG.getData().addAll(set1);
+		
+	}
+	/**
      * Method that get CsvFile path and read it
      * line by line and view the report into [SelfBrowseReportFrame.fxml]  
      * @param String that describe the Csv file source
@@ -229,5 +314,15 @@ public class BranchReportBrowseControl  extends LoginContol  implements Initiali
 	       ImageCol.setCellValueFactory(new PropertyValueFactory<Reports, String>("Image"));
 	     BranchIDCol.setCellValueFactory(new PropertyValueFactory<Reports, String>("BranchID")); 
 	     tableV.setItems(ReportList);
+	      set1=new XYChart.Series<>();
+	     set1.getData().add(new Data<Object, Object>("q1",q1));
+	     set1.getData().add(new Data<Object, Object>("q2",q2));
+	     set1.getData().add(new Data<Object, Object>("q3",q3));
+	     set1.getData().add(new Data<Object, Object>("q4",q4)); 
+	     set1.getData().add(new Data<Object, Object>("q5",q5));
+	     set1.getData().add(new Data<Object, Object>("q6",q6));
+
+ 	     SurveyAVG.getData().addAll(set1);
+	     
 	}
 }
