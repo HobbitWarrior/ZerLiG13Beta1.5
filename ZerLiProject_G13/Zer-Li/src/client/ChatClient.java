@@ -63,50 +63,104 @@ import Users.User;
  */
 public class ChatClient extends AbstractClient {
 	// Instance variables **********************************************
-
+	/**
+	 * variable from type LoginContol
+	 */
 	private LoginContol login;
+	/**
+	 * variable from type CatalogOrderControl
+	 */
 	private CatalogOrderControl orderFromCatalog;
-	private CatalogEditControl editCatalog; // ************************************************* i added
+	/**
+	 * variable from type CatalogEditControl
+	 */
+	private CatalogEditControl editCatalog; 
+	/**
+	 * variable from type OrdersControl
+	 */
 	private OrdersControl buyingProcess;
+	/**
+	 * variable from type CustomerMainWindow
+	 */
 	private CustomerMainWindow mainCustomerWindow;
+	/**
+	 * variable from type CancelOrderControl
+	 */
 	private CancelOrderControl cancelWindow;
+	/**
+	 * variable from type SurveyAnalayzingControl
+	 */
 	private SurveyAnalayzingControl AnalayzingControl;
+	/**
+	 * variable from type FillSurveyControl
+	 */
 	private FillSurveyControl SurveyControl;
+	/**
+	 * variable from type CatalogEditControl or CatalogOrderControl
+	 */
 	private String chooseControl; // choose between CatalogEditControl and CatalogOrderControl //
-									// ************************************** i added
-	// Constructors ****************************************************
 
+	// Constructors ****************************************************
+	/**
+	 * Constructor 
+	 * initialize host (server IP) and port by uperclass constructor
+	 * @param host server IP
+	 * @param port the port to communicate server- client
+	 * @throws IOException i/o Exception
+	 */
 	public ChatClient(String host, int port) throws IOException {
 		super(host, port); // Call the superclass constructor
 	}
 
+
 	// Instance methods ************************************************
-	
+/**
+ * 	setter for LoginContol variable
+ * @param login variable from type LoginContol
+ */
 	public void setLoginControl(LoginContol login) {
 		this.login = login;
 	}
-
+/**
+ * setter for CatalogOrderControl variable
+ * @param CatalogOrder variable from type CatalogOrderControl
+ */
 	public void setCatalogOrderControl(CatalogOrderControl CatalogOrder) {
 		this.orderFromCatalog = CatalogOrder;
 	}
-
+/**
+ * setter for SurveyAnalayzingControl variable
+ * @param AnalayzingControl variable from type SurveyAnalayzingControl
+ */
 	public void setAnalayzingControl(SurveyAnalayzingControl AnalayzingControl) {
 		this.AnalayzingControl = AnalayzingControl;
 	}
-
+/**
+ * setter for FillSurveyControl variable
+ * @param SurveyControl the current object from FillSurveyControl
+ */
 	public void setSurveyControl(FillSurveyControl SurveyControl) {
 		this.SurveyControl = SurveyControl;
 	}
-
-	public void setCatalogEditControl(CatalogEditControl CatalogEdit) // ********************* i added
+/**
+ * setter for CatalogEditControl variable
+ * @param CatalogEdit the current CatalogEditControl
+ */
+	public void setCatalogEditControl(CatalogEditControl CatalogEdit)
 	{
 		this.editCatalog = CatalogEdit;
 	}
-
-	public void setchooseControl(String Control) // ********************************************* i added
+/**
+ * setter for chooseControl variable
+ * @param Control variable of CatalogEditControl or CatalogOrderControl
+ */
+	public void setchooseControl(String Control)
 	{
 		this.chooseControl = Control;
 	}
+/**
+ * handle Messages From Server
+ */
 
 	public void handleMessageFromServer(Object msg) 
 	{
@@ -288,21 +342,6 @@ public class ChatClient extends AbstractClient {
 
 				}
 
-				/*
-				 * Platform.runLater(new Runnable() {
-				 * 
-				 * @Override public void run() { if(chooseControl.equals("CatalogOrderControl"))
-				 * orderFromCatalog.loadAllCatalogItems(AllCatalogItems); //keep backup
-				 * ArrayList into Catalog class if(chooseControl.equals("CatalogEditControl"))
-				 * editCatalog.loadAllCatalogItems(AllCatalogItems); //keep backup ArrayList
-				 * into Catalog class
-				 * 
-				 * }
-				 * 
-				 * 
-				 * });
-				 * 
-				 */
 
 				return;
 			} 
@@ -595,8 +634,6 @@ public class ChatClient extends AbstractClient {
 
 		if (msg instanceof SpecialBranchesMessage) 
 		{
-			System.out.println(
-					"client got special message of elias!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			SpecialBranchesMessage branchesAndManagers = (SpecialBranchesMessage) msg;
 			// System.out.println(""+branchesAndManagers.getAllBranches());
 			// System.out.println(""+branchesAndManagers.getAllBranchManagers());
@@ -645,7 +682,9 @@ public class ChatClient extends AbstractClient {
 		}
 
 	} // end of handle message from server
-
+	/**
+	 * send Request To server to Get All Users from DB
+	 */
 	public void sendRequestToGetAllUsers() 
 	{
 		try 
@@ -671,10 +710,10 @@ public class ChatClient extends AbstractClient {
 		}
 
 	}
-/**
- * 
- * @param UserName
- */
+	/**
+	 * send Request To Change Entry (user login or logout) 
+	 * @param UserName
+	 */
 	public void sendRequestToChangeEntry(String UserName) 
 	{
 		System.out.println("server got request to change entry");
@@ -699,9 +738,9 @@ public class ChatClient extends AbstractClient {
 		}
 		quit();
 	}
-/**
- * 
- */
+	/**
+	 * send Request To Get All CatalogItems from DB
+	 */
 	public void sendRequestToGetAllCatalogItems() 
 	{
 		try 
@@ -727,10 +766,10 @@ public class ChatClient extends AbstractClient {
 		}
 
 	}
-/**
- * 
- * @param itemID
- */
+	/**
+	 * send Request To Delete Item in DB
+	 * @param itemID
+	 */
 	public void sendRequestToDeleteItem(int itemID) 
 	{
 		try 
@@ -753,7 +792,10 @@ public class ChatClient extends AbstractClient {
 		}
 		quit();
 	}
-
+	/**
+	 * send Request To Check if the given ID is Unique ID.
+	 * @param itemID
+	 */
 	public void sendRequestToCheckUniqueID(int itemID) 
 	{
 		try 
@@ -777,10 +819,10 @@ public class ChatClient extends AbstractClient {
 		}
 	}
 
-/**
- * 
- * @param newItem
- */
+	/**
+	 * send Request To Add Or Edit Item in catalog
+	 * @param newItem the item to change
+	 */
 	public void sendRequestToAddOrEditItem(CatalogItem newItem) 
 	{
 		try 
@@ -804,10 +846,10 @@ public class ChatClient extends AbstractClient {
 		quit();
 	}
 
-	// **************************************** end check
-/**
- * 
- */
+
+	/**
+	 * send Request To Get Satisfaction Survey Result from DB
+	 */
 	public void sendRequestToGetSatisfactionSurveyResult() 
 	{
 		try {
@@ -826,9 +868,9 @@ public class ChatClient extends AbstractClient {
 			System.out.println("Cannot connect to server");
 		}
 	}
-/**
- * 
- */
+	/**
+	 * send Request To Check if exist new survey by service department in DB (Step =0 )
+	 */
 	public void sendRequestToCheckStep0() 
 	{
 		try {
@@ -847,9 +889,9 @@ public class ChatClient extends AbstractClient {
 			System.out.println("Cannot connect to server");
 		}
 	}
-/**
- * 
- */
+	/**
+	 * send Request To Check if exist survey results in DB (Step =1 )
+	 */
 	public void sendRequestToCheckStep1() 
 	{
 		try {
@@ -868,10 +910,10 @@ public class ChatClient extends AbstractClient {
 			System.out.println("Cannot connect to server");
 		}
 	}
-/**
- * 
- * @param msg
- */
+	/**
+	 * send Request To Get All Reports from DB
+	 * @param msg
+	 */
 	public void sendRequestToGetAllReports(String msg) 
 	{
 		try {
@@ -892,9 +934,9 @@ public class ChatClient extends AbstractClient {
 		}
 
 	}
-/**
- * close connection
- */
+	/**
+	 * close connection with server
+	 */
 	public void quit() 
 	{
 		try 
@@ -905,8 +947,8 @@ public class ChatClient extends AbstractClient {
 		}
 	}
 	/**
-	 * 
-	 * @param OB
+	 * send Request To Save survey in DB
+	 * @param OB the survey
 	 */
 	public void sendRequestToSaveObjectOnDB(Object OB) {
 
@@ -946,9 +988,9 @@ public class ChatClient extends AbstractClient {
 			e.printStackTrace();
 		}
 	}
-/**
- * 
- */
+	/**
+	 * send Request To Get All Branches from DB
+	 */
 	public void sendRequestToGetAllBranches() {
 		try {
 			this.openConnection();
@@ -967,9 +1009,9 @@ public class ChatClient extends AbstractClient {
 
 		}
 	}
-/**
- * 
- */
+	/**
+	 * send Request To Get All Branch Managers from DB
+	 */
 	public void sendRequestToGetAllBranchManagers() {
 		try {
 			this.openConnection();
@@ -989,10 +1031,10 @@ public class ChatClient extends AbstractClient {
 		}
 
 	}
-/**
- * 
- * @param chosenBranchID
- */
+	/**
+	 * send Request To server to Get All Catalog Items Of Branch
+	 * @param chosenBranchID the specific branch ID that we want his items
+	 */
 	public void sendRequestToGetAllCatalogItemsOfBranch(
 			String chosenBranchID) { /** this method asks from server to get all catalog items of branch */
 		MessgaeCatalogProduct getCatalog = new MessgaeCatalogProduct(chosenBranchID);
@@ -1014,10 +1056,10 @@ public class ChatClient extends AbstractClient {
 
 		}
 	}
-/**
- * 
- * @param newDeal
- */
+	/**
+	 * send Request To Save Customer Order in DB
+	 * @param newDeal the Customer order
+	 */
 	public void sendRequestToSaveCustomerOrder(CustomerTransaction newDeal) {
 		newDeal.setMsgToServer("Save this order in db");
 		try {
@@ -1037,10 +1079,10 @@ public class ChatClient extends AbstractClient {
 
 		}
 	}
-/**
- * 
- * @param branchMessage
- */
+	/**
+	 * send Request To Get All BranchManagers And Branches from server
+	 * @param branchMessage message
+	 */
 	public void sendRequestToGetAllBranchManagersAndBranches(SpecialBranchesMessage branchMessage) {
 		try {
 			this.openConnection();
@@ -1059,10 +1101,10 @@ public class ChatClient extends AbstractClient {
 
 		}
 	}
-/**
- * 
- * @param perMSG
- */
+	/**
+	 * send Request To server to Update Price
+	 * @param perMSG message with the Percent to change the price
+	 */
 	public void sendRequestToUpdatePrice(PercentMSG perMSG) {
 		try {
 			this.openConnection();
@@ -1082,16 +1124,16 @@ public class ChatClient extends AbstractClient {
 		}
 
 	}
-/**
- * 
- * @param ordersControl
- */
+	/**
+	 * setter for ordersControl
+	 * @param ordersControl the new ordersControl
+	 */
 	public void setOrderControlOfBuyningProcess(OrdersControl ordersControl) {
 		this.buyingProcess = ordersControl;
 	}
-/**
- * 
- */
+	/**
+	 * send Request To server to Get All Flowers
+	 */
 	public void sendRequestToGetAllFlowers() {
 		try {
 			this.openConnection();
@@ -1110,19 +1152,19 @@ public class ChatClient extends AbstractClient {
 
 		}
 	}
-/**
- * 
- * @param customerMainWindow
- */
+	/**
+	 * getter for the customerMainWindow
+	 * @param customerMainWindow the new customerMainWindow
+	 */
 	public void setMainCustomerControler(CustomerMainWindow customerMainWindow) {
 		this.mainCustomerWindow = customerMainWindow;
 	}
-/**
- * 
- * @param userID
- * @param chosenBranchID
- * @param chosenBranchName
- */
+	/**
+	 * send Request To server to Get All Customer Order from DB
+	 * @param userID customer ID
+	 * @param chosenBranchID the chosen branch ID
+	 * @param chosenBranchName the chosen branch name
+	 */
 	public void sendRequestToGetAllCustomerOrder(int userID, String chosenBranchID, String chosenBranchName) {
 		CustomerTransaction myOrder = new CustomerTransaction();
 		myOrder.setCustomerID(userID);
@@ -1146,7 +1188,7 @@ public class ChatClient extends AbstractClient {
 		}
 	}
 	/**
-	 * 
+	 * send Request to Server To get all customer from DB
 	 */
 	public void sendRequestToGetAllCustomer() {
 		try {
@@ -1167,15 +1209,15 @@ public class ChatClient extends AbstractClient {
 		}
 	}
 	/**
-	 * 
-	 * @param cancelOrderControl
+	 * setter for cancelOrderControl
+	 * @param cancelOrderControl the new cancelOrderControl
 	 */
 	public void setCancelControl(CancelOrderControl cancelOrderControl) {
 		this.cancelWindow = cancelOrderControl;
 	}
 	/**
-	 * 
-	 * @param cancelOrder
+	 * Send Request  to Server to cancel order
+	 * @param cancelOrderthe the order to cancel 
 	 */
 	public void sendRequestToCancelOrder(TransactionAbort cancelOrder) {
 
@@ -1195,8 +1237,8 @@ public class ChatClient extends AbstractClient {
 		}
 	}
 	/**
-	 * 
-	 * @param newReport
+	 * Send Request to Server To Add New Report
+	 * @param newReport the new report
 	 */
 	public void AddNewReportToDB(Reports newReport) {
 
@@ -1220,7 +1262,7 @@ public class ChatClient extends AbstractClient {
 	/**
 	 * Send Request to Server To Save Survey Result
 	 * 
-	 * @param surveyAVG
+	 * @param surveyAVG the final result (average) of the survey.
 	 */
 	public void sendRequestToSaveSurveyResult(satisfactionSurvey surveyAVG) {
 
