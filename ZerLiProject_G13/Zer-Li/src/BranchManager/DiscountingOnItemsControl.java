@@ -311,7 +311,9 @@ public class DiscountingOnItemsControl  extends LoginContol  implements Initiali
     * 
     */
 
-
+	/**
+	 * this method define table view
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
