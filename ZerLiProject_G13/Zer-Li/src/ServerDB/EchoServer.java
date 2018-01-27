@@ -1407,11 +1407,12 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 		return myOrder;
 	}
+	// ***********************************************************************************************************************************************************************************
 	/**
 	 * this methods responsible on saving delivery data in branchShipment/privateShipment tables
 	 * @param myOrder CustomerTransaction that contains delivery details class
 	 */
-	// ***********************************************************************************************************************************************************************************
+	
 	private void saveDeliveryOfCustomerOrder(CustomerTransaction myOrder) 
 	{ 										
 		Delivery orderDelivery = myOrder.getOrderCustomerDelivery();
