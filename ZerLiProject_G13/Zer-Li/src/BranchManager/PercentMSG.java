@@ -77,7 +77,7 @@ public class PercentMSG implements Serializable
 		return BranchID;
 	}
 	/**
-	 * setter of id of branch
+	 * setter of id of specific branch
 	 * @param branchID string 
 	 */
 	public void setBranchID(String branchID) 
