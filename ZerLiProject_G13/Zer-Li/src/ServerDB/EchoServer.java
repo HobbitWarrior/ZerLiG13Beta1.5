@@ -1504,8 +1504,14 @@ public class EchoServer extends AbstractServer implements Initializable {
 	}
 
 	// **********************************************************************************************************
-	private void saveOrderOnCustomerBillingTable(CustomerTransaction myOrder) {
-		/** this methods responsible on saving data in customer billing table */
+	
+	/**
+	 * this methods responsible on saving data in customer billing table
+	 * @param myOrder
+	 */
+	private void saveOrderOnCustomerBillingTable(CustomerTransaction myOrder) 
+	{
+		
 		System.out.println("Server prepare to save on CustomerBillingTable");
 
 		// put new row in customerbilling table!!
@@ -1538,8 +1544,11 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 	// ****************************************************************************************************************************
 
-	private void saveOrderOnCustomerOrderTable(
-			CustomerTransaction myOrder) { /** this methods responsible on saving data in customerOrders table */
+	/**
+	 * this methods responsible on saving data in customerOrders table
+	 * @param myOrder CustomerTransaction with id of order and delivery
+	 */
+	private void saveOrderOnCustomerOrderTable(	CustomerTransaction myOrder) { 
 		System.out.println("Server prepare to save on CustomerOrderTable");
 
 		// put new row in catalogitems table!!
