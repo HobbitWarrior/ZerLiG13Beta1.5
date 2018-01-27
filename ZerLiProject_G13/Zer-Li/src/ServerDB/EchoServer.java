@@ -1739,7 +1739,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 	 * this method responsible to add new sales of catalog products
 	 * @param OB class that contains id of branch, idd of product and amount of discount
 	 * @param oldPrice original price of the product
-	 * @return
+	 * @return catalogitemsofbranch
 	 */
 	private catalogitemsofbranch editItemPriceInDB(PercentMSG OB, double oldPrice) 
 	{
