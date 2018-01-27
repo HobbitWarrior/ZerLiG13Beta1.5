@@ -1036,12 +1036,14 @@ public class EchoServer extends AbstractServer implements Initializable {
 		// -----------------------------------------------------------//
 
 	} // end of handleMessageFromClient
-
-	private void changeDebtRegistration(TransactionAbort orderCancellation)
-			throws SQLException { /**
-									 * this method will check customer debt, and change it according to cancellation
-									 * time
-									 */
+	
+/**
+ * this method will check customer debt, and change it according to cancellation time
+ * @param orderCancellation class with details bout amount of refund
+ * @throws SQLException in case of error in working with table
+ */
+	private void changeDebtRegistration(TransactionAbort orderCancellation) throws SQLException 
+	{ 								
 		int orderID = orderCancellation.getOrderID();
 		if (orderCancellation.getRefund() == 0) // no refund
 			return;
@@ -1079,9 +1081,13 @@ public class EchoServer extends AbstractServer implements Initializable {
 			return;
 		}
 	}
-
-	private void cancelOrder(int orderID)
-			throws SQLException { /** this method will delete row of orderId in customerOrder table in database */
+	/**
+	 * this method will delete row of orderId in customerOrder table in database
+	 * @param orderID id of order
+	 * @throws SQLException error in reading customer orders table
+	 */
+	private void cancelOrder(int orderID) throws SQLException 
+	{ 
 		Statement st = null;
 
 		st = (Statement) ServerDataBase.createStatement();
@@ -1092,12 +1098,13 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 	}
 	/**
-	 * 
-	 * @param customersFromDB
-	 * @return
-	 * @throws SQLException
+	 * this method bring all customers in a table
+	 * @param customersFromDB empty array list of customers 
+	 * @return full arraylist of customers
+	 * @throws SQLException error if read from table failed
 	 */
-	private ArrayList<Customer> PutOutAllCustomers(ArrayList<Customer> customersFromDB) throws SQLException {
+	private ArrayList<Customer> PutOutAllCustomers(ArrayList<Customer> customersFromDB) throws SQLException 
+	{
 
 		Statement st = (Statement) ServerDataBase.createStatement();
 
