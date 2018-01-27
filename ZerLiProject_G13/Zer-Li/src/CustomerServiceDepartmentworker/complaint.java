@@ -6,6 +6,13 @@ import javafx.beans.property.Property;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+/**
+ * an entity class that contains the complaint data for the server-client
+ * communication
+ * 
+ * @author Alex
+ *
+ */
 public class complaint implements Serializable {
 	/*
 	 * This class is the 'complaints' entity it will store a single entry form the
@@ -24,7 +31,7 @@ public class complaint implements Serializable {
 	public complaint(int complaintID, int customerID, int empHandling, String topic, String timeComplaint,
 			String dateComplaint, String status, String details) {
 
-		//Generate and instantiate the properties
+		// Generate and instantiate the properties
 		ComplaintID = complaintID;
 		CustomerID = customerID;
 		EmpHandling = empHandling;
@@ -40,7 +47,7 @@ public class complaint implements Serializable {
 	}
 
 	public void setComplaintID(int complaintID) {
-		ComplaintID=complaintID;
+		ComplaintID = complaintID;
 		;
 	}
 
@@ -49,7 +56,7 @@ public class complaint implements Serializable {
 	}
 
 	public void setCustomerID(int customerID) {
-		CustomerID=customerID;
+		CustomerID = customerID;
 		;
 	}
 
@@ -58,7 +65,7 @@ public class complaint implements Serializable {
 	}
 
 	public void setEmpHandling(int empHandling) {
-		EmpHandling=empHandling;
+		EmpHandling = empHandling;
 	}
 
 	public String getTopic() {
@@ -66,7 +73,7 @@ public class complaint implements Serializable {
 	}
 
 	public void setTopic(String topic) {
-		Topic=topic;
+		Topic = topic;
 	}
 
 	public String getTimeComplaint() {
@@ -74,7 +81,7 @@ public class complaint implements Serializable {
 	}
 
 	public void setTimeComplaint(String timeComplaint) {
-		TimeComplaint=timeComplaint;
+		TimeComplaint = timeComplaint;
 	}
 
 	public String getDateComplaint() {
@@ -82,7 +89,7 @@ public class complaint implements Serializable {
 	}
 
 	public void setDateComplaint(String dateComplaint) {
-		DateComplaint=dateComplaint;
+		DateComplaint = dateComplaint;
 	}
 
 	public String getStatus() {
@@ -90,28 +97,15 @@ public class complaint implements Serializable {
 	}
 
 	public void setStatus(String status) {
-		Status=status;
+		Status = status;
 	}
 
 	public void setDetails(String details) {
-		Details=details;
+		Details = details;
 	}
 
 	public String getDetails() {
 		return Details;
 	}
 
-	// setters and getters to support the GUI
-	/*
-	 * private SimpleIntegerProperty ComplaintID; private SimpleIntegerProperty
-	 * CustomerID; private SimpleIntegerProperty EmpHandling; private
-	 * SimpleStringProperty Topic; private SimpleStringProperty TimeComplaint;
-	 * private SimpleStringProperty DateComplaint; private SimpleStringProperty
-	 * Status; private SimpleStringProperty Details;
-	 */
-/*
-	public Property<String> ComplaintTopicGUIGetter() {
-		return Topic;
-	}
-*/
 }

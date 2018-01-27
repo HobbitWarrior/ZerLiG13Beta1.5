@@ -2,7 +2,11 @@ package CustomerServiceDepartmentworker;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-
+/**an entity that contains the closing Complaint data
+ * used for the GUI Bidirectional binding.
+ * @author Alex
+ *
+ */
 public class closingComplaintEntry {
 	
 	

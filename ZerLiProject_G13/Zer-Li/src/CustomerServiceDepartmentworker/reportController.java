@@ -56,7 +56,6 @@ public class reportController extends LoginContol implements Initializable {
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -97,10 +96,14 @@ public class reportController extends LoginContol implements Initializable {
 		for (int i = 2018; i > 1990; i--)
 			years.add(String.valueOf(i));
 	}
-
+	/**<h1>submit button vent handler</h>
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	public void submitHandler(ActionEvent event) throws IOException
 	{
-		/**<h1>submit button vent handler</h>**/
+
 		try {
 			expertReport er=new expertReport(Integer.valueOf(erp.getExpertIdStringProperty().getValue()),Integer.valueOf( quarterBox.getSelectionModel().getSelectedItem().toString()), Integer.valueOf(yearBox.getSelectionModel().getSelectedItem().toString()), erp.getReport().getValue());
 			int port = LoginContol.PORT;

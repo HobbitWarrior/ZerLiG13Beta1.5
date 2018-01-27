@@ -20,7 +20,12 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import Users.LoginContol;
-
+/**a controller for the ManageComplaintFrame,
+ * gives the ability to edit an active complaint. 
+ * 
+ * @author Alex
+ *
+ */
 public class ManageComplaintController extends LoginContol implements Initializable  {
 	@FXML
 	public Label topic;
@@ -80,7 +85,7 @@ public class ManageComplaintController extends LoginContol implements Initializa
 				}
 			});
 			
-			//open a new update progress window on mouse click
+			//open a new update progress window on mouse click.
 			UpdateProgress.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
@@ -89,6 +94,7 @@ public class ManageComplaintController extends LoginContol implements Initializa
 				
 			});
 
+			//attach an event handler to the closeComplaint button.
 			closeComplaint.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
@@ -96,18 +102,17 @@ public class ManageComplaintController extends LoginContol implements Initializa
 				}
 				
 			});
+			//get current complaint index.
 			int index=CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex;
 			//generate a new complaint:
 			currentComplaint=new complaintEntry(CustomerServiceDepartmentworkerMainWindow.activeComplaints.get(index));
-			//bind the gui fields
+			//bind the GUI fields
 			topicField.textProperty().bindBidirectional(currentComplaint.getTopic());
 			detailsField.textProperty().bindBidirectional(currentComplaint.getDetails());
 			customerIDField.textProperty().bindBidirectional(currentComplaint.getCustomerID());
 			topicField.textProperty().addListener((observable, oldValue, newValue) -> {
 			    System.out.println("textfield changed from " + oldValue + " to " + newValue+"     values in the currentCompliant:"+currentComplaint.getTopic().getValue());
 			});
-			//bind the GUI fields
-		//	title.textProperty().bindBidirectional(CustomerServiceDepartmentworkerMainWindow.activeComplaints.get(index).ComplaintTopicGUIGetter());
 		}
 		
 			

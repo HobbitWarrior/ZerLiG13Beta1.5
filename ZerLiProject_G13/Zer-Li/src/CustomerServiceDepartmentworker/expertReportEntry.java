@@ -2,7 +2,12 @@ package CustomerServiceDepartmentworker;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-
+/**a ExpertReport Entity that used for the data binding in the GUI,
+ * used mainly in the reportController controller.
+ * 
+ * @author Alex
+ *
+ */
 public class expertReportEntry {
 
 	private SimpleStringProperty expertId;

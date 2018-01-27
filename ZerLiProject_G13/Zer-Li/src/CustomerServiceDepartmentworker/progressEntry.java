@@ -3,18 +3,18 @@ package CustomerServiceDepartmentworker;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleSetProperty;
 import javafx.beans.property.SimpleStringProperty;
-
+/***
+ * <h1>complaint progress GUI binding</h1>
+ * <p>
+ * the Following class is used for the binding of the progressComplaintWindow
+ * GUI
+ * 
+ * @author Alex
+ *         </p>
+ * 
+ */
 public class progressEntry {
-	/***
-	 * <h1>complaint progress GUI binding</h1>
-	 * <p>
-	 * the Following class is used for the binding of the progressComplaintWindow
-	 * GUI
-	 * 
-	 * @author Alex
-	 *         </p>
-	 * 
-	 */
+
 
 	private SimpleIntegerProperty ComplaintID;
 	private SimpleIntegerProperty EmpHandlingId;

@@ -1,7 +1,12 @@
 package CustomerServiceDepartmentworker;
 
 import java.io.Serializable;
-
+/** and entity that contains the expert Report data,
+ * used for the client-server communication. 
+ * 
+ * @author Alex
+ *
+ */
 public class expertReport implements Serializable  {
 	
 	

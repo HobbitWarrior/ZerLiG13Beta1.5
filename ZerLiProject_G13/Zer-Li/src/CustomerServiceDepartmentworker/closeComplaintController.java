@@ -16,16 +16,19 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
+/**closeComplaint Gui Controller class, handles all the data manipulation and display of
+ * the open complaint process
+ * @author Alex
+ *
+ */
 public class closeComplaintController extends LoginContol implements Initializable {
 	@FXML
 	public TextField reportDetails;
 	@FXML
 	private Button SaveAndCLose;
-	
+
 	public static closingComplaintEntry cce;
 
-	
 	public void start(Stage primaryStage) {
 		Parent root;
 		try {
@@ -41,24 +44,24 @@ public class closeComplaintController extends LoginContol implements Initializab
 		}
 
 	}
-	
-	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		int index=CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex;
-		//insansiate a new closing complaint entry
-		cce=new closingComplaintEntry(CustomerServiceDepartmentworkerMainWindow.activeComplaints.get(index).getComplaintID(), CustomerServiceDepartmentworkerMainWindow.activeComplaints.get(index).getCustomerID());
+		int index = CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex;
+		// instantiate a new closing complaint entry
+		cce = new closingComplaintEntry(
+				CustomerServiceDepartmentworkerMainWindow.activeComplaints.get(index).getComplaintID(),
+				CustomerServiceDepartmentworkerMainWindow.activeComplaints.get(index).getCustomerID());
 		// reset the pressedComplaintIndex
 		CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex = -1;
-		//bind it to the GUI
+		// bind it to the GUI
 		reportDetails.textProperty().bindBidirectional(cce.getDetails());
 		reportDetails.textProperty().addListener((observable, oldValue, newValue) -> {
-			System.out.println("textfield changed from " + oldValue + " to " + newValue
-					+ "     values in the report:" + cce.getDetails().getValue());
+			System.out.println("textfield changed from " + oldValue + " to " + newValue + "     values in the report:"
+					+ cce.getDetails().getValue());
 		});
-		
-		
-		//call the method for a closing complaint from the server
+
+		// call the method for a closing complaint from the server
 		SaveAndCLose.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -70,16 +73,18 @@ public class closeComplaintController extends LoginContol implements Initializab
 			}
 		});
 	}
+/**SaveAndClose button event handler
+ * 
+ * @param event
+ * @throws IOException
+ */
+	public void SaveAndCloseComplaint(ActionEvent event) throws IOException {
 
-	public void SaveAndCloseComplaint(ActionEvent event) throws IOException
-	{
-		
-		closingComplaint cc=new closingComplaint(cce);
+		closingComplaint cc = new closingComplaint(cce);
 		int port = LoginContol.PORT;
 		String ip = LoginContol.ServerIP;
 		myClient = new ChatClient(ip, port); // create new client
 		myClient.sendRequestSaveAndCloseComplaint(cc);
 	}
-	
-	
+
 }

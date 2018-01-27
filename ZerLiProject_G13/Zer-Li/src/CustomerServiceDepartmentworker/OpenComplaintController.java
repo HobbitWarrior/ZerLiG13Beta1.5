@@ -24,6 +24,13 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import Users.LoginContol;
 
+/**
+ * a controller for the NewComplaintFrame, gives the ability to create a new
+ * complaint.
+ * 
+ * @author Alex
+ *
+ */
 public class OpenComplaintController extends LoginContol implements Initializable {
 	@FXML
 	public Label topic;
@@ -55,7 +62,6 @@ public class OpenComplaintController extends LoginContol implements Initializabl
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -77,10 +83,9 @@ public class OpenComplaintController extends LoginContol implements Initializabl
 			}
 		});
 
-		int index = CustomerServiceDepartmentworkerMainWindow.pressedComplaintIndex;
 		// generate a new complaint:
 		currentComplaint = new complaintEntry();
-		// bind the gui fields
+		// bind the GUI fields
 		topicField.textProperty().bindBidirectional(currentComplaint.getTopic());
 		detailsField.textProperty().bindBidirectional(currentComplaint.getDetails());
 		customerIDField.textProperty().bindBidirectional(currentComplaint.getCustomerID());
@@ -89,11 +94,14 @@ public class OpenComplaintController extends LoginContol implements Initializabl
 			System.out.println("textfield changed from " + oldValue + " to " + newValue
 					+ "     values in the currentCompliant:" + currentComplaint.getTopic().getValue());
 		});
-		// bind the GUI fields
-		// title.textProperty().bindBidirectional(CustomerServiceDepartmentworkerMainWindow.activeComplaints.get(index).ComplaintTopicGUIGetter());
-
 	}
 
+	/**
+	 * A save complaint button (create button) event handler.
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	public void SaveButtonClickHandler(ActionEvent event) throws IOException {
 		// get current date and time for the new complaint
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -103,21 +111,26 @@ public class OpenComplaintController extends LoginContol implements Initializabl
 		DateFormat timeFormat = new SimpleDateFormat("HH:mm");
 		Date time = new Date();
 		// save the new data to a new complaint and send it to the server
-		complaint editedComplaint = new complaint(currentComplaint.getCompliantID().getValue(),
+		complaint newComplaint = new complaint(currentComplaint.getCompliantID().getValue(),
 				currentComplaint.getCustomerIDInteger().getValue(), currentComplaint.getEmpHandlingID().getValue(),
 				currentComplaint.getTopic().getValue(), timeFormat.format(time), dateFormat.format(date),
 				currentComplaint.getStatus().getValue(), currentComplaint.getDetails().getValue());
 		// mark complaint as a new one
-		editedComplaint.newComplaint = true;
-
+		newComplaint.newComplaint = true;
+		// create a connection to the client
 		int port = LoginContol.PORT;
 		String ip = LoginContol.ServerIP;
 		myClient = new ChatClient(ip, port); // create new client
-		myClient.SendARequestForANewComplaint(editedComplaint);
+		// send a request to generate a new complaint
+		myClient.SendARequestForANewComplaint(newComplaint);
 	}
 
+	/***
+	 * open a new edit complaint, opens the "ManageComplaintFrame"
+	 * 
+	 * @param event
+	 */
 	public void UpdateComplaintProgressButton(ActionEvent event) {
-		/** open a new edit complaint, opens the "ManageComplaintFrame" */
 		progressComplaintController editFrame = new progressComplaintController();
 		try {
 			editFrame.start(new Stage());
@@ -130,17 +143,18 @@ public class OpenComplaintController extends LoginContol implements Initializabl
 		}
 	}
 
+	/**
+	 * opens a closing complaint report window
+	 * 
+	 * @param event
+	 */
 	public void closeComplaintButton(ActionEvent event) {
-		/** opens a closing complaint report window */
 		closeComplaintController editFrame = new closeComplaintController();
 		try {
 			editFrame.start(new Stage());
 		} catch (Exception e) {
 			System.out.print("Could not open an edit window\n");
 			e.printStackTrace();
-			/*
-			 * if (mainstage != null) mainstage.toBack();
-			 */
 		}
 	}
 }
