@@ -22,7 +22,7 @@ public class complaintRow {
 	private StringProperty labelText;
 	private StringProperty timerText;
 
-	/** complaint opening time
+	/** complaint opening time 
 	 * 
 	 */
 	private int hours = 0;

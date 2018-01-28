@@ -40,7 +40,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.beans.binding.*;
-
+/**customerServiceDepratment main menu controller class
+ * 
+ * @author Alex
+ *
+ */
 public class CustomerServiceDepartmentworkerMainWindow extends LoginContol implements Initializable {
 
 	public static Stage mainStageReference;
@@ -70,9 +74,13 @@ public class CustomerServiceDepartmentworkerMainWindow extends LoginContol imple
 	public static int complaintID;
 	public static int customerServiceID;
 
-	// create a chatClient instance, for com with the server
+	/** create a chatClient instance, for com with the server
+	 * 
+	 */
 	public ChatClient cClient;
-
+/**open the main menu window
+ * 
+ */
 	public void start(Stage primaryStage) throws IOException {
 
 		// will be used to track back to the main window
@@ -132,7 +140,11 @@ public class CustomerServiceDepartmentworkerMainWindow extends LoginContol imple
 	 * image-button
 	 */
 
-	// listview cell personalization
+	/**listview cell personalization
+	 * 
+	 * @author Alex
+	 *
+	 */
 	static class XCell extends ListCell<complaintRow> {
 
 		HBox hbox = new HBox();
@@ -206,7 +218,9 @@ public class CustomerServiceDepartmentworkerMainWindow extends LoginContol imple
 		logoutBtn.setOnAction(e -> BtnLogoutPressed());
 
 	}
-
+/**logout button click event handler
+ * 
+ */
 	@FXML
 	private void BtnLogoutPressed() {
 		changeEntry(UserNameToCheck);
@@ -220,7 +234,11 @@ public class CustomerServiceDepartmentworkerMainWindow extends LoginContol imple
 			System.out.println("Cannot commit logout");
 		}
 	}
-
+/**open a new complaint button event handler,
+ * opens a new window, where the user can open a new
+ * complaint.
+ * @param event
+ */
 	@FXML
 	private void openNewComlaintWindow(ActionEvent event) {
 		OpenComplaintController editFrame = new OpenComplaintController();
@@ -231,7 +249,11 @@ public class CustomerServiceDepartmentworkerMainWindow extends LoginContol imple
 			e.printStackTrace();
 		}
 	}
-
+/**generate a new survey mouse click event
+ * 
+ * @param event
+ * @throws IOException
+ */
 	@FXML
 	void gerateNewSurvey(ActionEvent event) throws IOException {
 		System.out.println("asking the server to genrate a new survey");
@@ -240,7 +262,10 @@ public class CustomerServiceDepartmentworkerMainWindow extends LoginContol imple
 		myClient = new ChatClient(ip, port); // create new client
 		myClient.sendRequestForANewQuarterlySurvey();
 	}
-
+/**open a new quarterly complaint report window
+ * 
+ * @param event
+ */
 	@FXML
 	void OpenFileNewReportWindow(ActionEvent event) {
 		// open a new Report window, opens the "reportController"

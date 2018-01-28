@@ -6,7 +6,7 @@ import java.io.Serializable;
  * <h1>complaintProgress Fields</h1>
  * <p>
  * keeps the entries to be sent to the DB of the complaint progress
- * @implements Serializable
+ * @implements Serializable 
  * 
  * @author Alex
  *         </p>

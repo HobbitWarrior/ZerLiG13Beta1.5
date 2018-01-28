@@ -118,7 +118,11 @@ public class ManageComplaintController extends LoginContol implements Initializa
 	}
 	
 	
-	
+	/**save complaint editting button event handles,
+	 * sends a request to the server to update the complaint fields
+	 * @param event
+	 * @throws IOException
+	 */
 	public void SaveButtonClickHandler(ActionEvent event) throws IOException
 	{
 		//save the new data to a new complaint and send it to the server
@@ -132,7 +136,11 @@ public class ManageComplaintController extends LoginContol implements Initializa
 		myClient.sendRequestUpdateComplaint(editedComplaint);
 	}
 	
-	
+/**update Complaint Progress button click handler,
+ * opens a new window were the costumer service employee can update the progress of the 
+ * complaint.
+ * @param event
+ */
 	public void UpdateComplaintProgressButton(ActionEvent event)
 	{
 		/** open a new edit complaint, opens the "ManageComplaintFrame"*/
@@ -148,7 +156,10 @@ public class ManageComplaintController extends LoginContol implements Initializa
 	}
 	
 	
-	
+/**close the complaint event handler
+ * opens a window for to file a clsing complaint report	
+ * @param event
+ */
 	public void closeComplaintButton(ActionEvent event)
 	{
 		/** opens a closing complaint report window*/

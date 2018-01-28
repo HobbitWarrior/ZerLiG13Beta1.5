@@ -52,7 +52,7 @@ public class reportController extends LoginContol implements Initializable {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/CustomerServiceDepartmentworker/ReportWindow.fxml"));
 			Scene scene = new Scene(root);
-			primaryStage.setTitle("Manage Open Complaint"); // name of the title of the window
+			primaryStage.setTitle("report "); // name of the title of the window
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (IOException e) {

@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleStringProperty;
 /**a complaint Entity that used for the data binding in the GUI,
  * used mainly in the CustomerServiceDepartmentworkerMainWindow controller
  * 
- * @author Alex
+ * @author Alex 
  *
  */
 public class complaintEntry {
