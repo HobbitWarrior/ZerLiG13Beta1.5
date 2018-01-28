@@ -11,107 +11,136 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
- /**a complaint row for the GUI in the  CustomerServiceDepartmentworkerMainWindow window
-  * used for binding to the fields  
-  * @author Alex
-  *
-  */
+
+/**
+ * a complaint row for the GUI in the CustomerServiceDepartmentworkerMainWindow
+ * window used for binding to the fields
+ * 
+ * @author Alex
+ *
+ */
 public class complaintRow {
 
 	public Stage mainstage;
 	private StringProperty labelText;
 	private StringProperty timerText;
 
-	/** complaint opening time 
+	/**
+	 * complaint opening time
 	 * 
 	 */
 	private int hours = 0;
-	/** complaint opening time
+	/**
+	 * complaint opening time
 	 * 
 	 */
 	private int minutes = 0;
-	/** complaint opening time
+	/**
+	 * complaint opening time
 	 * 
 	 */
 	private int seconds = 0;
 
-	/**saves the current location of the complaint the observable list 'upgradedList'
+	/**
+	 * saves the current location of the complaint the observable list
+	 * 'upgradedList'
 	 * 
 	 */
-	public int ComplaintIndex=-1;
-	
-	/**empty constructor initiates the variables with dafeult values
+	public int ComplaintIndex = -1;
+
+	/**
+	 * empty constructor initiates the variables with dafeult values
 	 * 
 	 */
 	public complaintRow() {
 		// default Values
 		labelText = new SimpleStringProperty(" ");
 		timerText = new SimpleStringProperty("00:20");
-
-		/** generate random time, demi values for demo
-		 * 
-		 */
-		Random rn = new Random();
-		hours = rn.nextInt(24);
-		minutes = rn.nextInt(60);
-		seconds = rn.nextInt(60);
 	}
-/**a constructor 
- * also calls the empty constructor for some basic settings
- * 
- * @param complaintText
- * @param complaintIndex
- * @param time
- * @param stg
- */
-	public complaintRow(String complaintText,int complaintIndex, String time, Stage stg) {
+
+	/**
+	 * a constructor also calls the empty constructor for some basic settings
+	 * 
+	 * @param complaintText
+	 * @param complaintIndex
+	 * @param time
+	 * @param stg
+	 */
+	public complaintRow(String complaintText, int complaintIndex, String time, Stage stg) {
 		this(stg);
-		ComplaintIndex=complaintIndex;
+		ComplaintIndex = complaintIndex;
 		complaintLabelSetter(complaintText);
 		GetComplaintOpeningTime(time);
 	}
-/**constructor 
- * 
- * @param stg
- */
+
+	/**
+	 * constructor
+	 * 
+	 * @param stg
+	 */
 	public complaintRow(Stage stg) {
 		this();
 		mainstage = stg;
 
 	}
 
-	/** List row elements binding
-	 * a getter for the complaint label
+	/**
+	 * List row elements binding a getter for the complaint label
+	 * 
 	 * @return Label
 	 */
 	public StringProperty complaintLabelGetter() {
 		return labelText;
 	}
-/**timerText getter
- * 
- * @return timerText StringProperty
- */
+
+	/**
+	 * timerText getter
+	 * 
+	 * @return timerText StringProperty
+	 */
 	public StringProperty timerTextGetter() {
 		return timerText;
 	}
-/**complaintLabel setter 
- * @param str string
- */
+
+	/**
+	 * complaintLabel setter
+	 * 
+	 * @param str
+	 *            string
+	 */
 	public void complaintLabelSetter(String str) {
 		if (!str.isEmpty())
 			labelText.set(str);
 	}
-/**a timer text setter,
- * gets the time in Hours, Minutes and seconds and sets it in the proper fields
- * @param Hours
- * @param Minutes
- * @param Seconds
- */
-	public void timerTextSetter(String Hours, String Minutes, String Seconds) {
 
-		int hh =Math.abs(Integer.parseInt(Hours) - hours);
-		int mm = Math.abs(Integer.parseInt(Minutes) - minutes);
-		int ss = Math.abs(Integer.parseInt(Seconds) - seconds);
+	/**
+	 * a timer text setter, gets the time in Hours, Minutes and seconds and sets it
+	 * in the proper fields
+	 * 
+	 * @param Hours
+	 * @param Minutes
+	 * @param Seconds
+	 */
+	public void timerTextSetter(String Hours, String Minutes, String Seconds) {
+		// 00: 00 : 59
+		seconds++;
+		if (seconds > 59) {
+			minutes++;
+			seconds = 0;
+		}
+		if (minutes > 59) {
+			hours++;
+			minutes = seconds = 0;
+		}
+		
+		if(hours>23)
+		{
+			timerText.set("Times Up!");
+		}
+
+		int hh = 24-hours;
+		int mm = 60-minutes;
+		int ss = 60-seconds;
 		// add leading zero's if the time digit is less than 10
 		String HH = "";
 		String MM = "";
@@ -122,26 +151,27 @@ public class complaintRow {
 			MM = "0";
 		if (ss < 10)
 			SS = "0";
-		timerText.set(HH + hh + ":" + MM + mm + " : " + SS + ss);
+		timerText.set("Time Left: "+HH + hh + ":" + MM + mm + " : " + SS + ss);
 	}
 
-	/**parse time to 'hours','minutes' & 'seconds' of type int
+	/**
+	 * parse time to 'hours','minutes' & 'seconds' of type int
 	 * 
 	 * @param time
 	 */
 	public void GetComplaintOpeningTime(String time) {
 
-		String[] Time=time.split(":");
-		hours=Integer.parseInt(Time[0]);
-		minutes=Integer.parseInt(Time[1]);
+		String[] Time = time.split(":");
+		hours = Integer.parseInt(Time[0]);
+		minutes = Integer.parseInt(Time[1]);
 	}
 
-	
-	
-	
-	
-	/**<hh1>event handler for the button</h1>
-	 * <p>@author Alex</p>
+	/**
+	 * <hh1>event handler for the button</h1>
+	 * <p>
+	 * 
+	 * @author Alex
+	 *         </p>
 	 */
 	public void buttonEventHandler() {
 		// open a new edit complaint, opens the "ManageComplaintFrame"

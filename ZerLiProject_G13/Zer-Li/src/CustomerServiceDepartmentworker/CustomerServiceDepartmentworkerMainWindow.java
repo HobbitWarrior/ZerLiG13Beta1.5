@@ -125,7 +125,7 @@ public class CustomerServiceDepartmentworkerMainWindow extends LoginContol imple
 								row.timerTextSetter(hours.format(now), minutes.format(now), seconds.format(now));
 						}
 					});
-				}
+				} 
 			}
 		};
 		updateTimersThread.start();

@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import Users.LoginContol;
 import client.ChatClient;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,6 +23,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class reportController extends LoginContol implements Initializable {
+	@FXML
+	private Label ServerResponse;
+	public static SimpleStringProperty serverResponseVariable;
 	@FXML
 	private Label Topic;
 	@FXML
@@ -69,6 +73,8 @@ public class reportController extends LoginContol implements Initializable {
 		yearBox.setItems(years);
 		// generate new expert report entry and bind it
 		erp = new expertReportEntry();
+		serverResponseVariable=new SimpleStringProperty();
+		ServerResponse.textProperty().bind(serverResponseVariable);
 		reportField.textProperty().bindBidirectional(erp.getReport());
 		expertIDField.textProperty().bindBidirectional(erp.getExpertIdStringProperty());
 		// create an event to the submit button
@@ -96,23 +102,25 @@ public class reportController extends LoginContol implements Initializable {
 		for (int i = 2018; i > 1990; i--)
 			years.add(String.valueOf(i));
 	}
-	/**<h1>submit button vent handler</h>
+
+	/**
+	 * <h1>submit button vent handler</h>
 	 * 
 	 * @param event
 	 * @throws IOException
 	 */
-	public void submitHandler(ActionEvent event) throws IOException
-	{
+	public void submitHandler(ActionEvent event) throws IOException {
 
 		try {
-			expertReport er=new expertReport(Integer.valueOf(erp.getExpertIdStringProperty().getValue()),Integer.valueOf( quarterBox.getSelectionModel().getSelectedItem().toString()), Integer.valueOf(yearBox.getSelectionModel().getSelectedItem().toString()), erp.getReport().getValue());
+			expertReport er = new expertReport(Integer.valueOf(erp.getExpertIdStringProperty().getValue()),
+					Integer.valueOf(quarterBox.getSelectionModel().getSelectedItem().toString()),
+					Integer.valueOf(yearBox.getSelectionModel().getSelectedItem().toString()),
+					erp.getReport().getValue());
 			int port = LoginContol.PORT;
 			String ip = LoginContol.ServerIP;
 			myClient = new ChatClient(ip, port); // create new client
 			myClient.sendREquestForANewReport(er);
-		}
-		catch(NullPointerException ex)
-		{
+		} catch (NullPointerException ex) {
 			System.out.print("please select a year and/or a quarter");
 		}
 	}

@@ -49,6 +49,7 @@ import CustomerServiceDepartmentworker.complaint;
 import CustomerServiceDepartmentworker.complaintProgress;
 import CustomerServiceDepartmentworker.complaintRow;
 import CustomerServiceDepartmentworker.expertReport;
+import CustomerServiceDepartmentworker.reportController;
 import Expert.SurveyAnalayzingControl;
 import Users.LoginContol;
 import Users.User;
@@ -184,7 +185,7 @@ public class ChatClient extends AbstractClient {
 				// arrayList in the
 				// CustomerServiceDepartmentwokerMainWindow class
 				CustomerServiceDepartmentworkerMainWindow.activeComplaints = (ArrayList<complaint>) ServerMsg
-						.getMsgObject();
+						.getMsgObject(); 
 				//clear previous entries:
 				CustomerServiceDepartmentworkerMainWindow.upgradedList.clear();
 				for (complaint c : CustomerServiceDepartmentworkerMainWindow.activeComplaints) {
@@ -600,6 +601,7 @@ public class ChatClient extends AbstractClient {
 			//customerServiceDepartment message handler
 			if (ServerMsg.getMsgType().equals("cutomerServiceResponse"))
 			{
+				reportController.serverResponseVariable.setValue("Report Generated.");
 				System.out.println("just recieved a mesage for the customer service deprtment");
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Report Successfully Generated");

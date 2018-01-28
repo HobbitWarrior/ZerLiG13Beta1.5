@@ -904,7 +904,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 							statementquery.close();
 						} catch (SQLException e) {
-							e.printStackTrace();
+							System.out.println("something went wrong, must be a duplicate complaint, please try again");
 						}
 						return;
 					} else {
@@ -931,8 +931,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 								statement.close();
 								return;
 							} catch (SQLException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
+								System.out.println("Sorry, somthing went wrong, maybe you inserted the wrong details\nplease try again.");
 
 							}
 						}
@@ -967,7 +966,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 				statementquery.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				System.out.println("Complaint Progress insertion - Something went wrong, you must have tried to insert wrong details, please try again.");
 			}
 			return;
 
@@ -1010,7 +1009,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 				statementquery.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				System.out.println("Closing a complaint - Something went wrong, you must have tried to insert wrong details, please try again.");
 			}
 			return;
 			
@@ -1042,7 +1041,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 				int i=ps1.executeUpdate();
 				System.out.println("save a new report, rows affected: "+i);
 				ps1.close();
-				Message reponse=new Message(new String("ReportGenerated"), "cutomerServiceResponse");
+				Message reponse=new Message(new String("ReportGenerated"), "cutomerServiceResponse"); 
 				client.sendToClient(reponse);
 				statementquery.close();
 			} catch (SQLException e) {
@@ -1088,7 +1087,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 				statementquery.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				System.out.println("Compensation Record - Something went wrong, you must have tried to insert wrong details, please try again.");
 			}
 			
 			

@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="357.0" prefWidth="407.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CustomerServiceDepartmentworker.reportController">
+<AnchorPane prefHeight="435.0" prefWidth="407.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CustomerServiceDepartmentworker.reportController">
 	<children>
-		<GridPane layoutX="-1.0" prefHeight="357.0" prefWidth="407.0">
+		<GridPane layoutX="-1.0" prefHeight="435.0" prefWidth="407.0">
 			<columnConstraints>
 				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
 				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -21,6 +21,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
 				<RowConstraints maxHeight="142.0" minHeight="10.0" prefHeight="142.0" vgrow="SOMETIMES" />
 				<RowConstraints maxHeight="66.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="66.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
 			</rowConstraints>
 			<children>
 				<Label fx:id="Topic" prefHeight="17.0" prefWidth="292.0" text="New Report">
@@ -37,6 +38,11 @@
 				<Button fx:id="submitButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Label fx:id="expertID" text="Expert ID" GridPane.rowIndex="3" />
             <TextField fx:id="expertIDField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="ServerResponse" prefHeight="17.0" prefWidth="186.0" text=" " textFill="#1efc1e" GridPane.rowIndex="6">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
 			</children>
 			<padding>
 				<Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
