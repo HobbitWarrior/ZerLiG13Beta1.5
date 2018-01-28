@@ -97,8 +97,8 @@ public class ReportHandler  extends LoginContol {
 			statement.close();
 
 		} catch (SQLException e) {
-			System.out.print("Sorry something went wrong with the SQL expression\n");
-			e.printStackTrace();
+			System.out.print("The reports for this quarters already exist, no changes were made\n");
+			//e.printStackTrace();
 		}
 		
 		
@@ -129,8 +129,8 @@ public class ReportHandler  extends LoginContol {
 			statement.close();
 
 		} catch (SQLException e) {
-			System.out.print("Sorry something went wrong with the SQL expression\n");
-			e.printStackTrace();
+			System.out.print("The reports for this quarters already exist, no changes were made\n");
+			//e.printStackTrace();
 		}
 		
 		
@@ -158,8 +158,8 @@ public class ReportHandler  extends LoginContol {
 			statement.close();
 
 		} catch (SQLException e) {
-			System.out.print("Sorry something went wrong with the SQL expression\n");
-			e.printStackTrace();
+			System.out.print("The reports for this quarters already exist, no changes were made\n");
+			//e.printStackTrace();
 		}
 
 	}
@@ -201,7 +201,7 @@ public class ReportHandler  extends LoginContol {
 				writer.close();
 				addNewReport(2,year+"",quarter,csvFileName,BranchID);
 			} catch (IOException e) {
-				e.printStackTrace();
+				System.out.print("The reports for this quarters already exist, no changes were made\n");
 			}		
 		}
 
@@ -243,7 +243,7 @@ public class ReportHandler  extends LoginContol {
 			writer.close();
 			addNewReport(1,year+"",quarter,csvFileName,BranchID);
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.print("The reports for this quarters already exist, no changes were made\n");
 		}		
 	}
 
@@ -284,7 +284,7 @@ public class ReportHandler  extends LoginContol {
 			writer.close();
 			addNewReport(3,year+"",quarter,csvFileName,BranchID);
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.print("The reports for this quarters already exist, no changes were made\n");
 		}
 	}
 	/**A method that sends a request from the Server to save a new Report into the Database
