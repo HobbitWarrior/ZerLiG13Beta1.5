@@ -274,7 +274,7 @@ public class SurveyAnalayzingControl extends LoginContol implements Initializabl
 	 */
 	public void start(Stage primaryStage) throws IOException
 	{		
-		Parent root = FXMLLoader.load(getClass().getResource("/expert/SurveyAnalayzeFrame.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/Expert/SurveyAnalayzeFrame.fxml"));
 		Scene scene = new Scene(root);
 		primaryStage.setTitle("expert Main Menu"); // name of the title of the window
 		primaryStage.setScene(scene);
