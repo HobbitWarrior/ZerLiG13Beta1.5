@@ -1042,10 +1042,13 @@ public class EchoServer extends AbstractServer implements Initializable {
 				int i=ps1.executeUpdate();
 				System.out.println("save a new report, rows affected: "+i);
 				ps1.close();
-
+				Message reponse=new Message(new String("ReportGenerated"), "cutomerServiceResponse");
+				client.sendToClient(reponse);
 				statementquery.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
+			} catch (IOException e) {
+				System.out.println("Sorry something went wrong could not send respoinse to client, check connection.");
 			}
 			return;
 			
