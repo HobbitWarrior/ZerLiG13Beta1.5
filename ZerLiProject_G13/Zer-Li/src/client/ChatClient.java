@@ -185,10 +185,12 @@ public class ChatClient extends AbstractClient {
 				// CustomerServiceDepartmentwokerMainWindow class
 				CustomerServiceDepartmentworkerMainWindow.activeComplaints = (ArrayList<complaint>) ServerMsg
 						.getMsgObject();
+				//clear previous entries:
+				CustomerServiceDepartmentworkerMainWindow.upgradedList.clear();
 				for (complaint c : CustomerServiceDepartmentworkerMainWindow.activeComplaints) {
 					System.out.print("complaint: " + c.getComplaintID() + " " + c.getCustomerID() + " "
 							+ c.getDateComplaint() + " " + c.getEmpHandling() + " " + c.getStatus() + " "
-							+ c.getTimeComplaint() + " " + c.getTopic() + "\n");// " "+c.getDetails()+
+							+ c.getTimeComplaint() + " " + c.getTopic() + "\n");
 					CustomerServiceDepartmentworkerMainWindow.upgradedList.add(new complaintRow(
 							"Customer:" + c.getCustomerID() + " Topic: " + c.getTopic() + "  ",
 							CustomerServiceDepartmentworkerMainWindow.activeComplaints.indexOf(c), c.getTimeComplaint(),
@@ -594,6 +596,16 @@ public class ChatClient extends AbstractClient {
 				}
 				DiscountingOnItemsControl.catalogitemsofbranchlist.add(curretnSale);
 				return;
+			}
+			//customerServiceDepartment message handler
+			if (ServerMsg.getMsgType().equals("cutomerServiceResponse"))
+			{
+				System.out.println("just recieved a mesage for the customer service deprtment");
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Report Successfully Generated");
+				alert.setHeaderText("Thank you!");
+				alert.setContentText(" ");
+				alert.showAndWait();
 			}
 		} // end of Message type
 
