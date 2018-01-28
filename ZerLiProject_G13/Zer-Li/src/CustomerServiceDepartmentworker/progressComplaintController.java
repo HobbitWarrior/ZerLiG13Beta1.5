@@ -19,7 +19,11 @@ import javafx.beans.binding.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import Users.LoginContol;
-
+/**a controller class for the report progress window
+ * 
+ * @author Alex
+ *
+ */
 public class progressComplaintController extends LoginContol implements Initializable {
 	@FXML
 	private Label topicTitle;
@@ -71,7 +75,11 @@ public class progressComplaintController extends LoginContol implements Initiali
 		topic.textProperty().bindBidirectional(pEntry.getTopic());
 		details.textProperty().bindBidirectional(pEntry.getDetails());
 	}
-
+/**save comaplaint progress button click event handler
+ * save the complaint progress to the DB via the server.
+ * @param event
+ * @throws IOException
+ */
 	public void SaveButtonClickHandler(ActionEvent event) throws IOException {
 		// save the new data to a new complaintProgress and send it to the server
 		complaintProgress cp = new complaintProgress(
