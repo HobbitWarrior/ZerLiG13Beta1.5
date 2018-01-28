@@ -96,8 +96,8 @@ public class EchoServer extends AbstractServer implements Initializable {
 					// sleep for 24 hours
 					try {
 						Thread.sleep(86400000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
+					} catch (Exception e) {
+						//e.printStackTrace();
 					}
 
 				}
@@ -161,7 +161,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 
 					statementquery.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					System.out.print("The reports for this quarters already exist, no changes were made\n");
 				}
 				return;
 
@@ -639,7 +639,7 @@ public class EchoServer extends AbstractServer implements Initializable {
 			 } 
 			   catch (SQLException e)
 			   { 
-			   e.printStackTrace(); 
+				   System.out.print("The reports for this quarters already exist, no changes were made\n"); 
 			   }
 			 
 		}
