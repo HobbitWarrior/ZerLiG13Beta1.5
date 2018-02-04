@@ -138,9 +138,9 @@ public class complaintRow {
 			timerText.set("Times Up!");
 		}
 
-		int hh = 24-hours;
-		int mm = 60-minutes;
-		int ss = 60-seconds;
+		int hh = hours;
+		int mm = minutes;
+		int ss = seconds;
 		// add leading zero's if the time digit is less than 10
 		String HH = "";
 		String MM = "";

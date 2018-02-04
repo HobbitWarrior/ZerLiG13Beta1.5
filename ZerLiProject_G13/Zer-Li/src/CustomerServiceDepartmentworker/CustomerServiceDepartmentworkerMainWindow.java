@@ -85,8 +85,9 @@ public class CustomerServiceDepartmentworkerMainWindow extends LoginContol imple
 
 		// will be used to track back to the main window
 		mainStageReference = primaryStage;
-
-		ChatClient cClient = new ChatClient("localhost", 5555);
+		String ip =LoginContol.ServerIP;
+		int port=LoginContol.PORT;
+		ChatClient cClient = new ChatClient(ip, port);
 		cClient.sendRequestForComplaintsList();
 
 		Parent root = FXMLLoader.load(getClass()

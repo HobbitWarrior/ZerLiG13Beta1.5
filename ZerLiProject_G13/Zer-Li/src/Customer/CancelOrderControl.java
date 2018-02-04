@@ -171,7 +171,7 @@ public class CancelOrderControl extends LoginContol implements Initializable
 	     * @param order this type is a customer order, with some part of the transaction in the database, only data that important will be here, such as orderID, price, date of supply, hour of supply and so on....
 	     * @return kind of message from client to server that tell about amount of refund and it contains a boolean attribute that will tell later about if the update in db been made
 	     */
-	    private TransactionAbort calculateRefund(CustomerTransaction order) 
+	    public TransactionAbort calculateRefund(CustomerTransaction order) 
 	    {
 	    	LocalDateTime now = LocalDateTime.now();
 	    	Date supplyDate = order.getOrdersupplyDate();
